@@ -97,9 +97,11 @@
     }
 
     /* the site name sits in the top-right corner, as on the Lexicon */
+    /* the site's name pinned in the top-right corner, staying in view as
+       the page scrolls */
     .site-title,
     body.footer-in-view .site-title {
-      position: absolute;
+      position: fixed;
       z-index: 10;
       top: 32px;
       right: 40px;
