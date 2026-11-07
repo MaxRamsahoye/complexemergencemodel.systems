@@ -168,7 +168,7 @@
         font-size: 11px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 30px;
+        gap: 16px;
         margin: 0;
         transform: translateY(-50%);
       }
@@ -177,6 +177,21 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
+      }
+    }
+
+    /* in the margin, the menu is out of sight until the pointer comes into
+       the left fifth of the window (the script sets the classes); it stays
+       in view for the keyboard, and wherever there is no pointer to hover */
+    @media (hover: hover) {
+      body.side-menu .view-tabs {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+
+      body.side-menu.menu-near .view-tabs,
+      body.side-menu .view-tabs:focus-within {
+        opacity: 1;
       }
     }
 
@@ -5400,6 +5415,27 @@
       if (/eight|(^|-)8($|-)/.test(hash)) count = '8';
       show = (/exo-endo/.test(hash) ? 'exoendo' : /complex-emergence/.test(hash) ? 'complex' : /emergence-model/.test(hash) ? 'emergence' : /four-quadrants|integral/.test(hash) ? 'integral' : /base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
       render();
+    })();
+
+    // the menu in the left margin fades in while the pointer is within the
+    // left fifth of the window, and out when it leaves (not when the menu is
+    // a row above the page)
+    (function () {
+      var tabs = document.querySelector('.view-tabs');
+      function sideMode() {
+        var on = getComputedStyle(tabs).position === 'absolute' && getComputedStyle(tabs).flexDirection === 'column';
+        document.body.classList.toggle('side-menu', on);
+      }
+      document.addEventListener('mousemove', function (e) {
+        sideMode();
+        document.body.classList.toggle('menu-near', e.clientX < window.innerWidth / 5);
+      }, { passive: true });
+      document.documentElement.addEventListener('mouseleave', function () { document.body.classList.remove('menu-near'); });
+      window.addEventListener('resize', sideMode);
+      document.querySelectorAll('.view-tabs [data-show], .ov-card').forEach(function (el) {
+        el.addEventListener('click', function () { requestAnimationFrame(sideMode); });
+      });
+      sideMode();
     })();
 
     // the up arrow shows once the top section has scrolled away
