@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A diagram of the major technological transitions discussed in A Multi-Agent Model of Major Technological Transitions.">
+  <meta name="description" content="Diagrams of the civilisational structures in The Complex Emergence Model.">
   <link id="favicon-ico" rel="icon" href="../favicon/favicon-light.ico" sizes="any">
   <link id="favicon-32" rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32-light.png">
   <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="../favicon/favicon-192-light.png">
@@ -39,7 +39,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
   <meta property="og:title" content="The Civilisational Stack — Complex Emergence">
-  <meta property="og:description" content="A diagram of the major technological transitions discussed in A Multi-Agent Model of Major Technological Transitions.">
+  <meta property="og:description" content="Diagrams of the civilisational structures in The Complex Emergence Model.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/diagram/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
   <meta property="og:image:width" content="1200">
@@ -2396,7 +2396,7 @@
   <main class="page-main">
     <div class="diagram-top wide-top">
     <h1 class="page-title"><a class="heading-link title-top" href="#">Diagrams</a></h1>
-    <p class="diagram-desc">Five ways of seeing the major technological transitions: the stack of technologies each laid down, the structures it remade, the constraints it lifted, the selection that spread it, and the stages of worldview that rose with it.</p>
+    <p class="diagram-desc">The structures of civilisation: infrastructure, social structure and superstructure, and how each major technological transition remade all three.</p>
     <blockquote class="diagram-quote">
       <p>The claim that competition is the mechanism for technological determinism is a special case of the theory of selectionism (also called Universal Darwinism). Selectionism generalizes the mechanism at the heart of evolutionary biology: variation and differential proliferation. In a population of varied forms, if some forms proliferate (reproduce, survive, grow) because of some characteristic, then that characteristic will be more abundant in future populations. Over time, these forms, called organisms in evolutionary biology and interactors more generally, will fit better with&mdash;will appear as if designed for&mdash;the criterion that determines superior proliferation (the &ldquo;selection environment&rdquo;).</p>
       <cite>Allan Dafoe, <a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">On Technological Determinism</a> (2015)</cite>
@@ -2405,20 +2405,8 @@
       <div class="tab-group" role="tablist" aria-label="All Diagrams">
         <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Diagrams</button>
       </div>
-      <div class="tab-group" role="tablist" aria-label="The Civilisational Stack">
-        <button type="button" role="tab" aria-selected="false" data-show="stack-main">The Stack</button>
-      </div>
       <div class="tab-group" role="tablist" aria-label="The Structures">
         <button type="button" role="tab" aria-selected="false" data-show="structures-main">The Structures</button>
-      </div>
-      <div class="tab-group" role="tablist" aria-label="The Sequences">
-        <button type="button" role="tab" aria-selected="false" data-show="sequences-main">The Sequences</button>
-      </div>
-      <div class="tab-group" role="tablist" aria-label="The Selection Process">
-        <button type="button" role="tab" aria-selected="false" data-show="selection-main">The Selections</button>
-      </div>
-      <div class="tab-group" role="tablist" aria-label="The Stages">
-        <button type="button" role="tab" aria-selected="false" data-show="stages-main">The Stages</button>
       </div>
       <div class="tab-group" role="group" aria-label="Transitions shown">
         <button type="button" aria-pressed="true" data-count="4">4 transitions</button>
@@ -2590,7 +2578,7 @@
       var TEXT = {
         overview: {
           title: 'Diagrams',
-          desc: 'Five ways of seeing the major technological transitions: the stack of technologies each laid down, the structures it remade, the constraints it lifted, the selection that spread it, and the stages of worldview that rose with it.'
+          desc: 'The structures of civilisation: infrastructure, social structure and superstructure, and how each major technological transition remade all three.'
         },
         stack: {
           title: 'The Civilisational Stack',
@@ -2619,7 +2607,7 @@
       var desc = document.querySelector('.diagram-desc');
       var viewBtns = Array.prototype.slice.call(document.querySelectorAll('.view-tabs [data-show]'));
       var countBtns = Array.prototype.slice.call(document.querySelectorAll('.view-tabs [data-count]'));
-      var show = 'stack-main', count = '4';
+      var show = 'overview-main', count = '4';
 
       // an interactive stack of slabs: a list beside it, a panel of details,
       // and an autoplay from the base to the top that always plays through
@@ -3548,11 +3536,7 @@
 
       // All Diagrams: a card for each, with a small drawing of it, opening it
       var OVERVIEW = [
-        ['stack', 'The Stack', 'The Civilisational Stack', 'Each revolution a new layer of the civilisational tech stack, from abstract thought to artificial intelligence, and what it brought.'],
-        ['structures', 'The Structures', 'The Structures', 'Infrastructure, social structure and superstructure: how each transition remade all three, and how each acts on the others.'],
-        ['sequences', 'The Sequences', 'The Sequences', 'The constraints each way of life imposed, and the affordances each new technology stack opened to overcome them.'],
-        ['selection', 'The Selections', 'The Selection Process', 'For each transition, the new forms it produced, the selection pressures that favoured them, and how they proliferated.'],
-        ['stages', 'The Stages', 'The Stages', 'The stages of cultural worldview, from primitivism to metamodernism, rising one above another.']
+        ['structures', 'The Structures', 'The Structures', 'Infrastructure, social structure and superstructure: how each transition remade all three, and how each acts on the others.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
       function ovSlab(x, y, w, h) {
@@ -3650,7 +3634,7 @@
 
       var hash = location.hash.slice(1);
       if (/eight|(^|-)8($|-)/.test(hash)) count = '8';
-      show = (/structures/.test(hash) ? 'structures' : /sequences/.test(hash) ? 'sequences' : /stages/.test(hash) ? 'stages' : /selection/.test(hash) ? 'selection' : /stack/.test(hash) ? 'stack' : 'overview') + '-main';
+      show = (/structures/.test(hash) ? 'structures' : 'overview') + '-main';
       render();
     })();
 
