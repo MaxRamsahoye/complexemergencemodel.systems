@@ -592,14 +592,19 @@
       padding: max(96px, 16vh) 0 96px;
     }
 
-    /* where there is room, the description beside the list, on its left */
+    /* where there is room, the description beside the list, on its left,
+       the two centred together on the screen (the list is the taller, so
+       the pair stays put as the description changes) */
     @media (min-width: 901px) {
       .md-side {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 480px) max-content;
         grid-template-areas: 'detail list';
+        justify-content: center;
+        align-content: center;
         column-gap: 64px;
         align-items: start;
+        padding: 96px 0;
         /* wider than the page's text column, centred in the window */
         --side-w: min(1100px, calc(100vw - 96px));
         width: var(--side-w);
@@ -614,6 +619,25 @@
         grid-area: detail;
         margin-top: 0;
       }
+    }
+
+    /* a line across the window between one screen and the next */
+    .md-scene,
+    .md-side {
+      position: relative;
+    }
+
+    .md-scene::before,
+    .md-side::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100vw;
+      height: 1px;
+      transform: translateX(-50%);
+      background: color-mix(in srgb, currentColor 18%, transparent);
+      pointer-events: none;
     }
 
     /* 1. a down arrow midway between the introduction and the foot of the
