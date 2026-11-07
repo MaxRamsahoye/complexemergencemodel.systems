@@ -2071,7 +2071,7 @@
     .complex-view .md-figure {
       display: grid;
       grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-      gap: 72px;
+      gap: 64px;
       align-items: start;
       --top: #5b3f99;
       --left: #432c7a;
@@ -2085,27 +2085,28 @@
       }
     }
 
-    /* each structure and its field on one line, the type scaled to the
-       column (the longest, Biostructure Cultural-Evolutionary Biology, is
-       about 18.7 ems) */
-    .complex-view .md-list button {
-      white-space: nowrap;
-      font-size: min(20px, calc((100vw - 48px) / 18.9));
+    /* as wide, and as widely spaced, as on the *Model page (where there is
+       room, clear of the menu in the left margin) */
+    .complex-view {
+      --fig-w: min(1360px, calc(100vw - 280px));
     }
 
-    @media (min-width: 901px) {
-      .complex-view .md-list button {
-        font-size: min(20px, calc((var(--wide-col) - 72px) / 2.55 / 18.9));
+    @media (min-width: 1181px) {
+      body[data-show="complex-main"] .complex-view {
+        width: calc(var(--fig-w) + 60px);
+        margin-left: calc((100% - var(--fig-w)) / 2);
+      }
+
+      .complex-view .md-figure {
+        gap: 170px;
       }
     }
 
-    .complex-view .md-list button.sub {
-      font-size: min(18.6px, calc((100vw - 48px - 24px) / 18.9));
-    }
-
-    @media (min-width: 901px) {
-      .complex-view .md-list button.sub {
-        font-size: min(18.6px, calc(((var(--wide-col) - 72px) / 2.55 - 24px) / 18.9));
+    @media (min-width: 1440px) {
+      body[data-show="complex-main"] .complex-view {
+        /* no nearer the window's left edge than 181px, clear of the menu
+           (the column this is set in is centred in the window) */
+        margin-left: max(calc((100% - var(--fig-w)) / 2), calc(181px - (100vw - 100%) / 2));
       }
     }
 
