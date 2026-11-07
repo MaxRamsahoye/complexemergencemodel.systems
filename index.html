@@ -29,9 +29,9 @@
       try {
         // no theme chosen yet: follow the system setting
         var sys = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        var t = localStorage.getItem('theme');
+        var t = localStorage.getItem('ce.theme');
         // a theme chosen with t holds only until the system setting changes
-        if (t && localStorage.getItem('themeSystem') !== sys) { t = null; localStorage.removeItem('theme'); }
+        if (t && localStorage.getItem('ce.themeSystem') !== sys) { t = null; localStorage.removeItem('ce.theme'); }
         t = t || sys;
         if (t === 'dark') {
           document.documentElement.setAttribute('data-theme', t);
@@ -45,16 +45,16 @@
         }
       } catch (e) {}
       try {
-        if (localStorage.getItem('blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
+        if (localStorage.getItem('ce.blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
         // ET Bembo headings are the default; f switches to Inter and back
-        if (localStorage.getItem('headings') !== 'sans') document.documentElement.classList.add('serif-headings');
+        if (localStorage.getItem('ce.headings') !== 'sans') document.documentElement.classList.add('serif-headings');
         // the band colour (b): midnight purple by default, or sepia, midnight blue or black
-        var band = localStorage.getItem('bandColour') || 'purple';
+        var band = localStorage.getItem('ce.bandColour') || 'purple';
         if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
         // design 2 is the default; d switches to design 1 and back
-        if (localStorage.getItem('design') !== '1') document.documentElement.classList.add('design-2');
+        if (localStorage.getItem('ce.design') !== '1') document.documentElement.classList.add('design-2');
         // the Overview's shaded band is the default; h switches to dividing lines
-        if (localStorage.getItem('overviewStyle') === 'lines') document.documentElement.classList.add('overview-lines');
+        if (localStorage.getItem('ce.overviewStyle') === 'lines') document.documentElement.classList.add('overview-lines');
       } catch (e) {}
     })();
   </script>
@@ -1938,7 +1938,7 @@
       // Default: the stack. The ring stays as the fallback, for anyone who
       // prefers reduced motion (or who sets localStorage.loader = 'ring').
       var useRing = false;
-      try { useRing = localStorage.getItem('loader') === 'ring'; } catch (e) {}
+      try { useRing = localStorage.getItem('ce.loader') === 'ring'; } catch (e) {}
       if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) useRing = true;
       if (!useRing) {
         var LEVELS = 4, STEP = 520, DUR = 800, MAX_WAIT = 7000, H = 14, SIZE = 82.5;
@@ -2732,7 +2732,7 @@
 
       function currentTheme() {
         var stored;
-        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        try { stored = localStorage.getItem('ce.theme'); } catch (e) {}
         if (THEMES.indexOf(stored) !== -1) return stored;
         // no theme chosen yet: follow the system setting
         return systemDark && systemDark.matches ? 'dark' : 'light';
@@ -2747,13 +2747,13 @@
           root.setAttribute('data-theme', theme);
         }
         setFavicons(DARK_THEMES.indexOf(theme) !== -1);
-        if (!fromSystem) try { localStorage.setItem('theme', theme); localStorage.setItem('themeSystem', systemDark && systemDark.matches ? 'dark' : 'light'); } catch (e) {}
+        if (!fromSystem) try { localStorage.setItem('ce.theme', theme); localStorage.setItem('ce.themeSystem', systemDark && systemDark.matches ? 'dark' : 'light'); } catch (e) {}
       }
 
       // until a theme is chosen here (t), the page follows the system as it changes
       if (systemDark && systemDark.addEventListener) systemDark.addEventListener('change', function () {
         // a change of the system setting wins over a theme chosen with t
-        try { localStorage.removeItem('theme'); } catch (e) {}
+        try { localStorage.removeItem('ce.theme'); } catch (e) {}
         applyTheme(currentTheme(), true);
       });
 
@@ -2793,18 +2793,18 @@
         var next = BANDS[(BANDS.indexOf(current) + 1) % BANDS.length];
         BANDS.forEach(function (b) { if (b) root.classList.remove('band-' + b); });
         if (next) root.classList.add('band-' + next);
-        try { localStorage.setItem('bandColour', next || 'sepia'); } catch (err) {}
+        try { localStorage.setItem('ce.bandColour', next || 'sepia'); } catch (err) {}
       }
 
       function toggleColour() {
         var on = root.classList.toggle('colour');
-        try { localStorage.setItem('blueLinks', on ? 'on' : 'off'); } catch (err) {}
+        try { localStorage.setItem('ce.blueLinks', on ? 'on' : 'off'); } catch (err) {}
       }
 
       // d switches between the two designs (see design 2 in the styles)
       function toggleDesign() {
         var on = root.classList.toggle('design-2');
-        try { localStorage.setItem('design', on ? '2' : '1'); } catch (err) {}
+        try { localStorage.setItem('ce.design', on ? '2' : '1'); } catch (err) {}
         if (on && window.scrollY > 10 && window.showOverview) window.showOverview(true);
         if (window.placeOverview) window.placeOverview();
       }
@@ -2812,14 +2812,14 @@
       // f switches headings and subheadings to ET Bembo and back
       function toggleSerifHeadings() {
         var on = root.classList.toggle('serif-headings');
-        try { localStorage.setItem('headings', on ? 'serif' : 'sans'); } catch (err) {}
+        try { localStorage.setItem('ce.headings', on ? 'serif' : 'sans'); } catch (err) {}
       }
 
       // h switches the Overview between its shaded band and short dividing lines
       function toggleOverviewLines() {
         var on = root.classList.toggle('overview-lines');
         if (window.placeOverview) window.placeOverview();
-        try { localStorage.setItem('overviewStyle', on ? 'lines' : 'band'); } catch (err) {}
+        try { localStorage.setItem('ce.overviewStyle', on ? 'lines' : 'band'); } catch (err) {}
       }
 
 
@@ -2901,11 +2901,11 @@
       window.addEventListener('pagehide', function () {
         var now = Date.now();
         var ringing = liveTones.filter(function (t) { return t.t0 + t.d * 1000 > now + 100; });
-        try { sessionStorage.setItem('ttTones', JSON.stringify({ at: now, tones: ringing })); } catch (e) {}
+        try { sessionStorage.setItem('ce.ttTones', JSON.stringify({ at: now, tones: ringing })); } catch (e) {}
       });
       (function () {
         var data = null;
-        try { data = JSON.parse(sessionStorage.getItem('ttTones')); sessionStorage.removeItem('ttTones'); } catch (e) {}
+        try { data = JSON.parse(sessionStorage.getItem('ce.ttTones')); sessionStorage.removeItem('ce.ttTones'); } catch (e) {}
         if (!data || !data.tones || !data.tones.length || Date.now() - data.at > 4000) return;
         try {
           if (!audioCtx) {

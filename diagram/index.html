@@ -23,15 +23,15 @@
     try {
       // no theme chosen yet: follow the system setting
       var sys = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      var t = localStorage.getItem('theme');
+      var t = localStorage.getItem('ce.theme');
       // a theme chosen with t holds only until the system setting changes
-      if (t && localStorage.getItem('themeSystem') !== sys) { t = null; localStorage.removeItem('theme'); }
+      if (t && localStorage.getItem('ce.themeSystem') !== sys) { t = null; localStorage.removeItem('ce.theme'); }
       t = t || sys;
       if (t === 'dark') document.documentElement.setAttribute('data-theme', t);
-      if (localStorage.getItem('blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
-      if (localStorage.getItem('headings') !== 'sans') document.documentElement.classList.add('serif-headings');
+      if (localStorage.getItem('ce.blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
+      if (localStorage.getItem('ce.headings') !== 'sans') document.documentElement.classList.add('serif-headings');
       // the band colour (b): midnight purple by default, or sepia, midnight blue or black
-      var band = localStorage.getItem('bandColour') || 'purple';
+      var band = localStorage.getItem('ce.bandColour') || 'purple';
       if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
     } catch (e) {}
   </script>
@@ -2924,7 +2924,7 @@
       // and slid its top three away first, returns with
       // localStorage.structures = 'stack'
       var structuresFromStack = false;
-      try { structuresFromStack = localStorage.getItem('structures') === 'stack'; } catch (e) {}
+      try { structuresFromStack = localStorage.getItem('ce.structures') === 'stack'; } catch (e) {}
       function buildStructures(how) {
         var revs = revolutions();
         structStack[how](LAYERS.map(function (L) {
@@ -3160,7 +3160,7 @@
       var vTable = document.querySelector('.diagram-v');
       var orientBtns = Array.prototype.slice.call(document.querySelectorAll('.d-orient [data-axis]'));
       var axis = 'v';
-      try { if (localStorage.getItem('tableAxis') === 'h') axis = 'h'; } catch (e) {}
+      try { if (localStorage.getItem('ce.tableAxis') === 'h') axis = 'h'; } catch (e) {}
       var V_LAYERS = [
         ['tech', 'Tech Stack', 'Infrastructure', '../lexicon/#curated-tech-stack'],
         ['economy', 'Political Economy', 'Social Structure', '../lexicon/#curated-political-economy'],
@@ -3196,7 +3196,7 @@
           if (b.dataset.axis === axis) return;
           setAxis(b.dataset.axis);
           restoreSelections();
-          try { localStorage.setItem('tableAxis', axis); } catch (e) {}
+          try { localStorage.setItem('ce.tableAxis', axis); } catch (e) {}
           var t = axis === 'v' ? vTable : diagram;
           t.style.animation = 'none'; void t.offsetHeight; t.style.animation = '';
         });
@@ -3666,7 +3666,7 @@
 
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
-  <script src="../assets/site.js?v=7449a2f8" data-base="../"></script>
+  <script src="../assets/site.js?v=9fabc918" data-base="../"></script>
   <script src="../assets/tools.js?v=5afe0f29" data-hide-until=".diagram-top"></script>
 </body>
 </html>

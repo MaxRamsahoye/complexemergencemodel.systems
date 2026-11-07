@@ -78,11 +78,11 @@
   window.addEventListener('pagehide', function () {
     var now = Date.now();
     var ringing = liveTones.filter(function (t) { return t.t0 + t.d * 1000 > now + 100; });
-    try { sessionStorage.setItem('ttTones', JSON.stringify({ at: now, tones: ringing })); } catch (e) {}
+    try { sessionStorage.setItem('ce.ttTones', JSON.stringify({ at: now, tones: ringing })); } catch (e) {}
   });
   (function () {
     var data = null;
-    try { data = JSON.parse(sessionStorage.getItem('ttTones')); sessionStorage.removeItem('ttTones'); } catch (e) {}
+    try { data = JSON.parse(sessionStorage.getItem('ce.ttTones')); sessionStorage.removeItem('ce.ttTones'); } catch (e) {}
     if (!data || !data.tones || !data.tones.length || Date.now() - data.at > 4000) return;
     try {
       if (!audioCtx) {
@@ -163,7 +163,7 @@
 
   function currentTheme() {
     var t;
-    try { t = localStorage.getItem('theme'); } catch (e) {}
+    try { t = localStorage.getItem('ce.theme'); } catch (e) {}
     if (THEMES.indexOf(t) !== -1) return t;
     // no theme chosen yet: follow the system setting
     return systemDark && systemDark.matches ? 'dark' : 'light';
@@ -185,13 +185,13 @@
     if (theme === 'light') root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', theme);
     setFavicons(DARK.indexOf(theme) !== -1);
-    if (!fromSystem) try { localStorage.setItem('theme', theme); localStorage.setItem('themeSystem', systemDark && systemDark.matches ? 'dark' : 'light'); } catch (e) {}
+    if (!fromSystem) try { localStorage.setItem('ce.theme', theme); localStorage.setItem('ce.themeSystem', systemDark && systemDark.matches ? 'dark' : 'light'); } catch (e) {}
   }
 
   // until a theme is chosen here (t), the page follows the system as it changes
   if (systemDark && systemDark.addEventListener) systemDark.addEventListener('change', function () {
     // a change of the system setting wins over a theme chosen with t
-    try { localStorage.removeItem('theme'); } catch (e) {}
+    try { localStorage.removeItem('ce.theme'); } catch (e) {}
     applyTheme(currentTheme(), true);
   });
 
@@ -457,7 +457,7 @@
     } else if (e.key === 'c' || e.key === 'C') {
       // c: toggle the blue link accent (shared with the article)
       var on = document.documentElement.classList.toggle('colour');
-      try { localStorage.setItem('blueLinks', on ? 'on' : 'off'); } catch (err) {}
+      try { localStorage.setItem('ce.blueLinks', on ? 'on' : 'off'); } catch (err) {}
       playPianoClick();
       spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
     } else if (e.key === 'b' || e.key === 'B') {
@@ -468,13 +468,13 @@
       var next = bands[(bands.indexOf(cur) + 1) % bands.length];
       bands.forEach(function (b) { if (b) root.classList.remove('band-' + b); });
       if (next) root.classList.add('band-' + next);
-      try { localStorage.setItem('bandColour', next || 'sepia'); } catch (err) {}
+      try { localStorage.setItem('ce.bandColour', next || 'sepia'); } catch (err) {}
       playPianoClick();
       spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
     } else if (e.key === 'f' || e.key === 'F') {
       // f: headings and subheadings in ET Bembo (shared with the article)
       var serif = document.documentElement.classList.toggle('serif-headings');
-      try { localStorage.setItem('headings', serif ? 'serif' : 'sans'); } catch (err) {}
+      try { localStorage.setItem('ce.headings', serif ? 'serif' : 'sans'); } catch (err) {}
       playPianoClick();
       spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
     } else if (e.key === 'Backspace' && (upBtn || backArrow)) {
