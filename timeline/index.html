@@ -35,10 +35,10 @@
       if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
     } catch (e) {}
   </script>
-  <title>Timelines — Complex Emergence</title>
+  <title>Timeline — Complex Emergence</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
-  <meta property="og:title" content="Timelines — Complex Emergence">
+  <meta property="og:title" content="Timeline — Complex Emergence">
   <meta property="og:description" content="The intellectual genealogy of The Complex Emergence Model: five models of how a civilisation is structured, from Ramsahoye back to Marx.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/timeline/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
@@ -327,7 +327,8 @@
       position: relative;
       list-style: none;
       margin: 0 0 0 calc(40px - var(--tl-gap));
-      padding: 0 0 0 var(--tl-gap);
+      /* empty space below the arrow before the footer */
+      padding: 0 0 160px var(--tl-gap);
     }
 
     @media (min-width: 900px) {
@@ -1121,7 +1122,7 @@
 
   <main class="page-main">
     <div class="timeline-top wide-top on-band">
-    <h1 class="page-title"><a class="heading-link title-top" href="#">Timelines</a></h1>
+    <h1 class="page-title"><a class="heading-link title-top" href="#">Timeline</a></h1>
     <p class="page-intro">The intellectual genealogy of <a class="plain-link" href="../"><em>The Complex Emergence Model</em></a>.</p>
     <nav class="mini-timeline" aria-label="Eras"><ol></ol></nav>
     <div class="mini-panel" aria-live="polite">
@@ -1275,7 +1276,7 @@
         <li><a href="../">Article</a></li>
         <li><a href="../overviews/">Overviews</a></li>
         <li><a href="../diagram/">Diagrams</a></li>
-        <li><a href="../timeline/">Timelines</a></li>
+        <li><a href="../timeline/">Timeline</a></li>
         <li><a href="../lexicon/">Concepts</a></li>
         <li><a href="../sources/">Sources</a></li>
         <li><a href="../model/">*Model</a></li>
@@ -1555,6 +1556,6 @@
     })();
   </script>
   <script src="../assets/site.js?v=9fabc918" data-base="../"></script>
-  <script src="../assets/tools.js?v=5afe0f29" data-search-scope=".timeline, .aspects" data-hide-until=".timeline-top"></script>
+  <script src="../assets/tools.js?v=66101d2d" data-search-scope=".timeline, .aspects" data-hide-until=".timeline-top"></script>
 </body>
 </html>
