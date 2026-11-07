@@ -361,6 +361,14 @@
     .ov-thumb .r { fill: var(--right); }
     .ov-thumb .m { fill: color-mix(in srgb, var(--top) 50%, var(--left)); }
 
+    /* the four quadrants' shades, for the 2.5D cards */
+    .ov-thumb {
+      --q1: var(--top);
+      --q2: color-mix(in srgb, var(--top) 50%, var(--left));
+      --q3: var(--left);
+      --q4: var(--right);
+    }
+
     .ov-thumb .ln {
       fill: none;
       stroke: color-mix(in srgb, currentColor 55%, transparent);
@@ -2070,9 +2078,29 @@
       --right: var(--band-bg);
       display: block;
       width: 100%;
-      max-width: 560px;
+      max-width: 840px;
       margin: 0 auto;
       overflow: visible;
+    }
+
+    /* the disc at half as large again: wherever there is room, the view
+       runs on to the right margin and the disc takes the larger share;
+       elsewhere the list and panel go below it */
+    @media (min-width: 1280px) {
+      body[data-show="emergence-main"] .emergence-view {
+        width: calc(var(--wide-col) + (100vw - var(--wide-col)) / 2 - 40px);
+      }
+
+      .emergence-view .quad-layout {
+        grid-template-columns: minmax(0, 820px) minmax(300px, 1fr);
+      }
+    }
+
+    @media (max-width: 1279px) {
+      .emergence-view .quad-layout {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 48px;
+      }
     }
 
     .em-q {
@@ -4027,13 +4055,26 @@
         if (key === 'structures') [[150, 120], [124, 86], [98, 56]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
         if (key === 'marx') [[150, 106], [118, 64]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
         if (key === 'emergence') {
-          [['t', 'M150 90L94 90A56 56 0 0 1 150 34Z'], ['m', 'M150 90L150 34A56 56 0 0 1 206 90Z'], ['r', 'M150 90L206 90A56 56 0 0 1 150 146Z'], ['l', 'M150 90L150 146A56 56 0 0 1 94 90Z']].forEach(function (w) {
-            g += '<path class="' + w[0] + '" d="' + w[1] + '" stroke="var(--canvas-bg)" stroke-width="3"/>';
+          // a tilted disc, split into its four quadrants, with its front edge
+          var ex = 150, ey = 80, rx = 82, ry = 41, eh = 16;
+          var ep = function (deg) { var a = deg * Math.PI / 180; return (ex + rx * Math.cos(a)).toFixed(1) + ' ' + (ey + ry * Math.sin(a)).toFixed(1); };
+          var dark = function (q, k) { return 'color-mix(in srgb, var(' + q + ') ' + k + '%, #000)'; };
+          // the edge: the lower quadrants' halves, darker
+          g += '<path style="fill:' + dark('--q3', 70) + '" d="M' + (ex - rx) + ' ' + ey + 'V' + (ey + eh) + 'A' + rx + ' ' + ry + ' 0 0 0 ' + ex + ' ' + (ey + ry + eh) + 'V' + (ey + ry) + 'A' + rx + ' ' + ry + ' 0 0 1 ' + (ex - rx) + ' ' + ey + 'Z"/>';
+          g += '<path style="fill:' + dark('--q4', 70) + '" d="M' + ex + ' ' + (ey + ry) + 'V' + (ey + ry + eh) + 'A' + rx + ' ' + ry + ' 0 0 0 ' + (ex + rx) + ' ' + (ey + eh) + 'V' + ey + 'A' + rx + ' ' + ry + ' 0 0 1 ' + ex + ' ' + (ey + ry) + 'Z"/>';
+          [['--q1', 180], ['--q2', 270], ['--q4', 0], ['--q3', 90]].forEach(function (w) {
+            g += '<path style="fill:var(' + w[0] + ')" stroke="var(--canvas-bg)" stroke-width="2.5" stroke-linejoin="round" d="M' + ex + ' ' + ey + 'L' + ep(w[1]) + 'A' + rx + ' ' + ry + ' 0 0 1 ' + ep(w[1] + 90) + 'Z"/>';
+          });
+          g += '<ellipse cx="' + ex + '" cy="' + ey + '" rx="' + (rx * 0.62) + '" ry="' + (ry * 0.62) + '" fill="none" stroke="#fff" stroke-opacity="0.3"/>';
+        }
+        if (key === 'integral') {
+          // four tiles on an isometric plane, each with its own thickness
+          var tw = 66, th = 11, gap = 5, q = tw / 2, d = tw / 4;
+          [['--q1', 0, 0], ['--q3', 0, 1], ['--q2', 1, 0], ['--q4', 1, 1]].forEach(function (t) {
+            var x = 150 + (t[1] - t[2]) * (q + gap), y = 58 + (t[1] + t[2]) * (d + gap / 2);
+            g += '<g style="--top:var(' + t[0] + ');--left:color-mix(in srgb, var(' + t[0] + ') 78%, #000);--right:color-mix(in srgb, var(' + t[0] + ') 60%, #000)">' + ovSlab(x, y, tw, th) + '</g>';
           });
         }
-        if (key === 'integral') [['t', 92, 22], ['m', 154, 22], ['l', 92, 84], ['r', 154, 84]].forEach(function (s) {
-          g += '<rect class="' + s[0] + '" x="' + s[1] + '" y="' + s[2] + '" width="56" height="56"/>';
-        });
         if (key === 'sequences') [32, 76, 120].forEach(function (y, i) {
           g += '<rect class="bx' + (i === 0 ? ' on' : '') + '" x="40" y="' + y + '" width="86" height="30"/><rect class="bx' + (i === 0 ? ' on' : '') + '" x="174" y="' + y + '" width="86" height="30"/>' +
             '<path class="ln" d="M134 ' + (y + 15) + 'H166M160 ' + (y + 10) + 'L166 ' + (y + 15) + 'L160 ' + (y + 20) + '"/>';
