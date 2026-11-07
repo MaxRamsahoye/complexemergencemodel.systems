@@ -281,7 +281,8 @@
     .structures-alt,
     .marx-view,
     .marx-alt,
-    .integral-view {
+    .integral-view,
+    .emergence-view {
       display: none;
     }
 
@@ -293,7 +294,8 @@
     body[data-show="structures-main"] .structures-alt,
     body[data-show="marx-main"] .marx-view,
     body[data-show="marx-main"] .marx-alt,
-    body[data-show="integral-main"] .integral-view {
+    body[data-show="integral-main"] .integral-view,
+    body[data-show="emergence-main"] .emergence-view {
       display: block;
     }
 
@@ -1551,7 +1553,8 @@
     .structures-alt,
     .marx-view,
     .marx-alt,
-    .integral-view {
+    .integral-view,
+    .emergence-view {
       animation: view-in 0.4s ease;
     }
 
@@ -1635,20 +1638,20 @@
     }
 
     /* a little darker than the sepia band, a little lighter than the blue */
-    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
+    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid, .em-fig) {
       --top: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 8%);
       --left: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 16%);
       --right: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 24%);
     }
 
-    html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
+    html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid, .em-fig) {
       /* lighter shades of the band's own purple */
       --top: #5b3f99;
       --left: #432c7a;
       --right: #2f1d5c;
     }
 
-    html.band-midnight:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
+    html.band-midnight:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid, .em-fig) {
       /* lighter shades of the band's own blue, rather than mixes with
          white, which turn grey */
       --top: #3d4b94;
@@ -1657,7 +1660,7 @@
     }
 
     /* in the dark theme, the slabs are the purple of its bands */
-    html[data-theme="dark"] :is(.st-stack, .ov-thumb, .quad-grid) {
+    html[data-theme="dark"] :is(.st-stack, .ov-thumb, .quad-grid, .em-fig) {
       --top: #5b3f99;
       --left: #432c7a;
       --right: #2f1d5c;
@@ -2055,8 +2058,100 @@
     }
 
     /* on the light sepia band the quadrants are pale: dark text */
-    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) .quad-grid {
+    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.quad-grid, .em-fig) {
       --quad-ink: #000000;
+    }
+
+    /* The Emergence Model: the four quadrants as a disc, with rings */
+    .em-fig {
+      --quad-ink: #fbf6ec;
+      --top: color-mix(in srgb, var(--band-bg) 72%, var(--canvas-bg));
+      --left: color-mix(in srgb, var(--band-bg) 88%, var(--canvas-bg));
+      --right: var(--band-bg);
+      display: block;
+      width: 100%;
+      max-width: 560px;
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    .em-q {
+      cursor: pointer;
+      outline: none;
+    }
+
+    .em-q path {
+      stroke: var(--canvas-bg);
+      stroke-width: 6;
+      transition: fill 0.25s ease;
+    }
+
+    .em-q[data-q="ul"] path { fill: var(--top); }
+    .em-q[data-q="ur"] path { fill: color-mix(in srgb, var(--top) 50%, var(--left)); }
+    .em-q[data-q="ll"] path { fill: var(--left); }
+    .em-q[data-q="lr"] path { fill: var(--right); }
+
+    .em-q.active path {
+      fill: color-mix(in srgb, var(--link-blue) 45%, var(--canvas-bg));
+    }
+
+    html[data-theme="dark"] .em-q.active path {
+      fill: var(--link-blue);
+    }
+
+    .em-q text {
+      fill: var(--quad-ink);
+      transition: fill 0.25s ease;
+    }
+
+    .em-q.active text {
+      fill: var(--canvas-ink);
+    }
+
+    html[data-theme="dark"] .em-q.active text {
+      fill: #1d1135;
+    }
+
+    .em-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .em-items {
+      font-family: var(--mono-caps);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .em-pron {
+      font-family: var(--serif);
+      font-size: 17px;
+    }
+
+    .em-ring {
+      fill: none;
+      stroke: var(--quad-ink);
+      stroke-opacity: 0.3;
+      stroke-width: 1;
+      pointer-events: none;
+    }
+
+    .em-axis {
+      stroke: var(--muted);
+      stroke-width: 1;
+      pointer-events: none;
+    }
+
+    .em-axis-label {
+      font-family: var(--mono-caps);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      fill: var(--muted);
     }
 
     .quad-cell {
@@ -2134,7 +2229,8 @@
     .structures-alt,
     .marx-view,
     .marx-alt,
-    .integral-view {
+    .integral-view,
+    .emergence-view {
       width: var(--wide-col);
       margin-left: calc((100% - var(--wide-col)) / 2);
     }
@@ -2341,7 +2437,8 @@
       .structures-alt,
       .marx-view,
       .marx-alt,
-      .integral-view {
+      .integral-view,
+      .emergence-view {
         width: auto;
         margin-left: 0;
       }
@@ -2582,14 +2679,17 @@
       <div class="tab-group" role="tablist" aria-label="All Models">
         <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Models</button>
       </div>
-      <div class="tab-group" role="tablist" aria-label="The Structures">
-        <button type="button" role="tab" aria-selected="false" data-show="structures-main">Cultural<br class="tab-br">Materialism</button>
-      </div>
-      <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
-        <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
+      <div class="tab-group" role="tablist" aria-label="The Emergence Model">
+        <button type="button" role="tab" aria-selected="false" data-show="emergence-main">Emergence Model</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="Integral Model: Four Quadrants">
         <button type="button" role="tab" aria-selected="false" data-show="integral-main">Four Quadrants</button>
+      </div>
+      <div class="tab-group" role="tablist" aria-label="The Structures">
+        <button type="button" role="tab" aria-selected="false" data-show="structures-main">Cultural <br class="tab-br">Materialism</button>
+      </div>
+      <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
+        <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
       </div>
     </div>
     </div>
@@ -2635,6 +2735,18 @@
     </section>
 
     <div class="marx-alt" role="figure" aria-label="Classical Marxism: the base and the superstructure"></div>
+
+    <section class="emergence-view" aria-label="The Emergence Model">
+      <div class="quad-layout">
+        <svg class="em-fig" viewBox="0 0 560 500" role="figure" aria-label="The Emergence Model: superstructure, physiologic structure, social structure and infrastructure, as the four quadrants of a disc"></svg>
+        <div class="stack-side">
+          <ol class="stack-menu" aria-label="The four structures"></ol>
+          <div class="stack-panel em-panel" aria-live="polite">
+            <div class="stack-intro show"><p>Four structures, one in each quadrant: the inner and outer life of the individual, and of the collective. Point to a quadrant to see what it holds.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="integral-view" aria-label="Integral Model: Four Quadrants">
       <div class="quad-layout">
@@ -2804,6 +2916,10 @@
         sequences: {
           title: 'The Sequences',
           desc: 'The developmental mechanics of <em>constraints and affordances</em>: the limits a way of life imposes, and the new possibilities a technology stack opens up to overcome them &ndash; each major technological transition lifting a constraint that had bound every society before it.'
+        },
+        emergence: {
+          title: 'The Emergence Model',
+          desc: 'Schmachtenberger&rsquo;s Emergence Model sets the structures of a society in the four quadrants of Wilber&rsquo;s integral map: the superstructure of memes, narratives, beliefs and values; the physiologic structure of the body; the social structure of economics, governance and law; and the infrastructure of production, technology and energy. Each acts on the others, and none can be understood alone.'
         },
         integral: {
           title: 'Integral Model: Four Quadrants',
@@ -3161,6 +3277,82 @@
           d._id = 'rel-' + r.dataset.rel;
           r.querySelectorAll('.sa-rel-btn').forEach(function (b) { opener(b, b.dataset.key, 'rel', d); });
         });
+      }
+
+      // The Emergence Model: four structures in the quadrants of a disc
+      var EMERGENCE = [
+        { q: 'ul', pron: 'I', name: 'Superstructure', pos: 'Upper Left', aka: 'Individual Interior', items: ['Memetics, narratives,', 'beliefs, values'],
+          def: 'The inner life of the individual as culture shapes it: the memes and narratives, beliefs and values through which people make sense of the world and decide what matters.' },
+        { q: 'ur', pron: 'It', name: 'Physiologic Structure', pos: 'Upper Right', aka: 'Individual Exterior', items: ['Neurochemistry, nutrition,', 'genetics, immunology,', 'endocrinology'],
+          def: 'The body and its biology: the genetics, neurochemistry, hormones, immune system and nutrition that condition how a person feels, thinks and acts.' },
+        { q: 'll', pron: 'We', name: 'Social Structure', pos: 'Lower Left', aka: 'Collective Interior', items: ['Economics, governance,', 'law'],
+          def: 'The institutions through which a group coordinates itself: its economics, governance and law &ndash; the rules and incentives that organise power and exchange.' },
+        { q: 'lr', pron: 'Its', name: 'Infrastructure', pos: 'Lower Right', aka: 'Collective Exterior', items: ['Modes of production,', 'technology, agriculture,', 'energy, transportation'],
+          def: 'The material systems through which a society meets its needs: its modes of production, technology, agriculture, energy and transport.' }
+      ];
+      var emergenceBuilt = false;
+      function buildEmergence() {
+        if (emergenceBuilt) return;
+        emergenceBuilt = true;
+        var view = document.querySelector('.emergence-view');
+        var svg = view.querySelector('.em-fig');
+        var menu = view.querySelector('.stack-menu');
+        var panel = view.querySelector('.em-panel');
+        var intro = panel.querySelector('.stack-intro');
+        var cx = 290, cy = 260, R = 200;
+        // each quadrant from its starting angle, clockwise from the left
+        var ANG = { ul: 180, ur: 270, lr: 0, ll: 90 };
+        var SIDE = { ul: [-1, -1], ur: [1, -1], ll: [-1, 1], lr: [1, 1] };
+        function pt(r, deg) { var a = deg * Math.PI / 180; return [(cx + r * Math.cos(a)).toFixed(1), (cy + r * Math.sin(a)).toFixed(1)]; }
+        var html = '';
+        EMERGENCE.forEach(function (Q) {
+          var a0 = pt(R, ANG[Q.q]), a1 = pt(R, ANG[Q.q] + 90), sx = SIDE[Q.q][0], sy = SIDE[Q.q][1];
+          var lx = cx + sx * 0.44 * R, ly = cy + sy * (sy < 0 ? 0.42 : 0.36) * R;
+          html += '<g class="em-q" data-q="' + Q.q + '" tabindex="0" role="button" aria-label="' + Q.pos + ': ' + Q.name + '">' +
+            '<path d="M' + cx + ' ' + cy + 'L' + a0[0] + ' ' + a0[1] + 'A' + R + ' ' + R + ' 0 0 1 ' + a1[0] + ' ' + a1[1] + 'Z"/>' +
+            '<text class="em-name" x="' + lx + '" y="' + (ly + (sy < 0 ? 4 : -14)) + '" text-anchor="middle">' + Q.name + '</text>' +
+            '<text class="em-items" x="' + lx + '" y="' + (ly + (sy < 0 ? 24 : 6)) + '" text-anchor="middle">' +
+              Q.items.map(function (t, k) { return '<tspan x="' + lx + '" dy="' + (k ? 13 : 0) + '">' + t + '</tspan>'; }).join('') + '</text>' +
+            '<text class="em-pron" x="' + (cx + sx * 22) + '" y="' + (cy + sy * 18 + 6) + '" text-anchor="middle">' + Q.pron.toUpperCase() + '</text>' +
+            '</g>';
+        });
+        // the rings, the axes and their labels, over the quadrants
+        html += '<circle class="em-ring" cx="' + cx + '" cy="' + cy + '" r="' + (R * 0.66) + '"/>' +
+          '<circle class="em-ring" cx="' + cx + '" cy="' + cy + '" r="46"/>' +
+          '<line class="em-axis" x1="' + cx + '" y1="' + (cy - R - 34) + '" x2="' + cx + '" y2="' + (cy + R + 20) + '"/>' +
+          '<line class="em-axis" x1="' + (cx - R - 34) + '" y1="' + cy + '" x2="' + (cx + R + 20) + '" y2="' + cy + '"/>' +
+          '<text class="em-axis-label" x="' + (cx - R / 2) + '" y="' + (cy - R - 22) + '" text-anchor="middle">Interior</text>' +
+          '<text class="em-axis-label" x="' + (cx + R / 2) + '" y="' + (cy - R - 22) + '" text-anchor="middle">Exterior</text>' +
+          '<text class="em-axis-label" transform="translate(' + (cx - R - 22) + ' ' + (cy - R / 2) + ') rotate(-90)" text-anchor="middle">Individual</text>' +
+          '<text class="em-axis-label" transform="translate(' + (cx - R - 22) + ' ' + (cy + R / 2) + ') rotate(-90)" text-anchor="middle">Collective</text>';
+        svg.innerHTML = html;
+        var cells = Array.prototype.slice.call(svg.querySelectorAll('.em-q'));
+        var items = [], details = [], locked = -1;
+        EMERGENCE.forEach(function (Q, i) {
+          var li = document.createElement('li');
+          li.innerHTML = '<button type="button"><span class="st-name">' + Q.name + '</span><span class="st-date">' + Q.pos + ' &middot; ' + Q.pron + '</span></button>';
+          menu.appendChild(li);
+          items.push(li);
+          var det = document.createElement('div');
+          det.className = 'st-detail';
+          det.innerHTML = '<p class="st-detail-name st-detail-name-only">' + Q.name + '<span class="name-sep">:</span> ' + Q.aka + '</p><p class="st-detail-def">' + Q.def + '</p>';
+          panel.appendChild(det);
+          details.push(det);
+          [cells[i], li].forEach(function (el) { el.addEventListener('mouseenter', function () { show(i); }); });
+          [cells[i], li.querySelector('button')].forEach(function (el) {
+            el.addEventListener('focus', function () { show(i); });
+            el.addEventListener('click', function () { locked = locked === i ? -1 : i; show(locked < 0 ? i : locked); });
+          });
+          cells[i].addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cells[i].dispatchEvent(new Event('click')); } });
+        });
+        function show(at) {
+          cells.forEach(function (c, i) { c.classList.toggle('active', i === at); });
+          items.forEach(function (li, i) { li.classList.toggle('active', i === at); });
+          details.forEach(function (d, i) { d.classList.toggle('show', i === at); });
+          intro.classList.toggle('show', at < 0);
+        }
+        view.querySelector('.quad-layout').addEventListener('mouseleave', function () { show(locked); });
+        show(-1);
       }
 
       // Integral Model: the four quadrants, upper left to lower right
@@ -3817,9 +4009,10 @@
 
       // All Diagrams: a card for each, with a small drawing of it, opening it
       var OVERVIEW = [
+        ['emergence', 'Emergence Model', 'The Emergence Model', 'Superstructure, physiologic structure, social structure and infrastructure, set in the four quadrants of a disc.'],
+        ['integral', 'Four Quadrants', 'Integral Model: Four Quadrants', 'Interior and exterior, individual and collective: four views of any whole that arise together, none reducible to the others.'],
         ['structures', 'The Structures', 'Cultural Materialism: Three Structures', 'Infrastructure, social structure and superstructure, and how each acts on the others.'],
-        ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.'],
-        ['integral', 'Four Quadrants', 'Integral Model: Four Quadrants', 'Interior and exterior, individual and collective: four views of any whole that arise together, none reducible to the others.']
+        ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
       function ovSlab(x, y, w, h) {
@@ -3831,8 +4024,13 @@
       function ovThumb(key) {
         var g = '';
         if (key === 'stack') [[130, 128, 13], [116, 94, 13], [100, 64, 13], [84, 38, 13]].forEach(function (s) { g += ovSlab(150, s[1], s[0], s[2]); });
-        if (key === 'structures') [[136, 122], [136, 84], [136, 46]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
-        if (key === 'marx') [[136, 108], [136, 62]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
+        if (key === 'structures') [[150, 120], [124, 86], [98, 56]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
+        if (key === 'marx') [[150, 106], [118, 64]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
+        if (key === 'emergence') {
+          [['t', 'M150 90L94 90A56 56 0 0 1 150 34Z'], ['m', 'M150 90L150 34A56 56 0 0 1 206 90Z'], ['r', 'M150 90L206 90A56 56 0 0 1 150 146Z'], ['l', 'M150 90L150 146A56 56 0 0 1 94 90Z']].forEach(function (w) {
+            g += '<path class="' + w[0] + '" d="' + w[1] + '" stroke="var(--canvas-bg)" stroke-width="3"/>';
+          });
+        }
         if (key === 'integral') [['t', 92, 22], ['m', 154, 22], ['l', 92, 84], ['r', 154, 84]].forEach(function (s) {
           g += '<rect class="' + s[0] + '" x="' + s[1] + '" y="' + s[2] + '" width="56" height="56"/>';
         });
@@ -3878,7 +4076,7 @@
       function setSlug() {
         var d = show.split('-');
         if (d[0] === 'overview') { history.replaceState(null, '', location.pathname); return; }
-        var slug = d[0] === 'integral' ? 'four-quadrants' : d[0] === 'marx' ? 'base-superstructure' : d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
+        var slug = d[0] === 'emergence' ? 'emergence-model' : d[0] === 'integral' ? 'four-quadrants' : d[0] === 'marx' ? 'base-superstructure' : d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
         history.replaceState(null, '', '#' + slug);
       }
       function render(rebuild) {
@@ -3900,6 +4098,7 @@
         if (show === 'structures-main') buildStructures(how);
         if (show === 'marx-main') buildMarx(how);
         if (show === 'integral-main') buildIntegral();
+        if (show === 'emergence-main') buildEmergence();
         buildStructuresAlt();
         buildMarxAlt();
         buildVertical();
@@ -3924,7 +4123,7 @@
 
       var hash = location.hash.slice(1);
       if (/eight|(^|-)8($|-)/.test(hash)) count = '8';
-      show = (/four-quadrants|integral/.test(hash) ? 'integral' : /base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
+      show = (/emergence-model/.test(hash) ? 'emergence' : /four-quadrants|integral/.test(hash) ? 'integral' : /base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
       render();
     })();
 
