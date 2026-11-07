@@ -1614,6 +1614,12 @@
       --right: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 24%);
     }
 
+    /* with the purple band, the highlight (the chosen slab, the open
+       relation and its panel, a card pointed to) is violet, not blue */
+    html.band-purple:not([data-theme]) .page-main {
+      --link-blue: #6a3fc4;
+    }
+
     html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
       /* lighter shades of the band's own purple */
       --top: #5b3f99;
