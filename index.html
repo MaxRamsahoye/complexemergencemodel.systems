@@ -1385,6 +1385,11 @@
       break-inside: avoid;
     }
 
+    /* a short list keeps to a single column */
+    #contents .live-list.one-col {
+      columns: 1;
+    }
+
     @media (max-width: 700px) {
       #contents .live-list:not(.live-sub) {
         columns: 1;
@@ -2193,38 +2198,9 @@
             <section id="contents" class="in-band" data-toc="off">
               <h2><a class="heading-link" href="#contents">Contents</a></h2>
 
-              <ul class="dash-list live-list">
-                <li>Overview</li>
-                <li>The Emergence Model
-                  <ul class="dash-list live-sub">
-                    <li>Quadrant Misclassification</li>
-                  </ul>
-                </li>
-                <li>Precursors: Intellectual History &amp; Model Genealogy
-                  <ul class="dash-list live-sub">
-                    <li>Integral Model: Four Quadrants</li>
-                    <li>Cultural Materialism: Three Structures</li>
-                    <li>Classical Marxism: Base-Superstructure</li>
-                  </ul>
-                </li>
-                <li>The Complex Emergence Model
-                  <ul class="dash-list live-sub">
-                    <li>Core</li>
-                    <li>Interfaces: &lsquo;Second Nature&rsquo;</li>
-                    <li>Transecting</li>
-                  </ul>
-                </li>
-                <li>Interaction Dynamics &amp; Causal Primacy
-                  <ul class="dash-list live-sub">
-                    <li>Structural Reductionism</li>
-                    <li>Neo-Reductionisms in the Metacrisis Space</li>
-                  </ul>
-                </li>
-                <li>Structures &amp; (Complex) Human Agency
-                  <ul class="dash-list live-sub">
-                    <li>Critical Realism &amp; Analytical Dualism</li>
-                  </ul>
-                </li>
+              <ul class="dash-list live-list one-col">
+                <li>The Emergence Model</li>
+                <li>Precursors: Intellectual History &amp; Model Genealogy</li>
               </ul>
             </section>
 
