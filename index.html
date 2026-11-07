@@ -253,8 +253,9 @@
       color: var(--inverse-link);
     }
 
-    /* links within the site, on the bands, in the band's own text colour */
-    :is(#overview, .in-band) a:not([href^="http"]):not(.heading-link) {
+    /* links on the bands take the band's own text colour (links to other
+       sites turn the band's blue with c, above) */
+    :is(#overview, .in-band) a:not(.heading-link) {
       color: inherit;
     }
 
@@ -539,100 +540,61 @@
       stroke: var(--link);
     }
 
-    /* the default loading screen: a tech stack built up level by level, in
-       3D like the game Stack - each slab slides in from alternate sides and
-       lands on the one below, trimmed a little where it overhung (the ring
-       above is kept as the fallback) */
-    .loader-stack {
-      position: relative;
-      width: 0;
-      height: 0;
-      transform: translateY(var(--lift, 40px)) rotateX(58deg) rotateZ(45deg);
-      transform-style: preserve-3d;
-      --top: color-mix(in srgb, var(--link) 38%, var(--canvas-bg));
-      --left: color-mix(in srgb, var(--link) 70%, var(--canvas-bg));
-      --right: var(--link);
-    }
-
-    /* lit from above in either theme: the top palest in light, brightest in dark */
-    html[data-theme="dark"] .loader-stack {
-      --top: var(--link);
-      --left: color-mix(in srgb, var(--link) 62%, var(--canvas-bg));
-      --right: color-mix(in srgb, var(--link) 38%, var(--canvas-bg));
-    }
-
-    .loader-block {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: var(--w);
-      height: var(--d);
-      transform-style: preserve-3d;
-      /* hidden until its turn (not faded: opacity would flatten the 3D) */
-      visibility: hidden;
-      transform: translate3d(calc(var(--x) + var(--sx)), calc(var(--y) + var(--sy)), var(--z));
-      animation: loader-block-in var(--dur) cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
-    }
-
-    .loader-block > span {
-      position: absolute;
-      left: 0;
-      top: 0;
-      backface-visibility: visible;
-      transition: background-color 0.3s ease;
-    }
-
-    /* complete: the stack turns the blue accent before the page appears */
-    .loader.loader-complete .loader-stack {
-      --top: color-mix(in srgb, var(--link-blue) 45%, var(--canvas-bg));
-      --left: color-mix(in srgb, var(--link-blue) 75%, var(--canvas-bg));
-      --right: var(--link-blue);
-    }
-
-    html[data-theme="dark"] .loader.loader-complete .loader-stack {
-      --top: var(--link-blue);
-      --left: color-mix(in srgb, var(--link-blue) 62%, var(--canvas-bg));
-      --right: color-mix(in srgb, var(--link-blue) 38%, var(--canvas-bg));
-    }
-
-    .loader-face-top {
-      width: var(--w);
-      height: var(--d);
-      background: var(--top);
-      transform: translateZ(var(--h));
-    }
-
-    .loader-face-front {
-      width: var(--w);
-      height: var(--h);
-      top: var(--d) !important;
-      background: var(--left);
-      transform-origin: top;
-      transform: translateZ(var(--h)) rotateX(-90deg);
-    }
-
-    .loader-face-side {
-      width: var(--h);
-      height: var(--d);
-      left: var(--w) !important;
-      background: var(--right);
-      transform-origin: left;
-      transform: translateZ(var(--h)) rotateY(90deg);
-    }
-
-    @keyframes loader-block-in {
-      from {
-        visibility: visible;
-        transform: translate3d(calc(var(--x) + var(--sx)), calc(var(--y) + var(--sy)), var(--z));
-      }
-      to {
-        visibility: visible;
-        transform: translate3d(var(--x), var(--y), var(--z));
-      }
-    }
-
-    .loader.loader-stacking svg {
+    .loader.loader-stacking > svg:not(.loader-wheel) {
       display: none;
+    }
+
+    /* the default loading screen: a simplified Emergence Model, its four
+       quadrants arriving one by one around a spinning wheel, which turns the
+       accent once the page is ready */
+    .loader-wheel {
+      width: 104px;
+      height: 104px;
+      overflow: visible;
+      animation: loader-spin 2.4s linear infinite;
+      --w1: #5b3f99;
+      --w2: #4d3590;
+      --w3: #432c7a;
+      --w4: #2f1d5c;
+    }
+
+    .loader-wheel path {
+      stroke: var(--canvas-bg);
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+      transform-box: fill-box;
+      transform-origin: center;
+      opacity: 0;
+      transition: fill 0.3s ease;
+      animation: loader-quadrant-in var(--dur) cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
+    }
+
+    .loader-wheel path:nth-of-type(1) { fill: var(--w1); }
+    .loader-wheel path:nth-of-type(2) { fill: var(--w2); }
+    .loader-wheel path:nth-of-type(3) { fill: var(--w4); }
+    .loader-wheel path:nth-of-type(4) { fill: var(--w3); }
+
+    .loader.loader-complete .loader-wheel {
+      --w1: color-mix(in srgb, var(--link-blue) 45%, var(--canvas-bg));
+      --w2: color-mix(in srgb, var(--link-blue) 60%, var(--canvas-bg));
+      --w3: color-mix(in srgb, var(--link-blue) 78%, var(--canvas-bg));
+      --w4: var(--link-blue);
+    }
+
+    html[data-theme="dark"] .loader.loader-complete .loader-wheel {
+      --w1: var(--link-blue);
+      --w2: color-mix(in srgb, var(--link-blue) 70%, #6a3fc4);
+      --w3: color-mix(in srgb, var(--link-blue) 40%, #6a3fc4);
+      --w4: #6a3fc4;
+    }
+
+    @keyframes loader-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes loader-quadrant-in {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .page {
@@ -1949,44 +1911,27 @@
         }, hold);
       }
 
-      // Default: the stack. The ring stays as the fallback, for anyone who
+      // Default: the wheel. The ring stays as the fallback, for anyone who
       // prefers reduced motion (or who sets localStorage.loader = 'ring').
       var useRing = false;
       try { useRing = localStorage.getItem('ce.loader') === 'ring'; } catch (e) {}
       if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) useRing = true;
       if (!useRing) {
-        var LEVELS = 4, STEP = 520, DUR = 800, MAX_WAIT = 7000, H = 14, SIZE = 82.5;
-        var stack = document.createElement('div');
-        stack.className = 'loader-stack';
-        stack.style.setProperty('--lift', (LEVELS * H / 2 + 20) + 'px');
-        // the slab's footprint, trimmed along the axis it slid in on
-        var w = SIZE, d = SIZE, x = 0, y = 0;
+        var LEVELS = 4, STEP = 420, DUR = 700, MAX_WAIT = 7000;
+        // the four quadrants as rings of a disc, clockwise from the upper left
+        var R = 48, r = 12;
+        function at(rad, deg) { var t = deg * Math.PI / 180; return (rad * Math.cos(t)).toFixed(2) + ' ' + (rad * Math.sin(t)).toFixed(2); }
+        var paths = '';
         for (var i = 0; i < LEVELS; i++) {
-          var alongX = i % 2 === 1;   // from the left along x, from the right along y
-          if (i > 0) {
-            if (alongX) { w -= 7.5; x += (i % 4 === 1 ? 5 : 2.5); }
-            else { d -= 7.5; y += (i % 4 === 2 ? 5 : 2.5); }
-          }
-          var b = document.createElement('div');
-          b.className = 'loader-block';
-          b.innerHTML = '<span class="loader-face-top"></span><span class="loader-face-front"></span><span class="loader-face-side"></span>';
-          b.style.setProperty('--w', w + 'px');
-          b.style.setProperty('--d', d + 'px');
-          b.style.setProperty('--h', H + 'px');
-          b.style.setProperty('--x', (x - SIZE / 2) + 'px');
-          b.style.setProperty('--y', (y - SIZE / 2) + 'px');
-          b.style.setProperty('--z', (i * H) + 'px');
-          b.style.setProperty('--sx', (alongX ? -170 : 0) + 'px');
-          b.style.setProperty('--sy', (alongX ? 0 : -170) + 'px');
-          b.style.setProperty('--delay', (i * STEP) + 'ms');
-          b.style.setProperty('--dur', DUR + 'ms');
-          stack.appendChild(b);
+          var a0 = 180 + i * 90, a1 = a0 + 90;
+          paths += '<path style="--delay:' + (i * STEP) + 'ms;--dur:' + DUR + 'ms" d="M' + at(R, a0) + 'A' + R + ' ' + R + ' 0 0 1 ' + at(R, a1) +
+            'L' + at(r, a1) + 'A' + r + ' ' + r + ' 0 0 0 ' + at(r, a0) + 'Z"/>';
         }
-        loader.appendChild(stack);
+        loader.insertAdjacentHTML('beforeend', '<svg class="loader-wheel" viewBox="-50 -50 100 100"><g>' + paths + '</g></svg>');
         loader.classList.add('loader-stacking');
         var built = (LEVELS - 1) * STEP + DUR + 120;
         var t0 = performance.now();
-        // a soft note as each slab lands, rising a step each time (the
+        // a soft note as each quadrant arrives, rising a step each time (the
         // browser may hold sound back until the page has been interacted with)
         var layerCtx = null;
         function layerSound(i) {
@@ -2016,8 +1961,8 @@
         for (var n = 0; n < LEVELS; n++) {
           setTimeout(layerSound.bind(null, n), n * STEP + DUR * 0.55);
         }
-        // turn blue the moment the last slab lands (the ease-out has it
-        // settled well before its animation formally ends)
+        // turn the accent the moment the last quadrant arrives (the ease-out
+        // has it settled well before its animation formally ends)
         setTimeout(function () {
           window.loaderBlueAt = performance.now();
           loader.classList.add('loader-complete');
@@ -2192,7 +2137,7 @@
             <section id="basis" class="in-band band-alt">
               <h2><a class="heading-link" href="#basis">Basis</a></h2>
 
-              <p>Before co-founding the <a href="https://civilizationresearchinstitute.org/" target="_blank" rel="noopener">Civilization Research Institute</a> in 2021, Daniel Schmachtenberger developed an earlier think-tank concept, <em>The Emergence Project</em> (2017), oriented towards &lsquo;the emergence of a regenerative, thriving, omni-considerate global civilization&rsquo;. Its central premise was a &lsquo;model for successfully addressing the unprecedented complexity and scale&rsquo; of civilisational problems: the <a href="sources/#schmachtenberger-emergence">Emergence Model</a>, a four-quadrant framework derived from Ken Wilber&rsquo;s integral theory, into which &lsquo;all factors that condition human behavior fit&rsquo;. This article takes that model as its basis &ndash; a real development in applied metatheory &ndash; revisiting its precursors and elaborating it into a successor: the complex emergence model.</p>
+              <p>Before co-founding the <a href="https://civilizationresearchinstitute.org/" target="_blank" rel="noopener">Civilization Research Institute</a> in 2021, Daniel Schmachtenberger developed an earlier think-tank concept, <em>The Emergence Project</em> (2017), oriented towards &lsquo;the emergence of a regenerative, thriving, omni-considerate global civilization&rsquo;. Its central premise was a &lsquo;model for successfully addressing the unprecedented complexity and scale&rsquo; of civilisational problems: the <a href="sources/#schmachtenberger-emergence">Emergence Model</a>, a four-quadrant framework derived from Ken Wilber&rsquo;s integral theory, into which &lsquo;all factors that condition human behavior fit&rsquo;. This article takes that model as its basis, revisiting its precursors and elaborating it into a successor: the complex emergence model &ndash; considering it a real development in applied metatheory.</p>
             </section>
 
             <section id="contents" class="in-band" data-toc="off">
