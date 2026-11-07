@@ -70,7 +70,12 @@
     }
 
     .pages-box {
-      max-width: 760px;
+      max-width: 1040px;
+    }
+
+    /* no top menu here: this page is the menu */
+    .top-nav {
+      display: none !important;
     }
 
     /* the title is centred; the back arrow sits just to its left */
@@ -114,10 +119,20 @@
       }
     }
 
+    /* the pages in two columns, read across */
     .menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 72px;
       list-style: none;
       margin: 0;
       padding: 0;
+    }
+
+    @media (max-width: 760px) {
+      .menu {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     .menu a {
@@ -172,7 +187,7 @@
     <ul class="menu">
       <li><a href="../"><span class="menu-title">Research Article</span><span class="menu-desc"><em>The Complex Emergence Model</em></span></a></li>
       <li><a href="../overviews/"><span class="menu-title">Overviews</span><span class="menu-desc">Each section of the article in brief</span></a></li>
-      <li><a href="../diagram/"><span class="menu-title">Diagrams</span><span class="menu-desc">The transitions and the three layers they reshape</span></a></li>
+      <li><a href="../diagram/"><span class="menu-title">Models</span><span class="menu-desc">Models of the structures of civilisation</span></a></li>
       <li><a href="../timeline/"><span class="menu-title">Timeline</span><span class="menu-desc">The intellectual genealogy of <em>The Complex Emergence Model</em></span></a></li>
       <li><a href="../lexicon/"><span class="menu-title">Concepts</span><span class="menu-desc">Key terms used in <em>The Complex Emergence Model</em></span></a></li>
       <li><a href="../sources/"><span class="menu-title">Sources</span><span class="menu-desc">Works drawn on in <em>The Complex Emergence Model</em></span></a></li>
@@ -182,6 +197,6 @@
   </main>
 
   <script src="../assets/site.js?v=9fabc918" data-base="../"></script>
-  <script src="../assets/tools.js?v=66101d2d"></script>
+  <script src="../assets/tools.js?v=408f0fca"></script>
 </body>
 </html>

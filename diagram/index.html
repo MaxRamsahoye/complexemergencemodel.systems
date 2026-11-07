@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Diagrams of the models of civilisational structure behind The Complex Emergence Model.">
+  <meta name="description" content="Models of civilisational structure behind The Complex Emergence Model.">
   <link id="favicon-ico" rel="icon" href="../favicon/favicon-light.ico" sizes="any">
   <link id="favicon-32" rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32-light.png">
   <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="../favicon/favicon-192-light.png">
@@ -35,11 +35,11 @@
       if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
     } catch (e) {}
   </script>
-  <title>Diagrams — Complex Emergence</title>
+  <title>Models — Complex Emergence</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
-  <meta property="og:title" content="The Civilisational Stack — Complex Emergence">
-  <meta property="og:description" content="Diagrams of the models of civilisational structure behind The Complex Emergence Model.">
+  <meta property="og:title" content="Models — Complex Emergence">
+  <meta property="og:description" content="Models of civilisational structure behind The Complex Emergence Model.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/diagram/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
   <meta property="og:image:width" content="1200">
@@ -2572,18 +2572,18 @@
 
   <main class="page-main">
     <div class="diagram-top wide-top">
-    <h1 class="page-title"><a class="heading-link title-top" href="#">Diagrams</a></h1>
+    <h1 class="page-title"><a class="heading-link title-top" href="#">Models</a></h1>
     <p class="diagram-desc">Models of the structures of civilisation: the layers each divides a society into, and how each layer acts on the others.</p>
     <blockquote class="diagram-quote">
       <p>The claim that competition is the mechanism for technological determinism is a special case of the theory of selectionism (also called Universal Darwinism). Selectionism generalizes the mechanism at the heart of evolutionary biology: variation and differential proliferation. In a population of varied forms, if some forms proliferate (reproduce, survive, grow) because of some characteristic, then that characteristic will be more abundant in future populations. Over time, these forms, called organisms in evolutionary biology and interactors more generally, will fit better with&mdash;will appear as if designed for&mdash;the criterion that determines superior proliferation (the &ldquo;selection environment&rdquo;).</p>
       <cite>Allan Dafoe, <a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">On Technological Determinism</a> (2015)</cite>
     </blockquote>
-    <div class="view-tabs" aria-label="Diagrams">
-      <div class="tab-group" role="tablist" aria-label="All Diagrams">
-        <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Diagrams</button>
+    <div class="view-tabs" aria-label="Models">
+      <div class="tab-group" role="tablist" aria-label="All Models">
+        <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Models</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="The Structures">
-        <button type="button" role="tab" aria-selected="false" data-show="structures-main">The Structures</button>
+        <button type="button" role="tab" aria-selected="false" data-show="structures-main">Cultural<br class="tab-br">Materialism</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
         <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
@@ -2594,7 +2594,7 @@
     </div>
     </div>
 
-    <section class="overview-view" aria-label="All Diagrams"><div class="ov-grid"></div></section>
+    <section class="overview-view" aria-label="All Models"><div class="ov-grid"></div></section>
 
     <section class="stack-view" aria-label="The Civilisational Stack">
       <div class="stack-layout">
@@ -2740,7 +2740,7 @@
       <ol>
         <li><a href="../">Article</a></li>
         <li><a href="../overviews/">Overviews</a></li>
-        <li><a href="../diagram/">Diagrams</a></li>
+        <li><a href="../diagram/">Models</a></li>
         <li><a href="../timeline/">Timeline</a></li>
         <li><a href="../lexicon/">Concepts</a></li>
         <li><a href="../sources/">Sources</a></li>
@@ -2786,7 +2786,7 @@
       ];
       var TEXT = {
         overview: {
-          title: 'Diagrams',
+          title: 'Models',
           desc: 'Models of the structures of civilisation: the layers each divides a society into, and how each layer acts on the others.'
         },
         stack: {
@@ -3869,7 +3869,7 @@
       var ovGrid = document.querySelector('.ov-grid');
       ovGrid.innerHTML = OVERVIEW.map(function (o, i) {
         return '<button type="button" class="ov-card" data-go="' + o[0] + '-main">' + ovThumb(o[0]) +
-          '<p class="ov-kicker">Diagram ' + (i + 1) + '</p><h2 class="ov-title">' + o[2] + '</h2><p class="ov-desc">' + o[3] + '</p></button>';
+          '<p class="ov-kicker">Model ' + (i + 1) + '</p><h2 class="ov-title">' + o[2] + '</h2><p class="ov-desc">' + o[3] + '</p></button>';
       }).join('');
       ovGrid.querySelectorAll('.ov-card').forEach(function (c) {
         c.addEventListener('click', function () { show = c.dataset.go; render(); window.scrollTo({ top: 0 }); });
@@ -3941,6 +3941,6 @@
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
   <script src="../assets/site.js?v=9fabc918" data-base="../"></script>
-  <script src="../assets/tools.js?v=66101d2d" data-hide-until=".diagram-top"></script>
+  <script src="../assets/tools.js?v=408f0fca" data-hide-until=".diagram-top"></script>
 </body>
 </html>
