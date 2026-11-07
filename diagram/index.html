@@ -148,20 +148,9 @@
       gap: 28px;
     }
 
-    /* a long label breaks onto two lines only in the narrow side menu */
-    .tab-br {
-      display: none;
-    }
-
-    @media (min-width: 1280px) {
-      .tab-br {
-        display: inline;
-      }
-
-      .view-tabs button:has(.tab-br) {
-        text-align: left;
-        line-height: 1.5;
-      }
+    /* every label on a single line */
+    .view-tabs button {
+      white-space: nowrap;
     }
 
     .view-tabs {
@@ -169,11 +158,14 @@
       row-gap: 18px;
     }
 
-    @media (min-width: 1280px) {
+    /* in the margin to the left wherever it fits there on single lines
+       (elsewhere a row above the page) */
+    @media (min-width: 1440px) {
       .view-tabs {
         position: absolute;
         top: 50%;
-        left: calc((var(--wide-col) - 100vw) / 2 + 40px);
+        left: calc((var(--wide-col) - 100vw) / 2 + 24px);
+        font-size: 11px;
         flex-direction: column;
         align-items: flex-start;
         gap: 30px;
@@ -2093,6 +2085,30 @@
       }
     }
 
+    /* each structure and its field on one line, the type scaled to the
+       column (the longest, Biostructure Cultural-Evolutionary Biology, is
+       about 18.7 ems) */
+    .complex-view .md-list button {
+      white-space: nowrap;
+      font-size: min(20px, calc((100vw - 48px) / 18.9));
+    }
+
+    @media (min-width: 901px) {
+      .complex-view .md-list button {
+        font-size: min(20px, calc((var(--wide-col) - 72px) / 2.55 / 18.9));
+      }
+    }
+
+    .complex-view .md-list button.sub {
+      font-size: min(18.6px, calc((100vw - 48px - 24px) / 18.9));
+    }
+
+    @media (min-width: 901px) {
+      .complex-view .md-list button.sub {
+        font-size: min(18.6px, calc(((var(--wide-col) - 72px) / 2.55 - 24px) / 18.9));
+      }
+    }
+
     .complex-view .md-figure:not(.ready) :is(.md-svg [data-key], .md-list button) {
       cursor: default;
     }
@@ -2410,12 +2426,7 @@
 
     /* in the narrower column beside the disc, a name keeps to one line and
        its position drops below it where there is no room beside it */
-    .emergence-view .stack-menu button {
-      flex-wrap: wrap;
-      row-gap: 8px;
-    }
-
-    .emergence-view .stack-menu .st-name {
+    .stack-menu button {
       white-space: nowrap;
     }
 
@@ -3033,7 +3044,7 @@
         <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Models</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="The Complex Emergence Model">
-        <button type="button" role="tab" aria-selected="false" data-show="complex-main">Complex<br class="tab-br"> Emergence</button>
+        <button type="button" role="tab" aria-selected="false" data-show="complex-main">Complex Emergence</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="The Emergence Model">
         <button type="button" role="tab" aria-selected="false" data-show="emergence-main">Emergence Model</button>
@@ -3042,10 +3053,10 @@
         <button type="button" role="tab" aria-selected="false" data-show="integral-main">Four Quadrants</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="The Structures">
-        <button type="button" role="tab" aria-selected="false" data-show="structures-main">Cultural <br class="tab-br">Materialism</button>
+        <button type="button" role="tab" aria-selected="false" data-show="structures-main">Cultural Materialism</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
-        <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
+        <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-Superstructure</button>
       </div>
     </div>
     </div>
@@ -3846,12 +3857,12 @@
         var items = [], details = [], locked = -1;
         EMERGENCE.forEach(function (Q, i) {
           var li = document.createElement('li');
-          li.innerHTML = '<button type="button"><span class="st-name">' + Q.name + '</span><span class="st-date">' + Q.pos + ' &middot; ' + Q.pron + '</span></button>';
+          li.innerHTML = '<button type="button"><span class="st-name">' + Q.name + '</span><span class="st-date">' + Q.pron + '</span></button>';
           menu.appendChild(li);
           items.push(li);
           var det = document.createElement('div');
           det.className = 'st-detail';
-          det.innerHTML = '<p class="st-detail-name st-detail-name-only">' + Q.name + '<span class="name-sep">:</span> ' + Q.aka + '</p><p class="st-detail-def">' + Q.def + '</p>';
+          det.innerHTML = '<p class="st-detail-name st-detail-name-only">' + Q.name + '<span class="name-sep">:</span> ' + Q.aka + '</p><p class="st-detail-date">' + Q.pos + '</p><p class="st-detail-def">' + Q.def + '</p>';
           panel.appendChild(det);
           details.push(det);
           [cells[i], li].forEach(function (el) { el.addEventListener('mouseenter', function () { show(i); }); });
