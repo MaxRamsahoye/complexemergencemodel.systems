@@ -2051,7 +2051,7 @@
 
     .quad-grid {
       /* two squares, the side labels and the gutters within the width */
-      --q: min(210px, calc((100vw - 48px - 56px) / 2));
+      --q: min(262px, calc((100vw - 48px - 56px) / 2));
       --quad-ink: #fbf6ec;
       /* as the slabs: shades of the band */
       --top: color-mix(in srgb, var(--band-bg) 72%, var(--canvas-bg));
@@ -2078,26 +2078,26 @@
       --right: var(--band-bg);
       display: block;
       width: 100%;
-      max-width: 840px;
+      max-width: 684px;
       margin: 0 auto;
       overflow: visible;
     }
 
-    /* the disc at half as large again: wherever there is room, the view
-       runs on to the right margin and the disc takes the larger share;
-       elsewhere the list and panel go below it */
+    /* the disc and the quadrants a quarter as large again: the figure takes
+       the larger share where there is room beside the panel, and elsewhere
+       the list and panel go below it */
     @media (min-width: 1280px) {
-      body[data-show="emergence-main"] .emergence-view {
-        width: calc(var(--wide-col) + (100vw - var(--wide-col)) / 2 - 40px);
+      .emergence-view .quad-layout {
+        grid-template-columns: minmax(0, 684px) minmax(300px, 1fr);
       }
 
-      .emergence-view .quad-layout {
-        grid-template-columns: minmax(0, 820px) minmax(300px, 1fr);
+      .integral-view .quad-layout {
+        grid-template-columns: minmax(0, 600px) minmax(300px, 1fr);
       }
     }
 
     @media (max-width: 1279px) {
-      .emergence-view .quad-layout {
+      :is(.emergence-view, .integral-view) .quad-layout {
         grid-template-columns: minmax(0, 1fr);
         row-gap: 48px;
       }
