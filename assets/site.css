@@ -538,7 +538,7 @@ html.band-black:not([data-theme]) .on-band {
 }
 
 .footer-head {
-  --footer-title-size: min(27px, calc((100vw - 48px) / 15.1));
+  --footer-title-size: min(27px, calc((100vw - 48px) / 16.6));
   width: max-content;
   max-width: 100%;
 }
