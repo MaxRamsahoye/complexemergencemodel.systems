@@ -3615,7 +3615,6 @@
     <div class="md-agency">
       <div class="md-agency-grid">
         <div class="md-agency-scene">
-          <p class="md-agency-intro">Every structure is at once <em>exo</em> &ndash; an extended phenotype or prosthesis, built outward from human agency &ndash; and <em>endo</em> &ndash; internalised, shaping that agency from within.</p>
           <svg class="md-ring" viewBox="-150 -30 1060 820" role="img" aria-label="Human agency at the centre, within the membrane of the self; each of the eight structures appears inside the membrane, internalised, and outside it, extended as phenotype and prosthesis, with arrows both ways"></svg></div>
         <div class="md-agency-side">
           <div class="md-key"><button type="button" data-concept="exo"><span class="k-exo"></span>Exo &middot; extended</button><button type="button" data-concept="endo"><span class="k-endo"></span>Endo &middot; internalised</button><button type="button" data-concept="self"><span class="k-membrane"></span>Agency &middot; complex</button></div>
@@ -3829,7 +3828,7 @@
         },
         exoendo: {
           title: 'Exo-Endo Structure',
-          desc: 'Human agency at the centre of the complex emergence model, within the membrane of the self, and each of the eight structures around it: extended outward from human agency, and internalised by it as a source of conditioning.'
+          desc: 'Human agency at the centre of the complex emergence model, within the membrane of the self, and each of the eight structures around it. Every structure is at once <em>exo</em> &ndash; an extended phenotype or prosthesis, built outward from human agency &ndash; and <em>endo</em> &ndash; internalised, shaping that agency from within.'
         },
         integral: {
           title: 'Integral Model: Four Quadrants',
@@ -4316,7 +4315,7 @@
         // how far the panel drops to sit level with the diagram
         var grid = root.querySelector('.md-agency-grid');
         function setDrop() {
-          var intro = root.querySelector('.md-agency-intro');
+          var intro = root.querySelector('.md-agency-scene');
           grid.style.setProperty('--drop', (svg.getBoundingClientRect().top - intro.getBoundingClientRect().top) + 'px');
         }
         setDrop();
