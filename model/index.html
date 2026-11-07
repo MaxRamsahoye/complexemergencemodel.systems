@@ -570,8 +570,15 @@
       padding: 72px 24px;
     }
 
+    /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(100%, 1100px, calc((100svh - 144px) * 1.16));
+      width: min(75%, 825px, calc((100svh - 144px) * 0.87));
+    }
+
+    @media (max-width: 900px) {
+      .md-scene .md-svg {
+        width: min(100%, calc((100svh - 144px) * 0.87));
+      }
     }
 
     /* the list and description, centred as a column; they start at a fixed
@@ -583,6 +590,56 @@
       width: min(100%, 620px);
       margin: 0 auto;
       padding: max(96px, 16vh) 0 96px;
+    }
+
+    /* where there is room, the description beside the list, on its left */
+    @media (min-width: 901px) {
+      .md-side {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas: 'detail list';
+        column-gap: 64px;
+        align-items: start;
+        /* wider than the page's text column, centred in the window */
+        --side-w: min(1100px, calc(100vw - 96px));
+        width: var(--side-w);
+        margin-left: calc((100% - var(--side-w)) / 2);
+      }
+
+      .md-side .md-list {
+        grid-area: list;
+      }
+
+      .md-side .md-detail {
+        grid-area: detail;
+        margin-top: 0;
+      }
+    }
+
+    /* 1. a down arrow midway between the introduction and the foot of the
+       first screen, to the diagram */
+    .md-top {
+      position: relative;
+    }
+
+    .md-down {
+      position: absolute;
+      left: 50%;
+      top: var(--down-y, 80%);
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--canvas-ink);
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+
+    .md-down svg {
+      display: block;
+      width: 32px;
+      height: 32px;
     }
 
   </style>
@@ -599,6 +656,11 @@
     <div class="md-top wide-top">
     <h1 class="page-title"><a class="heading-link title-top" href="#">The Complex Emergence Model</a></h1>
     <p class="page-intro md-intro">An elaboration of <a class="plain-link" href="../sources/#schmachtenberger-emergence">Schmachtenberger&rsquo;s</a> framework of civilisational structures: a modified version, called the complex emergence model for differentiation, that in effect doubles the number of structures, to eight.</p>
+    <button class="md-down" type="button" aria-label="Down to the diagram">
+      <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
+        <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
+      </svg>
+    </button>
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
@@ -780,7 +842,10 @@
       var RUN = ['ecostructure', 'biostructure', 'infrastructure', 'interstructure', 'substructure', 'superstructure', 'metastructure'];
       function settle() { ready = true; figure.classList.add('ready'); show(locked); }
       show('');
+      var started = false;
       function run() {
+        if (started) return;
+        started = true;
         RUN.forEach(function (key, i) {
           setTimeout(function () { show(key); if (window.ttNodeSound) window.ttNodeSound(i); }, i * 1300);
         });
@@ -788,19 +853,46 @@
       }
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) settle();
       // the diagram has a screen of its own below the title: the run plays
-      // once it has scrolled well into view, a moment after it arrives
+      // only once that screen is all but fully in view, a moment after
       else if ('IntersectionObserver' in window) {
         var seen = new IntersectionObserver(function (entries) {
           if (!entries.some(function (e) { return e.isIntersecting; })) return;
           seen.disconnect();
           setTimeout(run, 500);
-        }, { threshold: 0.5 });
+        }, { threshold: 0.85 });
         seen.observe(document.querySelector('.md-scene'));
+        // arriving at the list before the run has begun (having scrolled
+        // past the diagram), the diagram is simply ready, without its run
+        var skipped = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          skipped.disconnect();
+          if (!started) { started = true; seen.disconnect(); settle(); }
+        }, { threshold: 0.5 });
+        skipped.observe(document.querySelector('.md-side'));
       }
       else setTimeout(run, 900);
     })();
   </script>
 
+
+  <script>
+    // the down arrow: midway between the introduction and the foot of the
+    // first screen; it glides to the diagram's screen
+    (function () {
+      var top = document.querySelector('.md-top'), intro = top.querySelector('.md-intro');
+      var btn = top.querySelector('.md-down'), scene = document.querySelector('.md-scene');
+      function place() {
+        var t = top.getBoundingClientRect(), i = intro.getBoundingClientRect();
+        top.style.setProperty('--down-y', ((i.bottom - t.top + t.height) / 2) + 'px');
+      }
+      place();
+      window.addEventListener('resize', place);
+      if (document.fonts) document.fonts.ready.then(place);
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: scene.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      });
+    })();
+  </script>
 
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
