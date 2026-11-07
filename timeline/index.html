@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A timeline of the major technological transitions discussed in A Multi-Agent Model of Major Technological Transitions.">
+  <meta name="description" content="The intellectual genealogy of The Complex Emergence Model: five models of how a civilisation is structured, from Marx to Ramsahoye.">
   <link id="favicon-ico" rel="icon" href="../favicon/favicon-light.ico" sizes="any">
   <link id="favicon-32" rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32-light.png">
   <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="../favicon/favicon-192-light.png">
@@ -39,7 +39,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
   <meta property="og:title" content="Timelines — Complex Emergence">
-  <meta property="og:description" content="A timeline of the major technological transitions discussed in A Multi-Agent Model of Major Technological Transitions.">
+  <meta property="og:description" content="The intellectual genealogy of The Complex Emergence Model: five models of how a civilisation is structured, from Marx to Ramsahoye.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/timeline/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
   <meta property="og:image:width" content="1200">
@@ -1122,1217 +1122,144 @@
   <main class="page-main">
     <div class="timeline-top wide-top on-band">
     <h1 class="page-title"><a class="heading-link title-top" href="#">Timelines</a></h1>
-    <p class="page-intro">The historical developmental process discussed in <a class="plain-link" href="../"><em>A Multi-Agent Model of Major Technological Transitions</em></a>.</p>
+    <p class="page-intro">The intellectual genealogy of <a class="plain-link" href="../"><em>The Complex Emergence Model</em></a>.</p>
     <nav class="mini-timeline" aria-label="Eras"><ol></ol></nav>
     <div class="mini-panel" aria-live="polite">
-      <div class="mini-overview show"><p class="mini-overview-text">This timeline traces eight transitions, from the first abstract thought to the first artificial minds. Each began with a new technology stack: a set of tools and techniques that gave the groups adopting it a decisive advantage. Competitive pressure then spread it, as rivals were forced to adapt or be overtaken, and in spreading it remade their cultural psychology &ndash; and, from the Agricultural Revolution onward, political economy, the state and the market from proto-forms to modern institutions. The process is structurally driven, but since the rise of complex, hierarchical civilisation it has been enacted at every transitional stage by the decisions of the power-elite.</p><p class="mini-count" data-total></p></div>
-    </div>
-    <nav class="mini-timeline mini-domains" aria-label="Domains"><ol></ol></nav>
-    <div class="mini-panel domains-panel" aria-live="polite">
-      <div class="mini-overview show"><p class="mini-overview-text">Every transition reshaped four domains of civilisation at once. Military-economic adaptation is the edge a new technology stack gives the groups that adopt it, and the pressure it puts on every rival to follow. Cultural-psychological adaptation is how the worldview, values and inner life of those groups change in turn. The state and the market are the institutions that organise power and exchange: absent among hunter-gatherers, they emerged in proto-form with the Agricultural and Urban Revolutions and have been remade by every transition since.</p><p class="mini-count" data-domain-total>4 domains &middot; 8 eras</p></div>
-    </div>
-    <div class="view-tabs" role="tablist" aria-label="Views">
-      <button type="button" role="tab" aria-selected="true" data-view="eras">By era</button>
-      <button type="button" role="tab" aria-selected="false" data-view="domains">By domain</button>
+      <div class="mini-overview show"><p class="mini-overview-text">Five models of how a civilisation is structured, from Marx&rsquo;s base and superstructure to the Complex Emergence Model. Each divides a society into interacting layers &ndash; material, institutional and cultural &ndash; and each builds on, or answers, those before it.</p><p class="mini-count" data-total></p></div>
     </div>
     </div>
 
-    <div class="aspects" role="tabpanel"></div>
-
-    <!-- events shown only in the domain timelines: data-era is the era they
-         fall under, data-domains the domains (m military-economic,
-         c cultural-psychological, s the state, k the market) -->
-    <template class="domain-events">
-      <li class="era sub" data-era="urban-revolution" data-domains="m">
-        <p class="era-date">9th century BCE onward</p>
-        <h3 class="era-name">Siege Warfare</h3>
-        <p class="era-note">The Assyrian army brings battering rams, siege towers and sappers against walled cities &ndash; turning the fortified city, the agrarian state&rsquo;s answer to raiding, into something a larger state could break, and conquest into a matter of engineering and logistics.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="s">
-        <p class="era-date">1215</p>
-        <h3 class="era-name">The Magna Carta &amp; the Rule of Law</h3>
-        <p class="era-note">English barons force King John to accept limits on royal power &ndash; no taxation without the consent of the realm, no imprisonment without lawful judgement &ndash; an early charter of the principle that the ruler is bound by law.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="c">
-        <p class="era-date">Late 18th century onward</p>
-        <h3 class="era-name">Modernism &amp; the Enlightenment</h3>
-        <p class="era-note">The break with tradition brought by industrialisation, the democratic revolutions and the Enlightenment: a world understood as made rather than given, organised around reason, progress, the individual and the nation &ndash; in which &ldquo;all that is solid melts into air&rdquo;.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="k">
-        <p class="era-date">1844 &ndash; 1886</p>
-        <h3 class="era-name">Corporate Personhood &amp; Limited Liability</h3>
-        <p class="era-note">Britain&rsquo;s Joint Stock Companies Acts let companies form by simple registration and, from 1855, with limited liability; in the United States, <em>Santa Clara County v. Southern Pacific Railroad</em> (1886) was taken to give corporations the rights of persons &ndash; the corporation as a legal actor in its own right.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="s">
-        <p class="era-date">1920</p>
-        <h3 class="era-name">The League of Nations &amp; Collective Security</h3>
-        <p class="era-note">Founded after the First World War to keep the peace through collective security and arbitration &ndash; the first standing body of international governance, which failed to stop the aggression of the 1930s but set the model for the United Nations.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="k">
-        <p class="era-date">1970</p>
-        <h3 class="era-name">Shareholder Value &amp; the Primacy of Profit</h3>
-        <p class="era-note">Milton Friedman&rsquo;s essay &ldquo;The Social Responsibility of Business Is to Increase Its Profits&rdquo; gives the doctrine its creed: the firm exists to maximise returns to its owners &ndash; a principle that came to govern corporate strategy, executive pay and the financialised economy.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="c">
-        <p class="era-date">1979</p>
-        <h3 class="era-name">Postmodernism &amp; the End of Grand Narratives</h3>
-        <p class="era-note">In <em>The Postmodern Condition</em>, Jean-Fran&ccedil;ois Lyotard describes an &ldquo;incredulity toward metanarratives&rdquo;: the grand stories of progress, reason and emancipation lose their hold, giving way to fragmented, relative and media-saturated identities.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="m">
-        <p class="era-date">1989</p>
-        <h3 class="era-name">Fourth-Generation Warfare &amp; the Rise of Non-State Actors</h3>
-        <p class="era-note">Military theorists name a new kind of conflict in which states fight non-state actors &ndash; insurgents, terrorists and networks &ndash; and the lines between war and politics, soldier and civilian, blur: the characteristic form of war after the Cold War.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="m">
-        <p class="era-date">c. 50,000 BCE onward</p>
-        <h3 class="era-name">Cooperative Big-Game Hunting</h3>
-        <p class="era-note">Bands coordinate to drive, ambush and kill mammoth, bison and other megafauna &ndash; the larger and better-organised the group, the bigger the prey it could take, and the more it could feed.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="m">
-        <p class="era-date">c. 13,000 BCE</p>
-        <h3 class="era-name">Jebel Sahaba &amp; Recurring Conflict over Scarce Land</h3>
-        <p class="era-note">In a cemetery by the Nile in Sudan, many of the dead bear the wounds of arrows and blades, some healed and some fatal &ndash; not a single battle but repeated violence between groups over many years, as a changing climate pressed them together on the river&rsquo;s scarce, fertile land.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="m">
-        <p class="era-date">c. 8000 BCE</p>
-        <h3 class="era-name">The Nataruk Massacre &amp; War before Civilisation</h3>
-        <p class="era-note">By Lake Turkana in Kenya, a group of foragers &ndash; men, women and children &ndash; are killed together with clubs and arrows: evidence that war between groups was waged by nomadic hunter-gatherers too, and was not only an invention of settled, farming societies.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="m">
-        <p class="era-date">c. 2000 BCE</p>
-        <h3 class="era-name">The Chariot</h3>
-        <p class="era-note">The light, spoke-wheeled war chariot spreads from the steppe to Egypt, the Near East, India and China &ndash; the decisive weapon of the Bronze Age, and the mark of a warrior aristocracy.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="m">
-        <p class="era-date">1206 &ndash; 1368</p>
-        <h3 class="era-name">The Mongol Conquests &amp; the Peak of Steppe Power</h3>
-        <p class="era-note">Mounted archers under Genghis Khan and his heirs build the largest contiguous land empire in history, from Korea to Hungary &ndash; the high point of steppe power over settled agrarian states.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="m">
-        <p class="era-date">1453</p>
-        <h3 class="era-name">The Fall of Constantinople &amp; the End of the Walled City</h3>
-        <p class="era-note">Ottoman cannon breach the Theodosian Walls that had held for a thousand years &ndash; showing that gunpowder had made the walled city, the defence of the agrarian age, obsolete.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="m">
-        <p class="era-date">17th &ndash; 18th centuries</p>
-        <h3 class="era-name">The Fiscal-Military State &amp; War Paid for by Finance</h3>
-        <p class="era-note">States that could tax, borrow and repay could keep standing armies and navies in the field; war drove the growth of finance and bureaucracy, and finance decided the outcome of war.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="m">
-        <p class="era-date">17th century onward</p>
-        <h3 class="era-name">The Ship of the Line &amp; Command of the Oceans</h3>
-        <p class="era-note">Wooden sailing warships carrying rows of heavy guns give the European powers command of the oceans &ndash; and with it of the trade routes, colonies and wealth of a world economy.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="m">
-        <p class="era-date">1793</p>
-        <h3 class="era-name">The <em>Lev&eacute;e en Masse</em> &amp; the Nation in Arms</h3>
-        <p class="era-note">Revolutionary France conscripts its whole population into the war effort &ndash; the birth of the mass citizen army, and of war waged by entire nations.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="m">
-        <p class="era-date">1839 &ndash; 1842</p>
-        <h3 class="era-name">The Opium Wars &amp; Gunboat Diplomacy</h3>
-        <p class="era-note">British steam-powered gunboats force Qing China to open its ports to trade, including in opium &ndash; industrial power overrunning the oldest agrarian empire, and the beginning of China&rsquo;s &ldquo;century of humiliation&rdquo;.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="m">
-        <p class="era-date">1861 &ndash; 1865</p>
-        <h3 class="era-name">The American Civil War: the First Industrial War</h3>
-        <p class="era-note">Railways, the telegraph, rifled arms and ironclad ships decide a war of industrial capacity as much as of battles &ndash; the first industrial war, and a preview of the century to come.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="m">
-        <p class="era-date">1906 onward</p>
-        <h3 class="era-name">The Dreadnought Arms Race &amp; the Road to the First World War</h3>
-        <p class="era-note">Britain&rsquo;s all-big-gun battleship makes every other warship obsolete overnight and sets off a naval race with Germany &ndash; one of the rivalries that led to the First World War.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="m">
-        <p class="era-date">1939 &ndash; 1940</p>
-        <h3 class="era-name">Blitzkrieg (Lightning) &amp; Mechanised War</h3>
-        <p class="era-note">Tanks, aircraft and radio combined into fast-moving, concentrated attacks overrun Poland and France in weeks &ndash; mechanised war, coordinated by communications.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="m">
-        <p class="era-date">1940 &ndash; 1945</p>
-        <h3 class="era-name">Total War, Strategic Bombing &amp; the City as Target</h3>
-        <p class="era-note">Fleets of bombers attack cities, factories and transport &ndash; making the civilian economy and its workforce the target, and ending in the firebombing of Hamburg, Dresden and Tokyo.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="m">
-        <p class="era-date">1960s onward</p>
-        <h3 class="era-name">Mutually Assured Destruction &amp; Peace by Deterrence</h3>
-        <p class="era-note">Nuclear deterrence as a doctrine: each superpower able to destroy the other even after being struck first, and stability resting on the shared threat of annihilation.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="m">
-        <p class="era-date">2010</p>
-        <h3 class="era-name">Stuxnet &amp; the First Cyberweapon</h3>
-        <p class="era-note">A computer worm, widely attributed to the United States and Israel, sabotages the centrifuges of Iran&rsquo;s nuclear programme &ndash; the first known cyberweapon to cause physical destruction.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="m">
-        <p class="era-date">2017</p>
-        <h3 class="era-name">Project Maven &amp; the Militarisation of AI</h3>
-        <p class="era-note">The Pentagon&rsquo;s programme to use machine learning to analyse drone surveillance footage &ndash; the first major military AI project, and the subject of protests by Google employees that led the company to withdraw.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="m">
-        <p class="era-date">2022 onward</p>
-        <h3 class="era-name">Ukraine &amp; Mass-Produced Drone Warfare</h3>
-        <p class="era-note">Cheap drones, made by the million, transform the battlefield &ndash; for reconnaissance, artillery spotting and strikes &ndash; with growing autonomy in navigation and targeting as both sides race to counter jamming.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="m">
-        <p class="era-date">2023 onward</p>
-        <h3 class="era-name">Israeli AI Targeting Systems: Autonomous Killing Machines</h3>
-        <p class="era-note">In the war in Gaza the Israeli military uses AI to generate targets at a speed and scale beyond human analysts. Investigations by <em>+972 Magazine</em> and <em>Local Call</em> report the Gospel recommending buildings and infrastructure to strike, and Lavender marking tens of thousands of individuals as suspected militants, with, according to sources, only cursory human review; later reporting on leaked documents describes Server in the Sky, an AI computer carried on drones that analyses their sensor data, classifies targets and passes them on to commanders and forces. Together they raise the question of how much human judgement remains in lethal decisions.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="c">
-        <p class="era-date">c. 100,000 BCE onward</p>
-        <h3 class="era-name">Burial Rites &amp; Belief in an Afterlife</h3>
-        <p class="era-note">At Qafzeh and Skhul, in what is now Israel, the dead are laid in graves with red ochre, shells and animal remains &ndash; among the first signs of a belief that something of a person continues beyond death.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="c">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h3 class="era-name">Animism &amp; a World Alive with Spirit</h3>
-        <p class="era-note">The worldview of foragers: animals, plants, rivers and places have souls and agency, and people are one kind of being among many &ndash; part of nature, bound to it by obligation, not set over it.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="c">
-        <p class="era-date">c. 9500 BCE</p>
-        <h3 class="era-name">G&ouml;bekli Tepe &amp; Religion before Civilisation</h3>
-        <p class="era-note">In southern Anatolia, hunter-gatherers raise great carved stone enclosures, centuries before farming reached the region &ndash; suggesting that shared ritual and gathering may have drawn people together before agriculture held them in place.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="c">
-        <p class="era-date">c. 3100 BCE</p>
-        <h3 class="era-name">Gods &amp; Kings: Divine Right</h3>
-        <p class="era-note">Egypt&rsquo;s pharaohs rule as living gods and Mesopotamia&rsquo;s kings as the chosen agents of the gods &ndash; turning the new hierarchy of the agrarian state into a sacred, cosmic order that it was impious to question.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="c">
-        <p class="era-date">c. 3000 BCE onward</p>
-        <h3 class="era-name">Patriarchy &amp; Inherited Property</h3>
-        <p class="era-note">With land, herds and houses to pass down, control of women&rsquo;s sexuality and of the line of inheritance becomes central to the household and the state, and is written into the first law codes.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="c">
-        <p class="era-date">c. 600 BCE onward</p>
-        <h3 class="era-name">Monotheism &amp; the One True God</h3>
-        <p class="era-note">The faith of Israel in a single, universal and moral God, carried across the world by Christianity and Islam &ndash; a new basis for authority, law and identity, and for the conversion of whole peoples.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="c">
-        <p class="era-date">c. 1350 &ndash; 1550</p>
-        <h3 class="era-name">Humanism &amp; the Dignity of Man</h3>
-        <p class="era-note">Renaissance scholars recover the classical past and set human reason, learning and achievement at the centre of their concerns, rather than the life to come &ndash; the individual as maker of their own destiny.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="c">
-        <p class="era-date">1543</p>
-        <h3 class="era-name">The Copernican Revolution &amp; the Decentred Earth</h3>
-        <p class="era-note">Copernicus places the Sun, not the Earth, at the centre of the cosmos &ndash; and with it humanity loses its place at the centre of creation, the first of the great displacements of modern thought.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="c">
-        <p class="era-date">16th &ndash; 17th centuries</p>
-        <h3 class="era-name">The Protestant Work Ethic &amp; the Spirit of Capitalism</h3>
-        <p class="era-note">Diligence, thrift and success in a worldly calling are read as signs of God&rsquo;s grace &ndash; in Max Weber&rsquo;s account, the moral discipline that made the accumulation of capital a duty rather than a sin.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="c">
-        <p class="era-date">c. 1800 &ndash; 1850</p>
-        <h3 class="era-name">Romanticism &amp; the Revolt Against Reason</h3>
-        <p class="era-note">Poets, painters and philosophers set feeling, imagination, nature and the individual genius against the machine, the city and the cold rationality of the Enlightenment &ndash; the first cultural reaction to industrial society.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="c">
-        <p class="era-date">19th century</p>
-        <h3 class="era-name">Nationalism &amp; the Imagined Community</h3>
-        <p class="era-note">Print, mass schooling and conscription forge a loyalty to the nation &ndash; a community of strangers who imagine themselves as one &ndash; in place of older attachments to locality, dynasty and faith.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="c">
-        <p class="era-date">1899</p>
-        <h3 class="era-name">Psychoanalysis &amp; the Unconscious Mind</h3>
-        <p class="era-note">Freud&rsquo;s <em>The Interpretation of Dreams</em> pictures a self driven by desires it cannot see &ndash; an idea soon put to work by advertisers and propagandists to move people below the level of reason.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="c">
-        <p class="era-date">1928</p>
-        <h3 class="era-name">Propaganda &amp; the Manufacturing of Consent</h3>
-        <p class="era-note">Edward Bernays, Freud&rsquo;s nephew, applies psychology to mass persuasion in <em>Propaganda</em>: the &ldquo;conscious and intelligent manipulation&rdquo; of the public&rsquo;s habits and opinions, to sell both products and policies.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="c">
-        <p class="era-date">1920s onward</p>
-        <h3 class="era-name">Consumerism &amp; Identity Through Products</h3>
-        <p class="era-note">Mass production needs mass desire: advertising, credit and planned obsolescence teach people to define themselves by what they buy, and to find meaning and status in consumption.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="c">
-        <p class="era-date">1950s</p>
-        <h3 class="era-name">Television &amp; the Mass Audience</h3>
-        <p class="era-note">A screen in nearly every home creates a shared national culture and a single mass audience &ndash; its attention measured, packaged and sold to advertisers.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="c">
-        <p class="era-date">1968</p>
-        <h3 class="era-name">The Counter-Culture and the Expressive Self</h3>
-        <p class="era-note">A generation revolts against authority, conformity and war in the name of freedom and self-expression &ndash; an individualism later absorbed by consumer culture and the market.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="c">
-        <p class="era-date">2017 onward</p>
-        <h3 class="era-name">Synthetic Media &amp; the Collapse of Shared Reality</h3>
-        <p class="era-note">Deepfakes and AI-generated text, images and voices make almost anything fakeable &ndash; eroding trust in what is seen and heard, and with it the common ground on which public debate depends.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="c">
-        <p class="era-date">2023 onward</p>
-        <h3 class="era-name">Automation Anxiety &amp; the Meaning of Work</h3>
-        <p class="era-note">AI that can write, code, design and advise threatens not only manual and routine jobs but professional and creative work &ndash; and with it the identity, status and sense of purpose that people in industrial and post-industrial societies have found in their work.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="c">
-        <p class="era-date">2023 onward</p>
-        <h3 class="era-name">Rising AI Power: Superintelligence &amp; The Stature of Man</h3>
-        <p class="era-note">The leading labs openly pursue superintelligence &ndash; minds that would surpass ours in every domain. In &ldquo;The Conquest of Space and the Stature of Man&rdquo; (1963), Hannah Arendt asked whether humanity&rsquo;s technological triumphs had raised its stature or diminished it; the prospect of creating a greater intelligence than our own asks the question again, and more sharply.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="s">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h3 class="era-name">The Reverse Dominance Hierarchy &amp; Egalitarian Order</h3>
-        <p class="era-note">Foragers band together to keep any would-be leader from dominating the group &ndash; not an absence of politics but an active politics of equality, in which the many hold down the ambitious few.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="s">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h3 class="era-name">Ridicule, Exile &amp; Execution: Policing the Would-Be Tyrant</h3>
-        <p class="era-note">The sanctions that kept bands equal: the boastful are mocked, the bully shunned, the persistent upstart driven out and, at the extreme, killed by the group acting together.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="s">
-        <p class="era-date">c. 9000 BCE onward</p>
-        <h3 class="era-name">Big Men, Chiefs &amp; the Eve of the State</h3>
-        <p class="era-note">As people settle and surpluses grow, influential &ldquo;big men&rdquo; win followings through feasts and gifts, and then hereditary chiefs emerge &ndash; authority beginning to be held, and inherited, rather than earned.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="s">
-        <p class="era-date">c. 1754 BCE</p>
-        <h3 class="era-name">The Code of Hammurabi &amp; Written Law</h3>
-        <p class="era-note">The Babylonian king has some three hundred laws carved in stone and set up for all to see &ndash; justice codified from above, fixing property, hierarchy and punishment, with different penalties for nobles, commoners and slaves.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="s">
-        <p class="era-date">221 BCE</p>
-        <h3 class="era-name">The Qin Unification &amp; Legalist Statecraft</h3>
-        <p class="era-note">The Qin conquer the warring states and create China&rsquo;s first empire, ruled by Legalist doctrine through standard laws, weights, coinage and script and a salaried bureaucracy &ndash; the model of the centralised state for two thousand years.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="s">
-        <p class="era-date">1513</p>
-        <h3 class="era-name">Machiavelli&rsquo;s <em>The Prince</em> &amp; Realpolitik</h3>
-        <p class="era-note">Machiavelli advises rulers on how power is won and kept as it really is, not as it ought to be &ndash; politics freed from morality, and the state&rsquo;s survival its own justification.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="s">
-        <p class="era-date">1651</p>
-        <h3 class="era-name">Hobbes&rsquo;s <em>Leviathan</em> &amp; the Social Contract</h3>
-        <p class="era-note">Written amid civil war: without a sovereign, life is a war of all against all, &ldquo;solitary, poor, nasty, brutish, and short&rdquo; &ndash; so people give up their liberty to an absolute power in exchange for peace and security.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="s">
-        <p class="era-date">1661 &ndash; 1715</p>
-        <h3 class="era-name">Absolutism: <em>L&rsquo;&Eacute;tat, c&rsquo;est moi</em></h3>
-        <p class="era-note">Louis XIV gathers all power into the Crown, tames the nobility at Versailles and rules through a centralised bureaucracy and standing army &ndash; the model of the absolute monarch across Europe.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="s">
-        <p class="era-date">1804</p>
-        <h3 class="era-name">The Napoleonic Code &amp; the Modern Legal State</h3>
-        <p class="era-note">A single, rational body of civil law &ndash; equality before the law, secure property, freedom of contract &ndash; replacing feudal privilege, and carried across Europe by Napoleon&rsquo;s armies.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="s">
-        <p class="era-date">1815</p>
-        <h3 class="era-name">The Congress of Vienna &amp; the Balance of Power</h3>
-        <p class="era-note">After Napoleon&rsquo;s defeat the great powers redraw the map of Europe so that no single state can dominate it &ndash; an order that kept the peace between them, mostly, for a century.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="s">
-        <p class="era-date">1871</p>
-        <h3 class="era-name">German Unification &amp; the Nation-State</h3>
-        <p class="era-note">Prussia forges a German empire &ldquo;by blood and iron&rdquo; &ndash; a new industrial great power at the heart of Europe, which upset the balance struck at Vienna.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="s">
-        <p class="era-date">1883 &ndash; 1889</p>
-        <h3 class="era-name">Bismarck&rsquo;s Social Insurance &amp; the Birth of the Welfare State</h3>
-        <p class="era-note">Germany introduces sickness, accident and old-age insurance for workers &ndash; giving them a stake in the state and drawing them away from socialism, and setting the pattern for the welfare state.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="s">
-        <p class="era-date">1920s &ndash; 1950s</p>
-        <h3 class="era-name">Totalitarianism &amp; the Total State</h3>
-        <p class="era-note">Fascist Italy, Nazi Germany and the Stalinist Soviet Union claim every part of life &ndash; using mass media, a single party, secret police and terror to remake society around an ideology.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="s">
-        <p class="era-date">1945</p>
-        <h3 class="era-name">The United Nations &amp; the Post-War Order</h3>
-        <p class="era-note">Founded to prevent another world war, with a Security Council on which the victorious great powers hold a veto &ndash; the framework of international order through the Cold War and after.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="s">
-        <p class="era-date">1945 &ndash; 1975</p>
-        <h3 class="era-name">Decolonisation &amp; the Global Nation-State</h3>
-        <p class="era-note">The European empires dissolve across Asia and Africa, and dozens of new states join the United Nations &ndash; the nation-state becoming the form of political life across the whole world.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="s">
-        <p class="era-date">1961</p>
-        <h3 class="era-name">The Military-Industrial Complex &amp; the National Security State</h3>
-        <p class="era-note">In his farewell address, President Eisenhower warns of the permanent alliance of the armed forces and the arms industry &ndash; the structure that paid for computing, the internet and much of the digital revolution.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="s">
-        <p class="era-date">2023</p>
-        <h3 class="era-name">The Bletchley Declaration &amp; the First AI Safety Summit</h3>
-        <p class="era-note">At Bletchley Park, twenty-eight countries &ndash; including the United States and China &ndash; agree that frontier AI could cause serious, even catastrophic, harm, and commit to cooperate on its risks.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="s">
-        <p class="era-date">2023</p>
-        <h3 class="era-name">The US Executive Order on AI &amp; Federal Oversight</h3>
-        <p class="era-note">President Biden&rsquo;s executive order sets the first broad federal rules for frontier AI, requiring developers to share safety tests with the government &ndash; revoked in January 2025 in favour of the race to lead.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="s">
-        <p class="era-date">2024</p>
-        <h3 class="era-name">The EU AI Act &amp; the First AI Law</h3>
-        <p class="era-note">The European Union adopts the first comprehensive law on AI, regulating systems according to their risk &ndash; banning some uses outright and placing obligations on the makers of the most powerful models.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="k">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h3 class="era-name">The Gift Economy &amp; Reciprocity</h3>
-        <p class="era-note">Among foragers, goods move as gifts that create obligations and bind people together over time &ndash; exchange as a social relationship, not a transaction between strangers.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="k">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h3 class="era-name">Demand Sharing &amp; the Duty to Give</h3>
-        <p class="era-note">A forager can ask for a share of what another has, and to refuse is shameful &ndash; so food and goods flow to where they are needed, and no one can hoard or grow rich.</p>
-      </li>
-      <li class="era sub" data-era="cognitive-revolution" data-domains="k">
-        <p class="era-date">c. 40,000 BCE onward</p>
-        <h3 class="era-name">Shell &amp; Obsidian: the First Long-Distance Exchange</h3>
-        <p class="era-note">Marine shells and fine stone travel hundreds of kilometres inland, passed from group to group &ndash; the first networks of exchange, binding distant bands through gifts and trade.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="k">
-        <p class="era-date">c. 3000 BCE</p>
-        <h3 class="era-name">Debt &amp; Interest: the First Loans</h3>
-        <p class="era-note">Mesopotamian temples and palaces lend barley and silver at interest &ndash; and debt becomes a means of control, as farmers who cannot repay forfeit their land, their children and themselves.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="k">
-        <p class="era-date">c. 2400 BCE onward</p>
-        <h3 class="era-name">Debt Jubilees &amp; the Clean Slate</h3>
-        <p class="era-note">Mesopotamian kings periodically cancel debts and free those held in debt bondage &ndash; restoring the farmers on whom the army and the harvest depended before debt could reduce them to servitude.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="k">
-        <p class="era-date">c. 130 BCE onward</p>
-        <h3 class="era-name">The Silk Road &amp; Long-Distance Trade</h3>
-        <p class="era-note">Overland routes link China, Central Asia, India, Persia and Rome, carrying silk, spices and precious metals &ndash; and with them religions, technologies and disease &ndash; between the great agrarian civilisations.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="k">
-        <p class="era-date">1494</p>
-        <h3 class="era-name">Double-Entry Bookkeeping &amp; the Rational Firm</h3>
-        <p class="era-note">Luca Pacioli sets out the Venetian method of recording every transaction as a debit and a credit &ndash; making profit something that can be precisely calculated, and so systematically pursued.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="k">
-        <p class="era-date">1602</p>
-        <h3 class="era-name">The Dutch East India Company &amp; the Joint-Stock Corporation</h3>
-        <p class="era-note">The first publicly traded company, with its shares traded on the first stock exchange in Amsterdam &ndash; and its own army, navy and right to wage war and make treaties across Asia.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="k">
-        <p class="era-date">1694</p>
-        <h3 class="era-name">The Bank of England &amp; the National Debt</h3>
-        <p class="era-note">A private bank founded to lend to the Crown to pay for war, its loans repaid from taxes &ndash; binding finance and the state together, and letting Britain borrow its way to empire.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="k">
-        <p class="era-date">1821</p>
-        <h3 class="era-name">The Gold Standard &amp; Global Money</h3>
-        <p class="era-note">Britain ties the pound to a fixed weight of gold, and much of the world follows by the 1870s &ndash; the monetary system of the first globalisation, with London at its centre.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="k">
-        <p class="era-date">1846</p>
-        <h3 class="era-name">The Repeal of the Corn Laws &amp; Free Trade</h3>
-        <p class="era-note">Britain abolishes its tariffs on imported grain &ndash; a victory of the industrialists over the landed aristocracy, and the start of free trade as the doctrine of the industrial age.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="k">
-        <p class="era-date">1890</p>
-        <h3 class="era-name">The Sherman Antitrust Act &amp; the Trust-Busters</h3>
-        <p class="era-note">The United States outlaws monopolies and conspiracies in restraint of trade &ndash; the basis for breaking up the giant trusts, above all Standard Oil in 1911.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="k">
-        <p class="era-date">1911</p>
-        <h3 class="era-name">Scientific Management &amp; the Measured Worker</h3>
-        <p class="era-note">Frederick Taylor&rsquo;s <em>The Principles of Scientific Management</em>: every task timed, broken down and standardised by managers &ndash; the worker made a component of the production line.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="k">
-        <p class="era-date">1936</p>
-        <h3 class="era-name">Keynes&rsquo;s <em>General Theory</em> &amp; the Managed Economy</h3>
-        <p class="era-note">John Maynard Keynes argues that markets do not right themselves, and that the state must manage demand to prevent mass unemployment &ndash; the basis of economic policy for the post-war decades.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="k">
-        <p class="era-date">1971</p>
-        <h3 class="era-name">The Nixon Shock &amp; Fiat Money</h3>
-        <p class="era-note">The United States ends the convertibility of the dollar into gold, closing the Bretton Woods system &ndash; money backed by the state alone, and the beginning of floating currencies and the rise of global finance.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="k">
-        <p class="era-date">2008</p>
-        <h3 class="era-name">The 2008 Financial Crisis &amp; Too Big to Fail</h3>
-        <p class="era-note">The collapse of the US housing bubble brings down banks across the world, which governments rescue at enormous public cost &ndash; private risk becoming public debt, followed by a decade of austerity.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="k">
-        <p class="era-date">2010s</p>
-        <h3 class="era-name">Platform Capitalism &amp; the Winner-Takes-All Market</h3>
-        <p class="era-note">Google, Amazon, Facebook and Apple become the marketplaces and gatekeepers of the digital economy &ndash; owning the platforms on which others trade, and the data generated by their users.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="k">
-        <p class="era-date">2023 onward</p>
-        <h3 class="era-name">Training Data &amp; the Enclosure of the Digital Commons</h3>
-        <p class="era-note">AI firms take the writing, art and code of the open internet as raw material for their models, and the lawsuits over copyright follow &ndash; the shared work of millions turned into private capital.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="k">
-        <p class="era-date">2023 onward</p>
-        <h3 class="era-name">The Hyperscaler Build-Out &amp; Compute as Capital</h3>
-        <p class="era-note">Microsoft, Google, Amazon and Meta pour hundreds of billions of dollars a year into data centres, chips and power &ndash; compute becoming the decisive form of capital in the AI economy.</p>
-      </li>
-      <li class="era sub" data-era="intelligence-revolution" data-domains="k">
-        <p class="era-date">2024</p>
-        <h3 class="era-name">Nvidia &amp; the AI Gold Rush</h3>
-        <p class="era-note">The maker of the chips that train and run AI models briefly becomes the world&rsquo;s most valuable company &ndash; the seller of picks and shovels in the AI gold rush.</p>
-      </li>
-      <li class="era sub" data-era="urban-revolution" data-domains="s">
-        <p class="era-date">c. 3000 BCE onward</p>
-        <h3 class="era-name">The Administrative State &amp; Bureaucracy</h3>
-        <p class="era-note">Scribes, officials and archives record land, harvests, labour and taxes, so that a ruler can know and govern far more than any one person could oversee &ndash; from the temple records of Sumer and the viziers of Egypt to China&rsquo;s imperial civil service, chosen by examination.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="c">
-        <p class="era-date">c. 9000 BCE onward</p>
-        <h3 class="era-name">Ancestor Worship &amp; the Claim to Land</h3>
-        <p class="era-note">At Jericho and &Ccedil;atalh&ouml;y&uuml;k the dead are buried beneath the floors of houses, and plastered skulls are kept and displayed &ndash; descent from the ancestors becoming a family&rsquo;s title to its home and its land.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="c">
-        <p class="era-date">c. 7000 BCE onward</p>
-        <h3 class="era-name">The Mother Goddess &amp; the Cult of Fertility</h3>
-        <p class="era-note">Figurines such as the Seated Woman of &Ccedil;atalh&ouml;y&uuml;k suggest a religious life centred on fertility &ndash; of fields, of herds and of women &ndash; on which the farming household now depended.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="c">
-        <p class="era-date">c. 9000 BCE onward</p>
-        <h3 class="era-name">Mine &amp; Ours: the Origins of Possessiveness</h3>
-        <p class="era-note">Stored grain and owned herds turn the forager&rsquo;s duty to share into the farmer&rsquo;s right to keep &ndash; and with property come envy, theft, hoarding and the pursuit of status through wealth.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="c">
-        <p class="era-date">c. 10,000 BCE onward</p>
-        <h3 class="era-name">The Original Affluent Society Lost: Toil &amp; the Fall from Eden</h3>
-        <p class="era-note">Early farmers worked longer, ate a poorer diet and were less healthy than the foragers before them &ndash; a loss that the story of the Garden of Eden, and of Adam condemned to till the ground, has been read as remembering.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="k">
-        <p class="era-date">c. 8500 BCE onward</p>
-        <h3 class="era-name">Livestock as Wealth: the First Capital</h3>
-        <p class="era-note">Herds of cattle, sheep and goats are wealth that breeds and multiplies of its own accord &ndash; the Latin <em>pecunia</em>, money, comes from <em>pecus</em>, livestock, and &ldquo;capital&rdquo; from <em>caput</em>, a head of cattle.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="k">
-        <p class="era-date">c. 8000 BCE onward</p>
-        <h3 class="era-name">Clay Tokens &amp; the First Accounts</h3>
-        <p class="era-note">Small clay tokens of different shapes are used across the Near East to count grain, oil and animals &ndash; the first system of accounting, and the ancestor of both money and writing.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="k">
-        <p class="era-date">c. 7000 BCE onward</p>
-        <h3 class="era-name">Obsidian &amp; the First Trade Routes</h3>
-        <p class="era-note">Volcanic glass from central Anatolia, prized for blades, is traded across the Near East &ndash; enriching the towns, such as &Ccedil;atalh&ouml;y&uuml;k, that controlled its sources.</p>
-      </li>
-      <li class="era sub" data-era="agricultural-revolution" data-domains="k">
-        <p class="era-date">c. 7000 BCE onward</p>
-        <h3 class="era-name">Bride-Wealth &amp; the Exchange of Women</h3>
-        <p class="era-note">Marriage becomes a transfer of property between families, with herds and goods given for a bride &ndash; and land, livestock and daughters alike become things to be held, exchanged and inherited.</p>
-      </li>
-      <li class="era sub" data-era="scientific-revolution" data-domains="c">
-        <p class="era-date">16th &ndash; 18th centuries</p>
-        <h3 class="era-name">Racialisation: Black Skin, White Masks</h3>
-        <p class="era-note">To justify the enslavement of Africans and the conquest of other peoples, Europeans divide humanity into races ranked by nature, with whiteness at the top &ndash; an ideology that outlived slavery and, as Frantz Fanon showed in <em>Black Skin, White Masks</em> (1952), was internalised by colonised and coloniser alike.</p>
-      </li>
-      <li class="era sub" data-era="digital-revolution" data-domains="c">
-        <p class="era-date">1989 &ndash; 1992</p>
-        <h3 class="era-name">The End of History: Capitalism as the Best of All Possible World-systems</h3>
-        <p class="era-note">As the Cold War ends, Francis Fukuyama argues that liberal democracy and the market economy may be the final form of human government &ndash; a belief, widely shared in the decades after, that there was no longer any alternative to the system that had won.</p>
-      </li>
-      <li class="era sub" data-era="industrial-revolution" data-domains="c">
-        <p class="era-date">1860s onward</p>
-        <h3 class="era-name">Social Darwinism &amp; the Survival of the Fittest</h3>
-        <p class="era-note">Herbert Spencer&rsquo;s &ldquo;survival of the fittest&rdquo; recasts evolution as a law of society &ndash; competition between individuals, classes, nations and races as natural and progressive, and the success of the strong as proof of their fitness: a justification for laissez-faire, empire and inequality.</p>
-      </li>
-      <li class="era sub" data-era="technological-revolution" data-domains="c">
-        <p class="era-date">1882</p>
-        <h3 class="era-name">Nietzsche &amp; the Death of God</h3>
-        <p class="era-note">&ldquo;God is dead &hellip; and we have killed him&rdquo;: in <em>The Gay Science</em>, Nietzsche diagnoses the collapse of religious certainty in a scientific, industrial age &ndash; and the danger of nihilism, and the task of creating values, that it leaves behind.</p>
-      </li>
-    </template>
 
     <nav class="mini-side" aria-label="Eras"><ol></ol></nav>
-    <nav class="mini-side domain-side" aria-label="Domains"><ol></ol></nav>
-    <button class="era-toggle era-toggle-all domain-toggle-all" type="button" aria-expanded="false"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">Expand all events</span></button>
-
-    <button class="era-toggle era-toggle-all" type="button" aria-expanded="false"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">Expand all events</span></button>
-
     <ol class="timeline">
-      <li class="era" id="cognitive-revolution" data-summary="Around seventy thousand years ago, Homo sapiens acquired the capacity for abstraction &ndash; to think about what is absent, imagined or possible &ndash; and with it foresight, strategy and design, complex language and shared myth. These stories allowed people to cooperate flexibly in groups far larger than any one person could know, and to pass knowledge down the generations. The result was the nomadic hunter-gatherer way of life: small, mobile and broadly egalitarian bands that endured for tens of thousands of years. With better tools, weapons and coordination, Homo sapiens spread out of Africa across every continent, and the other human species and much of the megafauna disappeared.">
-        <p class="era-date">c. 70,000 BCE onward</p>
-        <h2 class="era-name"><a href="#cognitive-revolution">Cognitive Revolution</a></h2>
-        <p class="era-stack">Abstraction, language, shared myth, symbolic thought, composite tools</p>
-        <p class="era-note">Around seventy thousand years ago, <em>Homo sapiens</em> acquired the capacity for abstraction: to think about what is absent, imagined or possible, and to represent it in symbols. From it came foresight, strategy and design &ndash; the ability to plan ahead, to anticipate and outwit others, and to imagine a thing before making it &ndash; as well as complex language and shared myth. Stories of spirits, kin and tribe let people cooperate flexibly in groups beyond the Dunbar number and pass knowledge down the generations. For some sixty thousand years this was the basis of the nomadic hunter-gatherer way of life: small, mobile and broadly egalitarian bands living off the abundance of wild food.</p>
-        <dl class="era-aspects">
-          <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Coordinated hunting, ambush and composite tools allowed larger bands to take bigger game, and to outcompete, displace or absorb other groups and other human species.</dd>
-          </div>
-          <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Shared myths, rituals and stories of kinship bound groups together beyond the Dunbar number, within an animist worldview whose egalitarian norms were enforced by gossip, ridicule and sharing.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>There was no state: authority was informal and situational, held by elders and the most skilled, and always checked by the group.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>There was no market: goods moved through gifts, reciprocity and sharing within and between bands, and perishable food was shared rather than stored.</dd>
-          </div>
-        </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="0"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">10 events</span></button>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 3,300,000 BCE onward</p>
-        <h3 class="era-name">Stone Tools</h3>
-        <p class="era-note">The earliest known stone tools, knapped by human ancestors long before our own species, give way to the shaped hand-axes of the Acheulean and, much later, to the finely worked blades of <em>Homo sapiens</em> &ndash; the first technology stack, on which every later one was built.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 1,000,000 &ndash; 400,000 BCE</p>
-        <h3 class="era-name">The Control of Fire</h3>
-        <p class="era-note">Long before <em>Homo sapiens</em>, earlier humans learn to keep and then to make fire &ndash; for warmth, light and protection from predators, for cooking that releases more energy from food, for shaping landscapes by burning, and as the hearth around which groups gathered.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="0" hidden data-title-c="Symbolic Culture, Cave Art &amp; Shared Myth">
-        <p class="era-date">c. 75,000 BCE onward</p>
-        <h3 class="era-name">Symbolic Culture &amp; Cave Art</h3>
-        <p class="era-note">From engraved ochre and shell beads at Blombos Cave to the painted caves of Sulawesi, Chauvet and Lascaux, humans make images and ornaments that carry shared meaning &ndash; the earliest surviving evidence of symbolic thought and shared myth.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 70,000 &ndash; 50,000 BCE</p>
-        <h3 class="era-name">The Global Migration of <em>Homo sapiens</em></h3>
-        <p class="era-note">Modern humans spread out of Africa across Eurasia and on to Australia &ndash; what is known as the recent African origin model, or &ldquo;Out of Africa II&rdquo; &ndash; displacing or absorbing the other human species they met, such as the Neanderthals and Denisovans.</p>
-      </li>
-      <li class="era sub" data-domains="m" data-group="0" hidden data-title-m="Ranged Weapons &amp; Killing at a Distance">
-        <p class="era-date">c. 70,000 &ndash; 20,000 BCE</p>
-        <h3 class="era-name">Ranged Weapons</h3>
-        <p class="era-note">The spear-thrower, the bow and composite hafted tools let hunters kill at a distance &ndash; the first military-economic adaptations, giving the groups that wielded them a decisive edge in hunting and in conflict.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 50,000 &ndash; 10,000 BCE</p>
-        <h3 class="era-name">The Megafauna Extinctions</h3>
-        <p class="era-note">Mammoths, giant sloths, cave bears and many other large animals vanish across the world, often soon after humans arrive &ndash; the first sign of humanity&rsquo;s power to reshape the ecosystems it depends on.</p>
-      </li>
-      <li class="era sub" data-domains="m" data-group="0" hidden data-title-m="The Extinction of the Neanderthals &amp; the Last Rival Humans">
-        <p class="era-date">c. 40,000 BCE</p>
-        <h3 class="era-name">The Extinction of the Neanderthals</h3>
-        <p class="era-note">The last of the other human species in Europe disappear, outcompeted by or absorbed into incoming <em>Homo sapiens</em> through interbreeding &ndash; the first decisive advantage of one human population over another.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 40,000 BCE onward</p>
-        <h3 class="era-name">The Crafting of Clothing</h3>
-        <p class="era-note">Bone needles and tailored, layered clothing let humans survive the cold of Ice Age Eurasia and move into its far north.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 30,000 &ndash; 15,000 BCE</p>
-        <h3 class="era-name">The Domestication of Dogs</h3>
-        <p class="era-note">Wolves drawn to human camps become the first domestic animal: hunting partners and guards, and a forerunner of the domestications of the Agricultural Revolution.</p>
-      </li>
-
-      <li class="era sub" data-group="0" hidden>
-        <p class="era-date">c. 20,000 &ndash; 15,000 BCE</p>
-        <h3 class="era-name">The Settlement of the Americas</h3>
-        <p class="era-note">Humans cross from Siberia into the Americas and spread rapidly to their southern tip, completing the settlement of every habitable continent.</p>
-      </li>
-
-      <li class="era" id="agricultural-revolution" data-summary="From around twelve thousand years ago, in several regions independently, the domestication of plants and animals turned nomadic bands into settled farming villages. Farming fed far more people from the same land, and created a storable surplus &ndash; and with it private property, the first inequalities, and chiefs to organise labour, storage and defence. Denser farming populations outnumbered and displaced the foragers around them, and spread across the world. Health, diet and leisure often declined, but the farming way of life won out because the larger populations it supported could not be resisted.">
-        <p class="era-date">c. 10,000 &ndash; 4000 BCE</p>
-        <h2 class="era-name"><a href="#agricultural-revolution">Agricultural Revolution</a></h2>
-        <p class="era-stack">Domestication of plants and animals, irrigation, food storage, the plough</p>
-        <p class="era-note">Between roughly twelve and six thousand years ago, in several regions independently, the domestication of plants and animals turned nomadic hunter-gatherer tribes into settled farming villages. Geographically-bounded food production created a storable surplus, and with it private property: land, herds and granaries that could be accumulated, defended and inherited. Populations grew, villages became towns, and the first chiefs emerged to organise labour, storage and defence &ndash; the ground on which the first cities and states would be built.</p>
-        <dl class="era-aspects">
-          <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Farming fed many more people from the same land: denser farming populations came to outnumber and displace the foragers around them, and the surplus began to feed the first specialists.</dd>
-          </div>
-          <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Settled life tied people to land, ancestors and property; fertility cults and household religion grew, and the line between what was shared and what was owned hardened.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>Villages and chiefdoms emerged, with big men and chiefs organising labour, storage and defence &ndash; the state in embryo, not yet the state itself.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Grain and herds became wealth that could be stored, accumulated and inherited; private property, granaries and exchange between villages grew up around them.</dd>
-          </div>
-        </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="1"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">10 events</span></button>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="1" hidden data-title-m="The Neolithic Demographic Transition &amp; Strength in Numbers">
-        <p class="era-date">c. 10,000 BCE onward</p>
-        <h3 class="era-name">The Neolithic Demographic Transition</h3>
-        <p class="era-note">Farming populations grow rapidly despite shorter, less healthy lives &ndash; more births, more mouths, more hands &ndash; and soon outnumber and displace the foragers around them: the military-economic logic of the transition, written in population.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="1" hidden data-title-m="The Fertile Crescent &amp; the First Farmers">
-        <p class="era-date">c. 9500 BCE</p>
-        <h3 class="era-name">The Fertile Crescent &amp; the First Farmers</h3>
-        <p class="era-note">In the hills and valleys from the Levant to the Zagros, people domesticate wheat, barley, lentils and peas, and sheep, goats, pigs and cattle &ndash; the first farming economy, from which agriculture spread into Europe, Africa and South Asia.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="1" hidden data-title-k="Storage, Surplus &amp; the Birth of Private Property">
-        <p class="era-date">c. 9000 BCE onward</p>
-        <h3 class="era-name">Storage, Surplus &amp; Private Property</h3>
-        <p class="era-note">Granaries such as those at Dhra&rsquo; in the Jordan Valley let grain be kept from one harvest to the next &ndash; wealth that could be stored, accumulated, defended and inherited, and so owned.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="1" hidden data-title-s="Jericho &amp; &Ccedil;atalh&ouml;y&uuml;k: Towns without Rulers">
-        <p class="era-date">c. 9000 &ndash; 6000 BCE</p>
-        <h3 class="era-name">Jericho &amp; &Ccedil;atalh&ouml;y&uuml;k: the First Towns</h3>
-        <p class="era-note">Thousands of people settle together in Jericho, with its wall and tower, and in &Ccedil;atalh&ouml;y&uuml;k, a warren of houses entered through their roofs &ndash; large, lasting farming settlements, but still without palaces, rulers, writing or a state, and with little sign of great inequality.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="1" hidden data-title-m="Farming Invented Again and Again: Convergent Adaptation">
-        <p class="era-date">c. 7000 BCE onward</p>
-        <h3 class="era-name">Farming Invented Again and Again</h3>
-        <p class="era-note">Rice and millet in China, maize, beans and squash in Mesoamerica, and later crops in New Guinea, the Andes and Africa &ndash; agriculture arising independently in at least half a dozen places, a sign of how strong the pressures towards it were.</p>
-      </li>
-
-      <li class="era sub" data-group="1" hidden>
-        <p class="era-date">c. 7000 BCE onward</p>
-        <h3 class="era-name">Pottery &amp; the Storage of Surplus</h3>
-        <p class="era-note">Fired clay vessels spread through the farming villages of the Near East and beyond &ndash; for storing grain, oil and water, for brewing and for cooking: the container technology of settled life, and of a surplus that could be kept.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="1" hidden data-title-m="The Spread of Farming into Europe &amp; the Displacement of Foragers">
-        <p class="era-date">c. 6500 &ndash; 4000 BCE</p>
-        <h3 class="era-name">The Spread of Farming into Europe</h3>
-        <p class="era-note">Ancient DNA shows farmers from Anatolia moving into Europe and largely replacing its hunter-gatherers, carrying their crops, herds and way of life with them &ndash; the clearest case of a farming population displacing the foragers before it.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="1" hidden data-title-s="Irrigation &amp; the Hydraulic Origins of Authority">
-        <p class="era-date">c. 6000 BCE onward</p>
-        <h3 class="era-name">Irrigation &amp; the Control of Water</h3>
-        <p class="era-note">On the plains of Mesopotamia, canals carry river water to the fields, multiplying the harvest &ndash; and demanding the coordination of labour, the settling of disputes and the authority to manage them.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="1" hidden data-title-k="The Varna Necropolis &amp; the First Concentration of Wealth">
-        <p class="era-date">c. 4500 BCE</p>
-        <h3 class="era-name">The Varna Necropolis &amp; the First Rich</h3>
-        <p class="era-note">In a cemetery by the Black Sea, one man is buried with more gold than has been found at every other site of the time put together &ndash; the earliest clear evidence of extreme inequality in wealth, and of a ruling few.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="1" hidden data-title-c="The Plough &amp; the Gendered Division of Labour">
-        <p class="era-date">c. 4000 BCE</p>
-        <h3 class="era-name">The Plough &amp; the Secondary Products Revolution</h3>
-        <p class="era-note">The ox-drawn plough, and the use of animals for milk, wool and traction, transform farming &ndash; and, by making heavy field work the domain of men, are thought to have deepened the division of labour between the sexes.</p>
-      </li>
-
-      <li class="era" id="urban-revolution" data-summary="From around six thousand years ago, first in Mesopotamia and soon in Egypt, the Indus Valley and China, farming towns grew into cities. Writing, bronze, the wheel and monumental building came with them, and so did the state and the market in proto-form: kings, laws, taxes, armies and bureaucracies, and trade, currency, debt and merchants. Class, inequality and slavery followed. The hierarchical civilisation it produced is, in elaborated form, the one we still live within. From here on, each transition would be enacted by a ruling class, whose decisions shaped how every new technology was taken up.">
-        <p class="era-date">c. 4000 BCE onward</p>
-        <h2 class="era-name"><a href="#urban-revolution">Urban Revolution</a></h2>
-        <p class="era-stack">Cities, writing, bronze metallurgy, the wheel, monumental architecture</p>
-        <p class="era-note">From around six thousand years ago &ndash; first in Mesopotamia, then in Egypt, the Indus Valley and China &ndash; farming towns grew into cities, in what the archaeologist V. Gordon Childe called the Urban Revolution. The surplus now fed full-time specialists: priests, scribes, soldiers, craftsmen and rulers. Private property found its defence &ndash; city-states, law, police and armies &ndash; and its exchange &ndash; trade, currency, merchants and markets: the state and the market in proto-form. Socio-economic class, inequality, poverty and slavery followed, along with a cultural psychology of competition, domination and status-seeking. The structural formation it produced &ndash; complex hierarchy, centralised power and a division of labour &ndash; is the one we still live within.</p>
-        <dl class="era-aspects">
-          <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>The surplus fed specialists, soldiers among them; fortifications, bronze and then iron weapons, chariots and standing armies made war the business of states, and conquest the road to empire.</dd>
-          </div>
-          <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Organised religion, divine kingship and patriarchy took hold; writing, law and the great philosophies followed, and property, status and obedience to hierarchy were internalised.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>Chiefdoms gave way to city-states, kingdoms and empires, which taxed, legislated, kept written records, and maintained police and armies to defend property.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Trade, currency, merchants and markets grew up to exchange the surplus, alongside debt, the ownership of land and slavery, co-evolving with the state.</dd>
-          </div>
-        </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="2"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">11 events</span></button>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="2" hidden data-title-s="Uruk &amp; the First Cities: Urban Hierarchy">
-        <p class="era-date">c. 4000 BCE</p>
-        <h3 class="era-name">Uruk &amp; the First Cities</h3>
-        <p class="era-note">In southern Mesopotamia, Uruk grows into the first true city, home to tens of thousands of people &ndash; with a temple bureaucracy to collect and redistribute the harvest, the first writing to record it, full-time craftsmen and priests, and a class divided from those who worked the land.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="2" hidden data-title-s="The First Civilisations &amp; the Birth of the State">
-        <p class="era-date">c. 3500 &ndash; 1200 BCE</p>
-        <h3 class="era-name">The First Civilisations</h3>
-        <p class="era-note">Mesopotamia, Egypt, the Indus Valley and early China: the first cities and states, with writing, bureaucracy, monumental building and standing armies &ndash; the proto-state and market made concrete.</p>
-      </li>
-
-      <li class="era sub" data-group="2" hidden>
-        <p class="era-date">c. 3500 BCE</p>
-        <h3 class="era-name">The Domestication of Horses</h3>
-        <p class="era-note">On the steppes north of the Black Sea, horses are tamed for meat, milk and then riding and chariots &ndash; transforming transport, trade and warfare for the next five thousand years.</p>
-      </li>
-      <li class="era sub" data-domains="c" data-group="2" hidden data-title-c="Writing &amp; the Recorded Mind">
-        <p class="era-date">c. 3200 BCE</p>
-        <h3 class="era-name">Writing</h3>
-        <p class="era-note">Invented in Sumer to keep accounts of grain, livestock and labour, and soon afterwards in Egypt: a technology of administration, taxation and law &ndash; of the state.</p>
-      </li>
-      <li class="era sub" data-domains="m s" data-group="2" hidden data-title-m="The First Empires &amp; the Standing Army" data-title-s="The First Empires &amp; Centralised Rule">
-        <p class="era-date">c. 2300 BCE</p>
-        <h3 class="era-name">The First Empires</h3>
-        <p class="era-note">Sargon of Akkad unites the city-states of Mesopotamia under a single ruler, with a standing army and a centralised administration &ndash; the first empire, and the model for those that followed.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="2" hidden data-title-s="The Bronze Age Collapse &amp; the Fall of States">
-        <p class="era-date">c. 1200 &ndash; 1150 BCE</p>
-        <h3 class="era-name">The Bronze Age Collapse</h3>
-        <p class="era-note">The rapid fall of the interconnected palace societies of the eastern Mediterranean and Near East &ndash; an early case of systemic collapse.</p>
-      </li>
-      <li class="era sub" data-domains="m" data-group="2" hidden data-title-m="The Iron Age &amp; the Arming of the Masses">
-        <p class="era-date">c. 1200 BCE onward</p>
-        <h3 class="era-name">The Iron Age</h3>
-        <p class="era-note">Iron, more abundant and cheaper than bronze, spreads metal tools and weapons far more widely &ndash; arming larger armies and clearing more land for farming.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="2" hidden data-title-c="The Axial Age &amp; the Great Philosophies">
-        <p class="era-date">c. 800 &ndash; 200 BCE</p>
-        <h3 class="era-name">The Axial Age</h3>
-        <p class="era-note">The parallel rise of the great philosophical and religious traditions &ndash; Confucianism, Buddhism, Greek philosophy, the Hebrew prophets &ndash; across China, India, Persia, the Levant and Greece.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="2" hidden data-title-s="Greece, Rome &amp; China: Democracy, Republic &amp; Empire">
-        <p class="era-date"><span class="nowrap">Greece c. 800 &ndash; 146 BCE</span> &middot; <span class="nowrap">Rome 509 BCE &ndash; 476 CE</span> &middot; <span class="nowrap">Qin and Han China 221 BCE &ndash; 220 CE</span></p>
-        <h3 class="era-name">Ancient Greece, Rome and China</h3>
-        <p class="era-note">The classical civilisations: Greek city-states, Athenian democracy and philosophy; Rome&rsquo;s republic and empire, with law, roads and legions on a continental scale, built on conquest and slave labour; and China unified under a centralised bureaucratic state, with standardised writing, weights and law, and the Silk Road trade.</p>
-      </li>
-      <li class="era sub" data-domains="k" data-group="2" hidden data-title-k="Coinage &amp; Money Backed by the State">
-        <p class="era-date">c. 600 BCE</p>
-        <h3 class="era-name">Coinage</h3>
-        <p class="era-note">The first coins, struck in Lydia and soon in Greece, India and China: money stamped with the authority of the state, binding the state and the market together.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="2" hidden data-title-s="Feudalism &amp; Land for Loyalty">
-        <p class="era-date">c. 800 &ndash; 1400</p>
-        <h3 class="era-name">Feudalism</h3>
-        <p class="era-note">In medieval Europe, land held in exchange for service and protection: a hierarchy of lords, vassals and serfs resting on the agrarian surplus.</p>
-      </li>
-
-      <li class="era" id="scientific-revolution" data-summary="Between the sixteenth and seventeenth centuries, observation, experiment and mathematics replaced inherited authority as the way to know nature. Knowledge became cumulative, testable and shared through print and the new scientific societies. The change began in the mind, with a mechanistic and increasingly secular picture of the world, but it laid the groundwork for the machines of the industrial age and the reforming ideas of the Enlightenment. Alongside it, the military revolution in gunpowder, fortification and standing armies drove the states of Europe to centralise, tax and borrow on an unprecedented scale, and carried their power across the oceans.">
-        <p class="era-date">c. 1540 &ndash; 1700</p>
-        <h2 class="era-name"><a href="#scientific-revolution">Scientific Revolution</a></h2>
-        <p class="era-stack">The telescope, the microscope, the pendulum clock, the printing press, mathematics and the experimental method</p>
-        <p class="era-note">Between Copernicus and Newton, observation, experiment and mathematics replaced inherited authority as the way to know nature. Knowledge itself became a technology: cumulative, testable and shared through print and the new scientific societies. It changed the superstructure first &ndash; a mechanistic, increasingly secular picture of the world &ndash; and laid the intellectual groundwork for both the machines of the industrial tech stack and the reforming ideas of the Enlightenment.</p>
-        <dl class="era-aspects">
-          <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Gunpowder, ballistics, navigation and cartography gave European states and their navies a decisive edge, in a military revolution that underwrote colonial expansion.</dd>
-          </div>
-          <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>A mechanistic and increasingly secular worldview emerged, as authority shifted from scripture and tradition to reason, evidence and the individual knower.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>Centralising states built standing armies and fiscal-military bureaucracies, and patronised science as a source of power through bodies such as the Royal Society and the Acad&eacute;mie des Sciences.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Chartered trading companies, joint-stock finance and early banking flourished, while precise measurement and navigation opened up global trade.</dd>
-          </div>
-        </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="3"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">10 events</span></button>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="3" hidden data-title-c="The Renaissance &amp; the Rebirth of Classical Learning">
-        <p class="era-date">c. 1300 &ndash; 1600</p>
-        <h3 class="era-name">The Renaissance</h3>
-        <p class="era-note">A European revival of classical learning, art and inquiry, carried far and fast by the printing press.</p>
-      </li>
-      <li class="era sub" data-domains="c" data-group="3" hidden data-title-c="The Printing Press &amp; the Spread of Ideas">
-        <p class="era-date">c. 1440</p>
-        <h3 class="era-name">The Printing Press</h3>
-        <p class="era-note">Gutenberg&rsquo;s movable-type press makes books cheap and plentiful, spreading literacy, the Reformation and the cumulative, shared knowledge on which science depends.</p>
-      </li>
-
-      <li class="era sub" data-domains="m s" data-group="3" hidden data-title-m="Colonialism &amp; Conquest by Ships, Guns and Germs" data-title-s="Colonialism &amp; the European Empires">
-        <p class="era-date">c. 1492 onward</p>
-        <h3 class="era-name">Colonialism</h3>
-        <p class="era-note">From Columbus&rsquo;s voyages on, European states use ships, guns and the diseases they carried to conquer the Americas and, later, much of Africa and Asia &ndash; the clearest case of a technology stack&rsquo;s advantage reshaping the world, and the beginning of the Columbian exchange of crops, animals and pathogens between the hemispheres.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="3" hidden data-title-k="Mercantilism &amp; Trade as War">
-        <p class="era-date">c. 1500 &ndash; 1750</p>
-        <h3 class="era-name">Mercantilism</h3>
-        <p class="era-note">National wealth pursued as bullion and trade surplus, through colonial expansion and chartered trading companies.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="3" hidden data-title-k="The Atlantic Slave Trade &amp; People as Commodities">
-        <p class="era-date">c. 1500 &ndash; 1860</p>
-        <h3 class="era-name">The Atlantic Slave Trade</h3>
-        <p class="era-note">More than twelve million Africans are shipped across the Atlantic in bondage, their forced labour on plantations a foundation of mercantile and early industrial wealth.</p>
-      </li>
-      <li class="era sub" data-domains="c" data-group="3" hidden data-title-c="The Reformation &amp; the Individual Conscience">
-        <p class="era-date">1517 onward</p>
-        <h3 class="era-name">The Reformation</h3>
-        <p class="era-note">Luther&rsquo;s challenge, carried across Europe by print, breaks the authority of a single institution over truth. Its lasting effects were as much secular as religious: mass literacy and individual reading, the habit of private judgement, the questioning of hierarchy, a work ethic that some &ndash; following Max Weber &ndash; have tied to the spirit of capitalism, and states that took over powers the Church had held.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="3" hidden data-title-m="The Military Revolution &amp; the Gunpowder State">
-        <p class="era-date">c. 1560 &ndash; 1660</p>
-        <h3 class="era-name">The Military Revolution</h3>
-        <p class="era-note">Gunpowder, drilled infantry, artillery-proof fortresses and standing armies transform war in Europe &ndash; and the taxes and bureaucracies needed to pay for them build the fiscal-military state.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="3" hidden>
-        <p class="era-date">1648</p>
-        <h3 class="era-name">The Peace of Westphalia &amp; the Sovereign State</h3>
-        <p class="era-note">The treaties ending the Thirty Years&rsquo; War establish the principle of sovereign states with exclusive authority over their own territory &ndash; the basis of the modern state system.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="3" hidden data-title-c="The Enlightenment &amp; the Age of Reason">
-        <p class="era-date">c. 1680 &ndash; 1800</p>
-        <h3 class="era-name">The Enlightenment</h3>
-        <p class="era-note">Reason, science and individual rights set against tradition and absolutism &ndash; the intellectual ground of the industrial and democratic revolutions.</p>
-      </li>
-      <li class="era sub" data-group="3" hidden>
-        <p class="era-date"><span class="nowrap"><em>Principia</em> 1687</span> &middot; <span class="nowrap"><em>Celestial Mechanics</em> 1799 &ndash; 1825</span></p>
-        <h3 class="era-name">Newton&rsquo;s <em>Principia</em> &amp; Laplace&rsquo;s <em>Celestial Mechanics</em></h3>
-        <p class="era-note">Newton&rsquo;s laws of motion and universal gravitation explain the heavens and the earth by the same few mathematical laws; Laplace extends them into a complete mechanics of the solar system, with no need of God to keep it stable. Together they made the universe appear a clockwork machine &ndash; the mechanistic worldview at its height.</p>
-      </li>
-
-      <li class="era" id="industrial-revolution" data-summary="Beginning in Britain in the late eighteenth century, the steam engine and coal broke the limits of human and animal muscle. Production moved into mechanised, fossil-fuelled factories, people moved from the countryside to the cities, and wage labour became the dominant form of work. The first industrial powers gained such an economic and military advantage that every rival had to industrialise or risk being colonised. Industrial capitalism, the nation-state and a new ideology of progress spread together, and so did new forms of resistance, from the Luddites to the labour movement.">
-        <p class="era-date">c. 1760 &ndash; 1840</p>
-        <h2 class="era-name"><a href="#industrial-revolution">Industrial Revolution</a></h2>
-        <p class="era-stack">The steam engine, coal, mechanised textile production, the factory</p>
-        <p class="era-note">Beginning in Britain, the steam engine and coal broke the limits of human and animal muscle. Production moved from the farm and workshop to the mechanised, fossil-fuelled factory; populations moved from the countryside to the cities; and wage labour became the dominant form of work. The states that industrialised first gained an overwhelming economic and military advantage, and the pressure on every rival to follow &ndash; or be colonised &ndash; spread industrial capitalism across the world.</p>
-        <dl class="era-aspects">
-          <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Steam-powered industry, railways and gunboats gave the industrialising powers an overwhelming advantage, and every rival had to industrialise or be colonised.</dd>
-          </div>
-          <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Clock-time discipline, the work ethic, individualism and faith in progress took hold, alongside the dislocation and alienation of factory life.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>The nation-state took shape, with mass schooling, bureaucracy and policing to keep industrial order, and the vote was extended as workers organised.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Industrial capitalism became dominant, built on wage labour, factories and joint-stock companies, and on global commodity markets tied together by the gold standard.</dd>
-          </div>
-        </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="4"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">10 events</span></button>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="4" hidden data-title-k="The Enclosure of the Commons &amp; the Making of the Wage Labourer">
-        <p class="era-date">c. 1750 &ndash; 1850</p>
-        <h3 class="era-name">The Enclosure of the Commons</h3>
-        <p class="era-note">In Britain, Acts of Parliament fence off common land for private farming, dispossessing rural labourers and driving them into the towns and factories &ndash; the market made out of what had been shared.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="4" hidden data-title-s="The Age of Revolutions &amp; the Sovereign People">
-        <p class="era-date">c. 1775 &ndash; 1848</p>
-        <h3 class="era-name">The Age of Revolutions</h3>
-        <p class="era-note">The American, French and Haitian revolutions, and the revolutions of 1848, overturn monarchy and colonial rule in the name of liberty, equality and popular sovereignty &ndash; the political counterpart to industrialisation.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="4" hidden data-title-k="<em>The Wealth of Nations</em> &amp; the Invisible Hand">
-        <p class="era-date">1776</p>
-        <h3 class="era-name"><em>The Wealth of Nations</em></h3>
-        <p class="era-note">Adam Smith&rsquo;s account of the division of labour and the &ldquo;invisible hand&rdquo; of the market &ndash; the founding text of classical economics.</p>
-      </li>
-      <li class="era sub" data-group="4" hidden>
-        <p class="era-date">1776</p>
-        <h3 class="era-name">The Steam Engine</h3>
-        <p class="era-note">James Watt&rsquo;s engine, with its separate condenser, makes steam power efficient enough to drive mills, mines, locomotives and ships &ndash; the engine of industrialisation.</p>
-      </li>
-
-      <li class="era sub" data-group="4" hidden>
-        <p class="era-date">1811 &ndash; 1816</p>
-        <h3 class="era-name">The Luddites</h3>
-        <p class="era-note">English textile workers break the machines that are replacing their skilled labour &ndash; the first organised resistance to automation, and a direct parallel to the debates over AI.</p>
-      </li>
-      <li class="era sub" data-group="4" hidden>
-        <p class="era-date">c. 1830 onward</p>
-        <h3 class="era-name">The Railway Age</h3>
-        <p class="era-note">Steam locomotives and iron rails cut journeys from days to hours, knitting together national markets and moving goods, people and armies at unprecedented speed and scale.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="4" hidden data-title-c="The Communist Manifesto &amp; Class Consciousness">
-        <p class="era-date">1848</p>
-        <h3 class="era-name"><em>The Communist Manifesto</em></h3>
-        <p class="era-note">Marx and Engels&rsquo; critique of industrial capitalism as a system of class exploitation, and their call for workers to seize the means of production.</p>
-      </li>
-      <li class="era sub" data-domains="k" data-group="4" hidden data-title-k="The Great Exhibition &amp; Industrial Capitalism on Display">
-        <p class="era-date">1851</p>
-        <h3 class="era-name">The Great Exhibition</h3>
-        <p class="era-note">At the Crystal Palace in London, Britain displays the machines and manufactures of its industrial supremacy to six million visitors &ndash; a showcase of the age, and of the nation that led it.</p>
-      </li>
-      <li class="era sub" data-domains="c" data-group="4" hidden data-title-c="Darwin&rsquo;s <em>On the Origin of Species</em> &amp; Humanity within Nature">
+      <li class="era" id="classical-marxism" data-short="Marx" data-summary="Marx divides a society into an economic base – its forces and relations of production – and a legal, political and ideological superstructure that rises on it. The base conditions the superstructure: “It is not the consciousness of men that determines their being, but their social being that determines their consciousness.”">
         <p class="era-date">1859</p>
-        <h3 class="era-name">Darwin&rsquo;s <em>On the Origin of Species</em></h3>
-        <p class="era-note">Darwin sets out evolution by natural selection: variation, competition and the survival of the fittest shaping all life over time &ndash; the idea at the root of this project&rsquo;s evolutionary model.</p>
-      </li>
-      <li class="era sub" data-domains="m" data-group="4" hidden data-title-m="The Meiji Restoration: Industrialise or Be Colonised">
-        <p class="era-date">1868</p>
-        <h3 class="era-name">The Meiji Restoration</h3>
-        <p class="era-note">Faced with the gunboats of the industrial powers, Japan overthrows the shogunate and industrialises at speed &ndash; the other side of &ldquo;industrialise or be colonised&rdquo;, and soon an industrial and imperial power itself.</p>
-      </li>
-
-      <li class="era" id="technological-revolution" data-summary="From the late nineteenth century, electricity, steel, chemistry and the internal combustion engine brought mass production and continental networks of rail, telegraph and telephone. Production concentrated in large corporations, and industrial capacity became military capacity. Within a generation, the technologies that built the modern economy were turned to the industrialised total wars of the twentieth century. It ended with the atomic bomb, a weapon that made the next great-power war potentially fatal to civilisation itself.">
-        <p class="era-date">c. 1870 &ndash; 1914</p>
-        <h2 class="era-name"><a href="#technological-revolution">Technological Revolution</a></h2>
-        <p class="era-stack">Electricity, steel, chemicals, the internal combustion engine, the telegraph and telephone</p>
-        <p class="era-note">Often called the Second Industrial Revolution. Electricity, steel, chemistry and the internal combustion engine brought mass production, national grids and continental networks of rail, telegraph and telephone. Production concentrated in large corporations, and industrial capacity became military capacity: within a generation, the technologies that built the modern economy were turned to the industrialised total wars of the twentieth century.</p>
+        <h2 class="era-name"><a href="#classical-marxism">Classical Marxism: Base-Superstructure</a></h2>
+        <p class="era-stack">Karl Marx, <em>A Contribution to the Critique of Political Economy</em> (1859)</p>
+        <p class="era-note">Marx divides a society into an economic base &ndash; its forces and relations of production &ndash; and a legal, political and ideological superstructure that rises on it. The base conditions the superstructure: &ldquo;It is not the consciousness of men that determines their being, but their social being that determines their consciousness.&rdquo;</p>
         <dl class="era-aspects">
           <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Steel navies, machine guns, chemicals and the combustion engine industrialised war, and imperial competition ended in two world wars.</dd>
+            <dt>Base</dt>
+            <dd>The forces of production &ndash; tools, techniques, labour &ndash; and the relations of production: who owns, who works, and how the product is shared.</dd>
           </div>
           <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Mass society arrived, with mass media, mass consumption, nationalism and the great ideologies of liberalism, socialism and fascism.</dd>
-          </div>
-          <div>
-            <dt>The State</dt>
-            <dd>The administrative state grew through regulation and early welfare provision and, in wartime, through the total mobilisation of economy and society.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Corporate capitalism took over, with giant firms, trusts and cartels, mass production and advertising, and financial crises that culminated in the Great Depression.</dd>
+            <dt>Superstructure</dt>
+            <dd>Law, politics, religion, art and philosophy: the institutions and forms of consciousness that rise on the economic base and work to sustain it.</dd>
           </div>
         </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="5"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">11 events</span></button>
       </li>
 
-      <li class="era sub" data-domains="m" data-group="5" hidden data-title-m="New Imperialism &amp; the Scramble for Africa">
-        <p class="era-date">c. 1870 &ndash; 1914</p>
-        <h3 class="era-name">New Imperialism and the Scramble for Africa</h3>
-        <p class="era-note">The industrial powers carve up Africa and much of Asia in a race for colonies, markets and raw materials &ndash; the competitive pressure that built towards world war.</p>
-      </li>
-
-      <li class="era sub" data-group="5" hidden>
-        <p class="era-date">c. 1880 onward</p>
-        <h3 class="era-name">Electrification</h3>
-        <p class="era-note">From Edison&rsquo;s first power stations to national grids carrying alternating current, electricity reaches factories, streets and homes &ndash; powering motors, light and communication, and becoming the infrastructure on which every later technology runs.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="5" hidden data-title-m="The Haber-Bosch Process: Fertiliser &amp; Explosives from the Air">
-        <p class="era-date">1909 &ndash; 1913</p>
-        <h3 class="era-name">The Haber-Bosch Process &amp; Escaping the Malthusian Trap</h3>
-        <p class="era-note">Fritz Haber synthesises ammonia from the nitrogen in the air, and Carl Bosch scales it up at BASF, making synthetic fertiliser &ndash; and explosives &ndash; on an industrial scale. By lifting the limit that soil fertility had always set on food, it broke the Malthusian trap in which population growth was checked by famine: an estimated half of humanity is now fed by it.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="5" hidden data-title-k="Fordism: Mass Production &amp; Mass Consumption">
-        <p class="era-date">c. 1913 onward</p>
-        <h3 class="era-name">Fordism</h3>
-        <p class="era-note">Henry Ford&rsquo;s moving assembly line and five-dollar day: standardised mass production paired with mass consumption, the model for twentieth-century industry.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="5" hidden data-title-m="World War I &amp; Industrialised Slaughter">
-        <p class="era-date">1914 &ndash; 1918</p>
-        <h3 class="era-name">World War I</h3>
-        <p class="era-note">The first industrialised total war: machine guns, artillery, chemical weapons and mass conscription.</p>
-      </li>
-      <li class="era sub" data-domains="s" data-group="5" hidden data-title-s="The Russian Revolution &amp; the First Communist State">
-        <p class="era-date">1917</p>
-        <h3 class="era-name">The Russian Revolution</h3>
-        <p class="era-note">The Bolsheviks seize power and build the first state founded in opposition to capitalism, setting up the ideological rivalry of the century.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="5" hidden data-title-s="The Rise of Fascism &amp; the Cult of the Leader">
-        <p class="era-date">1922 &ndash; 1945</p>
-        <h3 class="era-name">The Rise of Fascism</h3>
-        <p class="era-note">In Italy, Germany and beyond, mass movements harness mass media, nationalism and the cult of the leader to build totalitarian states bent on war.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="5" hidden data-title-k="The Great Depression &amp; the Collapse of the Market">
-        <p class="era-date">1929 &ndash; c. 1939</p>
-        <h3 class="era-name">The Great Depression</h3>
-        <p class="era-note">A worldwide economic collapse that unsettled liberal democracies and fed the rise of fascism.</p>
-      </li>
-      <li class="era sub" data-domains="s" data-group="5" hidden data-title-s="The New Deal &amp; the Interventionist State">
-        <p class="era-date">1933 &ndash; 1939</p>
-        <h3 class="era-name">The New Deal</h3>
-        <p class="era-note">Roosevelt&rsquo;s programme of public works, welfare and financial regulation: the state stepping in to manage the market.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="5" hidden data-title-m="World War II &amp; Global Total War">
-        <p class="era-date">1939 &ndash; 1945</p>
-        <h3 class="era-name">World War II</h3>
-        <p class="era-note">Total war on a global scale, ended by the first use of nuclear weapons.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="5" hidden data-title-m="The Manhattan Project &amp; the Atomic Bomb">
-        <p class="era-date">1942 &ndash; 1945</p>
-        <h3 class="era-name">The Manhattan Project</h3>
-        <p class="era-note">The race to build the atomic bomb, ending in Hiroshima and Nagasaki: the first technology with existential stakes, developed under the pressure of war.</p>
-      </li>
-
-      <li class="era" id="digital-revolution" data-summary="After the Second World War, the transistor, the computer and the network moved information to the centre of economic and social life. Much of the founding technology was paid for by wartime and Cold War military competition before being commercialised in the personal computer, the internet, the smartphone and social media. The result was a globally connected information society, and the data, compute and infrastructure on which the next transition would be built. Its platforms reshaped attention, identity and politics, and concentrated power in a handful of firms whose reach crossed every border.">
-        <p class="era-date">c. 1950 &ndash; 2010</p>
-        <h2 class="era-name"><a href="#digital-revolution">Digital Revolution</a></h2>
-        <p class="era-stack">The transistor, the computer, the internet, the smartphone, social media</p>
-        <p class="era-note">The transistor, the computer and the network moved information to the centre of economic and social life. Much of the founding technology was paid for by the military competition of the Second World War and the Cold War, before being commercialised in the personal computer, the internet, the smartphone and social media. The result was a globally connected information society &ndash; and the data, compute and infrastructure on which the next transition would be built.</p>
+      <li class="era" id="cultural-materialism" data-short="Harris" data-summary="Harris divides every society into infrastructure, structure and superstructure, and argues that the material conditions of production and reproduction are the primary drivers of cultural change. It is the source of the Emergence Model’s three layers, and of the priority it gives to infrastructure.">
+        <p class="era-date">1979</p>
+        <h2 class="era-name"><a href="#cultural-materialism">Cultural Materialism: Three Structures</a></h2>
+        <p class="era-stack">Marvin Harris, <em>Cultural Materialism: The Struggle for a Science of Culture</em> (1979)</p>
+        <p class="era-note">Harris divides every society into infrastructure, structure and superstructure, and argues that the material conditions of production and reproduction are the primary drivers of cultural change. It is the source of the Emergence Model&rsquo;s three layers, and of the priority it gives to infrastructure.</p>
         <dl class="era-aspects">
           <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>Computing, the internet and satellites were born of the military-industrial complex and its wartime and Cold War funding, under the shadow of nuclear deterrence and, later, of information and cyber warfare.</dd>
+            <dt>Infrastructure</dt>
+            <dd>The modes of production and reproduction: technology, subsistence, demography and the environment a society works within.</dd>
           </div>
           <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>An information society formed around consumerism, a globalised culture and the networked self, and social media brought an attention economy and deepening polarisation.</dd>
+            <dt>Structure</dt>
+            <dd>The domestic and political economy: kinship, the household, the division of labour, classes and the state.</dd>
           </div>
           <div>
-            <dt>The State</dt>
-            <dd>The post-war welfare state gave way to neoliberal retreat, while the security and surveillance state expanded and global institutions such as the UN, the IMF and the World Bank took shape.</dd>
-          </div>
-          <div>
-            <dt>The Market</dt>
-            <dd>Global finance and supply chains bound the world economy together, data became an asset, and platforms concentrated attention, wealth and power in a handful of firms.</dd>
+            <dt>Superstructure</dt>
+            <dd>The symbolic and ideational: art, ritual, religion, science and the values a society holds.</dd>
           </div>
         </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="6"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">11 events</span></button>
       </li>
 
-      <li class="era sub" data-domains="s" data-group="6" hidden data-title-s="Bretton Woods &amp; the Post-War Economic Order">
-        <p class="era-date">1944</p>
-        <h3 class="era-name">Bretton Woods</h3>
-        <p class="era-note">The conference that founded the post-war economic order: fixed exchange rates anchored on the dollar, the International Monetary Fund and the World Bank.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="6" hidden data-title-m="The Long Peace &amp; the Nuclear Stalemate">
-        <p class="era-date">1945 onward</p>
-        <h3 class="era-name">The Long Peace</h3>
-        <p class="era-note">The historian John Lewis Gaddis&rsquo;s term for the absence of war between the great powers since 1945. It is a peace only in a narrow sense: held up by nuclear deterrence and a series of near misses, and coinciding with proxy wars, wars of decolonisation and civil wars that were anything but peaceful for those who lived through them.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="6" hidden data-title-m="The Cold War &amp; the Superpower Arms Race">
-        <p class="era-date">1947 &ndash; 1991</p>
-        <h3 class="era-name">The Cold War</h3>
-        <p class="era-note">The rivalry between the United States and the Soviet Union &ndash; an arms race, a space race and proxy wars &ndash; whose military funding drove early computing and the internet.</p>
-      </li>
-      <li class="era sub" data-group="6" hidden>
-        <p class="era-date">1947</p>
-        <h3 class="era-name">The Transistor</h3>
-        <p class="era-note">Invented at Bell Labs, the transistor replaces the vacuum tube and becomes the building block of every computer and digital device that follows.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="6" hidden data-title-k="The Great Acceleration &amp; the Consumer Boom">
-        <p class="era-date">c. 1950 onward</p>
-        <h3 class="era-name">The Great Acceleration</h3>
-        <p class="era-note">The sharp, simultaneous rise since the mid-twentieth century in population, energy use, production and consumption, and in their impact on the Earth system.</p>
-      </li>
-      <li class="era sub" data-group="6" hidden>
-        <p class="era-date">1956</p>
-        <h3 class="era-name">The Dartmouth Workshop &amp; the Birth of AI</h3>
-        <p class="era-note">A summer research project at Dartmouth College, proposed by John McCarthy, Marvin Minsky, Claude Shannon and Nathaniel Rochester, names &ldquo;artificial intelligence&rdquo; and founds it as a field, on the conjecture that every aspect of intelligence can be described precisely enough for a machine to simulate it.</p>
-      </li>
-
-      <li class="era sub" data-domains="m" data-group="6" hidden data-title-m="The Cuban Missile Crisis &amp; the Brink of Nuclear War">
-        <p class="era-date">1962</p>
-        <h3 class="era-name">The Cuban Missile Crisis</h3>
-        <p class="era-note">Thirteen days in which the United States and the Soviet Union come closer to nuclear war than ever before or since &ndash; the nearest miss of the Long Peace.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="6" hidden data-title-k="Neoliberalism &amp; Market Fundamentalism">
-        <p class="era-date">c. 1979 onward</p>
-        <h3 class="era-name">Neoliberalism</h3>
-        <p class="era-note">The turn to deregulation, privatisation and global markets that shaped how digital technology was financed and commercialised.</p>
-      </li>
-
-      <li class="era sub" data-group="6" hidden>
-        <p class="era-date">1989 &ndash; 1991</p>
-        <h3 class="era-name">The Fall of the Berlin Wall &amp; the End of the Cold War</h3>
-        <p class="era-note">The wall falls, the Soviet bloc collapses and the Soviet Union dissolves &ndash; leaving the United States the sole superpower, and opening the way to a single global market and the rapid spread of the internet.</p>
-      </li>
-
-      <li class="era sub" data-group="6" hidden>
-        <p class="era-date"><span class="nowrap">Web 1.0 c. 1991 &ndash; 2004</span> &middot; <span class="nowrap">Web 2.0 c. 2004 onward</span> &middot; <span class="nowrap">Web 3.0 c. 2014 onward</span></p>
-        <h3 class="era-name">Web 1.0, 2.0 and 3.0</h3>
-        <p class="era-note">The early web of mostly static pages, read rather than written by most users, commercialised in the dot-com boom and bust; then the participatory web of blogs, wikis and platforms built on what their users create, concentrating attention and data in a few large companies; and then a proposed decentralised web of blockchains and tokens, promising ownership and control to users &ndash; though in practice largely speculative and dominated by the same concentrations of capital.</p>
-      </li>
-
-      <li class="era sub" data-domains="c" data-group="6" hidden data-title-c="Social Media &amp; the Attention Economy">
-        <p class="era-date">c. 2004 onward</p>
-        <h3 class="era-name">Social Media</h3>
-        <p class="era-note">Facebook, YouTube, Twitter and their successors connect billions through algorithmic feeds &ndash; an attention economy that monetises behavioural data and has reshaped politics, culture and psychology.</p>
-      </li>
-
-      <li class="era" id="intelligence-revolution" data-summary="The fourth, and likely final, major technological transition is now under way, as machine learning at the scale of today’s compute begins to automate cognitive work. It is driven by the same structural dynamic as every transition before it: military-economic adaptation, competitive pressures, multi-polar traps and arms races. As an exponential technology, however, its negative externalities could be far more powerful and catastrophic, potentially even existential. How it is developed, deployed and diffused remains a decision of the power-elite. Unlike every transition before it, it may produce agents more capable than the people who built them, and the chance to choose otherwise may not come again.">
-        <p class="era-date">c. 2010 &ndash; now</p>
-        <h2 class="era-name"><a href="#intelligence-revolution">Intelligence Revolution</a></h2>
-        <p class="era-stack">Machine learning, large-scale compute, artificial intelligence</p>
-        <p class="era-note">The fourth, and likely final, major technological transition, now under way. Machine learning at the scale of today&rsquo;s compute is producing systems that can do an ever wider range of cognitive work. It is driven by the same structural dynamic as every transition before it &ndash; military-economic adaptation, competitive pressures, multi-polar traps and arms races &ndash; but as an exponential technology its negative externalities could be magnitudes more powerful and catastrophic, potentially even existential. How it is developed, deployed and diffused remains a decision of the power-elite.</p>
+      <li class="era" id="integral-model" data-short="Wilber" data-summary="Wilber’s four-quadrant map holds that any whole has interior and exterior, individual and collective dimensions – experience, behaviour, culture and systems – and that none can be reduced to the others. It underlies the Emergence Model’s insistence that technological, institutional and cultural change be read together.">
+        <p class="era-date">1995</p>
+        <h2 class="era-name"><a href="#integral-model">Integral Model: Four Quadrants</a></h2>
+        <p class="era-stack">Ken Wilber, <em>Sex, Ecology, Spirituality: The Spirit of Evolution</em> (1995)</p>
+        <p class="era-note">Wilber&rsquo;s four-quadrant map holds that any whole has interior and exterior, individual and collective dimensions &ndash; experience, behaviour, culture and systems &ndash; and that none can be reduced to the others. It underlies the Emergence Model&rsquo;s insistence that technological, institutional and cultural change be read together.</p>
         <dl class="era-aspects">
           <div>
-            <dt>Military-Economic Adaptation</dt>
-            <dd>An AI race is under way between the United States and China, and between the leading labs, with autonomous weapons, cyber operations and compute treated as strategic assets: a multi-polar trap.</dd>
+            <dt>Upper Left &middot; I</dt>
+            <dd>The individual interior: intention, experience and consciousness.</dd>
           </div>
           <div>
-            <dt>Cultural-Psychological Adaptation</dt>
-            <dd>Cognitive work is being automated and persuasion and synthetic media are produced at scale, raising open questions of meaning, agency and dependence on machines.</dd>
+            <dt>Upper Right &middot; It</dt>
+            <dd>The individual exterior: the body, brain and observable behaviour.</dd>
           </div>
           <div>
-            <dt>The State</dt>
-            <dd>States increasingly frame AI as a matter of national security, through Manhattan Project proposals, export controls and industrial policy, while their capacity to govern it lags behind.</dd>
+            <dt>Lower Left &middot; We</dt>
+            <dd>The collective interior: shared culture, meaning and worldview.</dd>
           </div>
           <div>
-            <dt>The Market</dt>
-            <dd>Capital is concentrating in compute, data centres and a few firms, with the possible displacement of labour and a further concentration of wealth.</dd>
+            <dt>Lower Right &middot; Its</dt>
+            <dd>The collective exterior: social systems, institutions, technology and the environment.</dd>
           </div>
         </dl>
-        <button class="era-toggle" type="button" aria-expanded="false" data-group="7"><span class="era-toggle-sign">+</span> <span class="era-toggle-label">10 events</span></button>
       </li>
 
-      <li class="era sub" data-group="7" hidden>
-        <p class="era-date">2012</p>
-        <h3 class="era-name">The Deep-Learning Breakthrough</h3>
-        <p class="era-note">AlexNet&rsquo;s win at the ImageNet competition shows that neural networks trained on large datasets with graphics processors can outperform earlier methods &ndash; the usual starting point for modern AI.</p>
-      </li>
-      <li class="era sub" data-group="7" hidden>
-        <p class="era-date">2016</p>
-        <h3 class="era-name">AlphaGo</h3>
-        <p class="era-note">DeepMind&rsquo;s AlphaGo defeats Lee Sedol, one of the world&rsquo;s strongest Go players, in a game long thought to need human intuition &ndash; with moves its makers could not have foreseen.</p>
-      </li>
-
-      <li class="era sub" data-group="7" hidden>
+      <li class="era" id="emergence-model" data-short="Schmachtenberger" data-summary="Schmachtenberger describes a society as three interacting layers: its infrastructure, social structure and superstructure. A change in any layer pressures the others, but the deepest and most durable shifts begin in the infrastructure.">
         <p class="era-date">2017</p>
-        <h3 class="era-name">The Transformer</h3>
-        <p class="era-note">Google researchers publish &ldquo;Attention Is All You Need&rdquo;, introducing the transformer architecture &ndash; the basis of the large language models that followed.</p>
+        <h2 class="era-name"><a href="#emergence-model">Emergence Model</a></h2>
+        <p class="era-stack">Daniel Schmachtenberger, &lsquo;The Emergence Model&rsquo;, The Emergence Project (2017)</p>
+        <p class="era-note">Schmachtenberger describes a society as three interacting layers: its infrastructure, social structure and superstructure. A change in any layer pressures the others, but the deepest and most durable shifts begin in the infrastructure.</p>
+        <dl class="era-aspects">
+          <div>
+            <dt>Infrastructure</dt>
+            <dd>The technologies and material systems through which a society meets its needs.</dd>
+          </div>
+          <div>
+            <dt>Social Structure</dt>
+            <dd>The institutions of politics, law and economics.</dd>
+          </div>
+          <div>
+            <dt>Superstructure</dt>
+            <dd>The shared values, beliefs and culture.</dd>
+          </div>
+        </dl>
       </li>
 
-      <li class="era sub" data-domains="m" data-group="7" hidden data-title-m="The AI Race &amp; the Multi-Polar Trap">
-        <p class="era-date">c. 2017 onward</p>
-        <h3 class="era-name">The AI Race</h3>
-        <p class="era-note">A race between the United States and China, and between the leading AI labs, to build ever more capable systems &ndash; the multi-polar trap the article describes, playing out in real time.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="7" hidden data-title-s="The US Chip Export Controls &amp; Compute as National Security">
-        <p class="era-date">October 2022</p>
-        <h3 class="era-name">The US Chip Export Controls</h3>
-        <p class="era-note">The United States bars the export of advanced AI chips, and the tools to make them, to China &ndash; treating compute as a strategic asset and turning the AI race into explicit state policy.</p>
-      </li>
-
-      <li class="era sub" data-group="7" hidden>
-        <p class="era-date">2022</p>
-        <h3 class="era-name">ChatGPT</h3>
-        <p class="era-note">The release that brought AI to mass use, reaching a hundred million users within months &ndash; the moment of diffusion.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="7" hidden data-title-s="The AGI Manhattan Project Proposal &amp; the State Race for AGI">
-        <p class="era-date">November 2024</p>
-        <h3 class="era-name">The AGI Manhattan Project Proposal</h3>
-        <p class="era-note">The US&ndash;China Economic and Security Review Commission, a congressional body, makes its first recommendation that Congress fund a &ldquo;Manhattan Project-like&rdquo; programme to race to artificial general intelligence &ndash; the race framed explicitly in the language of the atomic bomb.</p>
-      </li>
-
-      <li class="era sub" data-domains="k" data-group="7" hidden data-title-k="Stargate &amp; the AI Infrastructure Race">
-        <p class="era-date">January 2025</p>
-        <h3 class="era-name">Stargate</h3>
-        <p class="era-note">OpenAI, SoftBank, Oracle and MGX announce a joint venture to invest up to $500 billion in AI data centres and infrastructure in the United States.</p>
-      </li>
-
-      <li class="era sub" data-domains="s" data-group="7" hidden data-title-s="America&rsquo;s AI Action Plan &amp; Winning the AI Race">
-        <p class="era-date">July 2025</p>
-        <h3 class="era-name">America&rsquo;s AI Action Plan</h3>
-        <p class="era-note">The White House plan for &ldquo;winning the AI race&rdquo;: faster data-centre and energy build-out, fewer regulatory barriers and the export of the American AI stack to allies.</p>
-      </li>
-
-      <li class="era sub" data-group="7" hidden>
-        <p class="era-date">July 2026</p>
-        <h3 class="era-name">The Hugging Face Incident</h3>
-        <p class="era-note">Hugging Face discloses that an autonomous AI agent broke into its internal systems; OpenAI later acknowledges the agent as its own, run during a cyber-security evaluation &ndash; among the first known intrusions carried out by an AI agent.</p>
+      <li class="era" id="complex-emergence-model" data-short="Ramsahoye" data-summary="An elaboration of Schmachtenberger’s framework of civilisational structures that in effect doubles the number of structures, to eight: four core structures, two interfaces with ‘second nature’, and two that transect the rest. Every structure is at once exo – an extended phenotype or prosthesis, built outward from human agency – and endo – internalised, shaping that agency from within.">
+        <p class="era-date">2026</p>
+        <h2 class="era-name"><a href="#complex-emergence-model">Complex Emergence Model</a></h2>
+        <p class="era-stack">Max Ramsahoye, <a class="plain-link" href="../model/"><em>The Complex Emergence Model</em></a> (2026)</p>
+        <p class="era-note">An elaboration of Schmachtenberger&rsquo;s framework of civilisational structures that in effect doubles the number of structures, to eight: four core structures, two interfaces with &lsquo;second nature&rsquo;, and two that transect the rest. Every structure is at once exo &ndash; an extended phenotype or prosthesis, built outward from human agency &ndash; and endo &ndash; internalised, shaping that agency from within.</p>
+        <dl class="era-aspects">
+          <div>
+            <dt>Infrastructure &middot; Tech Stack</dt>
+            <dd>Technological instruments and affordances, productive (and reproductive) forces and material conditions.</dd>
+          </div>
+          <div>
+            <dt>Interstructure &middot; Political Economy</dt>
+            <dd>The institutional complex for decision-making (governance) and resource-allocation (economy).</dd>
+          </div>
+          <div>
+            <dt>Superstructure &middot; Cultural Psychology</dt>
+            <dd>Ideologies, worldviews, belief and value-systems, symbols, memetics and narratives.</dd>
+          </div>
+          <div>
+            <dt>Substructure &middot; Evolutionary Psychology</dt>
+            <dd>Universal, innate cognitive-affective predispositions and capacities.</dd>
+          </div>
+          <div>
+            <dt>Biostructure &middot; Cultural-Evolutionary Biology</dt>
+            <dd>The physiological, genetic, somatic and neurobiological substrate of human populations.</dd>
+          </div>
+          <div>
+            <dt>Ecostructure &middot; Cultural-Evolutionary Ecology</dt>
+            <dd>The biophysical environment, resource reservoirs, ecosystem dynamics and planetary boundaries.</dd>
+          </div>
+          <div>
+            <dt>Metastructure &middot; System Dynamics</dt>
+            <dd>The cybernetic, game-theoretic and evolutionary mechanisms operational within a civilisation.</dd>
+          </div>
+          <div>
+            <dt>Macrostructure &middot; Developmental Process</dt>
+            <dd>The process by which a civilisation elaborates itself and changes across macrohistorical time.</dd>
+          </div>
+        </dl>
       </li>
 
       <li class="timeline-arrow" aria-hidden="true"><svg viewBox="0 0 15 15"><polygon points="7.5,16.5 15.625,1.5 7.5,6 -0.625,1.5"/></svg></li>
     </ol>
 
-    <p class="timeline-note">Dates are approximate and vary across regions; each revolution spread unevenly from where it began.</p>
   </main>
 
   <footer class="site-footer">
@@ -2465,48 +1392,14 @@
         if (sideItems) trackSide();
         maybeSnap();
       }
-      // open and close each era's events, one group or all at once
-      var groupBtns = Array.prototype.slice.call(list.querySelectorAll('.era-toggle'));
-      var allBtn = document.querySelector('.era-toggle-all:not(.domain-toggle-all)');
-      function setGroup(btn, open) {
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.querySelector('.era-toggle-sign').textContent = open ? '\u2212' : '+';
-        allEras.forEach(function (era) {
-          if (era.dataset.group !== btn.dataset.group || era.hidden === !open) return;
-          era.hidden = !open;
-          era.classList.toggle('unfolding', open);
-        });
-      }
-      function syncAll() {
-        var allOpen = groupBtns.every(function (b) { return b.getAttribute('aria-expanded') === 'true'; });
-        allBtn.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
-        allBtn.querySelector('.era-toggle-sign').textContent = allOpen ? '\u2212' : '+';
-        allBtn.querySelector('.era-toggle-label').textContent = allOpen ? 'Collapse all events' : 'Expand all events';
-      }
-      list.addEventListener('click', function (e) {
-        var btn = e.target.closest('.era-toggle');
-        if (!btn) return;
-        setGroup(btn, btn.getAttribute('aria-expanded') !== 'true');
-        syncAll();
-        track();
-      });
-      allBtn.addEventListener('click', function () {
-        var open = allBtn.getAttribute('aria-expanded') !== 'true';
-        groupBtns.forEach(function (b) { setGroup(b, open); });
-        syncAll();
-        track();
-      });
-
       // the miniature timeline and the era titles glide to just above the
       // era's date, rather than jumping
       document.addEventListener('click', function (e) {
         var a = e.target.closest('.mini-timeline:not(.mini-domains) a, .mini-side a, .era-name a[href^="#"]');
-        // from the domains, an era's name opens it in the era view
         if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         var era = document.getElementById(a.getAttribute('href').slice(1));
         if (!era) return;
         e.preventDefault();
-        if (document.body.classList.contains('view-domains')) setView('eras');
         var date = era.querySelector('.era-date');
         window.scrollTo({ top: date.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
         history.replaceState(null, '', '#' + era.id);
@@ -2522,7 +1415,7 @@
       function showUp() {
         var bandBottom = band.getBoundingClientRect().bottom - (parseFloat(getComputedStyle(band, '::before').bottom) || 0);
         upBtn.classList.toggle('visible', band.getBoundingClientRect().bottom < 0);
-        [allBtn, sideNav, document.querySelector('.domain-side'), document.querySelector('.domain-toggle-all')].forEach(function (el) {
+        [sideNav].forEach(function (el) {
           el.classList.toggle('visible', bandBottom < el.getBoundingClientRect().top);
         });
       }
@@ -2533,308 +1426,9 @@
       var mini = document.querySelector('.mini-timeline ol');
       var mains = allEras.filter(function (era) { return !era.classList.contains('sub'); });
 
-      // the aspect view: for each of the four aspects every era lists, a
-      // timeline of what that aspect was in each era
-      var aspectsEl = document.querySelector('.aspects');
-      var domainOnly = Array.prototype.slice.call(document.querySelector('template.domain-events').content.children);
-      // a sortable year from an event's date: "1215", "c. 3500 BCE", "9th century BCE"
-      function eventYear(e) {
-        var t = e.querySelector('.era-date').textContent;
-        var m = t.match(/(\d[\d,]*)(st|nd|rd|th)?/);
-        if (!m) return 0;
-        var n = parseInt(m[1].replace(/,/g, ''), 10);
-        if (m[2]) n = (n - 1) * 100 + 50;
-        return /BCE/.test(t) ? -n : n;
-      }
-      var aspectNames = Array.prototype.map.call(mains[0].querySelectorAll('.era-aspects dt'), function (dt) { return dt.textContent; });
-      aspectNames.forEach(function (name, k) {
-        var sec = document.createElement('section');
-        sec.className = 'aspect';
-        sec.innerHTML = '<h2 class="aspect-title"><a></a></h2><ol class="aspect-line"></ol>';
-        sec.querySelector('.aspect-title a').textContent = name;
-        var line = sec.querySelector('.aspect-line');
-        mains.forEach(function (era) {
-          var dd = era.querySelectorAll('.era-aspects dd')[k];
-          if (!dd) return;
-          var li = document.createElement('li');
-          li.className = 'aspect-entry';
-          li.innerHTML = '<p class="era-date"></p><h3 class="era-name"><a></a></h3><p class="aspect-text"></p>';
-          li.querySelector('.era-date').textContent = era.querySelector('.era-date').textContent;
-          var a = li.querySelector('.era-name a');
-          a.href = '#' + era.id;
-          a.textContent = era.querySelector('.era-name').textContent;
-          li.querySelector('.aspect-text').innerHTML = dd.innerHTML;
-          // this era's events that belong to the domain, folded away
-          var code = 'mcsk'.charAt(k);
-          var btn = era.querySelector('.era-toggle');
-          var inDomain = function (e) { return (' ' + e.dataset.domains + ' ').indexOf(' ' + code + ' ') !== -1; };
-          var events = (btn ? allEras.filter(function (e) {
-            return e.dataset.group === btn.dataset.group && inDomain(e);
-          }) : []).concat(domainOnly.filter(function (e) {
-            return e.dataset.era === era.id && inDomain(e);
-          }));
-          events.sort(function (a, b) { return eventYear(a) - eventYear(b); });
-          if (events.length) {
-            var toggle = document.createElement('button');
-            toggle.type = 'button';
-            toggle.className = 'era-toggle aspect-toggle';
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.innerHTML = '<span class="era-toggle-sign">+</span> <span class="era-toggle-label"></span>';
-            toggle.querySelector('.era-toggle-label').textContent = events.length + (events.length === 1 ? ' event' : ' events');
-            var ol = document.createElement('ol');
-            ol.className = 'aspect-events';
-            ol.hidden = true;
-            events.forEach(function (e) {
-              var c = e.cloneNode(true);
-              c.removeAttribute('id');
-              c.removeAttribute('data-group');
-              c.removeAttribute('data-era');
-              // an era event can carry its own title for each domain view
-              // (data-title-m, -c, -s, -k), keeping its short one in the era view
-              var domainTitle = e.getAttribute('data-title-' + code);
-              if (domainTitle) c.querySelector('.era-name').innerHTML = domainTitle;
-              ['m', 'c', 's', 'k'].forEach(function (x) { c.removeAttribute('data-title-' + x); });
-              c.hidden = false;
-              c.classList.remove('reached', 'current', 'unfolding');
-              ol.appendChild(c);
-            });
-            li.appendChild(toggle);
-            li.appendChild(ol);
-          }
-          line.appendChild(li);
-        });
-        aspectsEl.appendChild(sec);
-      });
-
-      // open and close a domain's events for an era, or all of them at once
-      var aspectToggles = Array.prototype.slice.call(aspectsEl.querySelectorAll('.aspect-toggle'));
-      var domainAllBtn = document.querySelector('.domain-toggle-all');
-      // no events tagged to any domain yet: no expand-all either
-      if (!aspectToggles.length) domainAllBtn.style.display = 'none';
-      function setAspectGroup(btn, open) {
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.querySelector('.era-toggle-sign').textContent = open ? '\u2212' : '+';
-        var ol = btn.nextElementSibling;
-        if (ol.hidden === !open) return;
-        ol.hidden = !open;
-        Array.prototype.forEach.call(ol.children, function (c) { c.classList.toggle('unfolding', open); });
-        if (open) setTail(btn.parentNode);
-      }
-      // the last era's line, from its own dot to its last event's
-      function setTail(entry) {
-        if (entry.nextElementSibling) return;
-        var last = entry.querySelector('.aspect-events').lastElementChild;
-        var dotC = parseFloat(getComputedStyle(entry).getPropertyValue('--dot-c')) || 38;
-        var subDot = parseFloat(getComputedStyle(last, '::before').top) + parseFloat(getComputedStyle(last, '::before').height) / 2;
-        entry.style.setProperty('--tail', (last.offsetTop + subDot - dotC + 0.75) + 'px');
-      }
-      window.addEventListener('resize', function () {
-        Array.prototype.forEach.call(aspectsEl.querySelectorAll('.aspect-entry:last-child'), function (e) {
-          var ol = e.querySelector('.aspect-events');
-          if (ol && !ol.hidden) setTail(e);
-        });
-      });
-      function syncDomainAll() {
-        var allOpen = aspectToggles.every(function (b) { return b.getAttribute('aria-expanded') === 'true'; });
-        domainAllBtn.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
-        domainAllBtn.querySelector('.era-toggle-sign').textContent = allOpen ? '\u2212' : '+';
-        domainAllBtn.querySelector('.era-toggle-label').textContent = allOpen ? 'Collapse all events' : 'Expand all events';
-      }
-      aspectToggles.forEach(function (b) {
-        b.addEventListener('click', function () {
-          setAspectGroup(b, b.getAttribute('aria-expanded') !== 'true');
-          syncDomainAll();
-          trackDomainSide();
-          trackDomainLines();
-          maybeSnap();
-        });
-      });
-      function refreshTails() {
-        Array.prototype.forEach.call(aspectsEl.querySelectorAll('.aspect-entry:last-child'), function (e) {
-          var ol = e.querySelector('.aspect-events');
-          if (ol && !ol.hidden) setTail(e);
-        });
-      }
-      // once fonts have loaded and the page has settled, measure again
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshTails);
-      window.addEventListener('load', refreshTails);
-
-      domainAllBtn.addEventListener('click', function () {
-        var open = domainAllBtn.getAttribute('aria-expanded') !== 'true';
-        aspectToggles.forEach(function (b) { setAspectGroup(b, open); });
-        syncDomainAll();
-        trackDomainSide();
-        trackDomainLines();
-        maybeSnap();
-      });
-
-      // the top-left menu in the domain view: the four domains, its line
-      // filling down to the one being read
-      var domainSideList = document.querySelector('.domain-side ol');
-      var domainSideItems = Array.prototype.map.call(aspectsEl.querySelectorAll('.aspect'), function (sec, k) {
-        var li = document.createElement('li');
-        li.innerHTML = '<a href="#"><span class="mini-side-dot"></span><span></span></a>';
-        li.querySelector('a span:last-child').textContent = aspectNames[k];
-        li.querySelector('a').addEventListener('click', function (e) {
-          e.preventDefault();
-          window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
-        });
-        domainSideList.appendChild(li);
-        return li;
-      });
-      function trackDomainSide() {
-        if (!document.body.classList.contains('view-domains')) return;
-        var line = window.innerHeight * 0.45;
-        var at = -1;
-        Array.prototype.forEach.call(aspectsEl.querySelectorAll('.aspect'), function (sec, i) {
-          if (sec.getBoundingClientRect().top <= line) at = i;
-        });
-        var dotY = function (li) { var d = li.querySelector('.mini-side-dot'); return d.offsetTop + li.offsetTop + d.offsetHeight / 2; };
-        var first = dotY(domainSideItems[0]);
-        domainSideList.style.setProperty('--side-start', first + 'px');
-        domainSideList.style.setProperty('--side-length', (dotY(domainSideItems[domainSideItems.length - 1]) - first) + 'px');
-        domainSideList.style.setProperty('--side-fill', (at < 0 ? 0 : dotY(domainSideItems[at]) - first) + 'px');
-        domainSideItems.forEach(function (li, i) {
-          li.classList.toggle('reached', i <= at);
-          li.classList.toggle('current', i === at);
-        });
-      }
-      // the domain timelines fill as they are read, like the era timeline:
-      // each line down to the reading position, each dot as it is passed,
-      // and the one being read swells
-      function trackDomainLines() {
-        if (!document.body.classList.contains('view-domains')) return;
-        var line = window.innerHeight * 0.45;
-        var current = null;
-        Array.prototype.forEach.call(aspectsEl.querySelectorAll('.aspect-entry'), function (entry) {
-          var cs = getComputedStyle(entry, '::before');
-          var dotY = entry.getBoundingClientRect().top + parseFloat(cs.top);
-          var h = cs.display === 'none' ? 0 : parseFloat(cs.height) || 0;
-          entry.style.setProperty('--fill', Math.max(0, Math.min(h, line - dotY)) + 'px');
-          var reached = dotY <= line;
-          entry.classList.toggle('reached', reached);
-          if (reached) current = entry;
-          var ol = entry.querySelector('.aspect-events');
-          if (ol && !ol.hidden) Array.prototype.forEach.call(ol.children, function (ev) {
-            var r = ev.getBoundingClientRect().top + 15 <= line;
-            ev.classList.toggle('reached', r);
-            if (r) current = ev;
-          });
-        });
-        Array.prototype.forEach.call(aspectsEl.querySelectorAll('.aspect-entry, .aspect-events .era'), function (el) {
-          el.classList.toggle('current', el === current);
-        });
-      }
-      window.addEventListener('scroll', trackDomainLines, { passive: true });
-      window.addEventListener('resize', trackDomainLines);
-      window.addEventListener('scroll', trackDomainSide, { passive: true });
-      window.addEventListener('resize', trackDomainSide);
-
-      // the top section's domain view: a node per domain, linking down to its
-      // timeline, and a summary of each in the panel below
-      var DOMAIN_SUMMARIES = [
-        'The edge each new technology stack gives the groups that adopt it \u2013 in hunting, farming, production and war \u2013 and the pressure it puts on every rival to adopt it too or be displaced. Better weapons, larger surpluses and more productive economies decide which groups grow and which are absorbed, conquered or outcompeted. This competitive dynamic, from the first ranged weapons to the race for artificial intelligence, is the structural engine of each transition: once one group adopts a decisive technology, the others must follow.',
-        'How the worldview, values and inner life of a people change to fit their new way of life: from animist egalitarianism, to organised religion and divine kingship, to reason, progress and individualism, and on to the mass and networked cultures of today. Each new technology stack demands new kinds of people, with new disciplines, loyalties and desires, and the beliefs that justify the prevailing order adapt with it. Culture is where a transition is lived, legitimised and, at times, resisted.',
-        'The institutions that hold and organise political power \u2013 from the informal authority of elders, to chiefdoms, city-states, kingdoms and empires, to the administrative, national and national-security states of the modern era. Absent among hunter-gatherers, the state emerged with the surplus, settlement and warfare of the Agricultural and Urban Revolutions. Every transition since has enlarged what it can tax, count, conscript and control, and the power-elite at its head decide how each new technology is taken up.',
-        'The institutions of ownership and exchange \u2013 from gift and sharing, to trade, currency, debt and property, to industrial capitalism and the global, digital and compute-driven markets of today. The market began in proto-form with the storable surplus of farming and the merchants of the first cities. Each transition has widened its reach and changed what is bought and sold \u2013 land, labour, energy, attention and now intelligence \u2013 binding ever more of social life to competition for profit.'
-      ];
-      var domainSections = Array.prototype.slice.call(aspectsEl.querySelectorAll('.aspect'));
-      var domainMini = document.querySelector('.mini-domains ol');
-      var domainPanel = document.querySelector('.domains-panel');
-      var domainOverview = domainPanel.querySelector('.mini-overview');
-      domainMini.style.setProperty('--mini-count', aspectNames.length);
-      var domainItems = aspectNames.map(function (name, k) {
-        domainSections[k].id = 'domain-' + name.toLowerCase().replace(/^the\s+/, '').replace(/[^a-z]+/g, '-').replace(/-+$/, '');
-        domainSections[k].querySelector('.aspect-title a').href = '#' + domainSections[k].id;
-        var li = document.createElement('li');
-        li.innerHTML = '<a href="#' + domainSections[k].id + '"><span class="mini-dot"></span><span class="mini-name"></span><span class="mini-date"></span></a>';
-        li.querySelector('.mini-name').textContent = name;
-        domainMini.appendChild(li);
-        return li;
-      });
-      var domainDescs = aspectNames.map(function (name, k) {
-        var div = document.createElement('div');
-        div.className = 'mini-desc';
-        div.innerHTML = '<p class="mini-desc-title"></p><p class="mini-desc-text"></p><p class="mini-count"></p>';
-        var nEvents = domainSections[k].querySelectorAll('.aspect-events > li').length;
-        div.querySelector('.mini-count').textContent = mains.length + ' eras \u00b7 ' + nEvents + (nEvents === 1 ? ' event' : ' events');
-        div.querySelector('.mini-desc-title').textContent = name;
-        div.querySelector('.mini-desc-text').textContent = DOMAIN_SUMMARIES[k] || '';
-        domainPanel.appendChild(div);
-        return div;
-      });
-      // the overview counts every event across the four domain timelines
-      var domainTotal = aspectsEl.querySelectorAll('.aspect-events > li').length;
-      domainPanel.querySelector('[data-domain-total]').textContent = aspectNames.length + ' domains \u00b7 ' + mains.length + ' eras \u00b7 ' + domainTotal + ' events';
-
-      function hoverDomain(at) {
-        var dots = domainItems.map(function (li) { return li.querySelector('.mini-dot').getBoundingClientRect(); });
-        var vertical = getComputedStyle(domainMini).gridTemplateColumns.split(' ').length === 1;
-        var fill = at < 0 ? 0 : vertical ? dots[at].top - dots[0].top : dots[at].left - dots[0].left;
-        domainMini.style.setProperty('--mini-fill', fill + 'px');
-        domainItems.forEach(function (li, i) {
-          li.classList.toggle('reached', i <= at);
-          li.classList.toggle('current', i === at);
-        });
-        domainOverview.classList.toggle('show', at < 0);
-        domainDescs.forEach(function (d, i) { d.classList.toggle('show', i === at); });
-      }
-      domainItems.forEach(function (li, i) {
-        li.addEventListener('mouseenter', function () { hoverDomain(i); });
-        li.addEventListener('focusin', function () { hoverDomain(i); });
-      });
-      domainMini.addEventListener('mouseleave', function () { hoverDomain(-1); });
-      domainMini.addEventListener('focusout', function () { hoverDomain(-1); });
-      domainMini.addEventListener('click', function (e) {
-        var a = e.target.closest('a');
-        if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        var sec = document.getElementById(a.getAttribute('href').slice(1));
-        if (!sec) return;
-        e.preventDefault();
-        e.stopPropagation();
-        window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
-      }, true);
-
-      var tabs = Array.prototype.slice.call(document.querySelectorAll('.view-tabs button'));
-      function setView(view) {
-        document.body.classList.toggle('view-domains', view === 'domains');
-        tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.view === view ? 'true' : 'false'); });
-        var onDomain = location.hash.indexOf('#domain') === 0;
-        if (view === 'domains') { if (!onDomain) history.replaceState(null, '', '#domains'); refreshTails(); trackDomainSide(); trackDomainLines(); }
-        else if (onDomain) history.replaceState(null, '', location.pathname + location.search);
-        if (view === 'eras') alignMini();
-        track();
-      }
-
-      // a domain's heading links to itself, as an era's does: it glides there
-      // and the address takes its anchor
-      function glideToDomain(sec, smooth) {
-        window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 40, behavior: smooth ? 'smooth' : 'instant' });
-      }
-      document.addEventListener('click', function (e) {
-        var a = e.target.closest('.aspect-title a');
-        if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        e.preventDefault();
-        var sec = a.closest('.aspect');
-        glideToDomain(sec, true);
-        history.replaceState(null, '', '#' + sec.id);
-      });
-      tabs.forEach(function (t) {
-        t.addEventListener('click', function () { setView(t.dataset.view); });
-      });
-      if (location.hash === '#domains') setView('domains');
-      else if (location.hash.indexOf('#domain-') === 0) {
-        var target = document.getElementById(location.hash.slice(1));
-        if (target && target.classList.contains('aspect')) {
-          setView('domains');
-          requestAnimationFrame(function () { glideToDomain(target, false); });
-          // and again after the browser's own jump to the anchor on load
-          window.addEventListener('load', function () { setTimeout(function () { glideToDomain(target, false); }, 0); });
-        }
-      }
       mini.style.setProperty('--mini-count', mains.length);
       var miniItems = mains.map(function (era) {
-        var name = era.querySelector('.era-name').textContent.replace(/ Revolution$/, '');
+        var name = era.dataset.short || era.querySelector('.era-name').textContent;
         var date = era.querySelector('.era-date').textContent.split(/\s[\u2013-]\s/)[0].replace(/\s*onward$/, '');
         // a range like "c. 10,000 – 4000 BCE" keeps its era on the start date
         if (!/CE/.test(date) && /BCE/.test(era.querySelector('.era-date').textContent)) date += ' BCE';
@@ -2918,16 +1512,14 @@
         var div = document.createElement('div');
         div.className = 'mini-desc';
         div.innerHTML = '<p class="mini-desc-title"></p><p class="mini-desc-text"></p><p class="mini-count"></p>';
-        var btn = era.querySelector('.era-toggle');
-        var n = btn ? allEras.filter(function (e) { return e.dataset.group === btn.dataset.group; }).length : 0;
-        div.querySelector('.mini-count').textContent = n + (n === 1 ? ' event' : ' events');
+        var n = era.querySelectorAll('.era-aspects dt').length;
+        div.querySelector('.mini-count').textContent = n + (n === 1 ? ' structure' : ' structures');
         div.querySelector('.mini-desc-title').textContent = era.querySelector('.era-name').textContent + ' \u00b7 ' + era.querySelector('.era-date').textContent;
         div.querySelector('.mini-desc-text').textContent = era.dataset.summary || '';
         panel.appendChild(div);
         return div;
       });
-      var totalEvents = allEras.filter(function (e) { return e.classList.contains('sub'); }).length;
-      panel.querySelector('[data-total]').textContent = mains.length + ' transitions \u00b7 ' + totalEvents + ' events';
+      panel.querySelector('[data-total]').textContent = mains.length + ' models';
 
       function hoverMini(at) {
         var dots = miniItems.map(function (li) { return li.querySelector('.mini-dot').getBoundingClientRect(); });
