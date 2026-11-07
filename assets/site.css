@@ -1,0 +1,754 @@
+/* Shared styles for the secondary pages (contents menu, lexicon). The article
+   page keeps its own inline styles; the theme colours here mirror it. */
+
+@font-face {
+  font-family: 'ET Bembo';
+  src: url('../fonts/ETBembo-RomanOSF.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ET Bembo';
+  src: url('../fonts/ETBembo-SemiBoldOSF.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ET Bembo';
+  src: url('../fonts/et-book-bold-line-figures.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ET Bembo';
+  src: url('../fonts/ETBembo-DisplayItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --link-blue: #1a3a9c;
+  --canvas-bg: #ffffff;
+  --canvas-ink: #000000;
+  --muted: #8c8c8c;
+  --selection-bg: rgba(186, 220, 240, 0.45);
+  --serif: 'ET Bembo', Bembo, 'Times New Roman', Georgia, serif;
+  --sans: 'Inter', sans-serif;
+  --mono-caps: 'IBM Plex Sans', sans-serif;
+  --track-tint: rgba(0, 0, 0, 0.08);
+  --band-bg: #fbf6ec;
+  /* footer colours, as in the article */
+  --inverse-bg: #fbf6ec;
+  --inverse-ink: #000000;
+}
+
+html[data-theme="sepia"] {
+  --link-blue: #1d4fbf;
+  --canvas-bg: #fbf6ec;
+  --canvas-ink: #000000;
+  --muted: #9a8a72;
+  --track-tint: rgba(59, 47, 32, 0.12);
+  --band-bg: #f2e8d2;
+  --inverse-bg: #3b2f20;
+  --inverse-ink: #fbf6ec;
+  --selection-bg: rgba(214, 196, 160, 0.45);
+}
+
+html[data-theme="midnight"] {
+  --link-blue: #8ab4f8;
+  --canvas-bg: #0d1330;
+  --canvas-ink: #e6ebf5;
+  --muted: #8a93ad;
+  --track-tint: rgba(230, 235, 245, 0.15);
+  --band-bg: #161e44;
+  --inverse-bg: #e6ebf5;
+  --inverse-ink: #0d1330;
+  --selection-bg: rgba(180, 205, 235, 0.35);
+}
+
+html[data-theme="dark"] {
+  --link-blue: #8ab4f8;
+  --canvas-bg: #000000;
+  --canvas-ink: #ffffff;
+  --muted: #8c8c8c;
+  --track-tint: rgba(255, 255, 255, 0.15);
+  --band-bg: #0b0c0d;
+  --inverse-bg: #0b0c0d;
+  --inverse-ink: #ffffff;
+  --selection-bg: rgba(180, 205, 235, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--canvas-ink);
+}
+
+html {
+  background: var(--canvas-bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--canvas-bg);
+  color: var(--canvas-ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease;
+}
+
+body {
+  transition: background-color 0.25s ease, opacity 0.2s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* page transitions: the page eases out, then the next one eases in */
+body.page-leaving {
+  opacity: 0;
+}
+
+html.page-entering body {
+  animation: page-in 0.25s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
+}
+
+/* where the browser crossfades between pages itself, the old page stays put
+   while it leaves (its sounds still fade), so there is no blank flash */
+@view-transition {
+  navigation: auto;
+}
+
+html.vt body.page-leaving:not(.reloading) {
+  opacity: 1;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
+}
+
+.click-ripple {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.55;
+  transform: scale(0.3);
+  animation: click-ripple-anim 0.4s ease-out forwards;
+}
+
+@keyframes click-ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* back arrow top left; site name in the bottom-left corner; theme toggle top right */
+.back-arrow {
+  position: absolute;
+  z-index: 10;
+  top: 33px;
+  left: 40px;
+  display: flex;
+  color: var(--canvas-ink);
+}
+
+.back-arrow:hover,
+.back-arrow.key-hover {
+  color: var(--muted);
+}
+
+.back-arrow svg {
+  width: 20px;
+  height: 15px;
+}
+
+.site-title {
+  position: fixed;
+  bottom: 28px;
+  left: 40px;
+  font-family: var(--mono-caps);
+  font-size: 18px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--canvas-ink);
+  text-decoration: none;
+}
+
+.theme-toggle {
+  position: absolute;
+  z-index: 10;
+  top: 36px;
+  right: 40px;
+  display: flex;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.theme-toggle:hover,
+.theme-toggle.key-hover {
+  color: var(--canvas-ink);
+}
+
+.theme-toggle svg {
+  display: none;
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle .icon-sun,
+html[data-theme="sepia"] .theme-toggle .icon-sun-cloud,
+html[data-theme="midnight"] .theme-toggle .icon-moon-star,
+html[data-theme="dark"] .theme-toggle .icon-moon {
+  display: block;
+}
+
+html[data-theme] .theme-toggle .icon-sun {
+  display: none;
+}
+
+.theme-toggle .cloud {
+  fill: var(--canvas-bg);
+}
+
+@media (max-width: 960px) {
+  .back-arrow {
+    top: 28px;
+    left: 24px;
+  }
+
+  .site-title {
+    left: 24px;
+  }
+
+  .theme-toggle {
+    top: 31px;
+    right: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .back-arrow {
+    top: 24px;
+  }
+
+  .site-title {
+    font-size: 15px;
+  }
+
+  .theme-toggle {
+    top: 27px;
+  }
+}
+
+/* page body */
+/* the width of the Lexicon's top section, shared by the Timeline's and the
+   Sources' so the three line up: three index columns, then two, then the
+   text column on phones */
+:root {
+  --wide-col: min(1078px, 100vw - 48px);
+}
+
+@media (max-width: 1180px) {
+  :root {
+    --wide-col: min(860px, 100vw - 48px);
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --wide-col: 100%;
+  }
+}
+
+.wide-top {
+  width: var(--wide-col);
+  margin-left: calc((100% - var(--wide-col)) / 2);
+}
+
+.page-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 180px 24px 120px;
+}
+
+/* on pages with a footer, its own top margin is the space after the last entry */
+.page-main:has(~ .site-footer) {
+  padding-bottom: 0;
+}
+
+.page-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(36px, 6vw, 52px);
+  line-height: 1.08;
+  margin: 0 0 24px;
+}
+
+.page-intro {
+  font-size: 23px;
+  line-height: 1.35;
+  margin: 0 0 64px;
+}
+
+@media (max-width: 600px) {
+  .page-main {
+    padding-top: 140px;
+  }
+
+  .page-intro {
+    font-size: 20px;
+  }
+}
+
+.plain-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* f: headings and subheadings in ET Bembo, as in the article (page titles
+   stay as they are) */
+html.serif-headings .term dt,
+html.serif-headings .menu-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0;
+  -webkit-text-stroke: 0.4px currentColor;
+}
+
+@media (max-width: 600px) {
+  html.serif-headings .term dt,
+  html.serif-headings .menu-title {
+    font-size: 24px;
+  }
+}
+
+/* c: only links to other sites turn blue, as in the article */
+html.colour a[href^="http"] {
+  color: var(--link-blue);
+}
+
+/* the author's name stays in the text colour, in the footer too */
+html.colour a.author-link {
+  color: inherit;
+}
+
+/* custom cursor: a small outlined dart; filled over things you can click */
+/* the same in every theme: white with a black line, solid black over links */
+:root {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Cpath d='M3 2.5 L21 11.2 L12.6 12.6 L10.2 21 Z' fill='%23fff' stroke='%23fff' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M3 2.5 L21 11.2 L12.6 12.6 L10.2 21 Z' fill='%23fff' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
+  --cursor-link: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Cpath d='M3 2.5 L21 11.2 L12.6 12.6 L10.2 21 Z' fill='%23fff' stroke='%23fff' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M3 2.5 L21 11.2 L12.6 12.6 L10.2 21 Z' fill='%23000' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, pointer;
+}
+
+html {
+  cursor: var(--cursor-arrow);
+}
+
+a,
+button,
+a *,
+button * {
+  cursor: var(--cursor-link) !important;
+}
+
+/* on narrow screens the corner name would sit over the text; put it at the end */
+@media (max-width: 1180px) {
+  .site-title {
+    position: static;
+    display: block;
+    width: max-content;
+    margin: 0 24px 40px;
+  }
+}
+
+/* reading progress ring (top right) and up arrow (bottom right) */
+.progress-ring {
+  position: fixed;
+  top: 31px;
+  right: 40px;
+  width: 28px;
+  height: 28px;
+  transform: rotate(-90deg);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.progress-ring circle {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.progress-ring-track {
+  stroke: var(--track-tint);
+}
+
+.progress-ring-fill {
+  stroke: var(--canvas-ink);
+}
+
+body.past-start .progress-ring {
+  opacity: 1;
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 37px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--canvas-ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 42;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover,
+.scroll-top-btn.key-hover {
+  color: var(--canvas-ink);
+}
+
+.scroll-top-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 600px) {
+  .progress-ring {
+    top: 22px;
+    right: 24px;
+  }
+
+  .scroll-top-btn {
+    right: 21px;
+  }
+}
+
+/* b on the article (white theme) also sets these footers and the top
+   sections of the other pages */
+html.band-midnight:not([data-theme]) {
+  --inverse-bg: #0d1330;
+  --inverse-ink: #fbf6ec;
+  --band-bg: #0d1330;
+}
+
+html.band-black:not([data-theme]) {
+  --inverse-bg: #000000;
+  --inverse-ink: #ffffff;
+  --band-bg: #000000;
+}
+
+/* on a dark band: light text, and the corner controls over it (the site name
+   and other fixed controls take .over-band while they sit over it) */
+html.band-midnight:not([data-theme]) :is(.on-band, .back-arrow, .theme-toggle, .top-nav, .over-band),
+html.band-black:not([data-theme]) :is(.on-band, .back-arrow, .theme-toggle, .top-nav, .over-band) {
+  --canvas-ink: var(--inverse-ink);
+  --muted: #8a93ad;
+  --link-blue: #8ab4f8;
+  --track-tint: rgba(255, 255, 255, 0.15);
+  --selection-bg: rgba(180, 205, 235, 0.35);
+}
+
+html.band-black:not([data-theme]) :is(.on-band, .back-arrow, .theme-toggle, .top-nav, .over-band) {
+  --muted: #8c8c8c;
+}
+
+html.band-midnight:not([data-theme]) .on-band,
+html.band-black:not([data-theme]) .on-band {
+  color: var(--canvas-ink);
+}
+
+/* site footer, as at the end of the article: quote, title and author on
+   the left, the sitemap on the right, spanning the central text column */
+.site-footer {
+  --text-column: min(760px, 100vw - 480px);
+  margin-top: 96px;
+  padding: 80px 24px 64px;
+  background: var(--inverse-bg);
+  color: var(--inverse-ink);
+}
+
+@media (max-width: 1180px) {
+  .site-footer {
+    --text-column: 660px;
+  }
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+  column-gap: 48px;
+  align-items: center;
+  width: var(--text-column);
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.footer-head {
+  --footer-title-size: min(27px, calc((100vw - 48px) / 15.1));
+  width: max-content;
+  max-width: 100%;
+}
+
+.site-footer .footer-subtitle {
+  margin-bottom: 20px;
+  font-family: var(--serif);
+  font-size: clamp(16px, calc((100vw - 48px) / 20), 22px);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.site-footer .footer-title {
+  overflow-wrap: anywhere;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: var(--footer-title-size);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.site-footer .footer-author {
+  margin-top: 14px;
+  font-size: 17px;
+}
+
+.heading-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.heading-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.author-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* the menu sits in from the column's right edge */
+.footer-sitemap {
+  align-self: center;
+  margin-right: 96px;
+}
+
+@media (max-width: 1000px) {
+  .footer-sitemap {
+    margin-right: 0;
+  }
+}
+
+.site-footer .footer-sitemap .sitemap-heading {
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  /* a lighter grey, mixed from the footer's own colours */
+  color: color-mix(in srgb, var(--inverse-ink) 70%, var(--inverse-bg));
+}
+
+.footer-sitemap ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.footer-sitemap li + li {
+  margin-top: 10px;
+}
+
+.footer-sitemap a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.footer-sitemap a:hover {
+  border-bottom-color: currentColor;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+  .footer-inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-footer .footer-subtitle {
+    text-wrap: pretty;
+  }
+}
+
+/* the corner name and up arrow step aside while the footer is in view */
+.site-title {
+  transition: opacity 0.3s ease;
+}
+
+body.footer-in-view .site-title {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.footer-in-view .scroll-top-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  body.footer-in-view .site-title {
+    opacity: 1;
+  }
+}
+
+/* vertical progress pill, centred in the space right of the text column */
+.progress-pill {
+  position: fixed;
+  top: 50%;
+  /* halfway between the column's right edge (50% + 356px) and the window's */
+  left: calc(75vw + 178px);
+  width: 4px;
+  height: 52vh;
+  margin-left: -2px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: var(--track-tint);
+  overflow: hidden;
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease-in-out;
+}
+
+.progress-pill-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--canvas-ink);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+body.past-start .progress-pill {
+  opacity: 1;
+}
+
+@media (max-width: 860px) {
+  .progress-pill {
+    display: none;
+  }
+}
+
+/* the pill never overlaps the footer */
+body.footer-in-view .progress-pill {
+  opacity: 0;
+}
+
+/* edge variant: a full-height bar along the right edge, standing in for the
+   browser's scrollbar (which the page hides) */
+.progress-pill.progress-edge {
+  top: 0;
+  left: auto;
+  right: 0;
+  width: 4px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  transform: none;
+  border-radius: 0;
+  opacity: 1;
+}
+
+.progress-edge .progress-pill-fill {
+  border-radius: 0;
+}
+
+@media (max-width: 860px) {
+  .progress-pill.progress-edge {
+    display: block;
+  }
+}
+
+html.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+html.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ET Bembo has no bold italic, and browsers fake one (iOS Safari crudely):
+   italics in bold, in a link or in a bold title keep the true italic, and
+   take on weight from a hairline stroke */
+:is(strong, b, a, h1, h2, h3, h4, .article-subtitle) :is(em, i),
+:is(em, i) :is(strong, b) {
+  font-synthesis: none;
+  -webkit-text-stroke: 0.35px currentColor;
+}

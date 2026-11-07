@@ -1,0 +1,507 @@
+// Shared behaviour for the secondary pages (Pages menu, Lexicon): theme toggle,
+// sounds, page-to-page fade, back arrow, and the reading-progress ring and up
+// arrow where a page has them. Sounds and themes match the article.
+(function () {
+  var THEMES = ['light', 'dark'];  // sepia and midnight hidden for now
+  var DARK = ['dark', 'midnight'];
+  var NAV_DELAY = 210;
+  var root = document.documentElement;
+  var base = document.currentScript.getAttribute('data-base') || '../';
+
+  /* ---------- sound ---------- */
+
+  var audioCtx = null;
+  // C major pentatonic, C4 to E5. Clicks walk through it a step or two at a time.
+  var pianoNotes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
+  var noteIndex = 2;
+
+  function ctx() {
+    if (!audioCtx) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      audioCtx = new AC();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  // A soft sine tone with a gentle swell and long fade, plus a faint octave.
+  // every sound passes through one master volume, which fades out as a page
+  // leaves, so notes still ringing die away instead of being cut off
+  function out() {
+    if (!audioCtx.ttMaster) {
+      audioCtx.ttMaster = audioCtx.createGain();
+      audioCtx.ttMaster.connect(audioCtx.destination);
+    }
+    return audioCtx.ttMaster;
+  }
+  new MutationObserver(function () {
+    if (!audioCtx || !audioCtx.ttMaster) return;
+    var g = audioCtx.ttMaster.gain, now = audioCtx.currentTime;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    if (document.body.classList.contains('page-leaving')) g.linearRampToValueAtTime(0, now + 0.2);
+    else g.linearRampToValueAtTime(1, now + 0.05);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  // Sounds carry across page changes: every note is kept as a frequency, a
+  // start time and a fade; when the page goes, the notes still ringing are
+  // handed to the next page, which picks them up where they had reached.
+  var liveTones = [];
+  function toneAt(f, t0, p, d) {
+    var c = audioCtx.currentTime, nowMs = Date.now();
+    var start = c + (t0 - nowMs) / 1000, end = c + (t0 + d * 1000 - nowMs) / 1000;
+    if (end <= c + 0.05) return;
+    var A = 0.03;
+    var osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = f;
+    var gain = audioCtx.createGain();
+    if (start >= c) {
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(p, start + A);
+      gain.gain.exponentialRampToValueAtTime(0.0001, end);
+      osc.start(start);
+    } else {
+      // already sounding: come in at the level it had reached
+      var el = c - start;
+      var v = el < A ? p * el / A : p * Math.pow(0.0001 / p, (el - A) / (d - A));
+      gain.gain.setValueAtTime(0.0001, c);
+      gain.gain.exponentialRampToValueAtTime(Math.max(v, 0.0002), c + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, end);
+      osc.start(c);
+    }
+    osc.connect(gain).connect(out());
+    osc.stop(end);
+    liveTones.push({ f: f, t0: t0, p: p, d: d });
+  }
+  window.addEventListener('pagehide', function () {
+    var now = Date.now();
+    var ringing = liveTones.filter(function (t) { return t.t0 + t.d * 1000 > now + 100; });
+    try { sessionStorage.setItem('ttTones', JSON.stringify({ at: now, tones: ringing })); } catch (e) {}
+  });
+  (function () {
+    var data = null;
+    try { data = JSON.parse(sessionStorage.getItem('ttTones')); sessionStorage.removeItem('ttTones'); } catch (e) {}
+    if (!data || !data.tones || !data.tones.length || Date.now() - data.at > 4000) return;
+    try {
+      if (!audioCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        audioCtx = new AC();
+      }
+      var play = function () { data.tones.forEach(function (t) { toneAt(t.f, t.t0, t.p, t.d); }); };
+      if (audioCtx.state === 'running') play();
+      else audioCtx.resume().then(play, function () {});
+    } catch (e) {}
+  })();
+
+  function playSoftTone(freq, when, peak, decay) {
+    var t0 = Date.now() + (when - audioCtx.currentTime) * 1000;
+    toneAt(freq, t0, peak, decay);
+    toneAt(freq * 2, t0, peak * 0.12, decay * 0.6);
+  }
+
+  // short: a clipped tail (page changes now carry the full note over).
+  function playPianoClick(short) {
+    try {
+      if (!ctx()) return;
+      var steps = [-2, -1, 1, 2];
+      var next = noteIndex + steps[Math.floor(Math.random() * steps.length)];
+      if (next < 0 || next >= pianoNotes.length) next = noteIndex - (next - noteIndex);
+      noteIndex = next;
+      var now = audioCtx.currentTime;
+      var decay = short ? 0.6 : 2.8;
+      playSoftTone(pianoNotes[noteIndex], now, 0.045, decay);
+      var answer = pianoNotes[Math.min(noteIndex + 2, pianoNotes.length - 1)];
+      if (answer !== pianoNotes[noteIndex]) playSoftTone(answer, now + 0.16, 0.018, short ? 0.4 : 2.4);
+    } catch (e) {}
+  }
+
+  function playThemeSound(toDark) {
+    try {
+      if (!ctx()) return;
+      var notes = toDark ? [392.00, 329.63, 261.63] : [261.63, 329.63, 392.00];
+      var start = audioCtx.currentTime;
+      notes.forEach(function (freq, i) {
+        playSoftTone(freq, start + i * 0.17, 0.05, 2.2);
+      });
+    } catch (e) {}
+  }
+
+  // a soft note for a timeline node under the pointer: the nodes run up the
+  // C major pentatonic in order, from C4 (later nodes sound higher)
+  var nodeNotes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
+  window.ttNodeSound = function (i) {
+    try {
+      if (!ctx()) return;
+      playSoftTone(nodeNotes[Math.max(0, Math.min(i, nodeNotes.length - 1))], audioCtx.currentTime, 0.03, 1.4);
+    } catch (e) {}
+  };
+
+  function playCompletionSound() {
+    try {
+      if (!ctx()) return;
+      var start = audioCtx.currentTime;
+      [261.63, 329.63, 392.00, 523.25].forEach(function (freq, i) {
+        playSoftTone(freq, start + i * 0.22, 0.04, 2.6);
+      });
+    } catch (e) {}
+  }
+
+  /* ---------- page title ---------- */
+
+  // the page title takes you back to the top of the page
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.title-top');
+    if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- theme ---------- */
+
+  function currentTheme() {
+    var t;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    if (THEMES.indexOf(t) !== -1) return t;
+    // no theme chosen yet: follow the system setting
+    return systemDark && systemDark.matches ? 'dark' : 'light';
+  }
+
+  var systemDark = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function setFavicons(isDark) {
+    var suffix = isDark ? 'dark' : 'light';
+    var ids = { 'favicon-ico': 'favicon-' + suffix + '.ico', 'favicon-32': 'favicon-32-' + suffix + '.png',
+      'favicon-192': 'favicon-192-' + suffix + '.png', 'favicon-apple': 'apple-touch-icon-' + suffix + '.png' };
+    Object.keys(ids).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.href = base + 'favicon/' + ids[id];
+    });
+  }
+
+  function applyTheme(theme, fromSystem) {
+    if (theme === 'light') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', theme);
+    setFavicons(DARK.indexOf(theme) !== -1);
+    if (!fromSystem) try { localStorage.setItem('theme', theme); localStorage.setItem('themeSystem', systemDark && systemDark.matches ? 'dark' : 'light'); } catch (e) {}
+  }
+
+  // until a theme is chosen here (t), the page follows the system as it changes
+  if (systemDark && systemDark.addEventListener) systemDark.addEventListener('change', function () {
+    // a change of the system setting wins over a theme chosen with t
+    try { localStorage.removeItem('theme'); } catch (e) {}
+    applyTheme(currentTheme(), true);
+  });
+
+  function toggleTheme() {
+    var next = THEMES[(THEMES.indexOf(currentTheme()) + 1) % THEMES.length];
+    applyTheme(next);
+    playThemeSound(DARK.indexOf(next) !== -1);
+  }
+
+  setFavicons(DARK.indexOf(currentTheme()) !== -1);
+
+  /* ---------- page-to-page fade ---------- */
+
+  function internalLink(e) {
+    if (e.defaultPrevented || e.button !== 0) return null;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+    var link = e.target.closest('a');
+    if (!link || (link.target && link.target !== '_self')) return null;
+    var url;
+    try { url = new URL(link.href, location.href); } catch (err) { return null; }
+    if (url.origin !== location.origin) return null;
+    if (url.pathname === location.pathname && url.hash) return null;
+    return link;
+  }
+
+  function leaveTo(href) {
+    document.body.classList.add('page-leaving');
+    setTimeout(function () { location.href = href; }, NAV_DELAY);
+  }
+
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) document.body.classList.remove('page-leaving');
+  });
+
+  // If going back only moves within this page, it never leaves: show it again.
+  window.addEventListener('popstate', function () {
+    document.body.classList.remove('page-leaving');
+  });
+
+  /* ---------- ripples ---------- */
+
+  function spawnRipple(x, y, color) {
+    var ripple = document.createElement('div');
+    ripple.className = 'click-ripple';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.style.borderColor = color;
+    document.body.appendChild(ripple);
+    ripple.addEventListener('animationend', function () { ripple.remove(); });
+  }
+
+  /* ---------- clicks ---------- */
+
+  var themeBtn = document.querySelector('.theme-toggle');
+  var backArrow = document.querySelector('.back-arrow');
+
+  document.addEventListener('click', function (e) {
+    var icon = e.target.closest('.theme-toggle, .back-arrow, .scroll-top-btn, .menu-btn');
+    var rect = icon && icon.getBoundingClientRect();
+    spawnRipple(icon ? rect.left + rect.width / 2 : e.clientX, icon ? rect.top + rect.height / 2 : e.clientY,
+      getComputedStyle(icon || e.target).color);
+
+    if (e.target.closest('.theme-toggle')) {
+      toggleTheme();
+      return;
+    }
+
+    if (backArrow && e.target.closest('.back-arrow')) {
+      e.preventDefault();
+      playPianoClick();
+      document.body.classList.add('page-leaving');
+      setTimeout(function () {
+        var fromSite = document.referrer && new URL(document.referrer).origin === location.origin;
+        // data-direct: always go to the arrow's own page, not back in history
+        if (fromSite && history.length > 1 && !backArrow.hasAttribute('data-direct')) history.back();
+        else location.href = backArrow.getAttribute('href');
+      }, NAV_DELAY);
+      return;
+    }
+
+    // Links within the page (e.g. Lexicon concepts) replace the address rather
+    // than adding to history, so the back arrow returns to the previous page.
+    var hashLink = e.target.closest('a[href^="#"]');
+    if (hashLink && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+      // a page that scrolls to the target itself prevents the default first
+      var handled = e.defaultPrevented;
+      e.preventDefault();
+      playPianoClick();
+      if (!handled) location.replace(hashLink.getAttribute('href'));
+      return;
+    }
+
+    var link = internalLink(e);
+    playPianoClick();
+    if (link) {
+      e.preventDefault();
+      leaveTo(link.href);
+    }
+  });
+
+  function typing() {
+    var el = document.activeElement;
+    var tag = el && el.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || (el && el.isContentEditable);
+  }
+
+  /* ---------- reading progress and up arrow (pages that have them) ---------- */
+
+  // Progress shows as a ring (.progress-ring) or a vertical pill
+  // (.progress-pill). It counts from the bottom of the element named by the
+  // indicator's data-start (default: the page title) plus data-start-offset,
+  // to the top of the element named by data-end (default: the end of the
+  // page). The indicator shows only between the two.
+  var ring = document.querySelector('.progress-ring');
+  var ringFill = ring && ring.querySelector('.progress-ring-fill');
+  var pill = document.querySelector('.progress-pill');
+  var pillFill = pill && pill.querySelector('.progress-pill-fill');
+  var indicator = pill || ring;
+  var upBtn = document.querySelector('.scroll-top-btn');
+  var startSel = (indicator && indicator.getAttribute('data-start')) || '.page-title';
+  var startEl = startSel === 'top' ? null : document.querySelector(startSel);   // 'top': from the very top
+  var startOffset = parseFloat((indicator && indicator.getAttribute('data-start-offset')) || '0');
+  var endEl = indicator && indicator.getAttribute('data-end') && document.querySelector(indicator.getAttribute('data-end'));
+  var reachedEnd = false;
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (indicator) {
+    var LENGTH = ringFill ? 2 * Math.PI * ringFill.r.baseVal.value : 0;
+
+    var update = function () {
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollable = doc.scrollHeight - doc.clientHeight;
+      var start = startEl ? startEl.getBoundingClientRect().bottom + scrollTop + startOffset : 0;
+      var end = endEl ? Math.min(scrollable, endEl.getBoundingClientRect().top + scrollTop) : scrollable;
+      // finish before the footer comes into view
+      var foot = endEl && document.querySelector('.site-footer');
+      if (foot) end = Math.min(end, foot.getBoundingClientRect().top + scrollTop - window.innerHeight);
+      var span = end - start;
+      var pct = span > 0 ? Math.min(100, Math.max(0, (scrollTop - start) / span * 100)) : 0;
+      var atBottom = scrollable > 0 && scrollTop >= scrollable - 2;
+      if (atBottom && !endEl) pct = 100;
+
+      if (ringFill) {
+        if (pct >= 100) {
+          ringFill.style.strokeDasharray = 'none';
+        } else {
+          ringFill.style.strokeDasharray = LENGTH + ' ' + LENGTH;
+          ringFill.style.strokeDashoffset = LENGTH * (1 - pct / 100);
+        }
+      }
+      if (pillFill) pillFill.style.transform = 'scaleY(' + pct / 100 + ')';
+      // edge bar: runs from the start point (once it is on screen) to the bottom
+      if (pill && pill.classList.contains('progress-edge')) {
+        var inset = Math.max(0, start - scrollTop);
+        pill.style.top = inset + 'px';
+        pill.style.height = Math.max(0, window.innerHeight - inset) + 'px';
+      }
+      document.body.classList.toggle('past-start', scrollTop > start && (!endEl || scrollTop < end));
+
+      if (upBtn) {
+        // data-show-after: show once that element has scrolled past the top
+        var after = upBtn.getAttribute('data-show-after') && document.querySelector(upBtn.getAttribute('data-show-after'));
+        var showFrom = after ? after.getBoundingClientRect().bottom + scrollTop : start + window.innerHeight * 0.5;
+        upBtn.classList.toggle('visible', scrollTop > showFrom);
+      }
+
+      // the end chord plays on reaching the bottom of the page
+      if (atBottom && !reachedEnd) {
+        reachedEnd = true;
+        playCompletionSound();
+      } else if (!atBottom) {
+        reachedEnd = false;
+      }
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  if (upBtn) upBtn.addEventListener('click', scrollToTop);
+
+  var footer = document.querySelector('.site-footer');
+  if (footer) {
+    var checkFooter = function () {
+      // a footer the page hides (as the Diagrams page does) is never in view
+      var shown = footer.getClientRects().length > 0;
+      document.body.classList.toggle('footer-in-view', shown && footer.getBoundingClientRect().top < window.innerHeight);
+    };
+    window.addEventListener('scroll', checkFooter, { passive: true });
+    window.addEventListener('resize', checkFooter);
+    checkFooter();
+  }
+
+  // fixed controls take the band's colours while they sit over the top band
+  var bandEl = document.querySelector('.on-band:not(body)');
+  var floaters = Array.prototype.slice.call(document.querySelectorAll('.site-title, .era-toggle-all'));
+  if (bandEl && floaters.length) {
+    var checkBand = function () {
+      var extend = -parseFloat(getComputedStyle(bandEl, '::before').bottom) || 0;
+      var bandBottom = bandEl.getBoundingClientRect().bottom + extend;
+      floaters.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        el.classList.toggle('over-band', (r.top + r.bottom) / 2 < bandBottom);
+      });
+    };
+    window.addEventListener('scroll', checkBand, { passive: true });
+    window.addEventListener('resize', checkBand);
+    checkBand();
+  }
+
+  /* ---------- keys ---------- */
+
+  // Shortcuts press their on-screen button, so they sound, ripple and
+  // highlight exactly like a click.
+  // Enter presses the link marked data-enter (e.g. the Lexicon's first concept)
+  // Enter moves down from the top section to the page's canvas: the first
+  // thing showing after it
+  var topSection = document.querySelector('.lexicon-top, .sources-top, .timeline-top, .wide-top');
+  function canvasStart() {
+    for (var el = topSection && topSection.nextElementSibling; el; el = el.nextElementSibling) {
+      if (/^(SCRIPT|TEMPLATE|STYLE)$/.test(el.tagName) || !el.getClientRects().length) continue;
+      if (getComputedStyle(el).position === 'fixed') continue;   // corner menus and buttons
+      return el;
+    }
+    return null;
+  }
+
+  function press(el) {
+    if (!el) return;
+    el.classList.add('key-hover');
+    clearTimeout(el.keyHoverTimer);
+    el.keyHoverTimer = setTimeout(function () { el.classList.remove('key-hover'); }, 600);
+    el.click();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey || typing()) return;
+    if (e.key === 't' || e.key === 'T') {
+      if (themeBtn) press(themeBtn);
+      else {
+        // no toggle on this page: switch anyway, rippling at the pointer
+        toggleTheme();
+        spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
+      }
+    } else if (e.key === 'Enter' && !e.shiftKey && topSection) {
+      var tag = document.activeElement && document.activeElement.tagName;
+      if (tag === 'A' || tag === 'BUTTON') return;
+      var canvas = canvasStart();
+      if (!canvas) return;
+      e.preventDefault();
+      window.scrollTo({ top: canvas.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
+    } else if (e.key === 'm' || e.key === 'M') {
+      // m: the Pages menu, as the article's hamburger opens it
+      var menu = new URL(base + 'list/', location.href);
+      if (menu.pathname === location.pathname) return;
+      playPianoClick();
+      leaveTo(menu.href);
+    } else if (e.key === 'c' || e.key === 'C') {
+      // c: toggle the blue link accent (shared with the article)
+      var on = document.documentElement.classList.toggle('colour');
+      try { localStorage.setItem('blueLinks', on ? 'on' : 'off'); } catch (err) {}
+      playPianoClick();
+      spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
+    } else if (e.key === 'b' || e.key === 'B') {
+      // b: cycle the band colour, sepia / midnight / black (shared with the article)
+      var root = document.documentElement;
+      var bands = ['', 'midnight', 'black'];
+      var cur = bands.filter(function (b) { return b && root.classList.contains('band-' + b); })[0] || '';
+      var next = bands[(bands.indexOf(cur) + 1) % bands.length];
+      bands.forEach(function (b) { if (b) root.classList.remove('band-' + b); });
+      if (next) root.classList.add('band-' + next);
+      try { localStorage.setItem('bandColour', next || 'sepia'); } catch (err) {}
+      playPianoClick();
+      spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
+    } else if (e.key === 'f' || e.key === 'F') {
+      // f: headings and subheadings in ET Bembo (shared with the article)
+      var serif = document.documentElement.classList.toggle('serif-headings');
+      try { localStorage.setItem('headings', serif ? 'serif' : 'sans'); } catch (err) {}
+      playPianoClick();
+      spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
+    } else if (e.key === 'Backspace' && (upBtn || backArrow)) {
+      e.preventDefault();
+      // anywhere below the top: go to the top first; at the top (or still
+      // gliding there from the last press): go back
+      if (window.scrollY > 2 && Date.now() - headingTopAt > GLIDE_MS) {
+        headingTopAt = Date.now();
+        if (upBtn) press(upBtn);
+        else { playPianoClick(); scrollToTop(); }
+      } else {
+        press(backArrow);
+      }
+    }
+  });
+
+  // a press during the glide to the top counts as being at the top
+  var GLIDE_MS = 900;
+  var headingTopAt = 0;
+  window.addEventListener('scroll', function () {
+    if (window.scrollY <= 2) headingTopAt = 0;
+  }, { passive: true });
+
+  // c has no button: its ripple shows where the pointer is
+  var pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  document.addEventListener('mousemove', function (e) {
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+  }, { passive: true });
+})();

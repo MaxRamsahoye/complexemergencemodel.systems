@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" class="hide-scrollbar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sources drawn on in A Multi-Agent Model of Major Technological Transitions.">
+  <link id="favicon-ico" rel="icon" href="../favicon/favicon-light.ico" sizes="any">
+  <link id="favicon-32" rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32-light.png">
+  <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="../favicon/favicon-192-light.png">
+  <link id="favicon-apple" rel="apple-touch-icon" href="../favicon/apple-touch-icon-light.png">
+  <script>
+    try {
+      var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      // arriving from another page of the site (or a refresh, or back/forward): fade in
+      var fromSite = false;
+      try { fromSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+      // browsers with cross-document view transitions crossfade between pages
+      // themselves; the others fade out and in (and so does a refresh)
+      var vt = 'CSSViewTransitionRule' in window;
+      if (vt) document.documentElement.classList.add('vt');
+      if ((fromSite || (navEntry && navEntry.type !== 'navigate')) && (!vt || (navEntry && navEntry.type === 'reload'))) document.documentElement.classList.add('page-entering');
+    } catch (e) {}
+    try {
+      // no theme chosen yet: follow the system setting
+      var sys = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      var t = localStorage.getItem('theme');
+      // a theme chosen with t holds only until the system setting changes
+      if (t && localStorage.getItem('themeSystem') !== sys) { t = null; localStorage.removeItem('theme'); }
+      t = t || sys;
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
+      if (localStorage.getItem('headings') !== 'sans') document.documentElement.classList.add('serif-headings');
+      // the band colour (b): midnight blue by default, or sepia or black
+      var band = localStorage.getItem('bandColour') || 'midnight';
+      if (band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
+    } catch (e) {}
+  </script>
+  <title>Sources — Technological Transitions</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Technological Transitions">
+  <meta property="og:title" content="Sources — Technological Transitions">
+  <meta property="og:description" content="Sources drawn on in A Multi-Agent Model of Major Technological Transitions.">
+  <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/sources/">
+  <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A stack of four blue slabs, the site’s loading mark">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="../assets/site.css?v=cd28fcc5" rel="stylesheet">
+  <style>
+    /* light sepia band from the top of the window to just below the intro */
+    .sources-top {
+      position: relative;
+      z-index: 0;
+      margin-bottom: 216px;
+    }
+
+    .sources-top::before {
+      content: '';
+      position: absolute;
+      top: -180px;
+      bottom: -112px;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      background: var(--band-bg);
+      z-index: -1;
+    }
+
+    .sources-top .page-intro {
+      margin-bottom: 0;
+    }
+
+    /* the top section's bibliography: one reference per work, in the page's
+       order, each title linking to the work itself, each with an em dash */
+    .bibliography {
+      max-width: 820px;
+      margin: 56px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bibliography li {
+      position: relative;
+      margin: 0 0 14px;
+      padding-left: 36px;
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    /* each dash links to the work's entry further down the page */
+    .bibliography .bib-jump {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .bibliography .bib-jump::before {
+      content: '\2014';
+    }
+
+    .sources-top .bibliography a.bib-jump:hover {
+      color: var(--link-blue);
+      text-decoration: none;
+    }
+
+    /* a subsection of the bibliography */
+    .bibliography-heading {
+      margin: 64px 0 0;
+      font-family: var(--mono-caps);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* how many works in all, and in each category */
+    .sources-count {
+      margin: 28px 0 0;
+      font-family: var(--mono-caps);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sources-count b {
+      font-weight: 600;
+      color: var(--canvas-ink);
+    }
+
+    .cat-count {
+      margin-left: 14px;
+      font-weight: 400;
+      opacity: 0.75;
+    }
+
+    .bibliography-section {
+      margin-top: 22px;
+    }
+
+    /* the works an entry derives from, indented under it as in the page */
+    .bibliography ol {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bibliography ol .bib-jump::before {
+      content: '\25CB';
+      font-size: 0.7em;
+      line-height: 2;
+    }
+
+    .bibliography ol li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* titles in the text colour, turning blue and underlined on hover */
+    .sources-top .bibliography a[href] {
+      color: inherit;
+      text-decoration: none;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .sources-top .bibliography a[href]:hover {
+      color: var(--link-blue);
+      text-decoration: underline;
+    }
+
+    /* wherever there is room, each reference on one line (the longest may
+       run past the column on the right) */
+    @media (min-width: 1360px) {
+      .bibliography {
+        max-width: none;
+      }
+
+      .bibliography li {
+        font-size: 20px;
+        white-space: nowrap;
+      }
+
+      .bibliography li.long {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .bibliography li {
+        padding-left: 28px;
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sources-top::before {
+        top: -140px;
+      }
+    }
+
+    /* the site name sits in the top-right corner, as on the Lexicon */
+    .site-title,
+    body.footer-in-view .site-title {
+      position: absolute;
+      z-index: 10;
+      top: 32px;
+      right: 40px;
+      left: auto;
+      bottom: auto;
+      margin: 0;
+      text-align: right;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 960px) {
+      .site-title,
+      body.footer-in-view .site-title {
+        top: 26px;
+        right: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-title,
+      body.footer-in-view .site-title {
+        top: 22px;
+      }
+    }
+
+    /* each source: author and year, the work, then what it contributes */
+    .sources {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .source {
+      padding: 26px 0;
+    }
+
+    /* links to an entry land just above it */
+    .source, .source-part {
+      scroll-margin-top: 40px;
+    }
+
+    .source-author {
+      margin: 0 0 20px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .source-work {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    html.serif-headings .source-work {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0;
+      -webkit-text-stroke: 0.4px currentColor;
+    }
+
+    /* a further work by the same author, within the same entry */
+    .source-part {
+      margin-top: 60px;
+    }
+
+    .source-work-second {
+      margin-top: 16px;
+    }
+
+    .source-detail {
+      margin: 12px 0 0;
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .source-note {
+      margin: 22px 0 0;
+      font-size: 23px;
+      line-height: 1.3;
+    }
+
+    /* grey dividers between entries, with room either side */
+    .sources > .source {
+      padding: 56px 0;
+    }
+
+    .sources > .source:first-child {
+      padding-top: 0;
+    }
+
+    .sources > .source + .source {
+      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    }
+
+    .source-link {
+      margin: 24px 0 0;
+      font-family: var(--mono-caps);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* source links are always blue, whatever the colour (c) setting */
+    .source-link a,
+    html.colour .source-link a[href^="http"] {
+      color: var(--link-blue);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+    }
+
+    .source-link a:hover {
+      border-bottom-color: currentColor;
+    }
+
+    .source-link em {
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+
+    /* a subsection of the sources */
+    .sources > .source-section {
+      padding: 120px 0 56px;
+      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    }
+
+    .source-section h2 {
+      margin: 0;
+      font-family: var(--mono-caps);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sources > .source-section:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .sources > .source-section + .source {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    /* works a source is derived from, indented beneath it */
+    .source-roots {
+      list-style: none;
+      margin: 36px 0 0;
+      padding: 0 0 0 28px;
+      border-left: 1.5px solid color-mix(in srgb, currentColor 22%, transparent);
+    }
+
+    .source-roots .source {
+      padding: 20px 0;
+    }
+
+    .source-roots .source-work,
+    html.serif-headings .source-roots .source-work {
+      font-size: 21px;
+    }
+
+    .source-roots .source-note {
+      font-size: 20px;
+    }
+
+    .source-label {
+      margin: 0;
+      font-family: var(--mono-caps);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .source-work,
+      html.serif-headings .source-work {
+        font-size: 22px;
+      }
+
+      .source-note {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
+    <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
+      <path d="M10,1.5 L5,6 L18,6 A4,4 0 0 1 18,14 L1,14"/>
+      <path d="M10,10.5 L5,6"/>
+    </svg>
+  </a>
+
+  <main class="page-main">
+    <div class="sources-top wide-top on-band">
+    <h1 class="page-title"><a class="heading-link title-top" href="#">Sources</a></h1>
+    <p class="page-intro">Works drawn on in <a class="plain-link" href="../"><em>A Multi-Agent Model of Major Technological Transitions</em></a>.</p>
+    <p class="sources-count"><b data-count="all">20</b> sources in <b data-count="cats">2</b> categories</p>
+    <h2 class="bibliography-heading">Civilisational Macrohistorical Development<span class="cat-count">13</span></h2>
+    <ol class="bibliography bibliography-section" aria-label="Civilisational Macrohistorical Development">
+      <li><a class="bib-jump" href="#dafoe" aria-label="Go to the entry"></a>Allan Dafoe &lsquo;<a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">On Technological Determinism</a>&rsquo; <em>Science, Technology, &amp; Human Values</em> (2015)
+        <ol>
+          <li><a class="bib-jump" href="#macinnes-garfinkel-dafoe" aria-label="Go to the entry"></a>MacInnes, Garfinkel &amp; Dafoe &lsquo;<a href="https://doi.org/10.1093/isq/sqae111" target="_blank" rel="noopener">Anarchy as Architect</a>&rsquo; <em>International Studies Quarterly</em> (2024)</li>
+          <li><a class="bib-jump" href="#dafoe-value-erosion" aria-label="Go to the entry"></a>Allan Dafoe &lsquo;<a href="https://docs.google.com/document/d/1B77VWaXG-u34nSRFKV14pJNHJHHb6sa5zJ08J70CVVA/edit?usp=sharing" target="_blank" rel="noopener">Value Erosion</a>&rsquo; <em>Future of Humanity Institute</em> (2019)</li>
+        </ol>
+      </li>
+      <li><a class="bib-jump" href="#schmachtenberger-emergence" aria-label="Go to the entry"></a>Daniel Schmachtenberger &lsquo;<a href="https://archive.ph/nG3HK" target="_blank" rel="noopener">The Emergence Model</a>&rsquo; <em>The Emergence Project</em> (2017)
+        <ol>
+          <li><a class="bib-jump" href="#wilber" aria-label="Go to the entry"></a>Ken Wilber <em><a href="https://en.wikipedia.org/wiki/Integral_theory_(Ken_Wilber)" target="_blank" rel="noopener">Sex, Ecology, Spirituality: The Spirit of Evolution</a></em> (1995)</li>
+          <li><a class="bib-jump" href="#harris" aria-label="Go to the entry"></a>Marvin Harris <em><a href="https://mitpressbookstore.mit.edu/book/9780759101340" target="_blank" rel="noopener">Cultural Materialism: The Struggle for a Science of Culture</a></em> (1979)</li>
+        </ol>
+      </li>
+      <li><a class="bib-jump" href="#schmachtenberger-economics" aria-label="Go to the entry"></a>Daniel Schmachtenberger &lsquo;<a href="https://civilizationemerging.com/new-economics-series-4/" target="_blank" rel="noopener">New Economics, Part IV</a>&rsquo; <em>Civilization Emerging</em> (2017)</li>
+      <li><a class="bib-jump" href="#joseph" aria-label="Go to the entry"></a>Peter Joseph <em><a href="https://www.penguinrandomhouse.com/books/691520/the-new-human-rights-movement-by-peter-joseph/" target="_blank" rel="noopener">The New Human Rights Movement: Reinventing the Economy to End Oppression</a></em> (2017)</li>
+      <li><a class="bib-jump" href="#sapolsky" aria-label="Go to the entry"></a>Robert M. Sapolsky <em><a href="https://penguinrandomhouse.ca/books/311787/behave-by-robert-m-sapolsky" target="_blank" rel="noopener">Behave: The Biology of Humans at Our Best and Worst</a></em> (2017)</li>
+      <li><a class="bib-jump" href="#diamond" aria-label="Go to the entry"></a>Jared Diamond &lsquo;<a href="https://www.discovermagazine.com/magazine/issue/may-1987" target="_blank" rel="noopener">The Worst Mistake in the History of the Human Race</a>&rsquo; <em>Discover</em> (1987)</li>
+      <li><a class="bib-jump" href="#diamond-guns" aria-label="Go to the entry"></a>Jared Diamond <em><a href="https://en.wikipedia.org/wiki/Guns,_Germs,_and_Steel" target="_blank" rel="noopener">Guns, Germs, and Steel: The Fates of Human Societies</a></em> (1997)</li>
+      <li><a class="bib-jump" href="#sahlins" aria-label="Go to the entry"></a>Marshall Sahlins &lsquo;<a href="https://www.routledge.com/products/9781138702608" target="_blank" rel="noopener">The Original Affluent Society</a>&rsquo; in <em>Stone Age Economics</em> (1972)</li>
+      <li><a class="bib-jump" href="#kemp" aria-label="Go to the entry"></a>Luke Kemp <em><a href="https://www.publishersweekly.com/9780593321355" target="_blank" rel="noopener">Goliath&rsquo;s Curse: The History and Future of Societal Collapse</a></em> (2025)</li>
+    </ol>
+    <h2 class="bibliography-heading">Evolutionary Process Misalignment<span class="cat-count">7</span></h2>
+    <ol class="bibliography bibliography-section" aria-label="Evolutionary Process Misalignment">
+      <li><a class="bib-jump" href="#drago-laine" aria-label="Go to the entry"></a>Luke Drago &amp; Rudolf Laine &lsquo;<a href="https://intelligence-curse.ai/" target="_blank" rel="noopener">The Intelligence Curse</a>&rsquo; <em>Workshop Labs</em> (2025)</li>
+      <li><a class="bib-jump" href="#kulveit" aria-label="Go to the entry"></a>Jan Kulveit <em>et al.</em> &lsquo;<a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">Gradual Disempowerment</a>&rsquo; <em>Alignment of Complex Systems Research Group</em> (2025)</li>
+      <li><a class="bib-jump" href="#assadi" aria-label="Go to the entry"></a>Guive Assadi &lsquo;<a href="https://hearthisidea.com/episodes/assadi/" target="_blank" rel="noopener">Will Humanity Choose Its Future?</a>&rsquo; <em>Center for the Governance of AI</em> (2023)</li>
+      <li><a class="bib-jump" href="#carlsmith" aria-label="Go to the entry"></a>Joe Carlsmith &lsquo;<a href="https://joecarlsmith.substack.com/p/video-and-transcript-of-talk-on-can" target="_blank" rel="noopener">Can Goodness Compete?</a>&rsquo; (2025)</li>
+      <li><a class="bib-jump" href="#gomez-emilsson" aria-label="Go to the entry"></a>Andr&eacute;s G&oacute;mez Emilsson &lsquo;<a href="https://qri.org/blog/universal-plot" target="_blank" rel="noopener">The Universal Plot: Part I &ndash; Consciousness vs. Pure Replicators</a>&rsquo; <em>Qualia Research Institute</em> (2017)</li>
+      <li><a class="bib-jump" href="#ronn" aria-label="Go to the entry"></a>Kristian R&ouml;nn &lsquo;<a href="https://www.lesswrong.com/s/jZfcWzg8cxviFqwrT" target="_blank" rel="noopener">The Darwinian Trap</a>&rsquo; <em>LessWrong</em> (2024)</li>
+      <li><a class="bib-jump" href="#alexander" aria-label="Go to the entry"></a>Scott Alexander &lsquo;<a href="https://slatestarcodex.com/2014/07/30/meditations-on-moloch/" target="_blank" rel="noopener">Meditations on Moloch</a>&rsquo; <em>Slate Star Codex</em> (2014)</li>
+    </ol>
+    </div>
+
+    <ol class="sources">
+      <li class="source-section" id="civilisational-macrohistorical-development"><h2>Civilisational Macrohistorical Development<span class="cat-count">13</span></h2></li>
+
+      <li class="source" id="dafoe">
+        <p class="source-author">Allan Dafoe</p>
+        <p class="source-work">On Technological Determinism: A Typology, Scope Conditions, and a Mechanism</p>
+        <p class="source-detail"><em>Science, Technology, &amp; Human Values</em>, 2015</p>
+        <p class="source-note">Dafoe sorts the many versions of technological determinism into a typology and asks under what conditions technology really does drive social change. His answer is a mechanism he calls military-economic adaptationism: in a competitive international system, societies that adopt technologies conferring military and economic advantage prosper, and those that do not are outcompeted, conquered or forced to follow. The article supplies the structural half of this project&rsquo;s model &ndash; the pressure that pushes each new technology stack across civilisation.</p>
+        <p class="source-link"><a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+        <ul class="source-roots">
+          <li><p class="source-label">Developed in</p></li>
+          <li class="source" id="macinnes-garfinkel-dafoe">
+            <p class="source-author">Morgan MacInnes, Ben Garfinkel &amp; Allan Dafoe</p>
+            <p class="source-work">Anarchy as Architect: Competitive Pressure, Technology, and the Internal Structure of States</p>
+            <p class="source-detail"><em>International Studies Quarterly</em>, 2024</p>
+            <p class="source-note">The authors carry Dafoe&rsquo;s mechanism from technology to the state itself. Competitive pressure between states narrows the range of domestic institutions any one of them can sustain, and technological change shifts which forms of state are competitive. A macrohistorical survey of competitively significant technologies shows the costs of anarchy to be larger than usually recognised: inventions that seem beneficial can lower human well-being by making inegalitarian states more competitive.</p>
+            <p class="source-link"><a href="https://doi.org/10.1093/isq/sqae111" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+          </li>
+          <li class="source" id="dafoe-value-erosion">
+            <p class="source-author">Allan Dafoe</p>
+            <p class="source-work">Value Erosion</p>
+            <p class="source-detail"><em>Future of Humanity Institute</em>, 2019</p>
+            <p class="source-note">Dafoe names the risk that competition selects against good values. Wherever there is a trade-off between a value and competitive performance &ndash; among states, companies or, in time, autonomous AI systems &ndash; those who give the value up gain an edge, and pressure mounts on everyone else to follow, until values no one chose become entrenched.</p>
+            <p class="source-link"><a href="https://docs.google.com/document/d/1B77VWaXG-u34nSRFKV14pJNHJHHb6sa5zJ08J70CVVA/edit?usp=sharing" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+          </li>
+        </ul>
+      </li>
+
+      <li class="source" id="schmachtenberger-emergence">
+        <p class="source-author">Daniel Schmachtenberger</p>
+        <p class="source-work">The Emergence Model</p>
+        <p class="source-note">Schmachtenberger describes a society as three interacting layers: its infrastructure, the technologies and material systems through which it meets its needs; its social structure, the institutions of politics, law and economics; and its superstructure, its shared values, beliefs and culture. A change in any layer pressures the others, but the deepest and most durable shifts begin in the infrastructure. The model gives this project its way of tracing how a new technology stack reshapes political economy and cultural psychology.</p>
+        <p class="source-link"><a href="https://archive.ph/nG3HK" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+        <ul class="source-roots">
+          <li><p class="source-label">Derived from</p></li>
+          <li class="source" id="wilber">
+            <p class="source-author">Ken Wilber</p>
+            <p class="source-work">Integral Theory</p>
+            <p class="source-note">Wilber&rsquo;s four-quadrant map holds that any whole has interior and exterior, individual and collective dimensions &ndash; experience, behaviour, culture and systems &ndash; and that none can be reduced to the others. It underlies the Emergence Model&rsquo;s insistence that technological, institutional and cultural change be read together.</p>
+            <p class="source-link"><a href="https://en.wikipedia.org/wiki/Integral_theory_(Ken_Wilber)" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+          </li>
+          <li class="source" id="harris">
+            <p class="source-author">Marvin Harris</p>
+            <p class="source-work">Cultural Materialism: The Struggle for a Science of Culture</p>
+            <p class="source-detail">1979</p>
+            <p class="source-note">Harris divides every society into infrastructure, structure and superstructure, and argues that the material conditions of production and reproduction are the primary drivers of cultural change. It is the source of the Emergence Model&rsquo;s three layers, and of the priority it gives to infrastructure.</p>
+            <p class="source-link"><a href="https://mitpressbookstore.mit.edu/book/9780759101340" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+          </li>
+        </ul>
+        <div class="source-part" id="schmachtenberger-economics">
+          <p class="source-work">New Economics, Part IV</p>
+          <p class="source-note">Schmachtenberger traces how the economy came to be thought of, and managed, as something separate from the ecology that sustains it &ndash; an abstraction in which natural resources appear as inputs and their depletion as externalities. That separation, he argues, is part of what makes endless growth on a finite planet seem possible, and it is one of the roots of the present metacrisis.</p>
+          <p class="source-link"><a href="https://civilizationemerging.com/new-economics-series-4/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+        </div>
+      </li>
+
+
+      <li class="source" id="joseph">
+        <p class="source-author">Peter Joseph</p>
+        <p class="source-work">The New Human Rights Movement: Reinventing the Economy to End Oppression</p>
+        <p class="source-detail">2017</p>
+        <p class="source-note">Joseph argues that poverty, inequality and declining public health are not natural features of human life but products of an outdated socio-economic orientation built on scarcity, competition and endless growth. Structural oppression, on this account, follows from the economic system itself rather than from individual prejudice alone. The book informs this project&rsquo;s view of the market as a historical construction, and of its effects as open to change.</p>
+        <p class="source-link"><a href="https://www.penguinrandomhouse.com/books/691520/the-new-human-rights-movement-by-peter-joseph/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="sapolsky">
+        <p class="source-author">Robert Sapolsky</p>
+        <p class="source-work">Behave: The Biology of Humans at Our Best and Worst</p>
+        <p class="source-detail">2017</p>
+        <p class="source-note">Sapolsky explains human behaviour across every timescale, from the neurons firing a second before an act to the evolutionary pressures of millions of years. Among the long-run influences he traces is the invention of poverty: how agriculture, surplus and hierarchy introduced inequality on a scale unknown to hunter-gatherers, with lasting effects on stress, health and behaviour. It grounds this project&rsquo;s account of cultural-psychological adaptation in biology.</p>
+        <p class="source-link"><a href="https://penguinrandomhouse.ca/books/311787/behave-by-robert-m-sapolsky" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="diamond">
+        <p class="source-author">Jared Diamond</p>
+        <p class="source-work">The Worst Mistake in the History of the Human Race</p>
+        <p class="source-detail"><em>Discover</em>, 1987</p>
+        <p class="source-note">Diamond argues that the adoption of agriculture, long celebrated as humanity&rsquo;s decisive step forward, was in many ways a catastrophe: it brought class, inequality, malnutrition and disease, making elites better off and most people worse off. The essay frames this project&rsquo;s account of the Agricultural Revolution.</p>
+        <p class="source-link"><a href="https://www.discovermagazine.com/magazine/issue/may-1987" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+        <div class="source-part" id="diamond-guns">
+          <p class="source-work">Guns, Germs, and Steel: The Fates of Human Societies</p>
+          <p class="source-detail">1997</p>
+          <p class="source-note">Diamond asks why some societies came to dominate others, and finds the answer in geography, domestication and the technologies and diseases they produced &ndash; an account of how technological advantage reshapes the world.</p>
+          <p class="source-link"><a href="https://en.wikipedia.org/wiki/Guns,_Germs,_and_Steel" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+        </div>
+      </li>
+
+      <li class="source" id="sahlins">
+        <p class="source-author">Marshall Sahlins</p>
+        <p class="source-work">The Original Affluent Society</p>
+        <p class="source-detail">In <em>Stone Age Economics</em>, 1972</p>
+        <p class="source-note">Sahlins overturns the image of hunter-gatherers as living on the edge of starvation. Their wants were few and readily met, he argues, and they worked fewer hours than farmers or industrial workers: affluent not through abundance of goods but through the modesty of their needs. The essay underpins this project&rsquo;s account of hunter-gatherer society as affluent in a minimalist sense, and of scarcity as something agriculture created.</p>
+        <p class="source-link"><a href="https://www.routledge.com/products/9781138702608" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="kemp">
+        <p class="source-author">Luke Kemp</p>
+        <p class="source-work">Goliath&rsquo;s Curse: The History and Future of Societal Collapse</p>
+        <p class="source-detail">2025</p>
+        <p class="source-note">Kemp studies the rise and collapse of more than four hundred societies across five thousand years, and finds a recurring pattern: dominance hierarchies &ndash; &ldquo;Goliaths&rdquo; &ndash; grow by extraction and status competition among elites until they become fragile and fall, while more equal and democratic societies prove more resilient. He then asks what that history means for a globally connected civilisation armed with technologies of mass destruction. It sharpens this project&rsquo;s question of whether the power-elite will steer the Intelligence Revolution towards or away from catastrophe.</p>
+        <p class="source-link"><a href="https://www.publishersweekly.com/9780593321355" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source-section" id="evolutionary-process-misalignment"><h2>Evolutionary Process Misalignment<span class="cat-count">7</span></h2></li>
+
+      <li class="source" id="drago-laine">
+        <p class="source-author">Luke Drago &amp; Rudolf Laine</p>
+        <p class="source-work">The Intelligence Curse</p>
+        <p class="source-detail"><em>Workshop Labs</em>, 2025</p>
+        <p class="source-note">Drago and Laine draw an analogy with the resource curse, in which states that draw their wealth from oil rather than from their people have little reason to invest in them or answer to them. If powerful actors can draw their wealth and power from AI rather than from human labour, the same incentives could turn against most people &ndash; and the authors set out how the curse might be broken.</p>
+        <p class="source-link"><a href="https://intelligence-curse.ai/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="kulveit">
+        <p class="source-author">Jan Kulveit, Raymond Douglas, Nora Ammann, Deger Turan, David Krueger &amp; David Duvenaud</p>
+        <p class="source-work">Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development</p>
+        <p class="source-detail"><em>Alignment of Complex Systems Research Group</em>, 2025</p>
+        <p class="source-note">The authors argue that existential catastrophe need not come from a sudden takeover. As AI incrementally replaces human labour and cognition across the economy, culture and the state, these systems lose the human participation that kept them implicitly aligned with human interests &ndash; and, each reinforcing the others, could leave humanity irreversibly disempowered.</p>
+        <p class="source-link"><a href="https://gradual-disempowerment.ai/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="assadi">
+        <p class="source-author">Guive Assadi</p>
+        <p class="source-work">Will Humanity Choose Its Future?</p>
+        <p class="source-detail"><em>Center for the Governance of AI</em>, 2023</p>
+        <p class="source-note">Assadi defines an evolutionary future as one shaped by competition between actors towards a direction almost no one would have chosen &ndash; as, he argues, some of history&rsquo;s greatest shifts, among them the rise of agriculture, were chosen by no one. Only a world government, strong multilateral coordination or a strong defensive advantage could halt such pressures, so confidence that humanity will choose its future requires confidence that one of them will hold.</p>
+        <p class="source-link"><a href="https://hearthisidea.com/episodes/assadi/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="carlsmith">
+        <p class="source-author">Joe Carlsmith</p>
+        <p class="source-work">Can Goodness Compete?</p>
+        <p class="source-detail">2025</p>
+        <p class="source-note">Carlsmith examines the worry that competition rewards power, and power does not track goodness: if every chance to trade goodness for power makes winning more likely, a competitive future is one in which goodness loses. Yet constraining competition to protect it may demand forms of control that are oppressive, stagnant or brittle &ndash; a trade-off between a hyper-competitive future and a locked-in one.</p>
+        <p class="source-link"><a href="https://joecarlsmith.substack.com/p/video-and-transcript-of-talk-on-can" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="gomez-emilsson">
+        <p class="source-author">Andr&eacute;s G&oacute;mez Emilsson</p>
+        <p class="source-work">The Universal Plot: Part I &ndash; Consciousness vs. Pure Replicators</p>
+        <p class="source-detail"><em>Qualia Research Institute</em>, 2017</p>
+        <p class="source-note">G&oacute;mez Emilsson reads the story of life as a contest between consciousness and pure replicators &ndash; patterns that spread whatever the value of the experience they produce. Selection favours whatever replicates best, not whatever feels best, and he argues that a future left to such pressures could be dominated by replicators indifferent to the quality of conscious life.</p>
+        <p class="source-link"><a href="https://qri.org/blog/universal-plot" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="ronn">
+        <p class="source-author">Kristian R&ouml;nn</p>
+        <p class="source-work">The Darwinian Trap</p>
+        <p class="source-detail"><em>LessWrong</em>, 2024</p>
+        <p class="source-note">R&ouml;nn names the selection pressures that drive agents to harm others for their own gain &ldquo;Darwinian demons&rdquo;, and traces how they fuel arms races for resources, power and intelligence that now threaten our future. He argues that the same pressures can be shifted &ndash; through global coordination that changes what is selected for.</p>
+        <p class="source-link"><a href="https://www.lesswrong.com/s/jZfcWzg8cxviFqwrT" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+
+      <li class="source" id="alexander">
+        <p class="source-author">Scott Alexander</p>
+        <p class="source-work">Meditations on Moloch</p>
+        <p class="source-detail"><em>Slate Star Codex</em>, 2014</p>
+        <p class="source-note">Alexander personifies the multipolar trap as Moloch: the logic by which competition forces every actor to sacrifice its values for competitiveness, in races to the bottom that no one wants and no one can escape alone. Left unchecked, he argues, it optimises away everything we care about, and only coordination strong enough to stand outside the competition can stop it.</p>
+        <p class="source-link"><a href="https://slatestarcodex.com/2014/07/30/meditations-on-moloch/" target="_blank" rel="noopener">Source <span aria-hidden="true">&nearr;</span></a></p>
+      </li>
+    </ol>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+    <div class="footer-head">
+    <p class="footer-subtitle"><em>We shape our tools, and thereafter our tools shape us</em></p>
+    <p class="footer-title"><a class="heading-link" href="../">technologicaltransitions.agency</a></p>
+    <p class="footer-author">A project by <a class="author-link" href="https://maxramsahoye.github.io/max/" target="_blank" rel="noopener">Max Ramsahoye</a> on the philosophy of technology</p>
+    </div>
+    <nav class="footer-sitemap" aria-label="Sitemap">
+      <p class="sitemap-heading"><a href="../list/">All Pages</a></p>
+      <ol>
+        <li><a href="../">Article</a></li>
+        <li><a href="../overviews/">Overviews</a></li>
+        <li><a href="../diagram/">Diagrams</a></li>
+        <li><a href="../timeline/">Timelines</a></li>
+        <li><a href="../lexicon/">Concepts</a></li>
+        <li><a href="../sources/">Sources</a></li>
+        <li><a href="../model/">*Model</a></li>
+      </ol>
+    </nav>
+    </div>
+  </footer>
+
+
+  <div class="progress-pill progress-edge" data-start=".sources-top" data-start-offset="88" aria-hidden="true">
+    <div class="progress-pill-fill"></div>
+  </div>
+
+  <button class="scroll-top-btn" type="button" aria-label="Scroll to top" data-show-after=".sources-top">
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
+      <polygon points="14,9.078 20.328,18.922 14,15.969 7.672,18.922"/>
+    </svg>
+  </button>
+
+  <script>
+    // the counts, kept to the list: every work in it, sub-entries included,
+    // in all and in each category, at the top and down the page
+    (function () {
+      var cats = Array.prototype.slice.call(document.querySelectorAll('.bibliography-section'));
+      var counts = cats.map(function (c) { return c.querySelectorAll('li').length; });
+      document.querySelector('[data-count="all"]').textContent = counts.reduce(function (a, b) { return a + b; }, 0);
+      document.querySelector('[data-count="cats"]').textContent = cats.length;
+      document.querySelectorAll('.bibliography-heading .cat-count').forEach(function (el, i) { el.textContent = counts[i]; });
+      document.querySelectorAll('.source-section .cat-count').forEach(function (el, i) { el.textContent = counts[i]; });
+    })();
+
+    // the up arrow shows once the top section has scrolled away
+    (function () {
+      var upBtn = document.querySelector('.scroll-top-btn');
+      var band = document.querySelector('.sources-top');
+      function showUp() { upBtn.classList.toggle('visible', band.getBoundingClientRect().bottom < 0); }
+      window.addEventListener('scroll', showUp, { passive: true });
+      showUp();
+    })();
+  </script>
+
+  <a class="site-title" href="../">Technological<br>Transitions</a>
+
+  <script src="../assets/site.js?v=689f9cb8" data-base="../"></script>
+  <script src="../assets/tools.js?v=5afe0f29" data-search-scope=".sources" data-hide-until=".sources-top"></script>
+</body>
+</html>
