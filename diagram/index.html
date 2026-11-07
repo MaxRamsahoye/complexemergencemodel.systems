@@ -280,7 +280,8 @@
     .structures-view,
     .structures-alt,
     .marx-view,
-    .marx-alt {
+    .marx-alt,
+    .integral-view {
       display: none;
     }
 
@@ -291,7 +292,8 @@
     body[data-show="structures-main"] .structures-view,
     body[data-show="structures-main"] .structures-alt,
     body[data-show="marx-main"] .marx-view,
-    body[data-show="marx-main"] .marx-alt {
+    body[data-show="marx-main"] .marx-alt,
+    body[data-show="integral-main"] .integral-view {
       display: block;
     }
 
@@ -355,6 +357,7 @@
     .ov-thumb .t { fill: var(--top); }
     .ov-thumb .l { fill: var(--left); }
     .ov-thumb .r { fill: var(--right); }
+    .ov-thumb .m { fill: color-mix(in srgb, var(--top) 50%, var(--left)); }
 
     .ov-thumb .ln {
       fill: none;
@@ -1547,7 +1550,8 @@
     .structures-view,
     .structures-alt,
     .marx-view,
-    .marx-alt {
+    .marx-alt,
+    .integral-view {
       animation: view-in 0.4s ease;
     }
 
@@ -1631,20 +1635,20 @@
     }
 
     /* a little darker than the sepia band, a little lighter than the blue */
-    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
+    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
       --top: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 8%);
       --left: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 16%);
       --right: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 24%);
     }
 
-    html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
+    html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
       /* lighter shades of the band's own purple */
       --top: #5b3f99;
       --left: #432c7a;
       --right: #2f1d5c;
     }
 
-    html.band-midnight:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
+    html.band-midnight:not([data-theme="dark"]) :is(.st-stack, .ov-thumb, .quad-grid) {
       /* lighter shades of the band's own blue, rather than mixes with
          white, which turn grey */
       --top: #3d4b94;
@@ -1653,7 +1657,7 @@
     }
 
     /* in the dark theme, the slabs are the purple of its bands */
-    html[data-theme="dark"] :is(.st-stack, .ov-thumb) {
+    html[data-theme="dark"] :is(.st-stack, .ov-thumb, .quad-grid) {
       --top: #5b3f99;
       --left: #432c7a;
       --right: #2f1d5c;
@@ -1986,10 +1990,151 @@
       color: inherit;
     }
 
+    /* Integral Model: four quadrants, interior and exterior across the
+       top, individual and collective down the side, a panel beside them */
+    .quad-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      column-gap: 56px;
+      align-items: center;
+      min-height: 600px;
+    }
+
+    .quad-fig {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .quad-cols,
+    .quad-rows {
+      display: grid;
+      gap: 6px;
+      font-family: var(--mono-caps);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .quad-cols {
+      grid-column: 2;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* each label runs up the side of its own row */
+    .quad-rows {
+      grid-row: 2;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .quad-rows span {
+      align-self: center;
+      justify-self: center;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .quad-grid {
+      /* two squares, the side labels and the gutters within the width */
+      --q: min(210px, calc((100vw - 48px - 56px) / 2));
+      --quad-ink: #fbf6ec;
+      /* as the slabs: shades of the band */
+      --top: color-mix(in srgb, var(--band-bg) 72%, var(--canvas-bg));
+      --left: color-mix(in srgb, var(--band-bg) 88%, var(--canvas-bg));
+      --right: var(--band-bg);
+      grid-column: 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: repeat(2, var(--q));
+      grid-template-rows: repeat(2, var(--q));
+      gap: 6px;
+    }
+
+    /* on the light sepia band the quadrants are pale: dark text */
+    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) .quad-grid {
+      --quad-ink: #000000;
+    }
+
+    .quad-cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border: none;
+      color: var(--quad-ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .quad-cell[data-q="ul"] { background: var(--top); }
+    .quad-cell[data-q="ur"] { background: color-mix(in srgb, var(--top) 50%, var(--left)); }
+    .quad-cell[data-q="ll"] { background: var(--left); }
+    .quad-cell[data-q="lr"] { background: var(--right); }
+
+    /* the quadrant pointed to turns the accent, as a slab does */
+    .quad-grid .quad-cell.active {
+      background: color-mix(in srgb, var(--link-blue) 45%, var(--canvas-bg));
+      color: var(--canvas-ink);
+    }
+
+    html[data-theme="dark"] .quad-grid .quad-cell.active {
+      background: var(--link-blue);
+      color: #1d1135;
+    }
+
+    .quad-pron {
+      font-family: var(--serif);
+      font-size: 46px;
+      line-height: 1;
+    }
+
+    .quad-name {
+      display: block;
+      font-family: var(--sans);
+      font-size: 16px;
+    }
+
+    .quad-pos {
+      display: block;
+      margin-top: 4px;
+      font-family: var(--mono-caps);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    @media (max-width: 800px) {
+      .quad-layout {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 48px;
+        min-height: 0;
+      }
+
+      .quad-fig {
+        justify-content: start;
+      }
+
+      .quad-pron {
+        font-size: 36px;
+      }
+
+      .quad-cell {
+        padding: 14px;
+      }
+    }
+
     .structures-view,
     .structures-alt,
     .marx-view,
-    .marx-alt {
+    .marx-alt,
+    .integral-view {
       width: var(--wide-col);
       margin-left: calc((100% - var(--wide-col)) / 2);
     }
@@ -2195,7 +2340,8 @@
       .structures-view,
       .structures-alt,
       .marx-view,
-      .marx-alt {
+      .marx-alt,
+      .integral-view {
         width: auto;
         margin-left: 0;
       }
@@ -2442,6 +2588,9 @@
       <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
         <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
       </div>
+      <div class="tab-group" role="tablist" aria-label="Integral Model: Four Quadrants">
+        <button type="button" role="tab" aria-selected="false" data-show="integral-main">Four Quadrants</button>
+      </div>
     </div>
     </div>
 
@@ -2486,6 +2635,22 @@
     </section>
 
     <div class="marx-alt" role="figure" aria-label="Classical Marxism: the base and the superstructure"></div>
+
+    <section class="integral-view" aria-label="Integral Model: Four Quadrants">
+      <div class="quad-layout">
+        <div class="quad-fig" role="figure" aria-label="The four quadrants: interior and exterior, individual and collective">
+          <div class="quad-cols" aria-hidden="true"><span>Interior</span><span>Exterior</span></div>
+          <div class="quad-rows" aria-hidden="true"><span>Individual</span><span>Collective</span></div>
+          <div class="quad-grid"></div>
+        </div>
+        <div class="stack-side">
+          <ol class="stack-menu" aria-label="The four quadrants"></ol>
+          <div class="stack-panel quad-panel" aria-live="polite">
+            <div class="stack-intro show"><p>Every whole has an inside and an outside, and is both an individual and part of a collective. Point to a quadrant to see what it holds.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="selection-view" aria-label="The Selection Process"><div class="diagram-sel" role="figure" aria-label="For each revolution, the new forms, the selection pressures that favoured them, and how they proliferated"></div>
       <div class="d-more d-more-sel" aria-live="polite"><div class="d-more-inner"></div></div></section>
@@ -2639,6 +2804,10 @@
         sequences: {
           title: 'The Sequences',
           desc: 'The developmental mechanics of <em>constraints and affordances</em>: the limits a way of life imposes, and the new possibilities a technology stack opens up to overcome them &ndash; each major technological transition lifting a constraint that had bound every society before it.'
+        },
+        integral: {
+          title: 'Integral Model: Four Quadrants',
+          desc: 'Wilber&rsquo;s four-quadrant map holds that every whole has an interior and an exterior, and exists both as an individual and as part of a collective. The four views that result &ndash; intentional, behavioural, cultural and social &ndash; arise together, and none can be reduced to the others: a change in any one is reflected in all four.'
         },
         marx: {
           title: 'Classical Marxism: Base-Superstructure',
@@ -2992,6 +3161,60 @@
           d._id = 'rel-' + r.dataset.rel;
           r.querySelectorAll('.sa-rel-btn').forEach(function (b) { opener(b, b.dataset.key, 'rel', d); });
         });
+      }
+
+      // Integral Model: the four quadrants, upper left to lower right
+      var QUADRANTS = [
+        { q: 'ul', pron: 'I', name: 'Intentional', pos: 'Upper Left', aka: 'Individual Interior', def: 'The inner life of the individual: thoughts, feelings, intentions, sensations and states of consciousness &ndash; what it is like to be someone, known from the inside through introspection and interpretation.' },
+        { q: 'ur', pron: 'It', name: 'Behavioural', pos: 'Upper Right', aka: 'Individual Exterior', def: 'The individual seen from outside: the body, the brain and observable behaviour &ndash; what can be measured and described objectively, as by biology, neuroscience and behavioural science.' },
+        { q: 'll', pron: 'We', name: 'Cultural', pos: 'Lower Left', aka: 'Collective Interior', def: 'The shared inner life of a group: its meanings, values, worldviews, language and norms &ndash; the intersubjective background against which its members understand themselves and one another.' },
+        { q: 'lr', pron: 'Its', name: 'Social', pos: 'Lower Right', aka: 'Collective Exterior', def: 'The collective seen from outside: social systems and institutions, technologies, economies and the built and natural environment &ndash; the structures and flows that can be observed and mapped.' }
+      ];
+      var integralBuilt = false;
+      function buildIntegral() {
+        if (integralBuilt) return;
+        integralBuilt = true;
+        var view = document.querySelector('.integral-view');
+        var grid = view.querySelector('.quad-grid');
+        var menu = view.querySelector('.stack-menu');
+        var panel = view.querySelector('.quad-panel');
+        var intro = panel.querySelector('.stack-intro');
+        var cells = [], items = [], details = [], locked = -1;
+        QUADRANTS.forEach(function (Q, i) {
+          var c = document.createElement('button');
+          c.type = 'button';
+          c.className = 'quad-cell';
+          c.dataset.q = Q.q;
+          c.innerHTML = '<span class="quad-pron">' + Q.pron + '</span><span><span class="quad-name">' + Q.name + '</span><span class="quad-pos">' + Q.pos + '</span></span>';
+          c.setAttribute('aria-label', Q.pos + ': ' + Q.name);
+          grid.appendChild(c);
+          cells.push(c);
+          var li = document.createElement('li');
+          li.innerHTML = '<button type="button"><span class="st-name">' + Q.name + '</span><span class="st-date">' + Q.pos + ' &middot; ' + Q.pron + '</span></button>';
+          menu.appendChild(li);
+          items.push(li);
+          var det = document.createElement('div');
+          det.className = 'st-detail';
+          det.innerHTML = '<p class="st-detail-name st-detail-name-only">' + Q.name + '<span class="name-sep">:</span> ' + Q.aka + '</p><p class="st-detail-def">' + Q.def + '</p>';
+          panel.appendChild(det);
+          details.push(det);
+          [c, li].forEach(function (el) {
+            el.addEventListener('mouseenter', function () { show(i); });
+            (el.tagName === 'LI' ? el.querySelector('button') : el).addEventListener('focus', function () { show(i); });
+          });
+          [c, li.querySelector('button')].forEach(function (b) {
+            b.addEventListener('click', function () { locked = locked === i ? -1 : i; show(locked < 0 ? i : locked); });
+          });
+        });
+        function show(at) {
+          cells.forEach(function (c, i) { c.classList.toggle('active', i === at); });
+          items.forEach(function (li, i) { li.classList.toggle('active', i === at); });
+          details.forEach(function (d, i) { d.classList.toggle('show', i === at); });
+          intro.classList.toggle('show', at < 0);
+        }
+        // leaving the quadrants and the list returns to the one chosen, if any
+        view.querySelector('.quad-layout').addEventListener('mouseleave', function () { show(locked); });
+        show(-1);
       }
 
       // Classical Marxism: the economic base, and the superstructure on it
@@ -3595,7 +3818,8 @@
       // All Diagrams: a card for each, with a small drawing of it, opening it
       var OVERVIEW = [
         ['structures', 'The Structures', 'Cultural Materialism: Three Structures', 'Infrastructure, social structure and superstructure, and how each acts on the others.'],
-        ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.']
+        ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.'],
+        ['integral', 'Four Quadrants', 'Integral Model: Four Quadrants', 'Interior and exterior, individual and collective: four views of any whole that arise together, none reducible to the others.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
       function ovSlab(x, y, w, h) {
@@ -3609,6 +3833,9 @@
         if (key === 'stack') [[130, 128, 13], [116, 94, 13], [100, 64, 13], [84, 38, 13]].forEach(function (s) { g += ovSlab(150, s[1], s[0], s[2]); });
         if (key === 'structures') [[136, 122], [136, 84], [136, 46]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
         if (key === 'marx') [[136, 108], [136, 62]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
+        if (key === 'integral') [['t', 92, 22], ['m', 154, 22], ['l', 92, 84], ['r', 154, 84]].forEach(function (s) {
+          g += '<rect class="' + s[0] + '" x="' + s[1] + '" y="' + s[2] + '" width="56" height="56"/>';
+        });
         if (key === 'sequences') [32, 76, 120].forEach(function (y, i) {
           g += '<rect class="bx' + (i === 0 ? ' on' : '') + '" x="40" y="' + y + '" width="86" height="30"/><rect class="bx' + (i === 0 ? ' on' : '') + '" x="174" y="' + y + '" width="86" height="30"/>' +
             '<path class="ln" d="M134 ' + (y + 15) + 'H166M160 ' + (y + 10) + 'L166 ' + (y + 15) + 'L160 ' + (y + 20) + '"/>';
@@ -3651,7 +3878,7 @@
       function setSlug() {
         var d = show.split('-');
         if (d[0] === 'overview') { history.replaceState(null, '', location.pathname); return; }
-        var slug = d[0] === 'marx' ? 'base-superstructure' : d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
+        var slug = d[0] === 'integral' ? 'four-quadrants' : d[0] === 'marx' ? 'base-superstructure' : d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
         history.replaceState(null, '', '#' + slug);
       }
       function render(rebuild) {
@@ -3672,6 +3899,7 @@
         if (show === 'stack-main') buildTech(how);
         if (show === 'structures-main') buildStructures(how);
         if (show === 'marx-main') buildMarx(how);
+        if (show === 'integral-main') buildIntegral();
         buildStructuresAlt();
         buildMarxAlt();
         buildVertical();
@@ -3696,7 +3924,7 @@
 
       var hash = location.hash.slice(1);
       if (/eight|(^|-)8($|-)/.test(hash)) count = '8';
-      show = (/base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
+      show = (/four-quadrants|integral/.test(hash) ? 'integral' : /base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
       render();
     })();
 
