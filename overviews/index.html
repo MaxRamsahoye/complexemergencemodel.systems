@@ -113,6 +113,8 @@
     /* the article's contents, numbered as in its menu, each item leading
        to its section's overview below; sections still to come greyed out */
     /* the contents sit centred in the top section, left-aligned within */
+    /* the title, intro and contents: one block, centred, so that they all
+       start at the same left edge */
     .ov-toc {
       width: fit-content;
       max-width: 100%;
@@ -293,9 +295,9 @@
 
   <main class="page-main">
     <div class="ov-top wide-top on-band">
+    <div class="ov-toc">
     <h1 class="page-title"><a class="heading-link title-top" href="#">Overviews</a></h1>
     <p class="page-intro">Each section of <a class="plain-link" href="../"><em>The Complex Emergence Model</em></a> in brief.</p>
-    <div class="ov-toc">
     <p class="ov-contents-label">Contents</p>
     <ol class="ov-contents" aria-label="Contents"><li class="ov-loading">Loading the article&hellip;</li></ol>
     </div>

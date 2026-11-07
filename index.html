@@ -253,6 +253,11 @@
       color: var(--inverse-link);
     }
 
+    /* links within the site, on the bands, in the band's own text colour */
+    :is(#overview, .in-band) a:not([href^="http"]):not(.heading-link) {
+      color: inherit;
+    }
+
     /* the author's name stays in the text colour, at the top and in the footer */
     html.colour a.author-link,
     html.colour .site-footer a.author-link {
@@ -2181,10 +2186,46 @@
 
             <section id="basis" class="in-band band-alt">
               <h2><a class="heading-link" href="#basis">Basis</a></h2>
+
+              <p>Before co-founding the <a href="https://civilizationresearchinstitute.org/" target="_blank" rel="noopener">Civilization Research Institute</a> in 2021, Daniel Schmachtenberger developed an earlier think-tank concept, <em>The Emergence Project</em> (2017), oriented towards &lsquo;the emergence of a regenerative, thriving, omni-considerate global civilization&rsquo;. Its central premise was a &lsquo;model for successfully addressing the unprecedented complexity and scale&rsquo; of civilisational problems: the <a href="sources/#schmachtenberger-emergence">Emergence Model</a>, a four-quadrant framework derived from Ken Wilber&rsquo;s integral theory, into which &lsquo;all factors that condition human behavior fit&rsquo;. This article takes that model as its basis &ndash; a real development in applied metatheory &ndash; revisiting its precursors and elaborating it into a successor: the complex emergence model.</p>
             </section>
 
             <section id="contents" class="in-band" data-toc="off">
               <h2><a class="heading-link" href="#contents">Contents</a></h2>
+
+              <ul class="dash-list live-list">
+                <li>Overview</li>
+                <li>The Emergence Model
+                  <ul class="dash-list live-sub">
+                    <li>Quadrant Misclassification</li>
+                  </ul>
+                </li>
+                <li>Precursors: Intellectual History &amp; Model Genealogy
+                  <ul class="dash-list live-sub">
+                    <li>Integral Model: Four Quadrants</li>
+                    <li>Cultural Materialism: Three Structures</li>
+                    <li>Classical Marxism: Base-Superstructure</li>
+                  </ul>
+                </li>
+                <li>The Complex Emergence Model
+                  <ul class="dash-list live-sub">
+                    <li>Core</li>
+                    <li>Interfaces: &lsquo;Second Nature&rsquo;</li>
+                    <li>Transecting</li>
+                  </ul>
+                </li>
+                <li>Interaction Dynamics &amp; Causal Primacy
+                  <ul class="dash-list live-sub">
+                    <li>Structural Reductionism</li>
+                    <li>Neo-Reductionisms in the Metacrisis Space</li>
+                  </ul>
+                </li>
+                <li>Structures &amp; (Complex) Human Agency
+                  <ul class="dash-list live-sub">
+                    <li>Critical Realism &amp; Analytical Dualism</li>
+                  </ul>
+                </li>
+              </ul>
             </section>
 
             <section id="emergence-model">
