@@ -35,10 +35,10 @@
       if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
     } catch (e) {}
   </script>
-  <title>Model — Complex Emergence</title>
+  <title>Complex Emergence Model — Complex Emergence</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
-  <meta property="og:title" content="Model — Complex Emergence">
+  <meta property="og:title" content="Complex Emergence Model — Complex Emergence">
   <meta property="og:description" content="The Complex Emergence Model: eight civilisational structures, after Schmachtenberger.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/model/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
@@ -196,9 +196,10 @@
       align-items: start;
       width: var(--fig-w);
       margin: 0 0 160px calc((100% - var(--fig-w)) / 2);
-      --top: #3d4b94;
-      --left: #2a3674;
-      --right: #1a2455;
+      /* the core in the purple of the other models (as on the Models page) */
+      --top: #5b3f99;
+      --left: #432c7a;
+      --right: #2f1d5c;
     }
 
     html[data-theme="dark"] .md-figure {
@@ -1069,11 +1070,11 @@
       <ol>
         <li><a href="../">Article</a></li>
         <li><a href="../overviews/">Overviews</a></li>
+        <li><a href="../model/">Complex Emergence Model</a></li>
         <li><a href="../diagram/">Models</a></li>
         <li><a href="../timeline/">Timeline</a></li>
         <li><a href="../lexicon/">Concepts</a></li>
         <li><a href="../sources/">Sources</a></li>
-        <li><a href="../model/">*Model</a></li>
       </ol>
     </nav>
     </div>
@@ -1181,7 +1182,7 @@
       var MODEL = window.MD_MODEL = {"infrastructure": {"desc": "Technological instruments and affordances, productive (and reproductive) forces and material conditions: the tools, energy systems and physical networks through which a civilisation meets its needs.", "within": []}, "interstructure": {"desc": "The institutional complex for decision-making (governance) and resource-allocation (economy): the arrangements of control, coordination and circulation through which a society makes collective decisions and allocates its resources.", "within": []}, "superstructure": {"desc": "Ideologies, worldviews, belief and value-systems, symbols, memetics and narratives: the shared culture through which a civilisation makes sense of itself and legitimises its order.", "within": []}, "biostructure": {"desc": "The physiological, genetic, somatic and neurobiological substrate of human populations, as altered and conditioned by cultural practices, environmental feedback and technology.", "within": []}, "ecostructure": {"desc": "The biophysical environment, resource reservoirs, ecosystem dynamics and planetary boundaries within which human civilisations are embedded and intra-acting.", "within": []}, "metastructure": {"desc": "The cybernetic, game-theoretic and evolutionary mechanisms operational within a civilisation.", "within": [["cybernetic", "Cybernetic", "Goal-optimisation (&lsquo;teleology&rsquo;), error-minimisation and feedback loops."], ["game-theoretic", "Game-Theoretic", "Incentive structures, rational strategising and agent-modelling."], ["evolutionary", "Evolutionary", "Selection processes, competitive pressures and niche construction."]]}, "macrostructure": {"desc": "The process by which a civilisation elaborates itself and changes across macrohistorical time.", "within": [["states-transitions", "States &amp; Transitions", "The critical thresholds, &lsquo;bifurcation points&rsquo; and &lsquo;phase transitions&rsquo; where systems change, complexify and collapse."], ["constraints-affordances", "Constraints &amp; Affordances", "The hard boundaries, limiting factors and &lsquo;action potentials&rsquo; generated at each stage of civilisational development."], ["problems-solutions-externalities", "Problems, Solutions &amp; Externalities", "The historical process by which solutions to existing problems generate novel problems and unintended side-effects."]]}, "substructure": {"desc": "Universal, innate cognitive-affective predispositions and capacities, which are expressed or suppressed through interaction primarily with the superstructure (and other structures).", "within": []}};
       // each structure's colour, as its slab has it
       var BOX = window.MD_BOX = {
-        infrastructure: '#3d4b94', interstructure: '#3d4b94', superstructure: '#3d4b94',
+        infrastructure: '#5b3f99', interstructure: '#5b3f99', superstructure: '#5b3f99',
         substructure: '#a35a6a', biostructure: '#a35a6a', ecostructure: '#4e8a5a',
         metastructure: '#6b6b78', macrostructure: '#6b6b78'
       };
@@ -1235,8 +1236,8 @@
       var SEGS = [
         ['metastructure', 'Metastructure', '#6b6b78'], ['macrostructure', 'Macrostructure', '#6b6b78'],
         ['ecostructure', 'Ecostructure', '#4e8a5a'], ['biostructure', 'Biostructure', '#a35a6a'],
-        ['substructure', 'Substructure', '#a35a6a'], ['superstructure', 'Superstructure', '#3d4b94'],
-        ['interstructure', 'Interstructure', '#3d4b94'], ['infrastructure', 'Infrastructure', '#3d4b94']
+        ['substructure', 'Substructure', '#a35a6a'], ['superstructure', 'Superstructure', '#5b3f99'],
+        ['interstructure', 'Interstructure', '#5b3f99'], ['infrastructure', 'Infrastructure', '#5b3f99']
       ];
       var ALT = { infrastructure: 'Tech Stack', interstructure: 'Political Economy', superstructure: 'Cultural Psychology', substructure: 'Evolutionary Psychology', biostructure: 'Cultural-Evolutionary Biology', ecostructure: 'Cultural-Evolutionary Ecology', metastructure: 'System Dynamics', macrostructure: 'Developmental Process' };
       var rad = Math.PI / 180;
@@ -1458,6 +1459,6 @@
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
   <script src="../assets/site.js?v=9fabc918" data-base="../"></script>
-  <script src="../assets/tools.js?v=408f0fca" data-search-scope=".md-figure" data-hide-until=".md-top"></script>
+  <script src="../assets/tools.js?v=3d928da4" data-search-scope=".md-figure" data-hide-until=".md-top"></script>
 </body>
 </html>
