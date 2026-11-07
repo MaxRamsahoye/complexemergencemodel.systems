@@ -551,6 +551,11 @@ html.band-black:not([data-theme]) .on-band {
   text-wrap: balance;
 }
 
+/* the opening quote hangs in the margin so the words line up below */
+.site-footer .footer-subtitle .hang {
+  margin-left: -0.51em;
+}
+
 .site-footer .footer-title {
   overflow-wrap: anywhere;
   font-family: 'Inter', sans-serif;
