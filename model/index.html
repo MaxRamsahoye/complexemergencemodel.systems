@@ -594,14 +594,25 @@
       padding: max(96px, 16vh) 0 96px;
     }
 
-    /* where there is room, the description beside the list, on its left,
-       the two centred together on the screen (the list is the taller, so
-       the pair stays put as the description changes) */
+    /* the third screen's heading */
+    .md-side-title {
+      margin: 0 0 48px;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: clamp(30px, 4vw, 40px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    /* where there is room, the list and, on its right, the description,
+       beneath the heading and centred together on the screen (the list is
+       the taller, so the pair stays put as the description changes); the
+       list set to its right edge, towards the description */
     @media (min-width: 901px) {
       .md-side {
         display: grid;
-        grid-template-columns: minmax(0, 480px) max-content;
-        grid-template-areas: 'detail list';
+        grid-template-columns: max-content minmax(0, 480px);
+        grid-template-areas: 'head head' 'list detail';
         justify-content: center;
         align-content: center;
         column-gap: 64px;
@@ -613,8 +624,24 @@
         margin-left: calc((100% - var(--side-w)) / 2);
       }
 
+      .md-side .md-side-title {
+        grid-area: head;
+        text-align: center;
+      }
+
       .md-side .md-list {
         grid-area: list;
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      .md-side .md-list button {
+        text-align: right;
+      }
+
+      .md-side .md-list button.sub {
+        margin-left: 0;
+        margin-right: 24px;
       }
 
       .md-side .md-detail {
@@ -710,6 +737,7 @@
     <section class="md-figure" aria-label="The model as a diagram">
       <div class="md-scene"><svg class="md-svg" viewBox="-130 40 1160 1000" role="img" aria-label="The eight structures: the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure and the ecostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg></div>
       <div class="md-side">
+        <h2 class="md-side-title">Civilisational Structures</h2>
         <div class="md-list">
           <p class="md-list-head">Transecting</p>
           <button type="button" data-key="metastructure">Metastructure <span>System Dynamics</span></button>
