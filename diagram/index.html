@@ -2102,14 +2102,6 @@
       }
     }
 
-    @media (min-width: 1440px) {
-      body[data-show="complex-main"] .complex-view {
-        /* no nearer the window's left edge than 181px, clear of the menu
-           (the column this is set in is centred in the window) */
-        margin-left: max(calc((100% - var(--fig-w)) / 2), calc(181px - (100vw - 100%) / 2));
-      }
-    }
-
     .complex-view .md-figure:not(.ready) :is(.md-svg [data-key], .md-list button) {
       cursor: default;
     }
