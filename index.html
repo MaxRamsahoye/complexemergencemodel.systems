@@ -178,19 +178,24 @@
       --canvas-ink: #ffffff;
       --canvas-accent: #ffffff;
       --canvas-track-tint: rgba(255, 255, 255, 0.15);
-      --selection-bg: rgba(180, 205, 235, 0.35);
-      --note-highlight: #3f4852;
-      --rule: #232c4c;
+      --selection-bg: rgba(205, 185, 245, 0.35);
+      --note-highlight: #3a2d55;
+      --rule: #2c2347;
       --muted: #8c8c8c;
-      --link-blue: #8ab4f8;
-      --inverse-bg: #0b0c0d;
-      --inverse-ink: #ffffff;
-      --inverse-link: #8ab4f8;
+      --link-blue: #c4b5fd;
+      /* the midnight purple, as with the white theme's default band */
+      --inverse-bg: #1d1135;
+      --inverse-ink: #fbf6ec;
+      --inverse-link: #c4b5fd;
     }
 
     /* b (white theme only) cycles the Overview and footer: midnight purple
        (the default), light sepia (above), midnight blue, black */
     html.band-purple:not([data-theme]) {
+      /* links and highlights violet, rather than blue */
+      --link-blue: #6a3fc4;
+      --selection-bg: rgba(170, 140, 230, 0.3);
+      --note-highlight: #ebe4f8;
       --inverse-bg: #1d1135;
       --inverse-ink: #fbf6ec;
       --inverse-link: #c4b5fd;
@@ -1213,8 +1218,7 @@
       --inverse-bg-alt: #f1e6d0;
     }
 
-    html.band-black:not([data-theme]),
-    html[data-theme="dark"] {
+    html.band-black:not([data-theme]) {
       --inverse-bg-alt: color-mix(in srgb, var(--inverse-bg) 88%, #fff);
     }
 

@@ -49,7 +49,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="../assets/site.css?v=a7f32f22" rel="stylesheet">
+  <link href="../assets/site.css?v=27094eda" rel="stylesheet">
   <style>
     /* the band from the top of the window to just below the intro */
     .diagram-top {
@@ -1637,12 +1637,6 @@
       --right: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 24%);
     }
 
-    /* with the purple band, the highlight (the chosen slab, the open
-       relation and its panel, a card pointed to) is violet, not blue */
-    html.band-purple:not([data-theme]) .page-main {
-      --link-blue: #6a3fc4;
-    }
-
     html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
       /* lighter shades of the band's own purple */
       --top: #5b3f99;
@@ -1658,10 +1652,11 @@
       --right: #1a2455;
     }
 
+    /* in the dark theme, the slabs are the purple of its bands */
     html[data-theme="dark"] :is(.st-stack, .ov-thumb) {
-      --top: color-mix(in srgb, var(--canvas-ink) 80%, var(--canvas-bg));
-      --left: color-mix(in srgb, var(--canvas-ink) 48%, var(--canvas-bg));
-      --right: color-mix(in srgb, var(--canvas-ink) 30%, var(--canvas-bg));
+      --top: #5b3f99;
+      --left: #432c7a;
+      --right: #2f1d5c;
     }
 
     .st-block {
@@ -1835,10 +1830,12 @@
       --right: var(--link-blue);
     }
 
+    /* in the dark theme, lavender over shades of violet, not mixes with
+       the black page, which turn grey */
     html[data-theme="dark"] .st-block.active {
       --top: var(--link-blue);
-      --left: color-mix(in srgb, var(--link-blue) 62%, var(--canvas-bg));
-      --right: color-mix(in srgb, var(--link-blue) 38%, var(--canvas-bg));
+      --left: #8f6fe0;
+      --right: #6a3fc4;
     }
 
     .st-block.active ~ .st-block {

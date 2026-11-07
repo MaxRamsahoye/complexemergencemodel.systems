@@ -73,16 +73,18 @@ html[data-theme="midnight"] {
   --selection-bg: rgba(180, 205, 235, 0.35);
 }
 
+/* the dark theme takes the midnight purple too: lavender links, and
+   purple bands and footers */
 html[data-theme="dark"] {
-  --link-blue: #8ab4f8;
+  --link-blue: #c4b5fd;
   --canvas-bg: #000000;
   --canvas-ink: #ffffff;
   --muted: #8c8c8c;
   --track-tint: rgba(255, 255, 255, 0.15);
-  --band-bg: #0b0c0d;
-  --inverse-bg: #0b0c0d;
-  --inverse-ink: #ffffff;
-  --selection-bg: rgba(180, 205, 235, 0.35);
+  --band-bg: #1d1135;
+  --inverse-bg: #1d1135;
+  --inverse-ink: #fbf6ec;
+  --selection-bg: rgba(205, 185, 245, 0.35);
 }
 
 * {
@@ -471,6 +473,9 @@ body.past-start .progress-ring {
 /* b on the article (white theme) also sets these footers and the top
    sections of the other pages */
 html.band-purple:not([data-theme]) {
+  /* with the purple band, links and highlights are violet site-wide */
+  --link-blue: #6a3fc4;
+  --selection-bg: rgba(170, 140, 230, 0.3);
   --inverse-bg: #1d1135;
   --inverse-ink: #fbf6ec;
   --band-bg: #1d1135;
