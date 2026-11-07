@@ -2088,6 +2088,80 @@
       }
     }
 
+    /* the title and intro placed as on the *Model page: less room above
+       them, and in line with the diagram's left-hand labels */
+    body[data-show="complex-main"] .page-main {
+      --fig-w: min(1360px, calc(100vw - 280px));
+    }
+
+    @media (min-width: 601px) {
+      body[data-show="complex-main"] .page-main {
+        padding-top: 116px;
+      }
+    }
+
+    @media (min-width: 1181px) {
+      body[data-show="complex-main"] .diagram-top {
+        width: var(--fig-w);
+        margin-left: calc((100% - var(--fig-w)) / 2);
+      }
+    }
+
+    @media (max-width: 1180px) {
+      body[data-show="complex-main"] .diagram-top {
+        width: auto;
+        margin-left: 0;
+      }
+    }
+
+    /* the intro set as on *Model, and the diagram as near beneath it */
+    body[data-show="complex-main"] .diagram-desc {
+      font-size: 23px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 600px) {
+      body[data-show="complex-main"] .diagram-desc {
+        font-size: 20px;
+      }
+    }
+
+    body[data-show="complex-main"] .diagram-top {
+      margin-bottom: 56px;
+    }
+
+    /* the menu: in the margin wherever it clears the title (from 1722px),
+       from the title down, clear of the back arrow in the corner above;
+       narrower than that, a single row above the title, in the room the
+       *Model page leaves there, so that nothing below it moves */
+    @media (min-width: 1722px) {
+      body[data-show="complex-main"] .view-tabs {
+        left: calc((var(--fig-w) - 100vw) / 2 + 24px);
+        top: 4px;
+        transform: none;
+      }
+    }
+
+    @media (min-width: 1181px) and (max-width: 1721px) {
+      body[data-show="complex-main"] .view-tabs {
+        position: absolute;
+        top: -44px;
+        left: 0;
+        transform: none;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        gap: 24px;
+        margin: 0;
+        font-size: 11px;
+      }
+
+      body[data-show="complex-main"] .tab-group {
+        flex-direction: row;
+        gap: 24px;
+      }
+    }
+
     /* as wide, and as widely spaced, as on the *Model page (where there is
        room, clear of the menu in the left margin) */
     .complex-view {
@@ -3751,7 +3825,7 @@
         },
         complex: {
           title: 'The Complex Emergence Model',
-          desc: 'An elaboration of Schmachtenberger&rsquo;s framework of civilisational structures that in effect doubles the number of structures, to eight: four at the core &ndash; infrastructure, interstructure, superstructure and the substructure beneath it &ndash; two interfaces with &lsquo;second nature&rsquo;, the biostructure and ecostructure, and two that transect them all, the metastructure and the macrostructure.'
+          desc: 'An elaboration of <a class="plain-link" href="../sources/#schmachtenberger-emergence">Schmachtenberger&rsquo;s</a> framework of civilisational structures: a modified version, called the complex emergence model for differentiation, that in effect doubles the number of structures, to eight.'
         },
         exoendo: {
           title: 'Exo-Endo Structure',
