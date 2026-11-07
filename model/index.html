@@ -357,15 +357,6 @@
       fill: var(--link-blue);
     }
 
-    /* the menu set further right on this page, nearer the site's name */
-    @media (min-width: 1100px) {
-      html body .top-nav {
-        left: auto;
-        right: 220px;
-        transform: none;
-      }
-    }
-
     .md-lead {
       stroke: color-mix(in srgb, currentColor 28%, transparent);
       stroke-width: 1;
@@ -527,6 +518,71 @@
         grid-template-columns: 1fr;
         gap: 32px;
       }
+    }
+
+    /* Three screens: the title and introduction centred on the first, the
+       diagram on the second, and the list of structures with the
+       description of the one pointed to on the third */
+    .page-main {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .md-top,
+    .md-top.wide-top {
+      box-sizing: border-box;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* the full width of the screen, so the title can sit on one line */
+      width: auto;
+      margin: 0 calc(50% - 50vw);
+      padding: 96px 24px;
+      text-align: center;
+    }
+
+    .md-top .page-intro {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .md-figure,
+    .md-figure.ready {
+      display: block;
+      width: auto;
+      margin: 0;
+    }
+
+    /* the diagram as large as the screen allows (its drawing is 1160 by 1000) */
+    .md-scene {
+      box-sizing: border-box;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* the full width of the screen, so the diagram can be as large as its height allows */
+      margin: 0 calc(50% - 50vw);
+      padding: 72px 24px;
+    }
+
+    .md-scene .md-svg {
+      width: min(100%, 1100px, calc((100svh - 144px) * 1.16));
+    }
+
+    /* the list and description, centred as a column; they start at a fixed
+       height so that the list stays put as the description changes */
+    .md-side {
+      box-sizing: border-box;
+      min-height: 100vh;
+      min-height: 100svh;
+      width: min(100%, 620px);
+      margin: 0 auto;
+      padding: max(96px, 16vh) 0 96px;
     }
 
   </style>
@@ -724,13 +780,24 @@
       var RUN = ['ecostructure', 'biostructure', 'infrastructure', 'interstructure', 'substructure', 'superstructure', 'metastructure'];
       function settle() { ready = true; figure.classList.add('ready'); show(locked); }
       show('');
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) settle();
-      else setTimeout(function () {
+      function run() {
         RUN.forEach(function (key, i) {
           setTimeout(function () { show(key); if (window.ttNodeSound) window.ttNodeSound(i); }, i * 1300);
         });
         setTimeout(settle, RUN.length * 1300 + 300);
-      }, 900);
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) settle();
+      // the diagram has a screen of its own below the title: the run plays
+      // once it has scrolled well into view, a moment after it arrives
+      else if ('IntersectionObserver' in window) {
+        var seen = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          seen.disconnect();
+          setTimeout(run, 500);
+        }, { threshold: 0.5 });
+        seen.observe(document.querySelector('.md-scene'));
+      }
+      else setTimeout(run, 900);
     })();
   </script>
 
