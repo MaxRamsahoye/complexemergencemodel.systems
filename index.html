@@ -48,9 +48,9 @@
         if (localStorage.getItem('blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
         // ET Bembo headings are the default; f switches to Inter and back
         if (localStorage.getItem('headings') !== 'sans') document.documentElement.classList.add('serif-headings');
-        // the band colour (b): midnight blue by default, or sepia or black
-        var band = localStorage.getItem('bandColour') || 'midnight';
-        if (band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
+        // the band colour (b): midnight purple by default, or sepia, midnight blue or black
+        var band = localStorage.getItem('bandColour') || 'purple';
+        if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
         // design 2 is the default; d switches to design 1 and back
         if (localStorage.getItem('design') !== '1') document.documentElement.classList.add('design-2');
         // the Overview's shaded band is the default; h switches to dividing lines
@@ -188,8 +188,14 @@
       --inverse-link: #8ab4f8;
     }
 
-    /* b (white theme only) cycles the Overview and footer: light sepia (the
-       default above), midnight blue, black */
+    /* b (white theme only) cycles the Overview and footer: midnight purple
+       (the default), light sepia (above), midnight blue, black */
+    html.band-purple:not([data-theme]) {
+      --inverse-bg: #1d1135;
+      --inverse-ink: #fbf6ec;
+      --inverse-link: #c4b5fd;
+    }
+
     html.band-midnight:not([data-theme]) {
       --inverse-bg: #0d1330;
       --inverse-ink: #fbf6ec;
@@ -1203,7 +1209,7 @@
       --inverse-bg-alt: color-mix(in srgb, var(--inverse-bg) 80%, #000);
     }
 
-    :root:not([data-theme]):not(.band-midnight):not(.band-black) {
+    :root:not([data-theme]):not(.band-purple):not(.band-midnight):not(.band-black) {
       --inverse-bg-alt: #f1e6d0;
     }
 
@@ -2780,7 +2786,7 @@
       });
 
       // b cycles the Overview and footer colours (white theme); c toggles the blue accent.
-      var BANDS = ['', 'midnight', 'black'];  // '' is light sepia; midnight is the default
+      var BANDS = ['purple', '', 'midnight', 'black'];  // '' is light sepia; purple is the default
 
       function cycleBand() {
         var current = BANDS.filter(function (b) { return b && root.classList.contains('band-' + b); })[0] || '';

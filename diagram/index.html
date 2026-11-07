@@ -30,9 +30,9 @@
       if (t === 'dark') document.documentElement.setAttribute('data-theme', t);
       if (localStorage.getItem('blueLinks') !== 'off') document.documentElement.classList.add('colour');  // blue links (c): on by default
       if (localStorage.getItem('headings') !== 'sans') document.documentElement.classList.add('serif-headings');
-      // the band colour (b): midnight blue by default, or sepia or black
-      var band = localStorage.getItem('bandColour') || 'midnight';
-      if (band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
+      // the band colour (b): midnight purple by default, or sepia, midnight blue or black
+      var band = localStorage.getItem('bandColour') || 'purple';
+      if (band === 'purple' || band === 'midnight' || band === 'black') document.documentElement.classList.add('band-' + band);
     } catch (e) {}
   </script>
   <title>Diagrams — Complex Emergence</title>
@@ -49,7 +49,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="../assets/site.css?v=1ae8efd8" rel="stylesheet">
+  <link href="../assets/site.css?v=a7f32f22" rel="stylesheet">
   <style>
     /* the band from the top of the window to just below the intro */
     .diagram-top {
@@ -1608,10 +1608,17 @@
     }
 
     /* a little darker than the sepia band, a little lighter than the blue */
-    html:not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
+    html:not(.band-purple):not(.band-midnight):not(.band-black):not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
       --top: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 8%);
       --left: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 16%);
       --right: color-mix(in srgb, var(--band-bg), var(--canvas-ink) 24%);
+    }
+
+    html.band-purple:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
+      /* lighter shades of the band's own purple */
+      --top: #5b3f99;
+      --left: #432c7a;
+      --right: #2f1d5c;
     }
 
     html.band-midnight:not([data-theme="dark"]) :is(.st-stack, .ov-thumb) {
@@ -3659,7 +3666,7 @@
 
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
-  <script src="../assets/site.js?v=689f9cb8" data-base="../"></script>
+  <script src="../assets/site.js?v=7449a2f8" data-base="../"></script>
   <script src="../assets/tools.js?v=5afe0f29" data-hide-until=".diagram-top"></script>
 </body>
 </html>

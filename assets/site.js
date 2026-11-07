@@ -461,9 +461,9 @@
       playPianoClick();
       spawnRipple(pointer.x, pointer.y, getComputedStyle(document.body).color);
     } else if (e.key === 'b' || e.key === 'B') {
-      // b: cycle the band colour, sepia / midnight / black (shared with the article)
+      // b: cycle the band colour, purple / sepia / midnight / black (shared with the article)
       var root = document.documentElement;
-      var bands = ['', 'midnight', 'black'];
+      var bands = ['purple', '', 'midnight', 'black'];
       var cur = bands.filter(function (b) { return b && root.classList.contains('band-' + b); })[0] || '';
       var next = bands[(bands.indexOf(cur) + 1) % bands.length];
       bands.forEach(function (b) { if (b) root.classList.remove('band-' + b); });
