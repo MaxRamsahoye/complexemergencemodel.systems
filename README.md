@@ -1,2 +1,2 @@
-# technologicaltransitions.agency
-https://maxramsahoye.github.io/technologicaltransitions.agency/
+# complexemergencemodel.systems
+https://maxramsahoye.github.io/complexemergencemodel.systems/
