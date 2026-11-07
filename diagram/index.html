@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Diagrams of the civilisational structures in The Complex Emergence Model.">
+  <meta name="description" content="Diagrams of the models of civilisational structure behind The Complex Emergence Model.">
   <link id="favicon-ico" rel="icon" href="../favicon/favicon-light.ico" sizes="any">
   <link id="favicon-32" rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32-light.png">
   <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="../favicon/favicon-192-light.png">
@@ -39,7 +39,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complex Emergence">
   <meta property="og:title" content="The Civilisational Stack — Complex Emergence">
-  <meta property="og:description" content="Diagrams of the civilisational structures in The Complex Emergence Model.">
+  <meta property="og:description" content="Diagrams of the models of civilisational structure behind The Complex Emergence Model.">
   <meta property="og:url" content="https://maxramsahoye.github.io/technologicaltransitions.agency/diagram/">
   <meta property="og:image" content="https://maxramsahoye.github.io/technologicaltransitions.agency/preview.png">
   <meta property="og:image:width" content="1200">
@@ -146,6 +146,22 @@
     .tab-group {
       display: flex;
       gap: 28px;
+    }
+
+    /* a long label breaks onto two lines only in the narrow side menu */
+    .tab-br {
+      display: none;
+    }
+
+    @media (min-width: 1280px) {
+      .tab-br {
+        display: inline;
+      }
+
+      .view-tabs button:has(.tab-br) {
+        text-align: left;
+        line-height: 1.5;
+      }
     }
 
     .view-tabs {
@@ -262,7 +278,9 @@
     .diagram-wrap,
     .diagram-note,
     .structures-view,
-    .structures-alt {
+    .structures-alt,
+    .marx-view,
+    .marx-alt {
       display: none;
     }
 
@@ -271,11 +289,14 @@
     body[data-show="stack-main"] .diagram-wrap,
     body[data-show="stack-main"] .diagram-note,
     body[data-show="structures-main"] .structures-view,
-    body[data-show="structures-main"] .structures-alt {
+    body[data-show="structures-main"] .structures-alt,
+    body[data-show="marx-main"] .marx-view,
+    body[data-show="marx-main"] .marx-alt {
       display: block;
     }
 
-    body[data-show="structures-main"] .structures-alt {
+    body[data-show="structures-main"] .structures-alt,
+    body[data-show="marx-main"] .marx-alt {
       margin-top: 120px;
     }
 
@@ -1524,7 +1545,9 @@
 
     .stack-view,
     .structures-view,
-    .structures-alt {
+    .structures-alt,
+    .marx-view,
+    .marx-alt {
       animation: view-in 0.4s ease;
     }
 
@@ -1967,7 +1990,9 @@
     }
 
     .structures-view,
-    .structures-alt {
+    .structures-alt,
+    .marx-view,
+    .marx-alt {
       width: var(--wide-col);
       margin-left: calc((100% - var(--wide-col)) / 2);
     }
@@ -1999,7 +2024,8 @@
       margin-bottom: 34px;
     }
 
-    .sa-tech {
+    .sa-tech,
+    .sa-base {
       margin-bottom: 120px;
     }
 
@@ -2170,7 +2196,9 @@
     @media (max-width: 1180px) {
       .stack-view,
       .structures-view,
-      .structures-alt {
+      .structures-alt,
+      .marx-view,
+      .marx-alt {
         width: auto;
         margin-left: 0;
       }
@@ -2402,7 +2430,7 @@
   <main class="page-main">
     <div class="diagram-top wide-top">
     <h1 class="page-title"><a class="heading-link title-top" href="#">Diagrams</a></h1>
-    <p class="diagram-desc">The structures of civilisation: infrastructure, social structure and superstructure, and how each acts on the others.</p>
+    <p class="diagram-desc">Models of the structures of civilisation: the layers each divides a society into, and how each layer acts on the others.</p>
     <blockquote class="diagram-quote">
       <p>The claim that competition is the mechanism for technological determinism is a special case of the theory of selectionism (also called Universal Darwinism). Selectionism generalizes the mechanism at the heart of evolutionary biology: variation and differential proliferation. In a population of varied forms, if some forms proliferate (reproduce, survive, grow) because of some characteristic, then that characteristic will be more abundant in future populations. Over time, these forms, called organisms in evolutionary biology and interactors more generally, will fit better with&mdash;will appear as if designed for&mdash;the criterion that determines superior proliferation (the &ldquo;selection environment&rdquo;).</p>
       <cite>Allan Dafoe, <a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">On Technological Determinism</a> (2015)</cite>
@@ -2413,6 +2441,9 @@
       </div>
       <div class="tab-group" role="tablist" aria-label="The Structures">
         <button type="button" role="tab" aria-selected="false" data-show="structures-main">The Structures</button>
+      </div>
+      <div class="tab-group" role="tablist" aria-label="Classical Marxism: Base-Superstructure">
+        <button type="button" role="tab" aria-selected="false" data-show="marx-main">Base-<br class="tab-br">Superstructure</button>
       </div>
     </div>
     </div>
@@ -2444,6 +2475,20 @@
     </section>
 
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
+
+    <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
+      <div class="stack-layout">
+        <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
+        <div class="stack-side">
+          <ol class="stack-menu" aria-label="The two layers, the higher first"></ol>
+          <div class="stack-panel" aria-live="polite">
+            <div class="stack-intro show"><p>Two layers: the economic base, and the superstructure that rises on it. Point to a layer to see what it holds.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marx-alt" role="figure" aria-label="Classical Marxism: the base and the superstructure"></div>
 
     <section class="selection-view" aria-label="The Selection Process"><div class="diagram-sel" role="figure" aria-label="For each revolution, the new forms, the selection pressures that favoured them, and how they proliferated"></div>
       <div class="d-more d-more-sel" aria-live="polite"><div class="d-more-inner"></div></div></section>
@@ -2580,7 +2625,7 @@
       var TEXT = {
         overview: {
           title: 'Diagrams',
-          desc: 'The structures of civilisation: infrastructure, social structure and superstructure, and how each acts on the others.'
+          desc: 'Models of the structures of civilisation: the layers each divides a society into, and how each layer acts on the others.'
         },
         stack: {
           title: 'The Civilisational Stack',
@@ -2597,6 +2642,10 @@
         sequences: {
           title: 'The Sequences',
           desc: 'The developmental mechanics of <em>constraints and affordances</em>: the limits a way of life imposes, and the new possibilities a technology stack opens up to overcome them &ndash; each major technological transition lifting a constraint that had bound every society before it.'
+        },
+        marx: {
+          title: 'Classical Marxism: Base-Superstructure',
+          desc: 'Marx divides a society into two layers: its economic base, the forces and relations of production, and the legal, political and ideological superstructure that rises on it. The base conditions the superstructure &ndash; &ldquo;it is not the consciousness of men that determines their being, but their social being that determines their consciousness&rdquo; &ndash; and as the base changes, the superstructure is transformed with it.'
         },
         structures: {
           title: 'Cultural Materialism: Three Structures',
@@ -2893,6 +2942,7 @@
 
       var techStack = makeStack(document.querySelector('.stack-view'));
       var structStack = makeStack(document.querySelector('.structures-view'));
+      var marxStack = makeStack(document.querySelector('.marx-view'));
 
       function revolutions() { return DATA.filter(function (t) { return count === '8' || t.major; }); }
       function dateOf(t) { return count === '8' ? t.date8 : t.date4; }
@@ -2947,6 +2997,41 @@
         });
       }
 
+      // Classical Marxism: the economic base, and the superstructure on it
+      var MARX_LAYERS = [
+        { key: 'base', name: 'Base', aka: 'Forces &amp; Relations of Production', def: 'The economic structure of society: the forces of production &ndash; tools, techniques, raw materials and labour &ndash; and the relations of ownership and work through which they are put to use. The real foundation, on which the rest rises.' },
+        { key: 'super', name: 'Superstructure', aka: 'Law, Politics &amp; Ideology', def: 'The legal and political institutions, and the forms of social consciousness &ndash; religion, art and philosophy &ndash; that rise on the economic base, take their form from it, and work to sustain it.' }
+      ];
+      function buildMarx(how) {
+        marxStack[how](MARX_LAYERS.map(function (L) {
+          return {
+            key: L.key, name: L.name, sub: L.aka,
+            detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
+              '<p class="st-detail-def">' + L.def + '</p>'
+          };
+        }), { SIZE: 250, H: 80, TRIM: 34, STEP: 700, prelude: { n: 1, SIZE: 250, H: 44, TRIM: 30, STEP: 520 } });
+      }
+      // the two layers, one above the other, and how each acts on the other
+      var marxAlt = document.querySelector('.marx-alt');
+      function buildMarxAlt() {
+        var html = '';
+        MARX_LAYERS.slice().reverse().forEach(function (L, k) {
+          if (k > 0) {
+            html += '<div class="sa-rel" data-rel="' + L.key + '"><div class="sa-arrows">' +
+              '<button type="button" class="sa-rel-btn" data-key="determines">&uarr; determines</button>' +
+              '<button type="button" class="sa-rel-btn" data-key="reproduces">&darr; reproduces</button></div>' +
+              '<div class="d-more" aria-live="polite"><div class="d-more-inner"></div></div></div>';
+          }
+          html += '<section class="sa-layer sa-' + L.key + '"><div class="sa-head"><h3 class="sa-name">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</h3><p class="sa-def">' + L.def + '</p></div></section>';
+        });
+        marxAlt.innerHTML = html;
+        marxAlt.querySelectorAll('.sa-rel').forEach(function (r) {
+          var d = r.querySelector('.d-more');
+          d._id = 'rel-marx-' + r.dataset.rel;
+          r.querySelectorAll('.sa-rel-btn').forEach(function (b) { opener(b, b.dataset.key, 'rel', d); });
+        });
+      }
+
       // the tables' parts open up into fuller material below them: each
       // revolution, and what it brought to each layer
       // longer accounts of each revolution's key technologies, and of its
@@ -2977,6 +3062,8 @@
         constrains: ['Infrastructure &rarr; Structure', 'The tech stack constrains the political economy. The technologies through which a society meets its needs limit which institutions it can sustain, and which will prove competitive: the storable surplus of farming made property, chiefs and states possible; the factory made wage labour and the industrial nation-state. A new tech stack shifts the ground on which every institution stands.'],
         operationalises: ['Structure &rarr; Infrastructure', 'The political economy operationalises the tech stack. Its institutions &ndash; states, markets, firms and law &ndash; decide how technologies are developed, owned, financed and deployed, and so how a new stack is put to work, at what scale and for whose benefit, and which technologies are built next.'],
         conditions: ['Structure &rarr; Superstructure', 'The political economy conditions the cultural psychology. The institutions through which people work, trade and are governed shape what they come to value, believe and expect of one another: settled property bred inheritance and rank, markets bred individualism, and each order of power teaches the dispositions it rewards.'],
+        determines: ['Base &rarr; Superstructure', 'The economic base determines the superstructure. The forces and relations of production make up &ldquo;the real foundation&rdquo;, and law, politics, religion and philosophy rise on it and take their form from it: &ldquo;the mode of production of material life conditions the general process of social, political and intellectual life.&rdquo; As the base changes, &ldquo;the entire immense superstructure is more or less rapidly transformed.&rdquo;'],
+        reproduces: ['Superstructure &rarr; Base', 'The superstructure reproduces the base. Law secures property, the state enforces the relations of production, and the prevailing ideas make the existing order seem natural &ndash; &ldquo;the ideas of the ruling class are in every epoch the ruling ideas&rdquo;, as Marx and Engels put it in <em>The German Ideology</em>. Engels later stressed that the superstructure acts back on the base, which is decisive only &ldquo;in the last instance&rdquo;.'],
         legitimises: ['Superstructure &rarr; Structure', 'The cultural psychology legitimises the political economy. Shared values and beliefs make an order of power and property seem natural, just or sacred &ndash; divine kingship, the work ethic, progress &ndash; and so hold it in place. When those values shift, the same culture can withdraw its consent and delegitimise the order it once upheld.']
       };
       function sec2(h, p) { return '<div class="d-more-sec"><h4>' + h + '</h4><p>' + p + '</p></div>'; }
@@ -3093,7 +3180,7 @@
           var el = ss && x[1].querySelector(x[2] + '[data-key="' + ss[0] + '"]');
           if (el) openMore(el, true);
         });
-        alt.querySelectorAll('.sa-rel').forEach(function (r) {
+        document.querySelectorAll('.structures-alt .sa-rel, .marx-alt .sa-rel').forEach(function (r) {
           var d = r.querySelector('.d-more'), k = SEL[d._id];
           var el = k && r.querySelector('.sa-rel-btn[data-key="' + k + '"]');
           if (el) openMore(el, true);
@@ -3510,7 +3597,8 @@
 
       // All Diagrams: a card for each, with a small drawing of it, opening it
       var OVERVIEW = [
-        ['structures', 'The Structures', 'Cultural Materialism: Three Structures', 'Infrastructure, social structure and superstructure, and how each acts on the others.']
+        ['structures', 'The Structures', 'Cultural Materialism: Three Structures', 'Infrastructure, social structure and superstructure, and how each acts on the others.'],
+        ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
       function ovSlab(x, y, w, h) {
@@ -3523,6 +3611,7 @@
         var g = '';
         if (key === 'stack') [[130, 128, 13], [116, 94, 13], [100, 64, 13], [84, 38, 13]].forEach(function (s) { g += ovSlab(150, s[1], s[0], s[2]); });
         if (key === 'structures') [[136, 122], [136, 84], [136, 46]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
+        if (key === 'marx') [[136, 108], [136, 62]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
         if (key === 'sequences') [32, 76, 120].forEach(function (y, i) {
           g += '<rect class="bx' + (i === 0 ? ' on' : '') + '" x="40" y="' + y + '" width="86" height="30"/><rect class="bx' + (i === 0 ? ' on' : '') + '" x="174" y="' + y + '" width="86" height="30"/>' +
             '<path class="ln" d="M134 ' + (y + 15) + 'H166M160 ' + (y + 10) + 'L166 ' + (y + 15) + 'L160 ' + (y + 20) + '"/>';
@@ -3565,7 +3654,7 @@
       function setSlug() {
         var d = show.split('-');
         if (d[0] === 'overview') { history.replaceState(null, '', location.pathname); return; }
-        var slug = d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
+        var slug = d[0] === 'marx' ? 'base-superstructure' : d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
         history.replaceState(null, '', '#' + slug);
       }
       function render(rebuild) {
@@ -3582,10 +3671,12 @@
         // are the same for four or eight, only update their text on a change
         // of count
         var how = rebuild === 'count' && show === 'structures-main' ? 'update' : 'build';
-        if (how === 'build') { techStack.stop(); structStack.stop(); }
+        if (how === 'build') { techStack.stop(); structStack.stop(); marxStack.stop(); }
         if (show === 'stack-main') buildTech(how);
         if (show === 'structures-main') buildStructures(how);
+        if (show === 'marx-main') buildMarx(how);
         buildStructuresAlt();
+        buildMarxAlt();
         buildVertical();
         buildSequences();
         buildSelection();
@@ -3608,7 +3699,7 @@
 
       var hash = location.hash.slice(1);
       if (/eight|(^|-)8($|-)/.test(hash)) count = '8';
-      show = (/structures/.test(hash) ? 'structures' : 'overview') + '-main';
+      show = (/base-superstructure|marx/.test(hash) ? 'marx' : /structures/.test(hash) ? 'structures' : 'overview') + '-main';
       render();
     })();
 
