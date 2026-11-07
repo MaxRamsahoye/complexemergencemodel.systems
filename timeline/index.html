@@ -1465,11 +1465,10 @@
           li.classList.toggle('current', i === at);
         });
       }
-      // the era row is sized so that the first era's label starts where the
-      // subtitle starts and the last era's label ends where it ends (the
-      // labels are centred on their dots, in seven equal columns)
+      // the row is sized so that the first label starts where the overview
+      // column below starts and the last label ends where it ends (the
+      // labels are centred on their dots, in equal columns)
       var miniNav = mini.parentNode;
-      var intro = document.querySelector('.timeline-top .page-intro');
       function halfWidth(li) {
         var w = 0;
         li.querySelectorAll('.mini-name, .mini-date').forEach(function (el) {
@@ -1485,12 +1484,9 @@
         if (getComputedStyle(mini).gridTemplateColumns.split(' ').length === 1) return;   // phones: vertical
         if (!miniNav.offsetParent) return;
         var box = miniNav.parentNode.getBoundingClientRect();
-        var r = document.createRange();
-        r.selectNodeContents(intro);
-        var rects = r.getClientRects();
-        var L = intro.getBoundingClientRect().left;
-        var R = 0;
-        for (var i = 0; i < rects.length; i++) R = Math.max(R, rects[i].right);
+        var col = document.querySelector('.timeline-top > .mini-panel').getBoundingClientRect();
+        var L = col.left;
+        var R = col.right;
         var n = miniItems.length;
         var a = halfWidth(miniItems[0]), b = halfWidth(miniItems[n - 1]);
         var width = (R - L - a - b) * n / (n - 1);
