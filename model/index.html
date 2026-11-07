@@ -97,6 +97,17 @@
     }
 
     /* the site name sits in the top-right corner, as on the Lexicon */
+    /* past the line beneath the first screen, the name in the corner reads
+       Complex Emergence Model */
+    .site-title-model {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .site-title.with-model .site-title-model {
+      opacity: 1;
+    }
+
     /* the site's name pinned in the top-right corner, staying in view as
        the page scrolls */
     .site-title,
@@ -650,6 +661,14 @@
       }
     }
 
+    /* the description as plain text, without its coloured box */
+    .md-side .md-detail {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: none;
+    }
+
     /* a line across the window between one screen and the next */
     .md-scene,
     .md-side {
@@ -966,7 +985,26 @@
     })();
   </script>
 
-  <a class="site-title" href="../">Complex<br>Emergence</a>
+  <a class="site-title" href="../">Complex<br>Emergence<span class="site-title-model" aria-hidden="true"><br>Model</span></a>
+
+  <script>
+    // once the line beneath the first screen has scrolled up past the name
+    // in the corner, the name reads Complex Emergence Model
+    (function () {
+      var title = document.querySelector('.site-title'), line = document.querySelector('.md-scene');
+      var model = title.querySelector('.site-title-model');
+      function check() {
+        // where the name ends without its third line
+        var nameBottom = title.getBoundingClientRect().bottom - model.getBoundingClientRect().height;
+        var past = line.getBoundingClientRect().top <= nameBottom;
+        title.classList.toggle('with-model', past);
+        model.setAttribute('aria-hidden', past ? 'false' : 'true');
+      }
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+      check();
+    })();
+  </script>
 
   <script src="../assets/site.js?v=504d081d" data-base="../"></script>
   <script src="../assets/tools.js?v=3d928da4" data-search-scope=".md-figure" data-hide-until=".md-top"></script>
