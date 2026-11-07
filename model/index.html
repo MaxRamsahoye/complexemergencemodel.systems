@@ -640,6 +640,24 @@
       display: block;
       width: 32px;
       height: 32px;
+      animation: arrow-nudge 2.4s ease-in-out infinite;
+    }
+
+    /* a slow downward nudge inviting the scroll, as the article's arrows have */
+    @keyframes arrow-nudge {
+      0%, 55%, 100% {
+        transform: translateY(0);
+      }
+
+      25% {
+        transform: translateY(6px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .md-down svg {
+        animation: none;
+      }
     }
 
   </style>
