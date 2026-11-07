@@ -2396,7 +2396,7 @@
   <main class="page-main">
     <div class="diagram-top wide-top">
     <h1 class="page-title"><a class="heading-link title-top" href="#">Diagrams</a></h1>
-    <p class="diagram-desc">The structures of civilisation: infrastructure, social structure and superstructure, and how each major technological transition remade all three.</p>
+    <p class="diagram-desc">The structures of civilisation: infrastructure, social structure and superstructure, and how each acts on the others.</p>
     <blockquote class="diagram-quote">
       <p>The claim that competition is the mechanism for technological determinism is a special case of the theory of selectionism (also called Universal Darwinism). Selectionism generalizes the mechanism at the heart of evolutionary biology: variation and differential proliferation. In a population of varied forms, if some forms proliferate (reproduce, survive, grow) because of some characteristic, then that characteristic will be more abundant in future populations. Over time, these forms, called organisms in evolutionary biology and interactors more generally, will fit better with&mdash;will appear as if designed for&mdash;the criterion that determines superior proliferation (the &ldquo;selection environment&rdquo;).</p>
       <cite>Allan Dafoe, <a href="https://doi.org/10.1177/0162243915579283" target="_blank" rel="noopener">On Technological Determinism</a> (2015)</cite>
@@ -2407,10 +2407,6 @@
       </div>
       <div class="tab-group" role="tablist" aria-label="The Structures">
         <button type="button" role="tab" aria-selected="false" data-show="structures-main">The Structures</button>
-      </div>
-      <div class="tab-group" role="group" aria-label="Transitions shown">
-        <button type="button" aria-pressed="true" data-count="4">4 transitions</button>
-        <button type="button" aria-pressed="false" data-count="8">8 transitions</button>
       </div>
     </div>
     </div>
@@ -2435,7 +2431,7 @@
         <div class="stack-side">
           <ol class="stack-menu" aria-label="The three layers, the highest first"></ol>
           <div class="stack-panel" aria-live="polite">
-            <div class="stack-intro show"><p>Every transition reshapes all three layers, starting from the base. Point to a layer to see how it changed across the revolutions.</p></div>
+            <div class="stack-intro show"><p>Three interacting layers, the deepest at the base. Point to a layer to see what it holds.</p></div>
           </div>
         </div>
       </div>
@@ -2578,7 +2574,7 @@
       var TEXT = {
         overview: {
           title: 'Diagrams',
-          desc: 'The structures of civilisation: infrastructure, social structure and superstructure, and how each major technological transition remade all three.'
+          desc: 'The structures of civilisation: infrastructure, social structure and superstructure, and how each acts on the others.'
         },
         stack: {
           title: 'The Civilisational Stack',
@@ -2914,23 +2910,18 @@
       var structuresFromStack = false;
       try { structuresFromStack = localStorage.getItem('ce.structures') === 'stack'; } catch (e) {}
       function buildStructures(how) {
-        var revs = revolutions();
         structStack[how](LAYERS.map(function (L) {
           return {
             key: L.key, name: L.name, sub: L.aka,
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
-              '<p class="st-detail-def">' + L.def + '</p>' +
-              '<dl class="st-across">' + revs.map(function (t) { return '<dt>' + t.name + '</dt><dd>' + t[L.key] + '</dd>'; }).join('') + '</dl>'
+              '<p class="st-detail-def">' + L.def + '</p>'
           };
         }), { SIZE: 250, H: 64, TRIM: 34, STEP: 700, prelude: { n: structuresFromStack ? 4 : 1, SIZE: 250, H: 44, TRIM: 30, STEP: 520 } });
       }
       // the alternative view of the structures: the three layers, one above
-      // the other, with what each revolution brought to each
+      // the other, and how each acts on its neighbour
       var alt = document.querySelector('.structures-alt');
       function buildStructuresAlt() {
-        var revs = revolutions();
-        var rows = [];
-        for (var q = 0; q < revs.length; q += 4) rows.push(revs.slice(q, q + 4));
         var html = '';
         LAYERS.slice().reverse().forEach(function (L, k) {
           if (k > 0) {
@@ -2940,29 +2931,13 @@
               '<button type="button" class="sa-rel-btn" data-key="' + pair[1] + '">&darr; ' + pair[1] + '</button></div>' +
               '<div class="d-more" aria-live="polite"><div class="d-more-inner"></div></div></div>';
           }
-          html += '<section class="sa-layer sa-' + L.key + '"><div class="sa-head"><h3 class="sa-name">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</h3><p class="sa-def">' + L.def + '</p></div>' +
-            rows.map(function (row, r) {
-              // a bar of arrows above each row of revolutions, leading from
-              // each to the next
-              var bar = row.map(function (t, i) {
-                var last = r === rows.length - 1 && i === row.length - 1;
-                return last ? '<span class="go onward"><i></i><i></i><i></i></span>' : '<span class="go' + (i === row.length - 1 ? ' wrap' : '') + '"><i></i></span>';
-              }).join('');
-              return '<div class="sa-flow" aria-hidden="true">' + bar + '</div>' +
-                '<dl class="sa-revs">' + row.map(function (t) { return '<div class="sa-cell" data-key="' + t.key + '" data-layer="' + L.key + '"><dt>' + t.name + '</dt><dd>' + t[L.key] + '</dd></div>'; }).join('') + '</dl>';
-            }).join('') +
-            '<div class="d-more" aria-live="polite"><div class="d-more-inner"></div></div></section>';
+          html += '<section class="sa-layer sa-' + L.key + '"><div class="sa-head"><h3 class="sa-name">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</h3><p class="sa-def">' + L.def + '</p></div></section>';
         });
         alt.innerHTML = html;
         alt.querySelectorAll('.sa-rel').forEach(function (r) {
           var d = r.querySelector('.d-more');
           d._id = 'rel-' + r.dataset.rel;
           r.querySelectorAll('.sa-rel-btn').forEach(function (b) { opener(b, b.dataset.key, 'rel', d); });
-        });
-        alt.querySelectorAll('.sa-cell').forEach(function (c) {
-          var d = c.closest('.sa-layer').querySelector('.d-more');
-          d._id = c.dataset.layer;
-          opener(c, c.dataset.key, c.dataset.layer, d);
         });
       }
 
@@ -3048,8 +3023,6 @@
       function selectFirst(view) {
         var first = revolutions()[0].key;
         if (view === 'stack' && !SEL.stack) SEL.stack = [first, 'tech'];
-        // in The Structures, only the superstructure, at the top, opens
-        if (view === 'structures' && !SEL.tech && !SEL.economy && !SEL.culture) SEL.culture = first;
         if (view === 'selection' && !SEL.sel) SEL.sel = [first, 'selrow'];
         if (view === 'sequences' && !SEL.seq) SEL.seq = [first, 'seqrow'];
         restoreSelections();
@@ -3117,11 +3090,6 @@
         alt.querySelectorAll('.sa-rel').forEach(function (r) {
           var d = r.querySelector('.d-more'), k = SEL[d._id];
           var el = k && r.querySelector('.sa-rel-btn[data-key="' + k + '"]');
-          if (el) openMore(el, true);
-        });
-        alt.querySelectorAll('.sa-layer').forEach(function (sec) {
-          var d = sec.querySelector('.d-more'), k = SEL[d._id];
-          var el = k && sec.querySelector('.sa-cell[data-key="' + k + '"]');
           if (el) openMore(el, true);
         });
       }
@@ -3536,7 +3504,7 @@
 
       // All Diagrams: a card for each, with a small drawing of it, opening it
       var OVERVIEW = [
-        ['structures', 'The Structures', 'The Structures', 'Infrastructure, social structure and superstructure: how each transition remade all three, and how each acts on the others.']
+        ['structures', 'The Structures', 'The Structures', 'Infrastructure, social structure and superstructure, and how each acts on the others.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
       function ovSlab(x, y, w, h) {
@@ -3591,7 +3559,7 @@
       function setSlug() {
         var d = show.split('-');
         if (d[0] === 'overview') { history.replaceState(null, '', location.pathname); return; }
-        var slug = d[0] === 'stages' ? 'stages' : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
+        var slug = d[0] === 'stages' || d[0] === 'structures' ? d[0] : d[0] + '-' + (count === '8' ? 'eight' : 'four') + '-transitions';
         history.replaceState(null, '', '#' + slug);
       }
       function render(rebuild) {
