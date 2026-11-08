@@ -131,10 +131,10 @@
          across, the upper pair ending as far above the title as the lower
          pair begins below the introduction, all as large as the room above
          and below allows (the script sets where, and how large) */
-      .md-corner-tl,
-      .md-corner-tr {
+      .md-corner-top {
         top: var(--c-top, 120px);
-        transform: translateY(-100%);
+        left: 50%;
+        transform: translate(-50%, -100%);
       }
 
       .md-corner-bl,
@@ -142,17 +142,13 @@
         top: var(--c-bottom, 640px);
       }
 
-      .md-corner-tl,
       .md-corner-bl { left: var(--c-x, 56px); }
 
-      .md-corner-tr,
       .md-corner-br { right: var(--c-x, 56px); }
 
-      .md-corner-tl:hover,
-      .md-corner-tr:hover,
-      .md-corner-tl:focus-visible,
-      .md-corner-tr:focus-visible {
-        transform: translateY(calc(-100% - 4px));
+      .md-corner-top:hover,
+      .md-corner-top:focus-visible {
+        transform: translate(-50%, calc(-100% - 4px));
       }
     }
 
@@ -1246,13 +1242,13 @@
   </style>
 </head>
 <body class="no-band">
-  <!-- the first screen's corners: the other four models' diagrams, as the
-       Models page draws them, each leading to its model -->
+  <!-- the first screen: three of the other models' diagrams, as the Models
+       page draws them, each leading to its model: Cultural Materialism above
+       the title, the Emergence Model and the Four Quadrants below -->
   <div class="md-corners">
-    <a class="md-corner md-corner-tl" href="../diagram/#emergence-model" aria-label="The Emergence Model"><img src="../assets/models/emergence.png" alt="" width="800" decoding="async"></a>
-    <a class="md-corner md-corner-tr" href="../diagram/#four-quadrants" aria-label="Integral Model: Four Quadrants"><img src="../assets/models/integral.png" alt="" width="800" decoding="async"></a>
-    <a class="md-corner md-corner-bl" href="../diagram/#structures" aria-label="Cultural Materialism: Three Structures"><img src="../assets/models/cultural-materialism.png" alt="" width="800" decoding="async"></a>
-    <a class="md-corner md-corner-br" href="../diagram/#base-superstructure" aria-label="Classical Marxism: Base-Superstructure"><img src="../assets/models/marxism.png" alt="" width="800" decoding="async"></a>
+    <a class="md-corner md-corner-top" href="../diagram/#structures" aria-label="Cultural Materialism: Three Structures"><img src="../assets/models/cultural-materialism.png" alt="" width="708" decoding="async"></a>
+    <a class="md-corner md-corner-bl" href="../diagram/#emergence-model" aria-label="The Emergence Model"><img src="../assets/models/emergence.png" alt="" width="800" decoding="async"></a>
+    <a class="md-corner md-corner-br" href="../diagram/#four-quadrants" aria-label="Integral Model: Four Quadrants"><img src="../assets/models/integral.png" alt="" width="800" decoding="async"></a>
   </div>
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
     <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
@@ -1651,7 +1647,7 @@
         var t = r.getBoundingClientRect(), i = intro.getBoundingClientRect(), y = window.scrollY;
         // each image's height for its width
         var ratio = function (sel) { var im = corners.querySelector(sel + ' img'); return im && im.naturalWidth ? im.naturalHeight / im.naturalWidth : 1; };
-        var up = Math.max(ratio('.md-corner-tl'), ratio('.md-corner-tr'));
+        var up = ratio('.md-corner-top');
         var down = Math.max(ratio('.md-corner-bl'), ratio('.md-corner-br'));
         var first = scene.getBoundingClientRect().top + y;
         // as large as fits below the menu and above the foot of the screen
