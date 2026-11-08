@@ -581,7 +581,7 @@
       margin: 0;
     }
 
-    /* the diagram as large as the screen allows (its drawing is 1160 by 1320) */
+    /* the diagram as large as the screen allows (its drawing is 1160 by 1430) */
     .md-scene {
       box-sizing: border-box;
       min-height: 100vh;
@@ -596,12 +596,12 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 825px, calc((100svh - 144px) * 0.659));
+      width: min(75%, 825px, calc((100svh - 144px) * 0.608));
     }
 
     @media (max-width: 900px) {
       .md-scene .md-svg {
-        width: min(100%, calc((100svh - 144px) * 0.879));
+        width: min(100%, calc((100svh - 144px) * 0.811));
       }
     }
 
@@ -823,7 +823,7 @@
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
-      <div class="md-scene"><svg class="md-svg" viewBox="-130 -160 1160 1320" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+      <div class="md-scene"><svg class="md-svg" viewBox="-130 -210 1160 1430" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -923,12 +923,12 @@
       // the agents, above the metastructure's feedback: collective, then
       // individual at the top
       var AGENTS = [
-        ['mesostructure', 'agency', -30, 80, 14, 'left', 'Mesostructure'],
-        ['microstructure', 'agency', -115, 44, 12, 'right', 'Microstructure']
+        ['mesostructure', 'agency', -80, 80, 14, 'left', 'Mesostructure'],
+        ['microstructure', 'agency', -165, 44, 12, 'right', 'Microstructure']
       ];
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      var TL = { y: 1110, x0: CX - 230, x1: CX + 360 };
+      var TL = { y: 1170, x0: CX - 230, x1: CX + 360 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
