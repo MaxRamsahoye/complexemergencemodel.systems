@@ -59,8 +59,9 @@
     }
 
     /* the top section on the page's own background */
-    /* the first screen: a purple slab drifting behind it, turning back
-       from each edge as the old DVD logo did */
+    /* the first screen: a purple double pyramid drifting and turning
+       behind it, turning back from each edge as the old DVD logo did and
+       flushing violet as it does */
     .md-bounce {
       position: absolute;
       top: 0;
@@ -82,18 +83,20 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 150px;
+      width: 72px;
       height: auto;
+      overflow: visible;
       will-change: transform;
     }
 
-    .md-bounce .t { fill: #5b3f99; }
-    .md-bounce .l { fill: #432c7a; }
-    .md-bounce .r { fill: #2f1d5c; }
+    .md-bounce polygon {
+      stroke-linejoin: round;
+      stroke-width: 0.6;
+    }
 
     @media (max-width: 600px) {
       .md-bounce svg {
-        width: 96px;
+        width: 52px;
       }
     }
 
@@ -1124,7 +1127,7 @@
 </head>
 <body class="no-band">
   <div class="md-bounce" aria-hidden="true">
-    <svg viewBox="0 0 224 136"><polygon class="l" points="0,56 112,112 112,136 0,80"/><polygon class="r" points="112,112 224,56 224,80 112,136"/><polygon class="t" points="112,0 224,56 112,112 0,56"/></svg>
+    <svg viewBox="-60 -80 120 160"></svg>
   </div>
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
     <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
@@ -1503,32 +1506,72 @@
   </script>
 
   <script>
-    // the slab drifts across the first screen at a steady pace, turning back
-    // from each edge; it rests (still) for those who prefer less motion,
-    // and pauses while the first screen is out of view
+    // a double pyramid (an octahedron, drawn with flat shading) drifts
+    // across the first screen, turning slowly as it goes and turning back
+    // from each edge, where it flushes violet and fades back to purple; it
+    // rests (still) for those who prefer less motion, and pauses while the
+    // first screen is out of view
     (function () {
-      var box = document.querySelector('.md-bounce'), slab = box.querySelector('svg');
+      var box = document.querySelector('.md-bounce'), shape = box.querySelector('svg');
       var scene = document.querySelector('.md-scene');
-      var x, y, vx = 1, vy = 1, SPEED = 70, last = 0, frame = 0, onScreen = true;
+      var NS = 'http://www.w3.org/2000/svg';
+      // its six corners (taller than wide) and eight faces
+      var V = [[0, -70, 0], [0, 70, 0], [48, 0, 0], [-48, 0, 0], [0, 0, 48], [0, 0, -48]];
+      var F = [[0, 2, 4], [0, 4, 3], [0, 3, 5], [0, 5, 2], [1, 4, 2], [1, 3, 4], [1, 5, 3], [1, 2, 5]];
+      var polys = F.map(function () { var p = document.createElementNS(NS, 'polygon'); shape.appendChild(p); return p; });
+      var PURPLE = [91, 63, 153], VIOLET = [150, 100, 250], TILT = 0.38;
+      var LIGHT = (function (l) { var n = Math.hypot(l[0], l[1], l[2]); return l.map(function (c) { return c / n; }); })([-0.5, -0.7, 0.9]);
+      function draw(angle, flush) {
+        var ca = Math.cos(angle), sa = Math.sin(angle), ct = Math.cos(TILT), st = Math.sin(TILT);
+        // turned about the upright axis, then tipped towards the viewer
+        var P = V.map(function (v) {
+          var x = v[0] * ca + v[2] * sa, z = -v[0] * sa + v[2] * ca, y = v[1];
+          return [x, y * ct - z * st, y * st + z * ct];
+        });
+        var base = PURPLE.map(function (c, k) { return c + (VIOLET[k] - c) * flush; });
+        var faces = F.map(function (f, k) {
+          var a = P[f[0]], b = P[f[1]], c = P[f[2]];
+          var u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], w = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+          var n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]];
+          var len = Math.hypot(n[0], n[1], n[2]) || 1;
+          n = n.map(function (q) { return q / len; });
+          if (n[2] < 0) n = n.map(function (q) { return -q; });
+          var lit = 0.32 + 0.8 * Math.max(0, n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2]);
+          return { k: k, z: (a[2] + b[2] + c[2]) / 3, pts: [a, b, c], lit: lit };
+        }).sort(function (p, q) { return p.z - q.z; });
+        faces.forEach(function (f, i) {
+          var col = 'rgb(' + base.map(function (c) { return Math.round(Math.min(255, c * f.lit * 1.15)); }).join(',') + ')';
+          var p = polys[i];
+          p.setAttribute('points', f.pts.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' '));
+          p.setAttribute('fill', col);
+          p.setAttribute('stroke', col);
+        });
+      }
+      var x, y, vx = 1, vy = 1, SPEED = 150, SPIN = 0.7, angle = 0.4, hit = -1e9, last = 0, frame = 0, onScreen = true;
       function size() {
         box.style.height = (scene.getBoundingClientRect().top + window.scrollY) + 'px';
       }
-      function bounds() { return { w: box.clientWidth - slab.clientWidth, h: box.clientHeight - slab.clientHeight }; }
+      function bounds() { return { w: box.clientWidth - shape.clientWidth, h: box.clientHeight - shape.clientHeight }; }
       size();
       var b = bounds();
       x = b.w * 0.18; y = b.h * 0.62;
-      slab.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      shape.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      draw(angle, 0);
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       function step(t) {
         frame = 0;
         if (!onScreen) { last = 0; return; }
         var dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
         last = t;
-        var b = bounds();
+        var b = bounds(), bounced = false;
         x += vx * SPEED * dt; y += vy * SPEED * dt;
-        if (x <= 0) { x = 0; vx = 1; } else if (x >= b.w) { x = b.w; vx = -1; }
-        if (y <= 0) { y = 0; vy = 1; } else if (y >= b.h) { y = b.h; vy = -1; }
-        slab.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        if (x <= 0) { x = 0; vx = 1; bounced = true; } else if (x >= b.w) { x = b.w; vx = -1; bounced = true; }
+        if (y <= 0) { y = 0; vy = 1; bounced = true; } else if (y >= b.h) { y = b.h; vy = -1; bounced = true; }
+        if (bounced) hit = t;
+        angle += SPIN * dt;
+        // violet at the moment it turns back, fading to purple over a second
+        draw(angle, Math.max(0, 1 - (t - hit) / 1000));
+        shape.style.transform = 'translate(' + x + 'px,' + y + 'px)';
         frame = requestAnimationFrame(step);
       }
       frame = requestAnimationFrame(step);
