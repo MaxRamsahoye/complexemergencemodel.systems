@@ -212,6 +212,71 @@
       color: var(--link-blue);
     }
 
+    /* the diagram's download button, in the top-left corner of its screen,
+       with its note beside it on hover */
+    .md-save {
+      position: absolute;
+      top: 32px;
+      left: 40px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--canvas-ink);
+      cursor: pointer;
+    }
+
+    .md-save svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .md-save .arrow {
+      transition: transform 0.25s ease;
+    }
+
+    .md-save:hover .arrow,
+    .md-save:focus-visible .arrow {
+      transform: translateY(2px);
+    }
+
+    .md-save-note {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .md-save:hover .md-save-note,
+    .md-save:focus-visible .md-save-note,
+    .md-save.busy .md-save-note {
+      opacity: 1;
+      transform: none;
+    }
+
+    .md-save:focus-visible {
+      outline: none;
+    }
+
+    @media (max-width: 600px) {
+      .md-save {
+        top: 20px;
+        left: 24px;
+      }
+    }
+
+    /* (while the download reads the diagram's colours, no fading) */
+    .md-svg.md-still,
+    .md-svg.md-still * {
+      transition: none !important;
+    }
+
     /* the note on a click made while the diagram is still assembling */
     .md-click-note {
       position: fixed;
@@ -1364,6 +1429,13 @@
             <button class="md-pair-toggle" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Select Two Structures to see their Bidirectional Interactions</button>
           </div>
         </div>
+        <button class="md-save" type="button" aria-label="Download the diagram as an image">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
+            <g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g>
+          </svg>
+          <span class="md-save-note" aria-hidden="true">Download diagram</span>
+        </button>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -1764,6 +1836,109 @@
       window.addEventListener('resize', size);
       if (document.fonts) document.fonts.ready.then(size);
       corners.querySelectorAll('img').forEach(function (im) { if (!im.complete) im.addEventListener('load', size); });
+    })();
+  </script>
+
+  <script>
+    // the diagram's download: the drawing as it stands, without the column
+    // beside it and with nothing selected, saved as a PNG at a high
+    // resolution, its styles written into it and its fonts embedded
+    (function () {
+      var btn = document.querySelector('.md-save');
+      var svg = document.querySelector('.md-svg');
+      var note = btn.querySelector('.md-save-note');
+      var PROPS = ['fill', 'fill-opacity', 'stroke', 'stroke-width', 'stroke-dasharray', 'stroke-linecap', 'stroke-linejoin', 'stroke-opacity',
+        'opacity', 'font-family', 'font-size', 'font-weight', 'font-style', 'letter-spacing', 'text-anchor', 'dominant-baseline', 'visibility', 'display'];
+      function toDataURL(buf, type) {
+        var bytes = new Uint8Array(buf), bin = '';
+        for (var i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+        return 'data:' + type + ';base64,' + btoa(bin);
+      }
+      // IBM Plex Sans, as the page has it, embedded (Latin only)
+      function fontCSS() {
+        var link = document.querySelector('link[href*="fonts.googleapis.com"]');
+        if (!link || !window.fetch) return Promise.resolve('');
+        return fetch(link.href).then(function (r) { return r.text(); }).then(function (css) {
+          var blocks = css.split('@font-face').slice(1).map(function (b) { return '@font-face' + b.slice(0, b.indexOf('}') + 1); })
+            .filter(function (b) { return /IBM Plex Sans/.test(b) && /font-style:\s*normal/.test(b) && /U\+0000-00FF/.test(b) && /font-weight:\s*(400|500)/.test(b); });
+          return Promise.all(blocks.map(function (b) {
+            var m = b.match(/url\(([^)]+)\)/);
+            if (!m) return '';
+            return fetch(m[1].replace(/["']/g, '')).then(function (r) { return r.arrayBuffer(); })
+              .then(function (buf) { return b.replace(m[0], 'url(' + toDataURL(buf, 'font/woff2') + ')'); });
+          })).then(function (list) { return list.join('\n'); });
+        }).catch(function () { return ''; });
+      }
+      function snapshot() {
+        // nothing selected while its styles are read
+        var on = Array.prototype.slice.call(svg.querySelectorAll('.on'));
+        svg.classList.add('md-still');
+        on.forEach(function (el) { el.classList.remove('on'); });
+        svg.getBoundingClientRect();
+        var clone = svg.cloneNode(true);
+        var src = svg.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+        for (var i = 0; i < src.length; i++) {
+          var cs = getComputedStyle(src[i]), st = '';
+          PROPS.forEach(function (p) { st += p + ':' + cs.getPropertyValue(p) + ';'; });
+          dst[i].setAttribute('style', st);
+          dst[i].removeAttribute('class');
+        }
+        on.forEach(function (el) { el.classList.add('on'); });
+        svg.getBoundingClientRect();
+        svg.classList.remove('md-still');
+        // (the invisible areas that catch the pointer are left out)
+        Array.prototype.forEach.call(clone.querySelectorAll('.hit, [style*="fill:rgba(0, 0, 0, 0)"][style*="stroke:none"]'), function (el) { el.remove(); });
+        return clone;
+      }
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('busy')) return;
+        btn.classList.add('busy');
+        note.textContent = 'Preparing\u2026';
+        var clone = snapshot();
+        // (with a margin all round, so nothing at the edges is cut)
+        var b0 = svg.viewBox.baseVal, M = 40;
+        var vb = { x: b0.x - M, y: b0.y - M, width: b0.width + 2 * M, height: b0.height + 2 * M };
+        var W = 3000, H = Math.round(W * vb.height / vb.width);
+        clone.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.width + ' ' + vb.height);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        clone.setAttribute('width', W);
+        clone.setAttribute('height', H);
+        clone.removeAttribute('class');
+        clone.removeAttribute('style');
+        fontCSS().then(function (fonts) {
+          if (fonts) {
+            var style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+            style.textContent = fonts;
+            clone.insertBefore(style, clone.firstChild);
+          }
+          var bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          bg.setAttribute('x', vb.x); bg.setAttribute('y', vb.y); bg.setAttribute('width', vb.width); bg.setAttribute('height', vb.height);
+          bg.setAttribute('fill', getComputedStyle(document.body).backgroundColor || '#fff');
+          // (the background first of all, beneath everything but the fonts)
+          var first = clone.firstChild && clone.firstChild.nodeName === 'style' ? clone.firstChild.nextSibling : clone.firstChild;
+          clone.insertBefore(bg, first);
+          var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+          var img = new Image();
+          img.onload = function () {
+            var c = document.createElement('canvas');
+            c.width = W; c.height = H;
+            c.getContext('2d').drawImage(img, 0, 0, W, H);
+            c.toBlob(function (blob) {
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = 'The Complex Emergence Model.png';
+              // (a click that does not bubble, so the site's page transitions
+              // never take it for a move to another page)
+              a.dispatchEvent(new MouseEvent('click', { bubbles: false, cancelable: true }));
+              setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+              note.textContent = 'Downloaded';
+              setTimeout(function () { btn.classList.remove('busy'); note.textContent = 'Download diagram'; }, 1500);
+            }, 'image/png');
+          };
+          img.onerror = function () { btn.classList.remove('busy'); note.textContent = 'Download diagram'; };
+          img.src = url;
+        });
+      });
     })();
   </script>
 
