@@ -350,6 +350,15 @@
       transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
+    /* a card that leads to a page of its own */
+    a.ov-card {
+      text-decoration: none;
+    }
+
+    .view-tabs .tab-group[hidden] {
+      display: none !important;
+    }
+
     .ov-card:hover,
     .ov-card:focus-visible {
       border-color: var(--link-blue);
@@ -3541,7 +3550,9 @@
       <div class="tab-group" role="tablist" aria-label="All Models">
         <button type="button" role="tab" aria-selected="true" data-show="overview-main">All Models</button>
       </div>
-      <div class="tab-group" role="tablist" aria-label="The Complex Emergence Model">
+      <!-- the subpage stays (at #complex-emergence-model) but is no longer
+           listed: its card leads to the Complex Emergence Model page -->
+      <div class="tab-group" role="tablist" aria-label="The Complex Emergence Model" hidden>
         <button type="button" role="tab" aria-selected="false" data-show="complex-main">Complex Emergence</button>
       </div>
       <div class="tab-group" role="tablist" aria-label="Exo-Endo Structure">
@@ -5353,11 +5364,15 @@
         return '<svg class="ov-thumb" viewBox="0 0 300 180" aria-hidden="true">' + g + '</svg>';
       }
       var ovGrid = document.querySelector('.ov-grid');
+      // the Complex Emergence Model's card leads to its own page; the others
+      // open their diagram here
+      var OV_PAGE = { complex: '../model/' };
       ovGrid.innerHTML = OVERVIEW.map(function (o, i) {
-        return '<button type="button" class="ov-card" data-go="' + o[0] + '-main">' + ovThumb(o[0]) +
-          '<p class="ov-kicker">Model ' + (i + 1) + '</p><h2 class="ov-title">' + o[2] + '</h2><p class="ov-desc">' + o[3] + '</p></button>';
+        var inner = ovThumb(o[0]) + '<p class="ov-kicker">Model ' + (i + 1) + '</p><h2 class="ov-title">' + o[2] + '</h2><p class="ov-desc">' + o[3] + '</p>';
+        return OV_PAGE[o[0]] ? '<a class="ov-card" href="' + OV_PAGE[o[0]] + '">' + inner + '</a>'
+          : '<button type="button" class="ov-card" data-go="' + o[0] + '-main">' + inner + '</button>';
       }).join('');
-      ovGrid.querySelectorAll('.ov-card').forEach(function (c) {
+      ovGrid.querySelectorAll('button.ov-card').forEach(function (c) {
         c.addEventListener('click', function () { show = c.dataset.go; render(); window.scrollTo({ top: 0 }); });
       });
 
