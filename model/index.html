@@ -631,39 +631,45 @@
       }
     }
 
-    /* where there is room, the list and, on its right, the description,
-       beneath the heading and centred together on the screen (the list is
-       the taller, so the pair stays put as the description changes); the
-       list set to its right edge, towards the description */
+    /* where there is room: the heading and subtitle centred across the
+       window, and beneath them the list and, on its right, the description,
+       the list ending just before the heading's first letter (the script
+       sets --pair-x; where the list would not fit there, the pair is
+       centred instead); the screen's content centred top to bottom (the
+       list is the taller, so it stays put as the description changes) */
     @media (min-width: 901px) {
       .md-side {
-        display: grid;
-        grid-template-columns: max-content minmax(0, 480px);
-        grid-template-areas: 'head head' 'sub sub' 'list detail';
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-content: center;
-        column-gap: 64px;
-        align-items: start;
-        padding: 96px 0;
-        /* wider than the page's text column, centred in the window */
-        --side-w: min(1100px, calc(100vw - 96px));
-        width: var(--side-w);
-        margin-left: calc((100% - var(--side-w)) / 2);
+        /* the full width of the window */
+        width: auto;
+        margin: 0 calc(50% - 50vw);
+        padding: 96px 48px;
       }
 
-      .md-side .md-side-title {
-        grid-area: head;
-        text-align: center;
-      }
-
+      .md-side .md-side-title,
       .md-side .md-side-sub {
-        grid-area: sub;
-        justify-self: center;
+        align-self: center;
         text-align: center;
+      }
+
+      .md-pair {
+        display: grid;
+        grid-template-columns: max-content minmax(0, 600px);
+        column-gap: 120px;
+        align-items: start;
+        width: fit-content;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .md-pair.at-heading {
+        margin-left: var(--pair-x, auto);
       }
 
       .md-side .md-list {
-        grid-area: list;
         align-items: flex-end;
         text-align: right;
       }
@@ -678,7 +684,6 @@
       }
 
       .md-side .md-detail {
-        grid-area: detail;
         margin-top: 0;
       }
     }
@@ -780,6 +785,7 @@
       <div class="md-side">
         <h2 class="md-side-title">Civilisational Structures</h2>
         <p class="md-side-sub">An analytical apparatus for understanding the influences on human agency.</p>
+        <div class="md-pair">
         <div class="md-list">
           <p class="md-list-head">Transecting</p>
           <button type="button" data-key="metastructure">Metastructure <span>System Dynamics</span></button>
@@ -794,6 +800,7 @@
           <button type="button" data-key="ecostructure">Ecostructure <span>Cultural-Evolutionary Ecology</span></button>
         </div>
         <div class="md-detail" aria-live="polite"></div>
+        </div>
       </div>
     </section>
 
@@ -1026,6 +1033,34 @@
       window.addEventListener('scroll', check, { passive: true });
       window.addEventListener('resize', check);
       check();
+    })();
+  </script>
+
+  <script>
+    // the list ends just before the first letter of the heading above it,
+    // the description to its right; where that would take the list or the
+    // description off the screen, the pair is simply centred
+    (function () {
+      var side = document.querySelector('.md-side'), pair = side.querySelector('.md-pair');
+      var title = side.querySelector('.md-side-title'), list = pair.querySelector('.md-list');
+      var GAP = 10, EDGE = 24;
+      function place() {
+        pair.classList.remove('at-heading');
+        if (getComputedStyle(pair).display !== 'grid') return;
+        var r = document.createRange();
+        r.selectNodeContents(title);
+        var letter = r.getClientRects()[0].left;
+        var box = side.getBoundingClientRect(), padL = parseFloat(getComputedStyle(side).paddingLeft);
+        var listW = list.getBoundingClientRect().width;
+        var x = letter - GAP - listW;
+        var right = x + pair.getBoundingClientRect().width;
+        if (x < EDGE || right > window.innerWidth - EDGE) return;
+        pair.style.setProperty('--pair-x', (x - box.left - padL) + 'px');
+        pair.classList.add('at-heading');
+      }
+      place();
+      window.addEventListener('resize', place);
+      if (document.fonts) document.fonts.ready.then(place);
     })();
   </script>
 
