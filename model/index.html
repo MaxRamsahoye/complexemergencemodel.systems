@@ -383,6 +383,27 @@
 
     /* the two brackets on the left: the civilisational structures and, above
        them, human agency, with an arrow rising from the one to the other */
+    .md-brace {
+      cursor: pointer;
+    }
+
+    .md-brace .hit {
+      fill: transparent;
+    }
+
+    .md-brace path,
+    .md-brace text {
+      transition: stroke 0.2s ease, fill 0.2s ease;
+    }
+
+    .md-brace.on path {
+      stroke: var(--link-blue);
+    }
+
+    .md-brace.on text {
+      fill: var(--link-blue);
+    }
+
     .md-bracket path {
       fill: none;
       stroke: color-mix(in srgb, currentColor 55%, transparent);
@@ -620,29 +641,13 @@
       }
     }
 
-    /* in the corners of the diagram's screen, where there is room: a
-       description at the top left, a quarter of the screen across, and the
-       number of structures of each kind at the bottom left */
-    .md-scene-intro,
+    /* the number of structures of each kind, in a row across the foot of
+       the list's screen, where there is room */
     .md-scene-count {
       display: none;
     }
 
     @media (min-width: 1100px) {
-      /* the description across the top, in two lines, clear of the name
-         in the corner */
-      .md-scene-intro {
-        display: block;
-        position: absolute;
-        top: 40px;
-        left: 40px;
-        right: 220px;
-        margin: 0;
-        /* scaled with the window, so that it keeps to two lines */
-        font-size: clamp(13px, 1.1vw, 19px);
-        line-height: 1.45;
-      }
-
       /* the count in a row across the bottom */
       .md-scene-count {
         display: flex;
@@ -699,14 +704,12 @@
     @media (min-width: 1100px) {
       .md-scene {
         column-gap: 56px;
-        /* the diagram and its column between the description above and the
-           count below */
-        padding: 124px 40px 96px;
+        padding: 72px 40px;
       }
 
       .md-scene .md-svg {
         /* (its drawing then loses the empty margin on its right: 1520 by 1490) */
-        width: min(calc(100% - 420px), 1080px, calc((100svh - 220px) * 0.765));
+        width: min(calc(100% - 420px), 1080px, calc((100svh - 144px) * 0.765));
       }
 
       .md-scene-text {
@@ -970,15 +973,6 @@
     <section class="md-figure" aria-label="The model as a diagram">
       <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1490" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
         <div class="md-scene-text" aria-hidden="true"></div>
-        <p class="md-scene-intro">The civilisational structures as a stack: the interfaces of second nature resting on the laws of universal physics, the core of civilisation built upon them, the system dynamics of the metastructure running through them all and the macrostructure&rsquo;s timeline of development beneath &ndash; and, above them, the collective and individual agency they condition.</p>
-        <dl class="md-scene-count">
-          <div><dt>Agency</dt><dd>2</dd></div>
-          <div><dt>Transecting</dt><dd>2</dd></div>
-          <div><dt>Core</dt><dd>4</dd></div>
-          <div><dt>Interfaces</dt><dd>2</dd></div>
-          <div><dt>Foundation</dt><dd>1</dd></div>
-          <div class="total"><dt>Structures</dt><dd>11</dd></div>
-        </dl>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -1009,6 +1003,14 @@
         </div>
         <div class="md-detail" aria-live="polite"></div>
         </div>
+        <dl class="md-scene-count">
+          <div><dt>Agency</dt><dd>2</dd></div>
+          <div><dt>Transecting</dt><dd>2</dd></div>
+          <div><dt>Core</dt><dd>4</dd></div>
+          <div><dt>Interfaces</dt><dd>2</dd></div>
+          <div><dt>Foundation</dt><dd>1</dd></div>
+          <div class="total"><dt>Structures</dt><dd>11</dd></div>
+        </dl>
       </div>
     </section>
 
@@ -1140,15 +1142,17 @@
       html += label('macrostructure', 'left', TL.y, TL.x0 - 10, 'Macrostructure');
       // brackets: human agency (the two agents) above the civilisational
       // structures (the metastructure's feedback down to the timeline)
-      function bracket(y0, y1, text) {
+      // each can be pointed to and clicked, as the structures can
+      function bracket(key, y0, y1, text) {
         var x = -290, m = (y0 + y1) / 2;
-        return '<path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
-          '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>';
+        return '<g class="md-brace" data-key="' + key + '"><path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
+          '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>' +
+          '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
       }
-      html += '<g class="md-bracket" aria-hidden="true">' +
-        bracket(-195, -18, 'Human Agency') + bracket(64, 1272, 'Civilisational Structures') +
+      html += '<g class="md-bracket">' +
+        bracket('human-agency', -195, -18, 'Human Agency') + bracket('civilisational-structures', 64, 1272, 'Civilisational Structures') +
         // the arrow between them, rising from the structures to agency
-        '<path d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
+        '<path class="rise" d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
@@ -1161,7 +1165,7 @@
       var detail = document.querySelector('.md-detail');
       var locked = 'infrastructure';
       // what each structure comprises, and what lies within it
-      var MODEL = window.MD_MODEL = {"infrastructure": {"desc": "Technological instruments and affordances, productive (and reproductive) forces and material conditions: the tools, energy systems and physical networks through which a civilisation meets its needs.", "within": [["energy-materials", "Energy &amp; Materials", "The energy sources, raw materials and flows of extraction and waste on which a civilisation runs."], ["tools-techniques", "Tools &amp; Techniques", "The instruments, machines and computational systems that extend and automate human capacities."], ["networks", "Networks", "The physical systems of transport, communication and information that connect and coordinate a society."]]}, "interstructure": {"desc": "The institutional complex for decision-making (governance) and resource-allocation (economy): the arrangements of control, coordination and circulation through which a society makes collective decisions and allocates its resources.", "within": [["governance", "Governance", "The institutions of law, policy and authority through which collective decisions are made and enforced."], ["economy", "Economy", "The markets, property regimes and systems of exchange through which resources are produced, allocated and distributed."], ["power-hierarchy", "Power &amp; Hierarchy", "The distribution of control, status and access that structures who decides and who benefits."]]}, "superstructure": {"desc": "Ideologies, worldviews, belief and value-systems, symbols, memetics and narratives: the shared culture through which a civilisation makes sense of itself and legitimises its order.", "within": [["worldviews", "Worldviews", "The cosmologies, ideologies and religions through which a culture makes sense of reality and its place within it."], ["values-norms", "Values &amp; Norms", "The shared standards of what is good, right and legitimate that guide and sanction behaviour."], ["narratives-symbols", "Narratives &amp; Symbols", "The stories, memes and media through which meaning is transmitted and contested."]]}, "biostructure": {"desc": "The physiological, genetic, somatic and neurobiological substrate of human populations, as altered and conditioned by cultural practices, environmental feedback and technology.", "within": [["genetic-epigenetic", "Genetic &amp; Epigenetic", "The inherited substrate of human populations and its modulation by environment and way of life."], ["somatic-physiological", "Somatic &amp; Physiological", "Health, nutrition, metabolism and the condition of the body as shaped by cultural practices."], ["neurobiological", "Neurobiological", "The brain and nervous system as conditioned by technology, stress and culture."]]}, "ecostructure": {"desc": "The biophysical environment, resource reservoirs, ecosystem dynamics and planetary boundaries within which human civilisations are embedded and intra-acting.", "within": [["planetary-boundaries", "Planetary Boundaries", "The safe operating limits of the Earth system: climate, biodiversity, biogeochemical cycles and freshwater."], ["resource-reservoirs", "Resource Reservoirs", "The stocks of soil, water, minerals and fossil fuels on which a civilisation&rsquo;s metabolism draws."], ["ecosystem-dynamics", "Ecosystem Dynamics", "The flows, feedbacks and resilience of the living systems in which human societies are embedded."]]}, "metastructure": {"desc": "The cybernetic, game-theoretic and evolutionary mechanisms operational within a civilisation.", "within": [["cybernetic", "Cybernetic", "Goal-optimisation (&lsquo;teleology&rsquo;), error-minimisation and feedback loops."], ["game-theoretic", "Game-Theoretic", "Incentive structures, rational strategising and agent-modelling."], ["evolutionary", "Evolutionary", "Selection processes, competitive pressures and niche construction."]]}, "macrostructure": {"desc": "The process by which a civilisation elaborates itself and changes across macrohistorical time.", "within": [["states-transitions", "States &amp; Transitions", "The critical thresholds, &lsquo;bifurcation points&rsquo; and &lsquo;phase transitions&rsquo; where systems change, complexify and collapse."], ["constraints-affordances", "Constraints &amp; Affordances", "The hard boundaries, limiting factors and &lsquo;action potentials&rsquo; generated at each stage of civilisational development."], ["problems-solutions-externalities", "Problems, Solutions &amp; Externalities", "The historical process by which solutions to existing problems generate novel problems and unintended side-effects."]]}, "microstructure": {"desc": "Individual agents &ndash; persons &ndash; whose perception, cognition, intentions and choices are conditioned by every structure beneath them, and whose actions, intended and unintended, in turn reproduce or transform those structures.", "within": [["cognition", "Cognition", "The perception, beliefs and reasoning of the individual, as formed by experience and culture."], ["intention-choice", "Intention &amp; Choice", "The deliberations and decisions experienced as one&rsquo;s own, yet conditioned by every structure."], ["action-habit", "Action &amp; Habit", "The practices and routines through which individuals reproduce or transform the structures."]]}, "mesostructure": {"desc": "Collective agents &ndash; institutions and organisations, from firms and states to movements and communities &ndash; which coordinate individual action towards shared ends and act upon the structures as agents in their own right.", "within": [["institutions", "Institutions", "The formal rules and enduring arrangements &ndash; states, legal systems, markets &ndash; that persist beyond their members."], ["organisations", "Organisations", "Firms, bureaucracies, parties and NGOs that pursue goals as collective agents."], ["movements-communities", "Movements &amp; Communities", "The informal collectives through which people mobilise, belong and act together."]]}, "cosmostructure": {"desc": "The natural laws and constants of the universe &ndash; thermodynamics, chemistry, gravitation &ndash; which bound what is possible for every other structure, from the energy available to a civilisation to the conditions for life itself.", "within": [["thermodynamics", "Thermodynamics", "The laws of energy and entropy that govern every flow of work, order and dissipation."], ["forces-constants", "Forces &amp; Constants", "Gravitation, electromagnetism and the nuclear forces that set the scales and limits of matter."], ["chemistry-complexity", "Chemistry &amp; Complexity", "The principles by which matter self-organises into molecules, life and ever more complex systems."]]}, "substructure": {"desc": "Universal, innate cognitive-affective predispositions and capacities, which are expressed or suppressed through interaction primarily with the superstructure (and other structures).", "within": [["drives", "Drives", "The innate motivations &ndash; for status, belonging, security and reproduction &ndash; shaped by our evolutionary history."], ["cognitive-biases", "Cognitive Biases", "The heuristics and systematic distortions of perception and judgement that evolved for ancestral environments."], ["capacities", "Capacities", "The latent abilities for cooperation, empathy, language and learning that culture can cultivate or suppress."]]}};
+      var MODEL = window.MD_MODEL = {"infrastructure": {"desc": "Technological instruments and affordances, productive (and reproductive) forces and material conditions: the tools, energy systems and physical networks through which a civilisation meets its needs.", "within": [["energy-materials", "Energy &amp; Materials", "The energy sources, raw materials and flows of extraction and waste on which a civilisation runs."], ["tools-techniques", "Tools &amp; Techniques", "The instruments, machines and computational systems that extend and automate human capacities."], ["networks", "Networks", "The physical systems of transport, communication and information that connect and coordinate a society."]]}, "interstructure": {"desc": "The institutional complex for decision-making (governance) and resource-allocation (economy): the arrangements of control, coordination and circulation through which a society makes collective decisions and allocates its resources.", "within": [["governance", "Governance", "The institutions of law, policy and authority through which collective decisions are made and enforced."], ["economy", "Economy", "The markets, property regimes and systems of exchange through which resources are produced, allocated and distributed."], ["power-hierarchy", "Power &amp; Hierarchy", "The distribution of control, status and access that structures who decides and who benefits."]]}, "superstructure": {"desc": "Ideologies, worldviews, belief and value-systems, symbols, memetics and narratives: the shared culture through which a civilisation makes sense of itself and legitimises its order.", "within": [["worldviews", "Worldviews", "The cosmologies, ideologies and religions through which a culture makes sense of reality and its place within it."], ["values-norms", "Values &amp; Norms", "The shared standards of what is good, right and legitimate that guide and sanction behaviour."], ["narratives-symbols", "Narratives &amp; Symbols", "The stories, memes and media through which meaning is transmitted and contested."]]}, "biostructure": {"desc": "The physiological, genetic, somatic and neurobiological substrate of human populations, as altered and conditioned by cultural practices, environmental feedback and technology.", "within": [["genetic-epigenetic", "Genetic &amp; Epigenetic", "The inherited substrate of human populations and its modulation by environment and way of life."], ["somatic-physiological", "Somatic &amp; Physiological", "Health, nutrition, metabolism and the condition of the body as shaped by cultural practices."], ["neurobiological", "Neurobiological", "The brain and nervous system as conditioned by technology, stress and culture."]]}, "ecostructure": {"desc": "The biophysical environment, resource reservoirs, ecosystem dynamics and planetary boundaries within which human civilisations are embedded and intra-acting.", "within": [["planetary-boundaries", "Planetary Boundaries", "The safe operating limits of the Earth system: climate, biodiversity, biogeochemical cycles and freshwater."], ["resource-reservoirs", "Resource Reservoirs", "The stocks of soil, water, minerals and fossil fuels on which a civilisation&rsquo;s metabolism draws."], ["ecosystem-dynamics", "Ecosystem Dynamics", "The flows, feedbacks and resilience of the living systems in which human societies are embedded."]]}, "metastructure": {"desc": "The cybernetic, game-theoretic and evolutionary mechanisms operational within a civilisation.", "within": [["cybernetic", "Cybernetic", "Goal-optimisation (&lsquo;teleology&rsquo;), error-minimisation and feedback loops."], ["game-theoretic", "Game-Theoretic", "Incentive structures, rational strategising and agent-modelling."], ["evolutionary", "Evolutionary", "Selection processes, competitive pressures and niche construction."]]}, "macrostructure": {"desc": "The process by which a civilisation elaborates itself and changes across macrohistorical time.", "within": [["states-transitions", "States &amp; Transitions", "The critical thresholds, &lsquo;bifurcation points&rsquo; and &lsquo;phase transitions&rsquo; where systems change, complexify and collapse."], ["constraints-affordances", "Constraints &amp; Affordances", "The hard boundaries, limiting factors and &lsquo;action potentials&rsquo; generated at each stage of civilisational development."], ["problems-solutions-externalities", "Problems, Solutions &amp; Externalities", "The historical process by which solutions to existing problems generate novel problems and unintended side-effects."]]}, "microstructure": {"desc": "Individual agents &ndash; persons &ndash; whose perception, cognition, intentions and choices are conditioned by every structure beneath them, and whose actions, intended and unintended, in turn reproduce or transform those structures.", "within": [["cognition", "Cognition", "The perception, beliefs and reasoning of the individual, as formed by experience and culture."], ["intention-choice", "Intention &amp; Choice", "The deliberations and decisions experienced as one&rsquo;s own, yet conditioned by every structure."], ["action-habit", "Action &amp; Habit", "The practices and routines through which individuals reproduce or transform the structures."]]}, "mesostructure": {"desc": "Collective agents &ndash; institutions and organisations, from firms and states to movements and communities &ndash; which coordinate individual action towards shared ends and act upon the structures as agents in their own right.", "within": [["institutions", "Institutions", "The formal rules and enduring arrangements &ndash; states, legal systems, markets &ndash; that persist beyond their members."], ["organisations", "Organisations", "Firms, bureaucracies, parties and NGOs that pursue goals as collective agents."], ["movements-communities", "Movements &amp; Communities", "The informal collectives through which people mobilise, belong and act together."]]}, "cosmostructure": {"desc": "The natural laws and constants of the universe &ndash; thermodynamics, chemistry, gravitation &ndash; which bound what is possible for every other structure, from the energy available to a civilisation to the conditions for life itself.", "within": [["thermodynamics", "Thermodynamics", "The laws of energy and entropy that govern every flow of work, order and dissipation."], ["forces-constants", "Forces &amp; Constants", "Gravitation, electromagnetism and the nuclear forces that set the scales and limits of matter."], ["chemistry-complexity", "Chemistry &amp; Complexity", "The principles by which matter self-organises into molecules, life and ever more complex systems."]]}, "substructure": {"desc": "Universal, innate cognitive-affective predispositions and capacities, which are expressed or suppressed through interaction primarily with the superstructure (and other structures).", "within": [["drives", "Drives", "The innate motivations &ndash; for status, belonging, security and reproduction &ndash; shaped by our evolutionary history."], ["cognitive-biases", "Cognitive Biases", "The heuristics and systematic distortions of perception and judgement that evolved for ancestral environments."], ["capacities", "Capacities", "The latent abilities for cooperation, empathy, language and learning that culture can cultivate or suppress."]]}, "civilisational-structures": {"head": "Civilisational Structures", "desc": "The civilisational structures as a stack: the interfaces of second nature resting on the laws of universal physics, the core of civilisation built upon them, the system dynamics of the metastructure running through them all and the macrostructure&rsquo;s timeline of development beneath &ndash; and, above them, the collective and individual agency they condition.", "within": []}, "human-agency": {"head": "Human Agency", "desc": "The capacity of humans to act, individually and collectively &ndash; conditioned, constrained and enabled by every structure beneath it, and through whose actions, intended and unintended, those structures are in turn reproduced or transformed.", "within": []}};
       // each structure's colour, as its slab has it
       var BOX = window.MD_BOX = {
         infrastructure: '#1f2b63', interstructure: '#d9a520', superstructure: '#5b3f99',
@@ -1176,11 +1180,12 @@
         if (!m) { detail.innerHTML = ''; if (sceneText) sceneText.innerHTML = ''; detail.style.removeProperty('--box'); return; }
         // headed by its name and field, as the list has them
         var b = document.querySelector('.md-list [data-key="' + key + '"]');
-        var h = (b ? '<h3 class="md-detail-head">' + b.innerHTML + '</h3>' : '') + '<p>' + m.desc + '</p>';
+        var head = b ? b.innerHTML : m.head;
+        var h = (head ? '<h3 class="md-detail-head">' + head + '</h3>' : '') + '<p>' + m.desc + '</p>';
         if (m.within.length) h += '<ul>' + m.within.map(function (w) { return '<li><b>' + w[1] + '</b> &ndash; ' + w[2] + '</li>'; }).join('') + '</ul>';
         detail.innerHTML = h;
         // and, beside the diagram, its name and description alone
-        if (sceneText) sceneText.innerHTML = (b ? '<h3 class="md-detail-head">' + b.innerHTML + '</h3>' : '') + '<p>' + m.desc + '</p>';
+        if (sceneText) sceneText.innerHTML = (head ? '<h3 class="md-detail-head">' + head + '</h3>' : '') + '<p>' + m.desc + '</p>';
         detail.style.setProperty('--box', BOX[key]);
       }
       function show(key) {
