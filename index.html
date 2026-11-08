@@ -2625,12 +2625,12 @@
         body.classList.remove('overview-shown');
       }
 
-      // scrolling down shows it; scrolling back up to the very top hides it
-      // again and brings back the down arrow
+      // scrolling down shows it, and once shown it stays (scrolling back to
+      // the very top no longer hides it and brings back the down arrow; a
+      // reload starts afresh)
       function checkOverview() {
         if (!isDesign2()) return;
         if (window.scrollY > 10) showOverview();
-        else if (window.scrollY <= 0) hideOverview();
       }
 
       window.addEventListener('scroll', checkOverview, { passive: true });
