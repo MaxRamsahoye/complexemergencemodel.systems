@@ -525,6 +525,9 @@ html.band-black:not([data-theme]) .on-band {
    the left, the sitemap on the right, spanning the central text column */
 .site-footer {
   --text-column: min(760px, 100vw - 480px);
+  /* black, whatever the band (its greys mixed from black and its ink) */
+  --inverse-bg: #000;
+  --inverse-ink: #fbf6ec;
   margin-top: 96px;
   padding: 80px 24px 64px;
   background: var(--inverse-bg);
@@ -552,7 +555,7 @@ html.band-black:not([data-theme]) .on-band {
   column-gap: 48px;
   align-items: center;
   /* wider than the text column, for more room between the two sides */
-  width: calc(var(--text-column) + 240px);
+  width: calc(var(--text-column) + 120px);
   max-width: 100%;
   margin: 0 auto;
 }
@@ -647,7 +650,7 @@ html.band-black:not([data-theme]) .on-band {
   grid-template-rows: repeat(4, auto);
   grid-auto-flow: column;
   grid-auto-columns: max-content;
-  column-gap: 40px;
+  column-gap: 72px;
   row-gap: 10px;
 }
 

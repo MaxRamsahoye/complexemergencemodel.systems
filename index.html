@@ -1497,6 +1497,9 @@
     .site-footer {
       margin-top: 96px;
       padding: 80px 24px 64px;
+      /* black, whatever the band (its greys mixed from black and its ink) */
+      --inverse-bg: #000;
+      --inverse-ink: #fbf6ec;
       background: var(--inverse-bg);
       color: var(--inverse-ink);
     }
@@ -1547,7 +1550,7 @@
       column-gap: 48px;
       align-items: center;
       /* wider than the text column, for more room between the two sides */
-      width: calc(var(--text-column) + 240px);
+      width: calc(var(--text-column) + 120px);
       max-width: 100%;
       margin: 0 auto;
     }
@@ -1624,7 +1627,7 @@
       grid-template-rows: repeat(4, auto);
       grid-auto-flow: column;
       grid-auto-columns: max-content;
-      column-gap: 40px;
+      column-gap: 72px;
       row-gap: 10px;
     }
 
