@@ -391,7 +391,7 @@
 
     .md-bracket text {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 32px;
+      font-size: 40px;
       letter-spacing: 0.04em;
       fill: currentColor;
     }
@@ -596,7 +596,7 @@
       margin: 0;
     }
 
-    /* the diagram as large as the screen allows (its drawing is 1520 by 1430) */
+    /* the diagram as large as the screen allows (its drawing is 1640 by 1430) */
     .md-scene {
       box-sizing: border-box;
       min-height: 100vh;
@@ -611,12 +611,12 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 1080px, calc((100svh - 144px) * 0.797));
+      width: min(75%, 1165px, calc((100svh - 144px) * 0.86));
     }
 
     @media (max-width: 900px) {
       .md-scene .md-svg {
-        width: min(100%, calc((100svh - 144px) * 1.063));
+        width: min(100%, calc((100svh - 144px) * 1.147));
       }
     }
 
@@ -838,7 +838,7 @@
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
-      <div class="md-scene"><svg class="md-svg" viewBox="-310 -210 1520 1430" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+      <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1430" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -1000,14 +1000,14 @@
       // brackets: human agency (the two agents) above the civilisational
       // structures (the metastructure's feedback down to the timeline)
       function bracket(y0, y1, text) {
-        var x = -235, m = (y0 + y1) / 2;
-        return '<path d="M' + (x + 30) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 30) + '"/>' +
-          '<text x="' + (x - 30) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 30) + ' ' + m + ')">' + text + '</text>';
+        var x = -290, m = (y0 + y1) / 2;
+        return '<path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
+          '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>';
       }
       html += '<g class="md-bracket" aria-hidden="true">' +
         bracket(-195, -18, 'Human Agency') + bracket(64, 1212, 'Civilisational Structures') +
         // the arrow between them, rising from the structures to agency
-        '<path d="M-235 46V0M-243 12L-235 0L-227 12"/></g>';
+        '<path d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
       svg.innerHTML = html;
 
       var parts = Array.prototype.slice.call(document.querySelectorAll('.md-svg [data-key], .md-list [data-key]'));
