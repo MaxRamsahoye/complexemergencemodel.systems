@@ -1545,7 +1545,8 @@
         pairMode = !pairMode;
         toggle.setAttribute('aria-pressed', pairMode ? 'true' : 'false');
         column.classList.toggle('pairing', pairMode);
-        if (pairMode) { pair = ORDER.indexOf(locked) >= 0 ? [locked] : []; showPair(); }
+        // (beginning with the model's central pair: the structures and agency)
+        if (pairMode) { pair = ['civilisational-structures', 'human-agency']; locked = 'human-agency'; showPair(); }
         else { pair = []; show(locked); }
       });
       // the line in the column level with the timeline's
