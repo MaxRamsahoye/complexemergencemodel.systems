@@ -1315,7 +1315,10 @@
       html += tl + '<line class="hit" x1="' + TL.x0 + '" y1="' + TL.y + '" x2="' + TL.x1 + '" y2="' + TL.y + '"/></g>';
       SLABS.concat(AGENTS).forEach(function (s) {
         var x0 = s[5] === 'left' ? CX - s[3] - 8 : CX + s[3] + 8;
-        html += label(s[0], s[5], s[2] + s[4] / 2, x0, s[6]);
+        // the superstructure's label a little higher, clear of the
+        // substructure's beneath it
+        var lift = s[0] === 'superstructure' ? 14 : 0;
+        html += label(s[0], s[5], s[2] + s[4] / 2 - lift, x0, s[6]);
       });
       html += label('metastructure', 'right', 92, CX + 32, 'Metastructure');
       html += label('macrostructure', 'left', TL.y, TL.x0 - 10, 'Macrostructure');
