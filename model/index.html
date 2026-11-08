@@ -629,32 +629,40 @@
     }
 
     @media (min-width: 1100px) {
+      /* the description across the top, in two lines, clear of the name
+         in the corner */
       .md-scene-intro {
         display: block;
         position: absolute;
-        top: 48px;
+        top: 40px;
         left: 40px;
-        width: 25vw;
+        right: 220px;
         margin: 0;
-        font-size: 17px;
+        /* scaled with the window, so that it keeps to two lines */
+        font-size: clamp(13px, 1.1vw, 19px);
         line-height: 1.45;
       }
 
+      /* the count in a row across the bottom */
       .md-scene-count {
-        display: grid;
-        grid-template-columns: max-content max-content;
-        column-gap: 28px;
-        row-gap: 4px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        column-gap: 36px;
+        row-gap: 6px;
         position: absolute;
         left: 40px;
-        bottom: 32px;
+        right: 120px;
+        bottom: 36px;
         margin: 0;
         font-family: 'IBM Plex Sans', sans-serif;
-        font-size: 14px;
+        font-size: 15px;
       }
 
       .md-scene-count div {
-        display: contents;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
       }
 
       .md-scene-count dt {
@@ -672,10 +680,12 @@
         font-variant-numeric: tabular-nums;
       }
 
-      .md-scene-count .total dt,
-      .md-scene-count .total dd {
-        padding-top: 6px;
-        border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      .md-scene-count .total {
+        padding-left: 36px;
+        border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      }
+
+      .md-scene-count .total dt {
         color: var(--canvas-ink);
       }
     }
@@ -689,14 +699,14 @@
     @media (min-width: 1100px) {
       .md-scene {
         column-gap: 56px;
-        /* the diagram and its column to the right of the description */
-        padding-left: calc(25vw + 72px);
-        padding-right: 40px;
+        /* the diagram and its column between the description above and the
+           count below */
+        padding: 124px 40px 96px;
       }
 
       .md-scene .md-svg {
         /* (its drawing then loses the empty margin on its right: 1520 by 1490) */
-        width: min(calc(100% - 420px), 1080px, calc((100svh - 144px) * 0.765));
+        width: min(calc(100% - 420px), 1080px, calc((100svh - 220px) * 0.765));
       }
 
       .md-scene-text {
@@ -706,7 +716,7 @@
         justify-content: center;
         flex: 0 0 340px;
         align-self: stretch;
-        margin: 72px 0;
+        margin: 0;
         padding-left: 48px;
         border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
       }
