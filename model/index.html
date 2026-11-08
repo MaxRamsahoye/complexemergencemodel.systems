@@ -709,8 +709,7 @@
         margin-right: 24px;
       }
 
-      /* the description centred top to bottom beside the list, with a
-         line on its left midway across the gap between them */
+      /* the description centred top to bottom beside the list */
       .md-pair {
         align-items: stretch;
       }
@@ -720,20 +719,6 @@
         margin-top: 0;
       }
 
-      .md-side .md-list {
-        position: relative;
-      }
-
-      .md-side .md-list::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: -60px;
-        width: 1px;
-        background: color-mix(in srgb, currentColor 18%, transparent);
-        pointer-events: none;
-      }
     }
 
     /* the description in a plain box, outlined as the cards are */
