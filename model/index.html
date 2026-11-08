@@ -60,8 +60,8 @@
 
     /* the top section on the page's own background */
     /* the first screen: three purple double pyramids drifting and turning
-       behind it, turning back from each edge as the old DVD logo did, and
-       from each other, flushing violet as they do */
+       behind it, violet, turning back from each edge as the old DVD logo
+       did, and from each other, darkening to purple as they do */
     .md-bounce {
       position: absolute;
       top: 0;
@@ -1566,8 +1566,8 @@
   <script>
     // three double pyramids (octahedra, drawn with flat shading) drift
     // across the first screen, each turning about two axes as it goes; they
-    // turn back from each edge and glance off each other, flushing violet
-    // and fading back to purple; they rest (still) for those who prefer less
+    // turn back from each edge and glance off each other, darkening to
+    // purple and easing back to violet; they rest (still) for those who prefer less
     // motion, and pause while the first screen is out of view
     (function () {
       var box = document.querySelector('.md-bounce');
@@ -1586,7 +1586,7 @@
           var x = v[0] * cy + v[2] * sy, z = -v[0] * sy + v[2] * cy, y = v[1];
           return [x, y * cx - z * sx, y * sx + z * cx];
         });
-        var base = PURPLE.map(function (c, k) { return c + (VIOLET[k] - c) * flush; });
+        var base = VIOLET.map(function (c, k) { return c + (PURPLE[k] - c) * flush; });
         F.map(function (f) {
           var a = P[f[0]], b = P[f[1]], c = P[f[2]];
           var u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], w = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
@@ -1661,8 +1661,10 @@
           }
         }
         shapes.forEach(function (o) {
-          // violet at the moment it turns back, fading to purple over a second
-          draw(o, Math.max(0, 1 - (t - o.hit) / 1000));
+          // deep purple at the moment it turns back, easing back to violet
+          // over two and a half seconds
+          var since = (t - o.hit) / 2500;
+          draw(o, since >= 1 ? 0 : 1 - since * since);
           o.svg.style.transform = 'translate(' + o.x + 'px,' + o.y + 'px)';
         });
         frame = requestAnimationFrame(step);
