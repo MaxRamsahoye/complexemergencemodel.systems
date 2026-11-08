@@ -357,10 +357,16 @@
       document.body.classList.toggle('past-start', scrollTop > start && (!endEl || scrollTop < end));
 
       if (upBtn) {
-        // data-show-after: show once that element has scrolled past the top
-        var after = upBtn.getAttribute('data-show-after') && document.querySelector(upBtn.getAttribute('data-show-after'));
-        var showFrom = after ? after.getBoundingClientRect().bottom + scrollTop : start + window.innerHeight * 0.5;
-        upBtn.classList.toggle('visible', scrollTop > showFrom);
+        // data-show-after: show once that element has scrolled past the top,
+        // or, as 'bottom', only while the page is scrolled to its very end
+        var afterSel = upBtn.getAttribute('data-show-after');
+        if (afterSel === 'bottom') {
+          upBtn.classList.toggle('visible', scrollable > 0 && scrollTop >= scrollable - 4);
+        } else {
+          var after = afterSel && document.querySelector(afterSel);
+          var showFrom = after ? after.getBoundingClientRect().bottom + scrollTop : start + window.innerHeight * 0.5;
+          upBtn.classList.toggle('visible', scrollTop > showFrom);
+        }
       }
 
       // the end chord plays on reaching the bottom of the page
