@@ -1016,9 +1016,19 @@
         color: var(--muted);
       }
 
+      /* the two-way arrow between the pair's names */
       .md-st-inter .md-detail-head .x {
-        margin: 0 0.35em;
-        color: var(--link-blue);
+        display: inline-block;
+        width: 1.9em;
+        height: 0.7em;
+        margin: 0 0.45em;
+        vertical-align: 0.05em;
+        overflow: visible;
+        fill: none;
+        stroke: var(--link-blue);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .md-scene-text p.md-st-hint {
@@ -1581,7 +1591,7 @@
         var h = pair.map(function (k) { return '<div class="md-st-one"><h3 class="md-detail-head">' + headOf(k) + '</h3><p>' + MODEL[k].desc + '</p></div>'; }).join('');
         if (pair.length === 2) {
           var two = pair.slice().sort(function (a, b) { return ORDER.indexOf(a) - ORDER.indexOf(b); });
-          h += '<div class="md-st-inter"><p class="md-st-kicker">Interaction</p><h3 class="md-detail-head">' + nameOf(two[0]) + '<span class="x">&harr;</span>' + nameOf(two[1]) + '</h3><p>' + INTER[two[0] + '|' + two[1]] + '</p></div>';
+          h += '<div class="md-st-inter"><p class="md-st-kicker">Interaction</p><h3 class="md-detail-head">' + nameOf(two[0]) + '<svg class="x" viewBox="0 0 44 16" aria-label="and"><path d="M6 8H38M12 2L5 8L12 14M32 2L39 8L32 14"/></svg>' + nameOf(two[1]) + '</h3><p>' + INTER[two[0] + '|' + two[1]] + '</p></div>';
         } else {
           h += '<p class="md-st-hint">' + (pair.length ? 'Select a second structure to see how the two interact.' : 'Select two structures in the diagram to see how they interact.') + '</p>';
         }
