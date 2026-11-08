@@ -59,11 +59,11 @@
     })();
   </script>
   <title>Complex Emergence</title>
-  <meta name="description" content="An elaboration of Schmachtenberger’s civilisational structures framework for understanding the relationality between civilisational structures, the conditioning of human agency and the generation of existential risk.">
+  <meta name="description" content="An elaboration of Schmachtenberger’s civilisational structures framework for understanding the conditioning of human agency and the generation of existential risk.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Complex Emergence">
   <meta property="og:title" content="The Complex Emergence Model">
-  <meta property="og:description" content="An elaboration of Schmachtenberger’s civilisational structures framework for understanding the relationality between civilisational structures, the conditioning of human agency and the generation of existential risk.">
+  <meta property="og:description" content="An elaboration of Schmachtenberger’s civilisational structures framework for understanding the conditioning of human agency and the generation of existential risk.">
   <meta property="og:url" content="https://maxramsahoye.github.io/complexemergencemodel.systems/">
   <meta property="og:image" content="https://maxramsahoye.github.io/complexemergencemodel.systems/preview.png">
   <meta property="og:image:width" content="1200">
@@ -547,11 +547,13 @@
     /* the default loading screen: a simplified Emergence Model, its four
        quadrants arriving one by one around a spinning wheel, which turns the
        accent once the page is ready */
-    .loader-wheel {
-      width: 104px;
-      height: 104px;
+    /* (in 2.5D: the disc laid flat and seen from above at an angle, with
+       its thickness beneath it, turning in its own plane) */
+    .loader svg.loader-wheel {
+      width: 120px;
+      height: auto;
       overflow: visible;
-      animation: loader-spin 2.4s linear infinite;
+      transform: none;
       --w1: #5b3f99;
       --w2: #4d3590;
       --w3: #432c7a;
@@ -567,6 +569,15 @@
       opacity: 0;
       transition: fill 0.3s ease;
       animation: loader-quadrant-in var(--dur) cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
+    }
+
+    /* its sides: the same quadrants, darker, without the gaps between them */
+    .loader-wheel .lw-side {
+      filter: brightness(0.62);
+    }
+
+    .loader-wheel .lw-side path {
+      stroke: none;
     }
 
     .loader-wheel path:nth-of-type(1) { fill: var(--w1); }
@@ -1927,7 +1938,15 @@
           paths += '<path style="--delay:' + (i * STEP) + 'ms;--dur:' + DUR + 'ms" d="M' + at(R, a0) + 'A' + R + ' ' + R + ' 0 0 1 ' + at(R, a1) +
             'L' + at(r, a1) + 'A' + r + ' ' + r + ' 0 0 0 ' + at(r, a0) + 'Z"/>';
         }
-        loader.insertAdjacentHTML('beforeend', '<svg class="loader-wheel" viewBox="-50 -50 100 100"><g>' + paths + '</g></svg>');
+        // laid flat (half as deep as wide), turning in its own plane, over
+        // copies of itself a step lower each, which make its thickness
+        var SPIN = '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.4s" begin="0s" repeatCount="indefinite"/>';
+        var disc = function (dy, cls) {
+          return '<g' + (cls ? ' class="' + cls + '"' : '') + ' transform="translate(0 ' + dy + ')"><g transform="scale(1 0.5)"><g>' + SPIN + paths + '</g></g></g>';
+        };
+        var DEPTH = 10, layers = '';
+        for (var d = DEPTH; d >= 1; d--) layers += disc(d, 'lw-side');
+        loader.insertAdjacentHTML('beforeend', '<svg class="loader-wheel" viewBox="-52 -28 104 66">' + layers + disc(0) + '</svg>');
         loader.classList.add('loader-stacking');
         var built = (LEVELS - 1) * STEP + DUR + 120;
         var t0 = performance.now();
@@ -2103,7 +2122,7 @@
           <div class="article-header">
             <p class="article-author"><a class="author-link" href="https://maxramsahoye.github.io/max/" target="_blank" rel="noopener">Max Ramsahoye</a></p>
             <h1 class="article-title"><a class="heading-link title-top" href="#"><span class="title-line">The Complex Emergence Model</span></a></h1>
-            <p class="article-subtitle">An elaboration of Schmachtenberger&rsquo;s civilisational structures framework for understanding the relationality between civilisational structures, the conditioning of human agency and the generation of existential risk</p>
+            <p class="article-subtitle">An elaboration of Schmachtenberger&rsquo;s civilisational structures framework for understanding the conditioning of human agency and the generation of existential risk</p>
             <button class="next-screen" type="button" data-target="overview" aria-label="Continue to the overview">
               <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
                 <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
