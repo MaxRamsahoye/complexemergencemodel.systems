@@ -1895,8 +1895,8 @@
         btn.classList.add('busy');
         note.textContent = 'Preparing\u2026';
         var clone = snapshot();
-        // (with a margin all round, so nothing at the edges is cut)
-        var b0 = svg.viewBox.baseVal, M = 40;
+        // (the drawing itself, with a generous white margin all round)
+        var b0 = svg.getBBox(), M = 150;
         var vb = { x: b0.x - M, y: b0.y - M, width: b0.width + 2 * M, height: b0.height + 2 * M };
         var W = 3000, H = Math.round(W * vb.height / vb.width);
         clone.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.width + ' ' + vb.height);
