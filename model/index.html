@@ -712,8 +712,8 @@
         font-size: 21px;
       }
 
-      /* the counts level with the name in the top-right corner, ending a
-         little before it (the script sets where) */
+      /* the counts level with the second line of the name in the
+         top-right corner, ending a little before it (the script sets where) */
       .md-side-top .md-scene-count {
         position: absolute;
         top: var(--count-top, 30px);
@@ -731,6 +731,15 @@
       .md-side .md-pair.at-heading {
         margin: auto;
         padding-top: 72px;
+      }
+
+      /* the list ending where the description above it ends (the script
+         sets --pair-x) */
+      .md-side .md-pair.at-desc {
+        margin-left: var(--pair-x);
+        margin-right: 0;
+        max-width: calc(100% - var(--pair-x));
+        column-gap: 96px;
       }
     }
 
@@ -1062,13 +1071,27 @@
 
     }
 
-    /* the description in a plain box, outlined as the cards are */
+    /* the description set off by a line on its left */
     .md-side .md-detail {
       min-height: 0;
-      padding: 34px 38px 36px;
-      border: 1.5px solid color-mix(in srgb, currentColor 28%, transparent);
-      border-radius: 3px;
+      padding: 6px 0 6px 44px;
+      border: none;
+      border-left: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+      border-radius: 0;
       background: none;
+    }
+
+    /* more room between the points beneath it */
+    .md-side .md-detail ul {
+      margin-top: 24px;
+    }
+
+    .md-side .md-detail li {
+      margin-bottom: 16px;
+    }
+
+    .md-side .md-detail li:last-child {
+      margin-bottom: 0;
     }
 
     /* the box's heading: the structure's name and field, as in the list */
@@ -1711,22 +1734,35 @@
       var title = side.querySelector('.md-side-title'), list = pair.querySelector('.md-list');
       var GAP = 10, EDGE = 24;
       var topLeft = window.matchMedia('(min-width: 1100px)');
-      // the counts level with the first line of the name in the corner
+      // the counts level with the second line of the name in the corner
       var count = side.querySelector('.md-scene-count'), name = document.querySelector('.site-title');
       function placeCount() {
         if (!topLeft.matches) return;
         var n = name.getBoundingClientRect(), c = count.getBoundingClientRect();
         var line = parseFloat(getComputedStyle(name).lineHeight) || parseFloat(getComputedStyle(name).fontSize) * 1.15;
-        side.style.setProperty('--count-top', (n.top + line / 2 - c.height / 2) + 'px');
-        side.style.setProperty('--count-right', (window.innerWidth - n.left + 48) + 'px');
+        side.style.setProperty('--count-top', (n.top + line * 1.5 - c.height / 2) + 'px');
+        side.style.setProperty('--count-right', (window.innerWidth - n.left + 64) + 'px');
       }
       placeCount();
       window.addEventListener('resize', placeCount);
       if (document.fonts) document.fonts.ready.then(placeCount);
       function place() {
         pair.classList.remove('at-heading');
-        // (with the heading at the top left, the pair is simply centred)
-        if (topLeft.matches) return;
+        // with the heading at the top left: the list ends where the lines of
+        // the description above it end
+        pair.classList.remove('at-desc');
+        if (topLeft.matches) {
+          var sub = side.querySelector('.md-side-sub'), rs = document.createRange();
+          rs.selectNodeContents(sub);
+          var end = Math.max.apply(null, Array.prototype.map.call(rs.getClientRects(), function (q) { return q.right; }));
+          var sbox = side.getBoundingClientRect(), cs = getComputedStyle(side);
+          // (only where the description beside the list still has room)
+          var room = sbox.right - parseFloat(cs.paddingRight) - end - 96;
+          if (room < 440) return;
+          pair.style.setProperty('--pair-x', Math.max(0, end - sbox.left - parseFloat(cs.paddingLeft) - list.getBoundingClientRect().width) + 'px');
+          pair.classList.add('at-desc');
+          return;
+        }
         if (getComputedStyle(pair).display !== 'grid') return;
         var r = document.createRange();
         r.selectNodeContents(title);
