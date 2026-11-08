@@ -715,14 +715,52 @@
 
       .md-scene-text {
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        position: relative;
+        display: block;
         flex: 0 0 480px;
         align-self: stretch;
         margin: 0;
-        padding-left: 48px;
         border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+        /* where the line of the macrostructure's timeline runs (set by script) */
+        --rule-y: 90%;
+      }
+
+      /* above the line: the structure, or the two structures and how they
+         interact, centred in the space */
+      .md-st-body {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--rule-y);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 0 24px 48px;
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+
+      .md-st-body::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* the line level with the timeline, beginning a subsection below it */
+      .md-st-rule {
+        position: absolute;
+        top: var(--rule-y);
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: color-mix(in srgb, currentColor 18%, transparent);
+      }
+
+      .md-st-sub {
+        position: absolute;
+        top: calc(var(--rule-y) + 18px);
+        left: 48px;
+        right: 0;
       }
 
       .md-scene-text .md-detail-head {
@@ -733,6 +771,99 @@
         margin: 0;
         font-size: 20px;
         line-height: 1.45;
+      }
+
+      /* two at once: each a little smaller, the interaction set apart */
+      .md-scene-text.pairing .md-detail-head {
+        margin-bottom: 10px;
+        font-size: 19px;
+      }
+
+      .md-scene-text.pairing p {
+        font-size: 17px;
+      }
+
+      .md-st-one + .md-st-one {
+        margin-top: 22px;
+      }
+
+      .md-st-inter {
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px dashed color-mix(in srgb, currentColor 22%, transparent);
+      }
+
+      .md-st-kicker {
+        margin: 0 0 6px;
+        font-family: var(--mono-caps);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .md-st-inter .md-detail-head .x {
+        margin: 0 0.35em;
+        color: var(--link-blue);
+      }
+
+      .md-scene-text p.md-st-hint {
+        margin-top: 22px;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      /* the toggle: a small switch and its label */
+      .md-pair-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+        border: none;
+        background: none;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 15px;
+        color: var(--canvas-ink);
+        cursor: pointer;
+      }
+
+      .md-pair-toggle .sw {
+        position: relative;
+        width: 34px;
+        height: 18px;
+        border: 1.5px solid color-mix(in srgb, currentColor 45%, transparent);
+        border-radius: 10px;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .md-pair-toggle .sw::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: currentColor;
+        transition: transform 0.2s ease;
+      }
+
+      .md-pair-toggle[aria-pressed="true"] .sw {
+        border-color: var(--link-blue);
+        background: var(--link-blue);
+      }
+
+      .md-pair-toggle[aria-pressed="true"] .sw::after {
+        background: var(--canvas-bg);
+        transform: translateX(16px);
+      }
+
+      .md-pair-toggle:hover,
+      .md-pair-toggle:focus-visible {
+        color: var(--link-blue);
+        outline: none;
       }
     }
 
@@ -973,7 +1104,13 @@
 
     <section class="md-figure" aria-label="The model as a diagram">
       <div class="md-scene"><svg class="md-svg" viewBox="-370 -240 1640 1520" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
-        <div class="md-scene-text" aria-hidden="true"></div>
+        <div class="md-scene-text">
+          <div class="md-st-body" aria-hidden="true"></div>
+          <div class="md-st-rule" aria-hidden="true"></div>
+          <div class="md-st-sub">
+            <button class="md-pair-toggle" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Select two structures</button>
+          </div>
+        </div>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -1158,7 +1295,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -240 1520 1520' : '-370 -240 1640 1520'); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -240 1520 1520' : '-370 -240 1640 1520'); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
@@ -1174,11 +1311,36 @@
         cosmostructure: '#3e4a6e', mesostructure: '#7fa8b8', microstructure: '#7fa8b8',
         metastructure: '#6b6b78', macrostructure: '#6b6b78'
       };
-      var sceneText = document.querySelector('.md-scene-text');
-      function describe(key) {
+      var sceneText = document.querySelector('.md-st-body'), column = document.querySelector('.md-scene-text');
+      // how each pair of structures interacts (the pair in the order below)
+      var ORDER = ["microstructure", "mesostructure", "metastructure", "macrostructure", "infrastructure", "interstructure", "superstructure", "substructure", "biostructure", "ecostructure", "cosmostructure"];
+      var INTER = {"microstructure|mesostructure": "Individuals found, staff and reproduce institutions and organisations, which in turn assign them roles, incentives and identities: collective agency emerges from individual action, yet constrains it from above.", "microstructure|metastructure": "Competitive and adaptive dynamics act on individuals as pressures to compete, conform and adapt &ndash; the multipolar traps in which each person&rsquo;s rational choice reproduces a collectively irrational outcome.", "microstructure|macrostructure": "Every life is lived within a particular stage of development, whose constraints and affordances set what an individual can know, do and become, while the accumulated choices of individuals drive the transitions between stages.", "microstructure|infrastructure": "Technologies extend the individual&rsquo;s capacities and reshape attention, habit and perception; individuals in turn invent, adopt and refuse the tools through which the tech stack develops.", "microstructure|interstructure": "Political economy positions individuals as citizens, workers and consumers, structuring their incentives and life chances; their votes, labour and purchases reproduce or contest that order.", "microstructure|superstructure": "Culture furnishes the individual with the worldviews, values and narratives through which they understand themselves; individuals internalise, reinterpret and pass that culture on.", "microstructure|substructure": "Innate predispositions &ndash; drives, biases and capacities &ndash; form the evolved substrate of individual cognition, expressed or suppressed according to the life each person leads.", "microstructure|biostructure": "Agency is embodied: health, genes and neurobiology condition an individual&rsquo;s capacities to act, while practices of diet, movement and care alter the body in turn.", "microstructure|ecostructure": "Individuals depend on ecosystems for every breath and meal, and through consumption and practice contribute, invisibly and at scale, to the transformation of the biosphere.", "microstructure|cosmostructure": "Physical law bounds every individual act: the energy a body can expend, the limits of its senses, the entropy every life must work against.", "mesostructure|metastructure": "Organisations are the principal players of civilisation&rsquo;s games: states, firms and movements compete and coordinate under arms races, market pressures and selection, which decide what forms of collective agency survive.", "mesostructure|macrostructure": "Institutions carry a civilisation across time, embodying the solutions of earlier stages; transitions are marked by the rise of new organisational forms and the collapse of old ones.", "mesostructure|infrastructure": "Organisations develop, own and deploy technologies, while each technological regime &ndash; from writing to the internet &ndash; makes possible new forms of organisation and coordination at scale.", "mesostructure|interstructure": "The mesostructure is where political economy acts: states, firms and parties are the institutional agents through which governance and economy are exercised, contested and reformed.", "mesostructure|superstructure": "Institutions codify and transmit culture &ndash; churches, schools, media &ndash; while culture lends institutions their legitimacy and defines what organisations are for.", "mesostructure|substructure": "Organisations harness evolved predispositions &ndash; for status, loyalty and hierarchy &ndash; channelling them into roles and incentives, and often amplifying the very drives they rely on.", "mesostructure|biostructure": "Institutions of medicine, food and labour govern the health of populations &ndash; biopower &ndash; while the biological condition of a population sets the capacities available to its institutions.", "mesostructure|ecostructure": "Organisations extract, manage and externalise at ecological scale; ecological limits and shocks in turn destabilise the institutions that depend on them.", "mesostructure|cosmostructure": "Every organisation is a dissipative structure, maintaining its order by drawing on flows of energy and exporting entropy, bound by the same physical laws as everything else.", "metastructure|macrostructure": "Competition and feedback drive the developmental process: selection pressures push civilisations through their thresholds, while each new stage changes the games that can be played.", "metastructure|infrastructure": "Competition drives technological development &ndash; arms races and market races alike &ndash; and each new technology changes the payoffs, speed and scale of the games played with it.", "metastructure|interstructure": "Incentive structures are the metastructure made institutional: rivalry, coordination failure and tragedies of the commons all operate through governance and economy.", "metastructure|superstructure": "Ideas are selected and spread through memetic competition, while shared values can change the games themselves, making cooperation possible where rivalry would otherwise prevail.", "metastructure|substructure": "Evolved psychology is the residue of past selection, and present competitive dynamics exploit it: the drives for status and security that make multipolar traps self-reinforcing.", "metastructure|biostructure": "Selection acts on the bodies and genes of populations, while cultural niche construction alters the biological substrate on which further selection acts.", "metastructure|ecostructure": "Ecosystems run on feedback and selection too; competitive extraction drives overshoot, and ecological feedbacks return as constraints on every player.", "metastructure|cosmostructure": "Feedback, selection and self-organisation are physical processes, arising wherever energy flows through matter under the laws of thermodynamics.", "macrostructure|infrastructure": "Technological transitions &ndash; cognitive, agricultural, industrial, digital &ndash; mark the stages of macrohistory, each opening affordances and imposing constraints that define the era that follows.", "macrostructure|interstructure": "Each stage of development has its characteristic political economy &ndash; band, chiefdom, state, market, network &ndash; and the strains of one form drive the transition to the next.", "macrostructure|superstructure": "Worldviews evolve with civilisational stages, from the animist to the axial to the modern and beyond, while cultural shifts can open or foreclose paths of development.", "macrostructure|substructure": "Predispositions formed over deep time persist into rapidly changing stages, producing the mismatch between ancestral psychology and modern environments.", "macrostructure|biostructure": "Each transition remakes human bodies &ndash; the stature lost with agriculture, the lifespans gained with industry &ndash; and the biology of populations shapes what development is possible.", "macrostructure|ecostructure": "Development is written in the ecological record &ndash; deforestation, extinction, climate change &ndash; and ecological limits are the hard boundaries that each stage confronts.", "macrostructure|cosmostructure": "Development unfolds within physical budgets of energy and time: each stage harnesses greater flows of energy and generates more entropy, under the arrow of thermodynamics.", "infrastructure|interstructure": "The classic relation of base and structure: the tech stack constrains the possible forms of political economy, while governance and economy decide which technologies are developed and who owns them.", "infrastructure|superstructure": "Technologies carry and shape culture &ndash; print, broadcast and algorithmic media alter what can be thought and shared &ndash; while values and worldviews decide which technologies are embraced or resisted.", "infrastructure|substructure": "Technologies are designed to engage evolved predispositions, from the hearth to the feed, amplifying some drives and capacities while leaving others to atrophy.", "infrastructure|biostructure": "Technologies of food, medicine and labour remake human bodies, while biotechnology turns the biostructure itself into a domain of engineering.", "infrastructure|ecostructure": "The tech stack is civilisation&rsquo;s metabolism with the biosphere: every technology draws resources and returns waste, and ecological limits decide which technologies can be sustained.", "infrastructure|cosmostructure": "Technology is the harnessing of physical law &ndash; fire, steam, electricity, computation &ndash; and the energy available within those laws sets the ceiling on technological development.", "interstructure|superstructure": "Political economy and culture legitimate each other: ideologies justify the distribution of power and resources, while economic and political interests shape which ideas prevail.", "interstructure|substructure": "Institutions harness and regulate evolved drives &ndash; for status, reciprocity and dominance &ndash; and those drives recur in the hierarchies and markets that institutions create.", "interstructure|biostructure": "Political economy distributes health and harm through nutrition, labour and care, and the bodies it produces become the workforce and population it governs.", "interstructure|ecostructure": "Economies treat ecosystems as resources and sinks, externalising the damage; governance determines whether ecological limits are respected or overshot.", "interstructure|cosmostructure": "Economic activity is a physical process: growth depends on energy, and no market escapes the laws of conservation and entropy.", "superstructure|substructure": "Culture expresses or suppresses evolved predispositions &ndash; encouraging cooperation or rivalry, restraint or excess &ndash; while those predispositions bias which ideas spread.", "superstructure|biostructure": "Cultural practices shape bodies &ndash; through diet, ritual and discipline &ndash; and over generations genes; the biology of a population in turn constrains its cultural forms.", "superstructure|ecostructure": "Worldviews frame nature as sacred, as resource or as system, guiding how a culture treats its environment, while ecological conditions shape the cultures that arise within them.", "superstructure|cosmostructure": "Cosmologies are culture&rsquo;s account of the cosmostructure: from myth to physics, the understanding of natural law shapes meaning, while the laws themselves remain indifferent to it.", "substructure|biostructure": "Evolved psychology is embodied in neurobiology and genes: the biostructure carries the predispositions the substructure names, as modulated by development and environment.", "substructure|ecostructure": "Human predispositions evolved in ancestral ecologies; in mismatched environments they drive patterns of consumption, risk and short-term discounting that degrade the biosphere.", "substructure|cosmostructure": "Evolved predispositions are adaptations to physical constraint: the scarcity of energy, safety and time shaped drives and biases that persist today.", "biostructure|ecostructure": "The body is continuous with the ecosystem: nutrients, microbes and toxins pass between them, so that ecological degradation returns as human ill-health.", "biostructure|cosmostructure": "Life is chemistry under physical law: metabolism, growth and ageing are processes of energy and entropy, from which the biostructure takes its limits.", "ecostructure|cosmostructure": "Ecosystems are organised by physical law &ndash; solar energy, chemical cycles, thermodynamics &ndash; and planetary boundaries are where the biosphere meets those limits."};
+      function headOf(key) {
+        var b = document.querySelector('.md-list [data-key="' + key + '"]');
+        return b ? b.innerHTML : (MODEL[key] && MODEL[key].head) || '';
+      }
+      function nameOf(key) {
+        var b = document.querySelector('.md-list [data-key="' + key + '"]');
+        return b ? b.firstChild.textContent.trim() : (MODEL[key] && MODEL[key].head) || '';
+      }
+      // two at once: both structures, and then how they interact
+      var pairMode = false, pair = [];
+      function showPair() {
+        parts.forEach(function (p) { p.classList.toggle('on', pair.indexOf(p.getAttribute('data-key')) >= 0); });
+        if (pair.length) describe(pair[pair.length - 1], true);
+        var h = pair.map(function (k) { return '<div class="md-st-one"><h3 class="md-detail-head">' + headOf(k) + '</h3><p>' + MODEL[k].desc + '</p></div>'; }).join('');
+        if (pair.length === 2) {
+          var two = pair.slice().sort(function (a, b) { return ORDER.indexOf(a) - ORDER.indexOf(b); });
+          h += '<div class="md-st-inter"><p class="md-st-kicker">Interaction</p><h3 class="md-detail-head">' + nameOf(two[0]) + '<span class="x">&harr;</span>' + nameOf(two[1]) + '</h3><p>' + INTER[two[0] + '|' + two[1]] + '</p></div>';
+        } else {
+          h += '<p class="md-st-hint">' + (pair.length ? 'Select a second structure to see how the two interact.' : 'Select two structures in the diagram to see how they interact.') + '</p>';
+        }
+        sceneText.innerHTML = h;
+      }
+      function describe(key, boxOnly) {
         var m = MODEL[key];
         // nothing pointed to: the box empty, in its plain grey
-        if (!m) { detail.innerHTML = ''; if (sceneText) sceneText.innerHTML = ''; detail.style.removeProperty('--box'); return; }
+        if (!m) { detail.innerHTML = ''; if (sceneText && !boxOnly) sceneText.innerHTML = ''; detail.style.removeProperty('--box'); return; }
         // headed by its name and field, as the list has them
         var b = document.querySelector('.md-list [data-key="' + key + '"]');
         var head = b ? b.innerHTML : m.head;
@@ -1186,7 +1348,7 @@
         if (m.within.length) h += '<ul>' + m.within.map(function (w) { return '<li><b>' + w[1] + '</b> &ndash; ' + w[2] + '</li>'; }).join('') + '</ul>';
         detail.innerHTML = h;
         // and, beside the diagram, its name and description alone
-        if (sceneText) sceneText.innerHTML = (head ? '<h3 class="md-detail-head">' + head + '</h3>' : '') + '<p>' + m.desc + '</p>';
+        if (sceneText && !boxOnly) sceneText.innerHTML = (head ? '<h3 class="md-detail-head">' + head + '</h3>' : '') + '<p>' + m.desc + '</p>';
         detail.style.setProperty('--box', BOX[key]);
       }
       function show(key) {
@@ -1197,10 +1359,41 @@
       var figure = document.querySelector('.md-figure'), ready = false;
       parts.forEach(function (p) {
         var key = p.getAttribute('data-key');
-        p.addEventListener('mouseenter', function () { if (ready) show(key); });
-        p.addEventListener('mouseleave', function () { if (ready) show(locked); });
-        p.addEventListener('click', function () { if (ready) { locked = key; show(key); } });
+        p.addEventListener('mouseenter', function () { if (ready && !pairMode) show(key); });
+        p.addEventListener('mouseleave', function () { if (ready && !pairMode) show(locked); });
+        p.addEventListener('click', function () {
+          if (!ready) return;
+          if (!pairMode) { locked = key; show(key); return; }
+          // two at once: a click adds a structure (the earlier of two gives
+          // way to a third) or, clicked again, takes it away
+          if (ORDER.indexOf(key) < 0) return;
+          var at = pair.indexOf(key);
+          if (at >= 0) pair.splice(at, 1);
+          else { pair.push(key); if (pair.length > 2) pair.shift(); }
+          if (pair.length) locked = pair[pair.length - 1];
+          showPair();
+        });
       });
+      var toggle = document.querySelector('.md-pair-toggle');
+      toggle.addEventListener('click', function () {
+        if (!ready) return;
+        pairMode = !pairMode;
+        toggle.setAttribute('aria-pressed', pairMode ? 'true' : 'false');
+        column.classList.toggle('pairing', pairMode);
+        if (pairMode) { pair = ORDER.indexOf(locked) >= 0 ? [locked] : []; showPair(); }
+        else { pair = []; show(locked); }
+      });
+      // the line in the column level with the timeline's
+      function placeRule() {
+        var vb = svg.viewBox.baseVal, r = svg.getBoundingClientRect(), c = column.getBoundingClientRect();
+        if (!vb || !r.height || !c.height) return;
+        var y = r.top + (TL.y - vb.y) / vb.height * r.height - c.top;
+        column.style.setProperty('--rule-y', Math.max(0, Math.min(c.height - 40, y)) + 'px');
+      }
+      window.mdPlaceRule = placeRule;
+      placeRule();
+      window.addEventListener('resize', placeRule);
+      if (document.fonts) document.fonts.ready.then(placeRule);
       // as the Stack diagram does: a moment after the page opens, each
       // structure lights in turn from the base of the stack to the axis at
       // its top, each with a note a step higher, and then the first
