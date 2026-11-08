@@ -596,7 +596,7 @@
       margin: 0;
     }
 
-    /* the diagram as large as the screen allows (its drawing is 1640 by 1430) */
+    /* the diagram as large as the screen allows (its drawing is 1640 by 1490) */
     .md-scene {
       box-sizing: border-box;
       min-height: 100vh;
@@ -611,12 +611,72 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 1165px, calc((100svh - 144px) * 0.86));
+      width: min(75%, 1165px, calc((100svh - 144px) * 0.826));
     }
 
     @media (max-width: 900px) {
       .md-scene .md-svg {
-        width: min(100%, calc((100svh - 144px) * 1.147));
+        width: min(100%, calc((100svh - 144px) * 1.101));
+      }
+    }
+
+    /* in the corners of the diagram's screen, where there is room: a
+       description at the top left, a quarter of the screen across, and the
+       number of structures of each kind at the bottom left */
+    .md-scene-intro,
+    .md-scene-count {
+      display: none;
+    }
+
+    @media (min-width: 1100px) {
+      .md-scene-intro {
+        display: block;
+        position: absolute;
+        top: 48px;
+        left: 40px;
+        width: 25vw;
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.45;
+      }
+
+      .md-scene-count {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 28px;
+        row-gap: 4px;
+        position: absolute;
+        left: 40px;
+        bottom: 32px;
+        margin: 0;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 14px;
+      }
+
+      .md-scene-count div {
+        display: contents;
+      }
+
+      .md-scene-count dt {
+        font-family: var(--mono-caps);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .md-scene-count dd {
+        margin: 0;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .md-scene-count .total dt,
+      .md-scene-count .total dd {
+        padding-top: 6px;
+        border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+        color: var(--canvas-ink);
       }
     }
 
@@ -629,11 +689,14 @@
     @media (min-width: 1100px) {
       .md-scene {
         column-gap: 56px;
+        /* the diagram and its column to the right of the description */
+        padding-left: calc(25vw + 72px);
+        padding-right: 40px;
       }
 
       .md-scene .md-svg {
-        /* (its drawing then loses the empty margin on its right: 1520 by 1430) */
-        width: min(calc(100% - 420px), 1080px, calc((100svh - 144px) * 0.797));
+        /* (its drawing then loses the empty margin on its right: 1520 by 1490) */
+        width: min(calc(100% - 420px), 1080px, calc((100svh - 144px) * 0.765));
       }
 
       .md-scene-text {
@@ -895,8 +958,17 @@
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
-      <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1430" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+      <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1490" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
         <div class="md-scene-text" aria-hidden="true"></div>
+        <p class="md-scene-intro">The civilisational structures as a stack: the interfaces of second nature resting on the laws of universal physics, the core of civilisation built upon them, the system dynamics of the metastructure running through them all and the macrostructure&rsquo;s timeline of development beneath &ndash; and, above them, the collective and individual agency they condition.</p>
+        <dl class="md-scene-count">
+          <div><dt>Agency</dt><dd>2</dd></div>
+          <div><dt>Transecting</dt><dd>2</dd></div>
+          <div><dt>Core</dt><dd>4</dd></div>
+          <div><dt>Interfaces</dt><dd>2</dd></div>
+          <div><dt>Foundation</dt><dd>1</dd></div>
+          <div class="total"><dt>Structures</dt><dd>11</dd></div>
+        </dl>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -985,9 +1057,9 @@
       // each slab: key, class, centre height, half-width, thickness, label
       // side and label
       var SLABS = [
-        ['cosmostructure', 'cosmo', 868, 270, 14, 'right', 'Cosmostructure'],
-        ['ecostructure', 'eco', 773, 226, 14, 'left', 'Ecostructure'],
-        ['biostructure', 'bio', 678, 182, 14, 'right', 'Biostructure'],
+        ['cosmostructure', 'cosmo', 928, 270, 14, 'right', 'Cosmostructure'],
+        ['ecostructure', 'eco', 833, 226, 14, 'left', 'Ecostructure'],
+        ['biostructure', 'bio', 738, 182, 14, 'right', 'Biostructure'],
         ['infrastructure', 'midnight', 559, 112, 24, 'left', 'Infrastructure'],
         ['interstructure', 'gold', 427, 112, 24, 'right', 'Interstructure'],
         ['substructure', 'bio', 324, 64, 12, 'left', 'Substructure'],
@@ -1001,7 +1073,7 @@
       ];
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      var TL = { y: 1170, x0: CX - 230, x1: CX + 360 };
+      var TL = { y: 1230, x0: CX - 230, x1: CX + 360 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
@@ -1037,7 +1109,7 @@
         return f ? '<tspan class="md-field" x="' + x + '" dy="33">' + f + '</tspan>' : '';
       }
       SLABS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4]) + '</g>'; });
-      html += '<g class="md-axis" data-key="metastructure"><line class="shaft" x1="' + CX + '" y1="120" x2="' + CX + '" y2="917"/>' +
+      html += '<g class="md-axis" data-key="metastructure"><line class="shaft" x1="' + CX + '" y1="120" x2="' + CX + '" y2="977"/>' +
         // feedback: two arrows chasing each other round a circle
         cycleArrow(CX, 92, 20, 180, 305) + cycleArrow(CX, 92, 20, 0, 125) +
         '<circle class="hub" cx="' + CX + '" cy="92" r="3.5"/>' +
@@ -1064,14 +1136,14 @@
           '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>';
       }
       html += '<g class="md-bracket" aria-hidden="true">' +
-        bracket(-195, -18, 'Human Agency') + bracket(64, 1212, 'Civilisational Structures') +
+        bracket(-195, -18, 'Human Agency') + bracket(64, 1272, 'Civilisational Structures') +
         // the arrow between them, rising from the structures to agency
         '<path d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -210 1520 1430' : '-370 -210 1640 1430'); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -210 1520 1490' : '-370 -210 1640 1490'); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
