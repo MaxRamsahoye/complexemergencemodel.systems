@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Render the article as article.pdf, the file the PDF icon on the Article
-// page downloads.
+// Render the article as The Complex Emergence Model.pdf (named after the
+// article, so that it saves under its title however the browser fetches it),
+// the file the PDF icon on the Article page downloads.
 //
 // Usage (from the repository root): node tools/make-pdf.js
 // Needs Playwright (NODE_PATH=$(npm root -g) where it is installed globally)
@@ -14,7 +15,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(ROOT, 'article.pdf');
+const OUT = path.join(ROOT, 'The Complex Emergence Model.pdf');
 
 const CSS = `
   @font-face { font-family: 'ET Bembo'; src: url('fonts/ETBembo-RomanOSF.woff2') format('woff2'); font-weight: 400; font-style: normal; }
