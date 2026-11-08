@@ -158,6 +158,29 @@
       height: auto;
     }
 
+    /* the note on a click made while the diagram is still assembling */
+    .md-click-note {
+      position: fixed;
+      z-index: 50;
+      padding: 7px 12px;
+      border-radius: 4px;
+      background: var(--canvas-ink);
+      color: var(--canvas-bg);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.3;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, calc(-100% - 10px));
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .md-click-note.on {
+      opacity: 1;
+      transform: translate(-50%, calc(-100% - 16px));
+    }
+
     /* the top section on the page's own background */
     .md-top {
       position: relative;
@@ -1532,6 +1555,22 @@
       }
       // pointing and clicking wait until the run up the stack has played
       var figure = document.querySelector('.md-figure'), ready = false;
+      // a click on the diagram before its opening run has finished: a short
+      // note where it lands, saying why nothing happened
+      var note = document.createElement('div');
+      note.className = 'md-click-note';
+      note.setAttribute('role', 'status');
+      note.textContent = 'The diagram is still assembling \u2013 one moment';
+      document.body.appendChild(note);
+      var noteTimer = 0;
+      document.querySelector('.md-scene').addEventListener('click', function (e) {
+        if (ready || e.target.closest('.md-down')) return;
+        note.style.left = e.clientX + 'px';
+        note.style.top = e.clientY + 'px';
+        note.classList.add('on');
+        clearTimeout(noteTimer);
+        noteTimer = setTimeout(function () { note.classList.remove('on'); }, 1800);
+      });
       parts.forEach(function (p) {
         var key = p.getAttribute('data-key');
         p.addEventListener('mouseenter', function () { if (ready && !pairMode) show(key); });
