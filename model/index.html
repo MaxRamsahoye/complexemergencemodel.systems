@@ -299,7 +299,7 @@
     /* the timeline's transitions, the present marked with a dot */
     .md-time .tick {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 20px;
+      font-size: 25px;
       fill: var(--muted);
       stroke: none !important;
       transition: fill 0.3s ease;
@@ -361,7 +361,7 @@
     /* labels beside the diagram, each joined to its structure */
     .md-label {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 30px;
+      font-size: 37.5px;
       fill: currentColor;
       cursor: pointer;
       transition: fill 0.2s ease;
@@ -372,7 +372,7 @@
     }
 
     .md-label .md-field {
-      font-size: 22px;
+      font-size: 27.5px;
       fill: var(--muted);
       transition: fill 0.2s ease;
     }
@@ -617,7 +617,7 @@
       margin: 0;
     }
 
-    /* the diagram as large as the screen allows (its drawing is 1640 by 1490) */
+    /* the diagram as large as the screen allows (its drawing is 1640 by 1520) */
     .md-scene {
       box-sizing: border-box;
       min-height: 100vh;
@@ -632,12 +632,12 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 1165px, calc((100svh - 144px) * 0.826));
+      width: min(75%, 1165px, calc((100svh - 144px) * 0.809));
     }
 
     @media (max-width: 900px) {
       .md-scene .md-svg {
-        width: min(100%, calc((100svh - 144px) * 1.101));
+        width: min(100%, calc((100svh - 144px) * 1.079));
       }
     }
 
@@ -708,8 +708,8 @@
       }
 
       .md-scene .md-svg {
-        /* (its drawing then loses the empty margin on its right: 1520 by 1490) */
-        width: min(calc(100% - 560px), 1080px, calc((100svh - 144px) * 0.765));
+        /* (its drawing then loses the empty margin on its right: 1520 by 1520) */
+        width: min(calc(100% - 560px), 1080px, calc((100svh - 144px) * 0.75));
       }
 
       .md-scene-text {
@@ -971,7 +971,7 @@
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
-      <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1490" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+      <div class="md-scene"><svg class="md-svg" viewBox="-370 -240 1640 1520" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
         <div class="md-scene-text" aria-hidden="true"></div>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
@@ -1081,11 +1081,11 @@
       // individual at the top
       var AGENTS = [
         ['mesostructure', 'agency', -80, 80, 14, 'left', 'Mesostructure'],
-        ['microstructure', 'agency', -165, 44, 12, 'left', 'Microstructure']
+        ['microstructure', 'agency', -190, 44, 12, 'left', 'Microstructure']
       ];
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      var TL = { y: 1230, x0: CX - 230, x1: CX + 360 };
+      var TL = { y: 1230, x0: CX - 230, x1: CX + 500 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
@@ -1108,17 +1108,17 @@
       var FIELDS = {};
       document.querySelectorAll('.md-list [data-key] span').forEach(function (sp) { FIELDS[sp.parentNode.dataset.key] = sp.textContent; });
       function label(key, side, y, x0, text) {
-        var lx = side === 'left' ? -130 : 1030;
+        var lx = side === 'left' ? -170 : 1070;
         // the substructure indented beneath the superstructure, as in the list
         // the microstructure, likewise, indented with the mesostructure
         var tx = key === 'substructure' || key === 'microstructure' ? lx + (side === 'left' ? 32 : -32) : lx;
-        return '<line class="md-lead" data-key="' + key + '" x1="' + (side === 'left' ? lx + 236 : lx - 236) + '" y1="' + y + '" x2="' + x0 + '" y2="' + y + '"/>' +
+        return '<line class="md-lead" data-key="' + key + '" x1="' + (side === 'left' ? lx + 300 : lx - 300) + '" y1="' + y + '" x2="' + x0 + '" y2="' + y + '"/>' +
           '<text class="md-label" data-key="' + key + '" x="' + tx + '" y="' + (y + 5) + '" text-anchor="' + (side === 'left' ? 'start' : 'end') + '">' + text +
           field(FIELDS[key] || '', tx) + '</text>';
       }
       // (the labels stand far enough out for the longest to clear the slabs)
       function field(f, x) {
-        return f ? '<tspan class="md-field" x="' + x + '" dy="33">' + f + '</tspan>' : '';
+        return f ? '<tspan class="md-field" x="' + x + '" dy="41">' + f + '</tspan>' : '';
       }
       SLABS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4]) + '</g>'; });
       html += '<g class="md-axis" data-key="metastructure"><line class="shaft" x1="' + CX + '" y1="120" x2="' + CX + '" y2="977"/>' +
@@ -1131,7 +1131,7 @@
       TICKS.forEach(function (n, k) {
         var x = TL.x0 + 50 + k * (TL.x1 - TL.x0 - 120) / (TICKS.length - 1), now = k === TICKS.length - 1;
         tl += now ? '<circle class="now" cx="' + x.toFixed(1) + '" cy="' + TL.y + '" r="6"/>' : '<path d="M' + x.toFixed(1) + ' ' + (TL.y - 8) + 'V' + (TL.y + 8) + '"/>';
-        tl += '<text class="tick" x="' + x.toFixed(1) + '" y="' + (TL.y + 34) + '" text-anchor="middle">' + n + '</text>';
+        tl += '<text class="tick" x="' + x.toFixed(1) + '" y="' + (TL.y + 40) + '" text-anchor="middle">' + n + '</text>';
       });
       html += tl + '<line class="hit" x1="' + TL.x0 + '" y1="' + TL.y + '" x2="' + TL.x1 + '" y2="' + TL.y + '"/></g>';
       SLABS.concat(AGENTS).forEach(function (s) {
@@ -1150,14 +1150,14 @@
           '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
       }
       html += '<g class="md-bracket">' +
-        bracket('human-agency', -195, -18, 'Human Agency') + bracket('civilisational-structures', 64, 1272, 'Civilisational Structures') +
+        bracket('human-agency', -222, -18, 'Human Agency') + bracket('civilisational-structures', 64, 1272, 'Civilisational Structures') +
         // the arrow between them, rising from the structures to agency
         '<path class="rise" d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -210 1520 1490' : '-370 -210 1640 1490'); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -240 1520 1520' : '-370 -240 1640 1520'); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
