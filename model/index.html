@@ -620,6 +620,45 @@
       }
     }
 
+    /* beside the diagram, where there is room: a column of text on the
+       structure pointed to, past a dividing line as tall as the diagram */
+    .md-scene-text {
+      display: none;
+    }
+
+    @media (min-width: 1100px) {
+      .md-scene {
+        column-gap: 56px;
+      }
+
+      .md-scene .md-svg {
+        /* (its drawing then loses the empty margin on its right: 1520 by 1430) */
+        width: min(calc(100% - 420px), 1080px, calc((100svh - 144px) * 0.797));
+      }
+
+      .md-scene-text {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 0 0 340px;
+        align-self: stretch;
+        margin: 72px 0;
+        padding-left: 48px;
+        border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      }
+
+      .md-scene-text .md-detail-head {
+        font-size: 21px;
+      }
+
+      .md-scene-text p {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.45;
+      }
+    }
+
     /* the list and description, centred as a column; they start at a fixed
        height so that the list stays put as the description changes */
     .md-side {
@@ -857,6 +896,7 @@
 
     <section class="md-figure" aria-label="The model as a diagram">
       <div class="md-scene"><svg class="md-svg" viewBox="-370 -210 1640 1430" role="img" aria-label="The eleven structures: microstructure and mesostructure, the individual and collective agents, above the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure, the ecostructure and the cosmostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+        <div class="md-scene-text" aria-hidden="true"></div>
         <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
           <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
             <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
@@ -1028,6 +1068,12 @@
         // the arrow between them, rising from the structures to agency
         '<path d="M-290 46V0M-298 12L-290 0L-282 12"/></g>';
       svg.innerHTML = html;
+      // with the column of text beside it, the drawing loses the margin on
+      // its right that otherwise keeps the slabs centred on the screen
+      var besideText = window.matchMedia('(min-width: 1100px)');
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-370 -210 1520 1430' : '-370 -210 1640 1430'); }
+      fitBox();
+      if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
       var parts = Array.prototype.slice.call(document.querySelectorAll('.md-svg [data-key], .md-list [data-key]'));
       var detail = document.querySelector('.md-detail');
@@ -1041,15 +1087,18 @@
         cosmostructure: '#3e4a6e', mesostructure: '#7fa8b8', microstructure: '#7fa8b8',
         metastructure: '#6b6b78', macrostructure: '#6b6b78'
       };
+      var sceneText = document.querySelector('.md-scene-text');
       function describe(key) {
         var m = MODEL[key];
         // nothing pointed to: the box empty, in its plain grey
-        if (!m) { detail.innerHTML = ''; detail.style.removeProperty('--box'); return; }
+        if (!m) { detail.innerHTML = ''; if (sceneText) sceneText.innerHTML = ''; detail.style.removeProperty('--box'); return; }
         // headed by its name and field, as the list has them
         var b = document.querySelector('.md-list [data-key="' + key + '"]');
         var h = (b ? '<h3 class="md-detail-head">' + b.innerHTML + '</h3>' : '') + '<p>' + m.desc + '</p>';
         if (m.within.length) h += '<ul>' + m.within.map(function (w) { return '<li><b>' + w[1] + '</b> &ndash; ' + w[2] + '</li>'; }).join('') + '</ul>';
         detail.innerHTML = h;
+        // and, beside the diagram, its name and description alone
+        if (sceneText) sceneText.innerHTML = (b ? '<h3 class="md-detail-head">' + b.innerHTML + '</h3>' : '') + '<p>' + m.desc + '</p>';
         detail.style.setProperty('--box', BOX[key]);
       }
       function show(key) {
