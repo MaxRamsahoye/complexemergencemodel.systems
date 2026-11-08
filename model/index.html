@@ -132,6 +132,7 @@
          pair begins below the introduction, all as large as the room above
          and below allows (the script sets where, and how large) */
       .md-corner-top {
+        width: var(--c-w-top, 150px);
         top: var(--c-top, 120px);
         left: 50%;
         transform: translate(-50%, -100%);
@@ -1690,8 +1691,11 @@
         var down = Math.max(ratio('.md-corner-bl'), ratio('.md-corner-br'));
         var first = scene.getBoundingClientRect().top + y;
         // as large as fits below the menu and above the foot of the screen
-        var w = Math.min(240, (t.top + y - GAP - 96) / up, (first - (i.bottom + y) - GAP - 40) / down);
-        corners.style.setProperty('--c-w', Math.max(120, w) + 'px');
+        // (the one above smaller, the two below larger)
+        var wUp = Math.min(150, (t.top + y - GAP - 96) / up);
+        var wDown = Math.min(300, (first - (i.bottom + y) - GAP - 32) / down);
+        corners.style.setProperty('--c-w-top', Math.max(90, wUp) + 'px');
+        corners.style.setProperty('--c-w', Math.max(140, wDown) + 'px');
         corners.style.setProperty('--c-x', Math.max(24, t.left) + 'px');
         corners.style.setProperty('--c-top', (t.top + y - GAP) + 'px');
         corners.style.setProperty('--c-bottom', (i.bottom + y + GAP) + 'px');
