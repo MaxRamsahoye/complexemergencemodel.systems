@@ -61,9 +61,24 @@
     /* a purple band along the foot of the last screen, across the window,
        with the up arrow light upon it */
     .md-band {
-      height: 96px;
-      margin: 0 calc(50% - 50vw);
+      box-sizing: border-box;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100vw;
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 96px;
+      transform: translateX(-50%);
       background: #1d1135;
+      color: #fbf6ec;
+    }
+
+    /* the last screen keeps room at its foot for the band */
+    .md-side.md-side {
+      padding-bottom: 168px;
     }
 
     html.band-midnight:not([data-theme]) .md-band {
@@ -705,17 +720,18 @@
     }
 
     /* where there is room, the list's screen opens with its heading and
-       subtitle at the top left and, on their right, the number of structures
-       of each kind in a row; the list and description beneath, centred in
-       the rest of the screen */
+       subtitle at the top left; the list and description beneath, centred
+       in the rest of the screen */
     @media (min-width: 1100px) {
       .md-side {
         justify-content: flex-start;
         padding: 40px 40px 72px;
       }
 
+      /* (the script sets --head-x: the heading starts where the list's
+         widest line, the ecostructure, starts) */
       .md-side-top {
-        padding-left: 72px;
+        padding-left: var(--head-x, 72px);
       }
 
       /* the description across three lines */
@@ -734,51 +750,23 @@
         font-size: 21px;
       }
 
-      /* the counts level with the second line of the name in the
-         top-right corner, ending a little before it (the script sets where) */
-      .md-side-top .md-scene-count {
-        position: absolute;
-        top: var(--count-top, 30px);
-        right: var(--count-right, 200px);
-        flex-wrap: nowrap;
-        column-gap: 24px;
-        margin: 0;
-      }
-
-      .md-side-top .md-scene-count .total {
-        padding-left: 24px;
-      }
-
       .md-side .md-pair,
       .md-side .md-pair.at-heading {
         margin: auto;
         padding-top: 72px;
       }
 
-      /* the list ending where the description above it ends (the script
-         sets --pair-x) */
-      .md-side .md-pair.at-desc {
-        margin-left: var(--pair-x);
-        margin-right: 0;
-        max-width: calc(100% - var(--pair-x));
-        column-gap: 96px;
-      }
     }
 
-    /* the number of structures of each kind, where there is room */
-    .md-scene-count {
-      display: none;
-    }
-
-    @media (min-width: 1100px) {
-      /* the count in a row across the bottom */
+    /* the number of structures of each kind, in a row centred in the band */
+    @media all {
       .md-scene-count {
         display: flex;
         flex-wrap: wrap;
         align-items: baseline;
         column-gap: 36px;
         row-gap: 6px;
-        justify-content: flex-start;
+        justify-content: center;
         margin: 0;
         font-family: 'IBM Plex Sans', sans-serif;
         font-size: 15px;
@@ -796,7 +784,7 @@
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: rgba(251, 246, 236, 0.62);
       }
 
       .md-scene-count dd {
@@ -807,11 +795,19 @@
 
       .md-scene-count .total {
         padding-left: 36px;
-        border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+        border-left: 1px solid rgba(251, 246, 236, 0.3);
       }
 
       .md-scene-count .total dt {
-        color: var(--canvas-ink);
+        color: #fbf6ec;
+      }
+
+      /* on a phone the row wraps, so the total goes without its divider */
+      @media (max-width: 700px) {
+        .md-scene-count .total {
+          padding-left: 0;
+          border-left: none;
+        }
       }
     }
 
@@ -1267,14 +1263,6 @@
         <h2 class="md-side-title">Civilisational Structures</h2>
         <p class="md-side-sub">The relatively enduring patterns of social relations, institutions, technologies and meanings&nbsp;&ndash; and the bodies and ecosystems beneath them&nbsp;&ndash; that constrain and enable human action, generating both human agency and existential risk.</p>
         </div>
-        <dl class="md-scene-count">
-          <div><dt>Agency</dt><dd>2</dd></div>
-          <div><dt>Transecting</dt><dd>2</dd></div>
-          <div><dt>Core</dt><dd>4</dd></div>
-          <div><dt>Interfaces</dt><dd>2</dd></div>
-          <div><dt>Foundation</dt><dd>1</dd></div>
-          <div class="total"><dt>Structures</dt><dd>11</dd></div>
-        </dl>
         </div>
         <div class="md-pair">
         <div class="md-list">
@@ -1297,8 +1285,17 @@
         </div>
         <div class="md-detail" aria-live="polite"></div>
         </div>
+        <div class="md-band">
+          <dl class="md-scene-count">
+            <div><dt>Agency</dt><dd>2</dd></div>
+            <div><dt>Transecting</dt><dd>2</dd></div>
+            <div><dt>Core</dt><dd>4</dd></div>
+            <div><dt>Interfaces</dt><dd>2</dd></div>
+            <div><dt>Foundation</dt><dd>1</dd></div>
+            <div class="total"><dt>Structures</dt><dd>11</dd></div>
+          </dl>
+        </div>
       </div>
-      <div class="md-band" aria-hidden="true"></div>
     </section>
 
 
@@ -1782,33 +1779,15 @@
       var title = side.querySelector('.md-side-title'), list = pair.querySelector('.md-list');
       var GAP = 10, EDGE = 24;
       var topLeft = window.matchMedia('(min-width: 1100px)');
-      // the counts level with the second line of the name in the corner
-      var count = side.querySelector('.md-scene-count'), name = document.querySelector('.site-title');
-      function placeCount() {
-        if (!topLeft.matches) return;
-        var n = name.getBoundingClientRect(), c = count.getBoundingClientRect();
-        var line = parseFloat(getComputedStyle(name).lineHeight) || parseFloat(getComputedStyle(name).fontSize) * 1.15;
-        side.style.setProperty('--count-top', (n.top + line * 1.5 - c.height / 2) + 'px');
-        side.style.setProperty('--count-right', (window.innerWidth - n.left + 64) + 'px');
-      }
-      placeCount();
-      window.addEventListener('resize', placeCount);
-      if (document.fonts) document.fonts.ready.then(placeCount);
       function place() {
         pair.classList.remove('at-heading');
-        // with the heading at the top left: the list ends where the lines of
-        // the description above it end
-        pair.classList.remove('at-desc');
+        // with the heading at the top left: the list and description centred,
+        // and the heading starting where the ecostructure (the list's widest
+        // line) starts
         if (topLeft.matches) {
-          var sub = side.querySelector('.md-side-sub'), rs = document.createRange();
-          rs.selectNodeContents(sub);
-          var end = Math.max.apply(null, Array.prototype.map.call(rs.getClientRects(), function (q) { return q.right; }));
-          var sbox = side.getBoundingClientRect(), cs = getComputedStyle(side);
-          // (only where the description beside the list still has room)
-          var room = sbox.right - parseFloat(cs.paddingRight) - end - 96;
-          if (room < 440) return;
-          pair.style.setProperty('--pair-x', Math.max(0, end - sbox.left - parseFloat(cs.paddingLeft) - list.getBoundingClientRect().width) + 'px');
-          pair.classList.add('at-desc');
+          var eco = list.querySelector('[data-key="ecostructure"]').getBoundingClientRect();
+          var sbox = side.getBoundingClientRect();
+          side.style.setProperty('--head-x', Math.max(0, eco.left - sbox.left - parseFloat(getComputedStyle(side).paddingLeft)) + 'px');
           return;
         }
         if (getComputedStyle(pair).display !== 'grid') return;
