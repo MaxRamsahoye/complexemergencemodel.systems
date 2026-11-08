@@ -128,8 +128,8 @@
       /* the title and introduction lower on the screen, to leave room for
          the row of models above them */
       body .md-top.wide-top {
-        padding-top: 300px;
-        padding-bottom: 60px;
+        padding-top: 370px;
+        padding-bottom: 40px;
       }
 
       /* all three above the title, in a row ending as far above it as the
@@ -1730,7 +1730,7 @@
     (function () {
       var corners = document.querySelector('.md-corners'), scene = document.querySelector('.md-scene');
       var title = document.querySelector('.md-top .page-title'), intro = document.querySelector('.md-intro');
-      var GAP = 56;
+      var GAP = 96;
       function size() {
         corners.style.setProperty('--first-h', (scene.getBoundingClientRect().top + window.scrollY) + 'px');
         var r = document.createRange();
