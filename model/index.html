@@ -682,8 +682,56 @@
       }
     }
 
-    /* the number of structures of each kind, in a row across the foot of
-       the list's screen, where there is room */
+    /* where there is room, the list's screen opens with its heading and
+       subtitle at the top left and, on their right, the number of structures
+       of each kind in a row; the list and description beneath, centred in
+       the rest of the screen */
+    @media (min-width: 1100px) {
+      .md-side {
+        justify-content: flex-start;
+        padding: 40px 40px 72px;
+      }
+
+      .md-side-top {
+        display: flex;
+        align-items: flex-start;
+        column-gap: 64px;
+      }
+
+      /* (the counts sit below the name in the corner, so may run on to
+         the right-hand margin) */
+      .md-side .md-side-head {
+        flex: 0 0 470px;
+      }
+
+      .md-side .md-side-head .md-side-title,
+      .md-side .md-side-head .md-side-sub {
+        text-align: left;
+      }
+
+      .md-side .md-side-head .md-side-sub {
+        margin: 0;
+        font-size: 21px;
+      }
+
+      .md-side-top .md-scene-count {
+        flex: 1 1 auto;
+        column-gap: 24px;
+        margin-top: 15px;
+      }
+
+      .md-side-top .md-scene-count .total {
+        padding-left: 24px;
+      }
+
+      .md-side .md-pair,
+      .md-side .md-pair.at-heading {
+        margin: auto;
+        padding-top: 72px;
+      }
+    }
+
+    /* the number of structures of each kind, where there is room */
     .md-scene-count {
       display: none;
     }
@@ -696,11 +744,7 @@
         align-items: baseline;
         column-gap: 36px;
         row-gap: 6px;
-        justify-content: center;
-        position: absolute;
-        left: 120px;
-        right: 120px;
-        bottom: 36px;
+        justify-content: flex-start;
         margin: 0;
         font-family: 'IBM Plex Sans', sans-serif;
         font-size: 15px;
@@ -969,6 +1013,11 @@
         text-align: center;
       }
 
+      .md-side-head .md-side-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .md-pair {
         display: grid;
         grid-template-columns: max-content minmax(0, 600px);
@@ -1163,8 +1212,20 @@
         </button>
       </div>
       <div class="md-side">
+        <div class="md-side-top">
+        <div class="md-side-head">
         <h2 class="md-side-title">Civilisational Structures</h2>
         <p class="md-side-sub">The relatively enduring patterns of social relations, institutions, technologies and meanings&nbsp;&ndash; and the bodies and ecosystems beneath them&nbsp;&ndash; that constrain and enable human action, generating both human agency and existential risk.</p>
+        </div>
+        <dl class="md-scene-count">
+          <div><dt>Agency</dt><dd>2</dd></div>
+          <div><dt>Transecting</dt><dd>2</dd></div>
+          <div><dt>Core</dt><dd>4</dd></div>
+          <div><dt>Interfaces</dt><dd>2</dd></div>
+          <div><dt>Foundation</dt><dd>1</dd></div>
+          <div class="total"><dt>Structures</dt><dd>11</dd></div>
+        </dl>
+        </div>
         <div class="md-pair">
         <div class="md-list">
           <p class="md-list-head">Agency</p>
@@ -1186,14 +1247,6 @@
         </div>
         <div class="md-detail" aria-live="polite"></div>
         </div>
-        <dl class="md-scene-count">
-          <div><dt>Agency</dt><dd>2</dd></div>
-          <div><dt>Transecting</dt><dd>2</dd></div>
-          <div><dt>Core</dt><dd>4</dd></div>
-          <div><dt>Interfaces</dt><dd>2</dd></div>
-          <div><dt>Foundation</dt><dd>1</dd></div>
-          <div class="total"><dt>Structures</dt><dd>11</dd></div>
-        </dl>
       </div>
     </section>
 
@@ -1615,8 +1668,11 @@
       var side = document.querySelector('.md-side'), pair = side.querySelector('.md-pair');
       var title = side.querySelector('.md-side-title'), list = pair.querySelector('.md-list');
       var GAP = 10, EDGE = 24;
+      var topLeft = window.matchMedia('(min-width: 1100px)');
       function place() {
         pair.classList.remove('at-heading');
+        // (with the heading at the top left, the pair is simply centred)
+        if (topLeft.matches) return;
         if (getComputedStyle(pair).display !== 'grid') return;
         var r = document.createRange();
         r.selectNodeContents(title);
