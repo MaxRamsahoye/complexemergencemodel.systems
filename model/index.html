@@ -716,31 +716,50 @@
       }
 
       .md-side .md-detail {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-self: center;
         margin-top: 0;
       }
 
-      .md-side .md-detail::before {
+      .md-side .md-list {
+        position: relative;
+      }
+
+      .md-side .md-list::after {
         content: '';
         position: absolute;
         top: 0;
         bottom: 0;
-        left: -60px;
+        right: -60px;
         width: 1px;
         background: color-mix(in srgb, currentColor 18%, transparent);
         pointer-events: none;
       }
     }
 
-    /* the description as plain text, without its coloured box */
+    /* the description in a plain box, outlined as the cards are */
     .md-side .md-detail {
-      padding: 0;
-      border: none;
-      border-radius: 0;
+      min-height: 0;
+      padding: 34px 38px 36px;
+      border: 1.5px solid color-mix(in srgb, currentColor 28%, transparent);
+      border-radius: 3px;
       background: none;
+    }
+
+    /* the list in IBM Plex Sans */
+    .md-side .md-list button {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 20px;
+      line-height: 1.45;
+    }
+
+    .md-side .md-list button.sub {
+      font-size: 18px;
+    }
+
+    .md-side .md-list-head em {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-style: italic;
     }
 
     /* a line across the window between one screen and the next */
