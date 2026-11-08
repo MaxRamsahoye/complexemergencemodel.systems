@@ -753,6 +753,16 @@
       }
     }
 
+    /* 2. a down arrow in the bottom right corner of the diagram's screen,
+       to the list of structures */
+    .md-scene .md-down-corner {
+      left: auto;
+      top: auto;
+      right: 40px;
+      bottom: 32px;
+      transform: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .md-down svg {
         animation: none;
@@ -781,7 +791,13 @@
     </div>
 
     <section class="md-figure" aria-label="The model as a diagram">
-      <div class="md-scene"><svg class="md-svg" viewBox="-130 40 1160 1000" role="img" aria-label="The eight structures: the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure and the ecostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg></div>
+      <div class="md-scene"><svg class="md-svg" viewBox="-130 40 1160 1000" role="img" aria-label="The eight structures: the core stack of infrastructure, interstructure and superstructure, with the substructure beneath the superstructure, standing on the biostructure and the ecostructure, with the metastructure as an axis through them all and the macrostructure as a timeline beneath them"></svg>
+        <button class="md-down md-down-corner" type="button" aria-label="Down to the civilisational structures">
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
+            <polygon points="14,19.469 21.031,8.531 14,11.813 6.969,8.531"/>
+          </svg>
+        </button>
+      </div>
       <div class="md-side">
         <h2 class="md-side-title">Civilisational Structures</h2>
         <p class="md-side-sub">The relatively enduring patterns of social relations, institutions, technologies and meanings&nbsp;&ndash; and the bodies and ecosystems beneath them&nbsp;&ndash; that constrain and enable human action, generating both human agency and existential risk.</p>
@@ -1011,6 +1027,10 @@
       if (document.fonts) document.fonts.ready.then(place);
       btn.addEventListener('click', function () {
         window.scrollTo({ top: scene.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      });
+      var side = document.querySelector('.md-side');
+      scene.querySelector('.md-down-corner').addEventListener('click', function () {
+        window.scrollTo({ top: side.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
       });
     })();
   </script>
