@@ -2617,6 +2617,7 @@
 
       function showOverview() {
         document.body.classList.add('overview-shown');
+        try { sessionStorage.setItem('ce.overviewShown', '1'); } catch (e) {}
       }
       window.showOverview = showOverview;
 
@@ -2634,6 +2635,22 @@
       }
 
       window.addEventListener('scroll', checkOverview, { passive: true });
+      // once shown it stays shown on returning from the site's other pages;
+      // only a reload of the page (or arriving from elsewhere) starts afresh
+      (function () {
+        var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+        var reload = nav ? nav.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
+        var fromSite = false;
+        try {
+          fromSite = !!document.referrer && (function (r, s) { return r.origin === s.origin && r.pathname.indexOf(s.pathname) === 0; })(new URL(document.referrer), new URL('./', location.href));
+        } catch (e) {}
+        var seen = false;
+        try { seen = sessionStorage.getItem('ce.overviewShown') === '1'; } catch (e) {}
+        // (back and forward within the tab count as moving within the site)
+        if (nav && nav.type === 'back_forward') fromSite = true;
+        if (reload || !fromSite) { try { sessionStorage.removeItem('ce.overviewShown'); } catch (e) {} }
+        else if (seen && isDesign2()) showOverview();
+      })();
       // a link straight to a section needs the whole article there at once
       if (isDesign2() && location.hash) {
         showOverview(true);
