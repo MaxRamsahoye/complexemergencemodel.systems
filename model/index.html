@@ -59,6 +59,44 @@
     }
 
     /* the top section on the page's own background */
+    /* the first screen: a purple slab drifting behind it, turning back
+       from each edge as the old DVD logo did */
+    .md-bounce {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* the page's content above it */
+    body > .page-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .md-bounce svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: auto;
+      will-change: transform;
+    }
+
+    .md-bounce .t { fill: #5b3f99; }
+    .md-bounce .l { fill: #432c7a; }
+    .md-bounce .r { fill: #2f1d5c; }
+
+    @media (max-width: 600px) {
+      .md-bounce svg {
+        width: 96px;
+      }
+    }
+
     .md-top {
       position: relative;
       z-index: 0;
@@ -1084,6 +1122,9 @@
   </style>
 </head>
 <body class="no-band">
+  <div class="md-bounce" aria-hidden="true">
+    <svg viewBox="0 0 224 136"><polygon class="l" points="0,56 112,112 112,136 0,80"/><polygon class="r" points="112,112 224,56 224,80 112,136"/><polygon class="t" points="112,0 224,56 112,112 0,56"/></svg>
+  </div>
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
     <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
       <path d="M10,1.5 L5,6 L18,6 A4,4 0 0 1 18,14 L1,14"/>
@@ -1454,6 +1495,47 @@
       scene.querySelector('.md-down-corner').addEventListener('click', function () {
         window.scrollTo({ top: side.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
       });
+    })();
+  </script>
+
+  <script>
+    // the slab drifts across the first screen at a steady pace, turning back
+    // from each edge; it rests (still) for those who prefer less motion,
+    // and pauses while the first screen is out of view
+    (function () {
+      var box = document.querySelector('.md-bounce'), slab = box.querySelector('svg');
+      var scene = document.querySelector('.md-scene');
+      var x, y, vx = 1, vy = 1, SPEED = 70, last = 0, frame = 0, onScreen = true;
+      function size() {
+        box.style.height = (scene.getBoundingClientRect().top + window.scrollY) + 'px';
+      }
+      function bounds() { return { w: box.clientWidth - slab.clientWidth, h: box.clientHeight - slab.clientHeight }; }
+      size();
+      var b = bounds();
+      x = b.w * 0.18; y = b.h * 0.62;
+      slab.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      function step(t) {
+        frame = 0;
+        if (!onScreen) { last = 0; return; }
+        var dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
+        last = t;
+        var b = bounds();
+        x += vx * SPEED * dt; y += vy * SPEED * dt;
+        if (x <= 0) { x = 0; vx = 1; } else if (x >= b.w) { x = b.w; vx = -1; }
+        if (y <= 0) { y = 0; vy = 1; } else if (y >= b.h) { y = b.h; vy = -1; }
+        slab.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        frame = requestAnimationFrame(step);
+      }
+      frame = requestAnimationFrame(step);
+      window.addEventListener('resize', size);
+      if (document.fonts) document.fonts.ready.then(size);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting;
+          if (onScreen && !frame) frame = requestAnimationFrame(step);
+        }).observe(box);
+      }
     })();
   </script>
 
