@@ -96,24 +96,28 @@
     }
 
     /* the top section on the page's own background */
-    /* the first screen: three purple double pyramids drifting and turning
-       behind it, violet, turning back from each edge as the old DVD logo
-       did, and from each other, darkening to purple as they do */
+    /* a screensaver, after twenty seconds without a touch, key or movement:
+       three violet double pyramids drifting and turning across a blank
+       screen, turning back from each edge as the old DVD logo did, and from
+       each other, darkening to purple as they do */
     .md-bounce {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
       overflow: hidden;
-      z-index: 0;
+      background: var(--canvas-bg);
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+      transition: opacity 0.8s ease, visibility 0s linear 0.8s;
     }
 
-    /* the page's content above it */
-    body > .page-main {
-      position: relative;
-      z-index: 1;
+    .md-bounce.on {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      cursor: none;
+      transition: opacity 0.8s ease;
     }
 
     .md-bounce svg {
@@ -1609,14 +1613,16 @@
   </script>
 
   <script>
-    // three double pyramids (octahedra, drawn with flat shading) drift
-    // across the first screen, each turning about two axes as it goes; they
-    // turn back from each edge and glance off each other, darkening to
-    // purple and easing back to violet; they rest (still) for those who prefer less
-    // motion, and pause while the first screen is out of view
+    // the screensaver: after twenty seconds with no movement, touch, key or
+    // scroll, three double pyramids (octahedra, drawn with flat shading)
+    // drift across a blank screen, each turning about two axes as it goes;
+    // they turn back from each edge and glance off each other, darkening to
+    // purple and easing back to violet; a click adds another (three times
+    // at most), and any other movement, key or scroll ends it. Not for those
+    // who prefer less motion.
     (function () {
       var box = document.querySelector('.md-bounce');
-      var scene = document.querySelector('.md-scene');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var NS = 'http://www.w3.org/2000/svg';
       // a regular octahedron: six corners, eight faces
       var V = [[0, -54, 0], [0, 54, 0], [54, 0, 0], [-54, 0, 0], [0, 0, 54], [0, 0, -54]];
@@ -1649,14 +1655,10 @@
           p.setAttribute('stroke', col);
         });
       }
-      function size() {
-        box.style.height = (scene.getBoundingClientRect().top + window.scrollY) + 'px';
-      }
-      size();
       // each starts in its own part of the screen, heading its own way,
       // turning at its own pace
       var START = [[0.15, 0.62, 0.6, 0.35, 0.7, 0.45], [0.55, 0.12, 2.4, 0.9, -0.5, 0.6], [0.85, 0.72, 4.1, 2.0, 0.55, -0.4]];
-      var W = box.clientWidth, H = box.clientHeight;
+      var W = window.innerWidth, H = window.innerHeight;
       function make(svg, x, y, heading, spin) {
         var d = svg.clientWidth;
         var o = {
@@ -1673,15 +1675,12 @@
         var s = START[k], d = svg.clientWidth;
         return make(svg, (W - d) * s[0], (H - d) * s[1], s[2], [s[3], s[4], s[5]]);
       });
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var last = 0, frame = 0, onScreen = true, boost = 1, added = 0;
-      // a click on the first screen (away from its links and buttons) adds
-      // another where it lands, and quickens them all by a fifth of their
-      // first pace - three times at most
-      document.addEventListener('click', function (e) {
-        if (added >= 3 || e.target.closest('a, button, input, label')) return;
+      var last = 0, frame = 0, onScreen = false, boost = 1, added = 0;
+      // a click on the screensaver adds another where it lands, and quickens
+      // them all by a fifth of their first pace - three times at most
+      box.addEventListener('click', function (e) {
+        if (added >= 3) return;
         var bx = box.getBoundingClientRect();
-        if (e.clientY < bx.top || e.clientY > bx.bottom) return;
         var svg = document.createElementNS(NS, 'svg');
         svg.setAttribute('viewBox', '-60 -60 120 120');
         box.appendChild(svg);
@@ -1739,15 +1738,42 @@
         });
         frame = requestAnimationFrame(step);
       }
-      frame = requestAnimationFrame(step);
-      window.addEventListener('resize', size);
-      if (document.fonts) document.fonts.ready.then(size);
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          onScreen = entries[0].isIntersecting;
-          if (onScreen && !frame) frame = requestAnimationFrame(step);
-        }).observe(box);
+      // showing and ending it
+      var START_SHAPES = shapes.slice();
+      function show() {
+        if (onScreen) return;
+        // afresh each time: the first three, at their first pace
+        shapes.slice(START_SHAPES.length).forEach(function (o) { o.svg.remove(); });
+        shapes = START_SHAPES.slice();
+        added = 0; boost = 1;
+        shapes.forEach(function (q) { var v = Math.hypot(q.vx, q.vy) || 1; q.vx *= SPEED / v; q.vy *= SPEED / v; });
+        onScreen = true; last = 0;
+        box.classList.add('on');
+        if (!frame) frame = requestAnimationFrame(step);
       }
+      function hide() {
+        if (!onScreen) return;
+        onScreen = false;
+        box.classList.remove('on');
+      }
+      var IDLE = 20000, timer = 0, from = null;
+      function wake() { hide(); clearTimeout(timer); timer = setTimeout(show, IDLE); }
+      // (on the screensaver, the pointer may drift a little, as it does in a
+      // click, without ending it)
+      document.addEventListener('mousemove', function (e) {
+        if (onScreen) {
+          if (!from) { from = [e.clientX, e.clientY]; return; }
+          if (Math.hypot(e.clientX - from[0], e.clientY - from[1]) < 40) return;
+        }
+        from = null;
+        wake();
+      }, { passive: true });
+      ['keydown', 'wheel', 'scroll', 'touchmove'].forEach(function (ev) {
+        window.addEventListener(ev, wake, { passive: true });
+      });
+      document.addEventListener('mousedown', function (e) { if (!box.contains(e.target)) wake(); });
+      document.addEventListener('touchstart', function (e) { if (!box.contains(e.target)) wake(); }, { passive: true });
+      timer = setTimeout(show, IDLE);
     })();
   </script>
 
