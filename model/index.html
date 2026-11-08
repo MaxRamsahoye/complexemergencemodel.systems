@@ -159,6 +159,35 @@
       height: auto;
     }
 
+    /* each model's name beneath it */
+    .md-corner-label {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--mono-caps);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.35;
+      text-transform: uppercase;
+      text-align: center;
+      /* on one line, centred beneath the diagram however narrow it is */
+      white-space: nowrap;
+      width: max-content;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .md-corner {
+      text-decoration: none;
+    }
+
+    .md-corner:hover .md-corner-label,
+    .md-corner:focus-visible .md-corner-label {
+      color: var(--link-blue);
+    }
+
     /* the note on a click made while the diagram is still assembling */
     .md-click-note {
       position: fixed;
@@ -1270,9 +1299,9 @@
        page draws them, each leading to its model: Cultural Materialism above
        the title, the Emergence Model and the Four Quadrants below -->
   <div class="md-corners">
-    <a class="md-corner md-corner-top" href="../diagram/#structures" aria-label="Cultural Materialism: Three Structures"><img src="../assets/models/cultural-materialism.png?v=4fee8b83" alt="" width="708" decoding="async"></a>
-    <a class="md-corner md-corner-bl" href="../diagram/#emergence-model" aria-label="The Emergence Model"><img src="../assets/models/emergence.png?v=cc3bff35" alt="" width="800" decoding="async"></a>
-    <a class="md-corner md-corner-br" href="../diagram/#four-quadrants" aria-label="Integral Model: Four Quadrants"><img src="../assets/models/integral.png?v=49a60a9f" alt="" width="800" decoding="async"></a>
+    <a class="md-corner md-corner-top" href="../diagram/#structures" aria-label="Cultural Materialism: Three Structures"><img src="../assets/models/cultural-materialism.png?v=4fee8b83" alt="" width="708" decoding="async"><span class="md-corner-label">Cultural Materialism: Three Structures</span></a>
+    <a class="md-corner md-corner-bl" href="../diagram/#emergence-model" aria-label="The Emergence Model"><img src="../assets/models/emergence.png?v=cc3bff35" alt="" width="800" decoding="async"><span class="md-corner-label">The Emergence Model</span></a>
+    <a class="md-corner md-corner-br" href="../diagram/#four-quadrants" aria-label="Integral Model: Four Quadrants"><img src="../assets/models/integral.png?v=49a60a9f" alt="" width="800" decoding="async"><span class="md-corner-label">Integral Model: Four Quadrants</span></a>
   </div>
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
     <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
@@ -1692,11 +1721,14 @@
         var first = scene.getBoundingClientRect().top + y;
         // as large as fits below the menu and above the foot of the screen
         // (the one above smaller, the two below larger)
-        var wUp = Math.min(150, (t.top + y - GAP - 96) / up);
-        var wDown = Math.min(300, (first - (i.bottom + y) - GAP - 32) / down);
+        // (each with room for its name beneath it)
+        var LABEL = 28;
+        var wUp = Math.min(150, (t.top + y - GAP - 96 - LABEL) / up);
+        var wDown = Math.min(300, (first - (i.bottom + y) - GAP - 32 - LABEL) / down);
         corners.style.setProperty('--c-w-top', Math.max(90, wUp) + 'px');
         corners.style.setProperty('--c-w', Math.max(140, wDown) + 'px');
-        corners.style.setProperty('--c-x', Math.max(24, t.left) + 'px');
+        // the two below set out beyond the title's ends
+        corners.style.setProperty('--c-x', Math.max(40, t.left - 120) + 'px');
         corners.style.setProperty('--c-top', (t.top + y - GAP) + 'px');
         corners.style.setProperty('--c-bottom', (i.bottom + y + GAP) + 'px');
       }
