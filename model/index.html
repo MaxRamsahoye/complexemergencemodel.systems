@@ -114,7 +114,6 @@
 
       .md-corner {
         position: absolute;
-        width: var(--c-w, 200px);
         pointer-events: auto;
         opacity: 0.9;
         transition: opacity 0.2s ease, transform 0.3s ease;
@@ -123,40 +122,51 @@
       .md-corner:hover,
       .md-corner:focus-visible {
         opacity: 1;
-        transform: translateY(-4px);
         outline: none;
       }
 
-      /* framing the title and introduction: in line with the title's ends
-         across, the upper pair ending as far above the title as the lower
-         pair begins below the introduction, all as large as the room above
-         and below allows (the script sets where, and how large) */
-      .md-corner-top {
-        width: var(--c-w-top, 150px);
+      /* all three above the title, in a row ending as far above it as the
+         gap below them: the two outer ones in line with the title's ends,
+         the third centred, all of a height, as tall as the room beneath
+         the menu allows (the script sets where, and how tall) */
+      .md-corner {
+        width: max-content;
         top: var(--c-top, 120px);
+      }
+
+      .md-corner-top {
         left: 50%;
         transform: translate(-50%, -100%);
       }
 
-      .md-corner-bl,
-      .md-corner-br {
-        top: var(--c-bottom, 640px);
+      .md-corner-bl {
+        left: var(--c-x, 56px);
+        transform: translateY(-100%);
       }
 
-      .md-corner-bl { left: var(--c-x, 56px); }
-
-      .md-corner-br { right: var(--c-x, 56px); }
+      .md-corner-br {
+        right: var(--c-x, 56px);
+        transform: translateY(-100%);
+      }
 
       .md-corner-top:hover,
       .md-corner-top:focus-visible {
         transform: translate(-50%, calc(-100% - 4px));
       }
+
+      .md-corner-bl:hover,
+      .md-corner-bl:focus-visible,
+      .md-corner-br:hover,
+      .md-corner-br:focus-visible {
+        transform: translateY(calc(-100% - 4px));
+      }
     }
 
     .md-corner img {
       display: block;
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: var(--c-h, 150px);
+      margin: 0 auto;
     }
 
     /* each model's name beneath it */
@@ -1296,8 +1306,8 @@
 </head>
 <body class="no-band">
   <!-- the first screen: three of the other models' diagrams, as the Models
-       page draws them, each leading to its model: Cultural Materialism above
-       the title, the Emergence Model and the Four Quadrants below -->
+       page draws them, each leading to its model, in a row above the title:
+       the Emergence Model, Cultural Materialism and the Four Quadrants -->
   <div class="md-corners">
     <a class="md-corner md-corner-top" href="../diagram/#structures" aria-label="Cultural Materialism: Three Structures"><img src="../assets/models/cultural-materialism.png?v=4fee8b83" alt="" width="708" decoding="async"><span class="md-corner-label">Cultural Materialism: Three Structures</span></a>
     <a class="md-corner md-corner-bl" href="../diagram/#emergence-model" aria-label="The Emergence Model"><img src="../assets/models/emergence.png?v=cc3bff35" alt="" width="800" decoding="async"><span class="md-corner-label">The Emergence Model</span></a>
@@ -1714,23 +1724,12 @@
         var r = document.createRange();
         r.selectNodeContents(title);
         var t = r.getBoundingClientRect(), i = intro.getBoundingClientRect(), y = window.scrollY;
-        // each image's height for its width
-        var ratio = function (sel) { var im = corners.querySelector(sel + ' img'); return im && im.naturalWidth ? im.naturalHeight / im.naturalWidth : 1; };
-        var up = ratio('.md-corner-top');
-        var down = Math.max(ratio('.md-corner-bl'), ratio('.md-corner-br'));
-        var first = scene.getBoundingClientRect().top + y;
-        // as large as fits below the menu and above the foot of the screen
-        // (the one above smaller, the two below larger)
-        // (each with room for its name beneath it)
+        // as tall as fits beneath the menu, with room for the names
         var LABEL = 28;
-        var wUp = Math.min(150, (t.top + y - GAP - 96 - LABEL) / up);
-        var wDown = Math.min(300, (first - (i.bottom + y) - GAP - 32 - LABEL) / down);
-        corners.style.setProperty('--c-w-top', Math.max(90, wUp) + 'px');
-        corners.style.setProperty('--c-w', Math.max(140, wDown) + 'px');
-        // the two below set out beyond the title's ends
-        corners.style.setProperty('--c-x', Math.max(40, t.left - 120) + 'px');
+        var h = Math.min(190, t.top + y - GAP - 96 - LABEL);
+        corners.style.setProperty('--c-h', Math.max(80, h) + 'px');
+        corners.style.setProperty('--c-x', Math.max(40, t.left) + 'px');
         corners.style.setProperty('--c-top', (t.top + y - GAP) + 'px');
-        corners.style.setProperty('--c-bottom', (i.bottom + y + GAP) + 'px');
       }
       size();
       window.addEventListener('resize', size);
