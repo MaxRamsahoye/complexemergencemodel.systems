@@ -690,8 +690,29 @@
         margin-right: 24px;
       }
 
+      /* the description centred top to bottom beside the list, with a
+         line on its left midway across the gap between them */
+      .md-pair {
+        align-items: stretch;
+      }
+
       .md-side .md-detail {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         margin-top: 0;
+      }
+
+      .md-side .md-detail::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -60px;
+        width: 1px;
+        background: color-mix(in srgb, currentColor 18%, transparent);
+        pointer-events: none;
       }
     }
 
