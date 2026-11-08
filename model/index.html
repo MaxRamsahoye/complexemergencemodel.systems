@@ -127,10 +127,13 @@
         outline: none;
       }
 
-      .md-corner-tl { top: 120px; left: 56px; }
-      .md-corner-tr { top: 120px; right: 56px; }
-      .md-corner-bl { bottom: 56px; left: 56px; }
-      .md-corner-br { bottom: 56px; right: 56px; }
+      /* framing the title and introduction: in line with the title's ends
+         across, and as far above the title as below the introduction (the
+         script sets where) */
+      .md-corner-tl { top: var(--c-top, 120px); left: var(--c-x, 56px); }
+      .md-corner-tr { top: var(--c-top, 120px); right: var(--c-x, 56px); }
+      .md-corner-bl { top: var(--c-bottom, 640px); left: var(--c-x, 56px); }
+      .md-corner-br { top: var(--c-bottom, 640px); right: var(--c-x, 56px); }
     }
 
     .md-corner-art {
@@ -1627,7 +1630,19 @@
     // the corners' art keeps to the first screen
     (function () {
       var corners = document.querySelector('.md-corners'), scene = document.querySelector('.md-scene');
-      function size() { corners.style.setProperty('--first-h', (scene.getBoundingClientRect().top + window.scrollY) + 'px'); }
+      var title = document.querySelector('.md-top .page-title'), intro = document.querySelector('.md-intro');
+      var GAP = 56;
+      function size() {
+        corners.style.setProperty('--first-h', (scene.getBoundingClientRect().top + window.scrollY) + 'px');
+        var r = document.createRange();
+        r.selectNodeContents(title);
+        var t = r.getBoundingClientRect(), i = intro.getBoundingClientRect(), y = window.scrollY;
+        var art = corners.querySelector('.md-corner');
+        var h = art ? art.getBoundingClientRect().height : 126;
+        corners.style.setProperty('--c-x', Math.max(24, t.left) + 'px');
+        corners.style.setProperty('--c-top', (t.top + y - GAP - h) + 'px');
+        corners.style.setProperty('--c-bottom', (i.bottom + y + GAP) + 'px');
+      }
       size();
       window.addEventListener('resize', size);
       if (document.fonts) document.fonts.ready.then(size);
