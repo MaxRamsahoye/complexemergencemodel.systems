@@ -58,6 +58,28 @@
       display: none;
     }
 
+    /* a purple band along the foot of the last screen, across the window,
+       with the up arrow light upon it */
+    .md-band {
+      height: 96px;
+      margin: 0 calc(50% - 50vw);
+      background: #1d1135;
+    }
+
+    html.band-midnight:not([data-theme]) .md-band {
+      background: #0d1330;
+    }
+
+    html.band-black:not([data-theme]) .md-band {
+      background: #000;
+    }
+
+    .scroll-top-btn,
+    .scroll-top-btn:hover,
+    .scroll-top-btn.key-hover {
+      color: #fbf6ec;
+    }
+
     /* the top section on the page's own background */
     /* the first screen: three purple double pyramids drifting and turning
        behind it, violet, turning back from each edge as the old DVD logo
@@ -1276,6 +1298,7 @@
         <div class="md-detail" aria-live="polite"></div>
         </div>
       </div>
+      <div class="md-band" aria-hidden="true"></div>
     </section>
 
 
