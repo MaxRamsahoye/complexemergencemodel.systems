@@ -240,6 +240,8 @@
 
     .md-el.bio { --c-top: color-mix(in srgb, #a35a6a 80%, #fff); --c-left: #a35a6a; --c-right: color-mix(in srgb, #a35a6a 62%, #000); }
     .md-el.eco { --c-top: color-mix(in srgb, #4e8a5a 80%, #fff); --c-left: #4e8a5a; --c-right: color-mix(in srgb, #4e8a5a 62%, #000); }
+    .md-el.midnight { --c-top: color-mix(in srgb, #1f2b63 88%, #fff); --c-left: #141c45; --c-right: #0d1330; }
+    .md-el.gold { --c-top: color-mix(in srgb, #d9a520 85%, #fff); --c-left: #d9a520; --c-right: color-mix(in srgb, #d9a520 66%, #000); }
     .md-el.cosmo { --c-top: color-mix(in srgb, #3e4a6e 80%, #fff); --c-left: #3e4a6e; --c-right: color-mix(in srgb, #3e4a6e 62%, #000); }
     /* the agents: glass, faintly blue-green and see-through, with bright edges */
     .md-el.agency { --c-top: rgba(214, 234, 240, 0.5); --c-left: rgba(160, 196, 208, 0.55); --c-right: rgba(118, 158, 174, 0.6); }
@@ -263,6 +265,8 @@
 
     .md-el.bio.on { --c-top: color-mix(in srgb, #a35a6a 55%, #fff); }
     .md-el.eco.on { --c-top: color-mix(in srgb, #4e8a5a 55%, #fff); }
+    .md-el.midnight.on { --c-top: color-mix(in srgb, #1f2b63 62%, #fff); }
+    .md-el.gold.on { --c-top: color-mix(in srgb, #d9a520 60%, #fff); }
     .md-el.cosmo.on { --c-top: color-mix(in srgb, #3e4a6e 55%, #fff); }
     .md-el.agency.on { --c-top: rgba(190, 222, 232, 0.7); }
 
@@ -911,8 +915,8 @@
         ['cosmostructure', 'cosmo', 868, 270, 14, 'right', 'Cosmostructure'],
         ['ecostructure', 'eco', 773, 226, 14, 'left', 'Ecostructure'],
         ['biostructure', 'bio', 678, 182, 14, 'right', 'Biostructure'],
-        ['infrastructure', 'core', 559, 112, 24, 'left', 'Infrastructure'],
-        ['interstructure', 'core', 427, 112, 24, 'right', 'Interstructure'],
+        ['infrastructure', 'midnight', 559, 112, 24, 'left', 'Infrastructure'],
+        ['interstructure', 'gold', 427, 112, 24, 'right', 'Interstructure'],
         ['substructure', 'bio', 324, 64, 12, 'left', 'Substructure'],
         ['superstructure', 'core', 229, 112, 24, 'left', 'Superstructure']
       ];
@@ -987,7 +991,7 @@
       var MODEL = window.MD_MODEL = {"infrastructure": {"desc": "Technological instruments and affordances, productive (and reproductive) forces and material conditions: the tools, energy systems and physical networks through which a civilisation meets its needs.", "within": []}, "interstructure": {"desc": "The institutional complex for decision-making (governance) and resource-allocation (economy): the arrangements of control, coordination and circulation through which a society makes collective decisions and allocates its resources.", "within": []}, "superstructure": {"desc": "Ideologies, worldviews, belief and value-systems, symbols, memetics and narratives: the shared culture through which a civilisation makes sense of itself and legitimises its order.", "within": []}, "biostructure": {"desc": "The physiological, genetic, somatic and neurobiological substrate of human populations, as altered and conditioned by cultural practices, environmental feedback and technology.", "within": []}, "ecostructure": {"desc": "The biophysical environment, resource reservoirs, ecosystem dynamics and planetary boundaries within which human civilisations are embedded and intra-acting.", "within": []}, "metastructure": {"desc": "The cybernetic, game-theoretic and evolutionary mechanisms operational within a civilisation.", "within": [["cybernetic", "Cybernetic", "Goal-optimisation (&lsquo;teleology&rsquo;), error-minimisation and feedback loops."], ["game-theoretic", "Game-Theoretic", "Incentive structures, rational strategising and agent-modelling."], ["evolutionary", "Evolutionary", "Selection processes, competitive pressures and niche construction."]]}, "macrostructure": {"desc": "The process by which a civilisation elaborates itself and changes across macrohistorical time.", "within": [["states-transitions", "States &amp; Transitions", "The critical thresholds, &lsquo;bifurcation points&rsquo; and &lsquo;phase transitions&rsquo; where systems change, complexify and collapse."], ["constraints-affordances", "Constraints &amp; Affordances", "The hard boundaries, limiting factors and &lsquo;action potentials&rsquo; generated at each stage of civilisational development."], ["problems-solutions-externalities", "Problems, Solutions &amp; Externalities", "The historical process by which solutions to existing problems generate novel problems and unintended side-effects."]]}, "microstructure": {"desc": "Individual agents &ndash; persons &ndash; whose perception, cognition, intentions and choices are conditioned by every structure beneath them, and whose actions, intended and unintended, in turn reproduce or transform those structures.", "within": []}, "mesostructure": {"desc": "Collective agents &ndash; institutions and organisations, from firms and states to movements and communities &ndash; which coordinate individual action towards shared ends and act upon the structures as agents in their own right.", "within": []}, "cosmostructure": {"desc": "The natural laws and constants of the universe &ndash; thermodynamics, chemistry, gravitation &ndash; which bound what is possible for every other structure, from the energy available to a civilisation to the conditions for life itself.", "within": []}, "substructure": {"desc": "Universal, innate cognitive-affective predispositions and capacities, which are expressed or suppressed through interaction primarily with the superstructure (and other structures).", "within": []}};
       // each structure's colour, as its slab has it
       var BOX = window.MD_BOX = {
-        infrastructure: '#5b3f99', interstructure: '#5b3f99', superstructure: '#5b3f99',
+        infrastructure: '#1f2b63', interstructure: '#d9a520', superstructure: '#5b3f99',
         substructure: '#a35a6a', biostructure: '#a35a6a', ecostructure: '#4e8a5a',
         cosmostructure: '#3e4a6e', mesostructure: '#7fa8b8', microstructure: '#7fa8b8',
         metastructure: '#6b6b78', macrostructure: '#6b6b78'
