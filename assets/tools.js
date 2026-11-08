@@ -567,3 +567,24 @@
   document.addEventListener('touchstart', function (e) { if (!box.contains(e.target)) wake(); }, { passive: true });
   timer = setTimeout(show, IDLE);
 })();
+
+// The footer's Contact: as the mail button at the top of the article, it
+// copies the email address, and says so for a moment
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.footer-contact');
+    if (!a) return;
+    var email = a.getAttribute('data-email');
+    if (!email || !navigator.clipboard || !navigator.clipboard.writeText) return;
+    e.preventDefault();
+    var label = a.getAttribute('data-label') || a.textContent;
+    a.setAttribute('data-label', label);
+    navigator.clipboard.writeText(email).then(function () {
+      a.textContent = 'Email copied';
+    }, function () {
+      a.textContent = email;
+    });
+    clearTimeout(a.contactTimer);
+    a.contactTimer = setTimeout(function () { a.textContent = label; }, 1800);
+  });
+})();
