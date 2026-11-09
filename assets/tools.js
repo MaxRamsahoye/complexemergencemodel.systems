@@ -394,8 +394,9 @@
 // scroll, three double pyramids (octahedra, drawn with flat shading)
 // drift across a blank screen, each turning about two axes as it goes;
 // they turn back from each edge and glance off each other, darkening to
-// purple and easing back to violet; a click adds another (three times
-// at most), and any other movement, key or scroll ends it. Not for those
+// purple and easing back to violet; Escape brings it on at once; a click
+// adds another (three times at most), and any other movement, key or
+// scroll ends it. Not for those
 // who prefer less motion. (On every page of the site.)
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -560,9 +561,19 @@
     from = null;
     wake();
   }, { passive: true });
-  ['keydown', 'wheel', 'scroll', 'touchmove'].forEach(function (ev) {
+  ['wheel', 'scroll', 'touchmove'].forEach(function (ev) {
     window.addEventListener(ev, wake, { passive: true });
   });
+  // Escape brings the screensaver on at once (unless it is closing the
+  // find bar or a menu, or leaving a field); any other key ends it
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !onScreen && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var busy = document.querySelector('.find-bar.open, .context-menu.open, .menu-panel.open, body.menu-open') ||
+        (document.activeElement && /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName));
+      if (!busy) { clearTimeout(timer); show(); return; }
+    }
+    wake();
+  }, true);
   document.addEventListener('mousedown', function (e) { if (!box.contains(e.target)) wake(); });
   document.addEventListener('touchstart', function (e) { if (!box.contains(e.target)) wake(); }, { passive: true });
   timer = setTimeout(show, IDLE);
