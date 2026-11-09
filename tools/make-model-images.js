@@ -13,6 +13,8 @@ const MODELS = [
   ['four-quadrants', '.integral-view .quad-fig'],
   ['structures', '.structures-view .stack-scene', 'cultural-materialism'],
   ['base-superstructure', '.marx-view .stack-scene'],
+  // Base-Superstructure's second view, the diagram
+  ['base-superstructure', '.marx-view .marx-fig', 'base-superstructure-diagram', '.marx-view .model-modes [data-mode="diagram"]'],
 ];
 const AROUND = 120;   // css px captured around the figure before trimming
 const MARGIN = 0.08;  // the white margin left after trimming, as a share of the width
@@ -38,10 +40,11 @@ out.save(path, optimize=True)
 
 (async () => {
   const browser = await chromium.launch();
-  for (const [hash, sel, name] of MODELS) {
+  for (const [hash, sel, name, before] of MODELS) {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1400 }, deviceScaleFactor: 3, reducedMotion: 'reduce' });
     await page.goto('http://localhost:8765/diagram/#' + hash, { waitUntil: 'networkidle' });
     await page.waitForTimeout(2500);
+    if (before) { await page.click(before); await page.waitForTimeout(400); }
     await page.mouse.move(2, 2);
     // everything hidden but the figure itself
     await page.addStyleTag({ content: 'body * { visibility: hidden !important; } ' + sel + ', ' + sel + ' * { visibility: visible !important; } .ce-saver { display: none !important; }' });

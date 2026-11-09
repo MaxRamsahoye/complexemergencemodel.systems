@@ -1908,6 +1908,107 @@
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="economy"], [data-key="base"]) { --top: color-mix(in srgb, #d9a520 60%, #fff); }
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="culture"], [data-key="super"]) { --top: color-mix(in srgb, #6a3fc4 70%, #fff); }
 
+    /* Base-Superstructure's second view: the diagram of the base and the
+       superstructure, full width, in 2.5D (each block with its top and
+       side), chosen beside the download */
+    .model-save-modes {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .model-modes {
+      display: inline-flex;
+      border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .model-modes button {
+      padding: 4px 14px;
+      border: none;
+      border-radius: 999px;
+      background: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .model-modes button[aria-pressed="true"] {
+      background: var(--canvas-ink);
+      color: var(--canvas-bg);
+    }
+
+    .model-modes button:not([aria-pressed="true"]):hover {
+      color: var(--canvas-ink);
+    }
+
+    .marx-view.as-diagram .stack-layout {
+      display: none;
+    }
+
+    .marx-figure[hidden] {
+      display: none;
+    }
+
+    .marx-fig {
+      display: block;
+      width: min(100%, 880px);
+      height: auto;
+      margin: 8px auto 0;
+    }
+
+    .marx-fig .mf-title {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 600;
+      fill: #fbf6ec;
+    }
+
+    .marx-fig .mf-head {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .marx-fig .mf-item {
+      font-family: var(--serif);
+      font-size: 24px;
+    }
+
+    .marx-fig .mf-em {
+      font-style: italic;
+    }
+
+    .marx-fig .mf-key {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .marx-fig .mf-rel {
+      font-family: var(--serif);
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    .marx-fig .mf-rel-sub {
+      font-family: var(--serif);
+      font-size: 22px;
+    }
+
+    .marx-fig .mf-note {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-style: italic;
+      fill: var(--canvas-ink);
+    }
+
     /* each model's download: its diagram as a picture */
     .model-save-row {
       margin: 0 0 28px;
@@ -3641,7 +3742,7 @@
     </section>
 
     <section class="structures-view" aria-label="Cultural Materialism: Three Structures">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=dcb1c1ec" download="Cultural Materialism – Three Structures.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=3ae7eac5" download="Cultural Materialism – Three Structures.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3656,7 +3757,7 @@
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
 
     <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=23b8ac33" download="Classical Marxism – Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=23b8ac33" download="Classical Marxism – Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3665,6 +3766,39 @@
             <div class="stack-intro show"><p>Two layers: the economic base, and the superstructure that rises on it. Point to a layer to see what it holds.</p></div>
           </div>
         </div>
+      </div>
+      <div class="marx-figure" hidden>
+          <svg class="marx-fig" viewBox="0 0 1200 1160" role="img" aria-label="The base and the superstructure: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">
+          <g transform="translate(9 -7)"><path d="M330 230 C 200 230, 140 290, 140 420 L140 760 C140 880, 200 905, 290 905" fill="none" stroke="#37206f" stroke-width="30" stroke-linecap="round"/><path d="M286 868 L332 905 L286 942 Z" fill="#37206f"/></g>
+          <path d="M330 230 C 200 230, 140 290, 140 420 L140 760 C140 880, 200 905, 290 905" fill="none" stroke="#6a3fc4" stroke-width="30" stroke-linecap="round"/><path d="M286 868 L332 905 L286 942 Z" fill="#6a3fc4"/>
+          <g transform="translate(9 -7)"><path d="M906 875 C 1010 875, 1070 830, 1070 720 L1070 440 C1070 350, 1010 325, 950 325" fill="none" stroke="#8f6d15" stroke-width="30" stroke-linecap="round"/><path d="M952 288 L906 325 L952 362 Z" fill="#8f6d15"/></g>
+          <path d="M906 875 C 1010 875, 1070 830, 1070 720 L1070 440 C1070 350, 1010 325, 950 325" fill="none" stroke="#d9a520" stroke-width="30" stroke-linecap="round"/><path d="M952 288 L906 325 L952 362 Z" fill="#d9a520"/>
+          <polygon fill="#8a66d8" points="330,150 366,122 906,122 870,150"/><polygon fill="#37206f" points="870,150 906,122 906,452 870,480"/><rect fill="#6a3fc4" x="330" y="150" width="540" height="330"/><rect fill="#4f2d9c" x="330" y="150" width="540" height="74"/>
+          <polygon fill="#e8bf4f" points="330,640 366,612 906,612 870,640"/><polygon fill="#8f6d15" points="870,640 906,612 906,972 870,1000"/><rect fill="#d9a520" x="330" y="640" width="540" height="360"/><rect fill="#a87d12" x="330" y="640" width="540" height="74"/>
+          <text class="mf-title" x="600" y="202" text-anchor="middle">Superstructure</text>
+          <text class="mf-head" x="600" y="268" text-anchor="middle" fill="#fbf6ec">Everything not directly to do with production</text>
+          <text class="mf-item" x="445" y="318" text-anchor="middle" fill="#fbf6ec">Art</text>
+          <text class="mf-item" x="445" y="350" text-anchor="middle" fill="#fbf6ec">Family</text>
+          <text class="mf-item" x="445" y="382" text-anchor="middle" fill="#fbf6ec">Culture</text>
+          <text class="mf-item" x="445" y="414" text-anchor="middle" fill="#fbf6ec">Religion</text>
+          <text class="mf-item" x="445" y="446" text-anchor="middle" fill="#fbf6ec">Philosophy</text>
+          <text class="mf-item" x="755" y="318" text-anchor="middle" fill="#fbf6ec">Law</text>
+          <text class="mf-item" x="755" y="350" text-anchor="middle" fill="#fbf6ec">Media</text>
+          <text class="mf-item" x="755" y="382" text-anchor="middle" fill="#fbf6ec">Politics</text>
+          <text class="mf-item" x="755" y="414" text-anchor="middle" fill="#fbf6ec">Science</text>
+          <text class="mf-item" x="755" y="446" text-anchor="middle" fill="#fbf6ec">Education</text>
+          <text class="mf-key" x="600" y="390" text-anchor="middle" fill="#fbf6ec">Ideology</text>
+          <text class="mf-title" x="600" y="692" text-anchor="middle">Base</text>
+          <text class="mf-head" x="600" y="756" text-anchor="middle" fill="#1d1135">Means of production</text>
+          <text class="mf-item" x="600" y="790" text-anchor="middle" fill="#1d1135">Tools, machines, factories, land, raw materials</text>
+          <text class="mf-head" x="600" y="844" text-anchor="middle" fill="#1d1135">Relations of production</text>
+          <text class="mf-item" x="600" y="878" text-anchor="middle" fill="#1d1135">Lumpenproletariat, proletariat, labour aristocracy,</text>
+          <text class="mf-item" x="600" y="908" text-anchor="middle" fill="#1d1135">petty bourgeoisie, bourgeoisie</text>
+          <text class="mf-item mf-em" x="600" y="962" text-anchor="middle" fill="#1d1135">Private property, capital, commodities, etc.</text>
+          <text class="mf-rel" x="238" y="548" text-anchor="middle" fill="#6a3fc4">Maintains</text><text class="mf-rel-sub" x="238" y="580" text-anchor="middle" fill="#6a3fc4">(and shapes)</text>
+          <text class="mf-rel" x="968" y="548" text-anchor="middle" fill="#b8860b">Shapes</text><text class="mf-rel-sub" x="968" y="578" text-anchor="middle" fill="#b8860b">(and maintains)</text>
+          <text class="mf-note" x="600" y="1088" text-anchor="middle">This moves in a spiral pattern.</text><text class="mf-note" x="600" y="1128" text-anchor="middle">The base is generally dominant.</text>
+          </svg>
       </div>
     </section>
 
@@ -3693,7 +3827,7 @@
     </section>
 
     <section class="exoendo-view" aria-label="Exo-Endo Structure">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/exo-endo-structure.png?v=de53bf5e" download="Exo-Endo Structure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/exo-endo-structure.png?v=8eff2ff0" download="Exo-Endo Structure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
     <div class="md-agency">
       <div class="md-agency-grid">
         <div class="md-agency-scene">
@@ -3720,7 +3854,7 @@
     </section>
 
     <section class="emergence-view" aria-label="The Emergence Model">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/emergence-model.png?v=0b3e0119" download="The Emergence Model.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/emergence-model.png?v=85a71853" download="The Emergence Model.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="quad-layout">
         <svg class="em-fig" viewBox="0 0 560 500" role="figure" aria-label="The Emergence Model: superstructure, physiologic structure, social structure and infrastructure, as the four quadrants of a disc"></svg>
         <div class="stack-side">
@@ -4753,6 +4887,27 @@
         }), { SIZE: 250, H: 52, TRIM: 34, STEP: 700, prelude: { n: 1, SIZE: 250, H: 44, TRIM: 30, STEP: 520 } });
       }
       // the two layers, one above the other, and how each acts on the other
+      // Base-Superstructure: the stack, or the diagram (and the download
+      // follows whichever is shown)
+      (function () {
+        var view = document.querySelector('.marx-view');
+        var fig = view.querySelector('.marx-figure');
+        var link = view.querySelector('.model-save');
+        var files = {
+          stack: [link.getAttribute('href'), link.getAttribute('download')],
+          diagram: ['../assets/downloads/base-superstructure-diagram.png?v=bfb77399', 'Classical Marxism – Base and Superstructure.png']
+        };
+        view.querySelectorAll('.model-modes button').forEach(function (b) {
+          b.addEventListener('click', function () {
+            var mode = b.dataset.mode;
+            view.querySelectorAll('.model-modes button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+            view.classList.toggle('as-diagram', mode === 'diagram');
+            fig.hidden = mode !== 'diagram';
+            link.setAttribute('href', files[mode][0]);
+            link.setAttribute('download', files[mode][1]);
+          });
+        });
+      })();
       var marxAlt = document.querySelector('.marx-alt');
       function buildMarxAlt() {
         var html = '';
