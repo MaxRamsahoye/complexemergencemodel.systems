@@ -5313,16 +5313,23 @@
       function ovThumb(key) {
         var g = '';
         if (key === 'stack') [[130, 128, 13], [116, 94, 13], [100, 64, 13], [84, 38, 13]].forEach(function (s) { g += ovSlab(150, s[1], s[0], s[2]); });
-        if (key === 'structures') [[150, 120], [124, 86], [98, 56]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 13); });
-        if (key === 'marx') [[150, 106], [118, 64]].forEach(function (s) { g += ovSlab(150, s[1], s[0], 18); });
+        // a slab in one of the Complex Emergence Model's colours
+        var cemSlab = function (c, x, y, w, h) {
+          return '<g style="--top:color-mix(in srgb, ' + c + ' 85%, #fff);--left:' + c + ';--right:color-mix(in srgb, ' + c + ' 64%, #000)">' + ovSlab(x, y, w, h) + '</g>';
+        };
+        var MIDNIGHT = '#1f2f8a', GOLD = '#d9a520', VIOLET = '#6a3fc4';
+        if (key === 'structures') [[150, 120, MIDNIGHT], [124, 86, GOLD], [98, 56, VIOLET]].forEach(function (s) { g += cemSlab(s[2], 150, s[1], s[0], 11); });
+        if (key === 'marx') [[150, 106, GOLD], [118, 64, VIOLET]].forEach(function (s) { g += cemSlab(s[2], 150, s[1], s[0], 15); });
         if (key === 'complex') {
           // the stack: the ecostructure and biostructure beneath, the core
           // on them, the axis of the metastructure through them all
-          [['#4e8a5a', 150, 132, 9], ['#a35a6a', 120, 110, 9], ['--q1', 74, 86, 12], ['--q1', 74, 62, 12], ['--q1', 74, 38, 12]].forEach(function (k) {
-            var c = k[0].charAt(0) === '-' ? 'var(' + k[0] + ')' : 'color-mix(in srgb, ' + k[0] + ' 85%, #fff)';
-            g += '<g style="--top:' + c + ';--left:color-mix(in srgb, ' + c + ' 78%, #000);--right:color-mix(in srgb, ' + c + ' 60%, #000)">' + ovSlab(150, k[2], k[1], k[3]) + '</g>';
+          // (the cosmostructure, ecostructure and biostructure beneath, then
+          // the infrastructure, interstructure and superstructure, in the
+          // colours of the Complex Emergence Model page)
+          [['#3b55a0', 154, 130, 7], ['#3f9e55', 132, 115, 7], ['#c2526b', 110, 101, 7], [MIDNIGHT, 70, 80, 10], [GOLD, 70, 61, 10], [VIOLET, 70, 42, 10]].forEach(function (k) {
+            g += cemSlab(k[0], 150, k[2], k[1], k[3]);
           });
-          g += '<path class="ln" stroke-dasharray="2 4" d="M150 20V30"/><circle cx="150" cy="16" r="5" fill="none" stroke="var(--muted)" stroke-width="1.2"/>';
+          g += '<path class="ln" stroke-dasharray="2 4" d="M150 18V24"/><circle cx="150" cy="13" r="5" fill="none" stroke="var(--muted)" stroke-width="1.2"/>';
         }
         if (key === 'exoendo') {
           // human agency at the centre, the membrane around it, and the
@@ -5331,11 +5338,13 @@
           g += '<circle cx="150" cy="90" r="15" fill="var(--q1)"/>';
           for (var k = 0; k < 8; k++) {
             var t = (-90 + 22.5 + k * 45) * Math.PI / 180, cx = 150 + 64 * Math.cos(t), cy = 90 + 64 * Math.sin(t), ix = 150 + 27 * Math.cos(t), iy = 90 + 27 * Math.sin(t);
-            var col = ['#6b6b78', '#6b6b78', '#4e8a5a', '#a35a6a', '#a35a6a', 'var(--q1)', 'var(--q1)', 'var(--q1)'][k];
+            var col = ['#6b6b78', '#6b6b78', '#3f9e55', '#c2526b', '#c2526b', MIDNIGHT, GOLD, VIOLET][k];
             g += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="8" fill="' + col + '"/><circle cx="' + ix.toFixed(1) + '" cy="' + iy.toFixed(1) + '" r="3.5" fill="' + col + '" opacity="0.45"/>';
           }
         }
         if (key === 'emergence') {
+          // (in the original's colours: lavender, blue, orange and red)
+          g += '<g style="--q1:#8a74ac;--q2:#5d9be0;--q3:#de8a2a;--q4:#c0605b">';
           // a tilted disc, split into its four quadrants, with its front edge
           var ex = 150, ey = 80, rx = 82, ry = 41, eh = 16;
           var ep = function (deg) { var a = deg * Math.PI / 180; return (ex + rx * Math.cos(a)).toFixed(1) + ' ' + (ey + ry * Math.sin(a)).toFixed(1); };
@@ -5347,6 +5356,7 @@
             g += '<path style="fill:var(' + w[0] + ')" stroke="var(--canvas-bg)" stroke-width="2.5" stroke-linejoin="round" d="M' + ex + ' ' + ey + 'L' + ep(w[1]) + 'A' + rx + ' ' + ry + ' 0 0 1 ' + ep(w[1] + 90) + 'Z"/>';
           });
           g += '<ellipse cx="' + ex + '" cy="' + ey + '" rx="' + (rx * 0.62) + '" ry="' + (ry * 0.62) + '" fill="none" stroke="#fff" stroke-opacity="0.3"/>';
+          g += '</g>';
         }
         if (key === 'integral') {
           // four tiles on an isometric plane, each with its own thickness
