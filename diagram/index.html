@@ -1888,6 +1888,26 @@
       transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float) + 60px + var(--gap) * 1.6));
     }
 
+    /* Cultural Materialism and Base-Superstructure in the colours of the
+       Complex Emergence Model's structures: the infrastructure midnight
+       blue, the (political-economic) structure and the economic base gold,
+       the superstructure violet; the one pointed to a little paler */
+    :is(.structures-view, .marx-view) .st-block[data-key="tech"] {
+      --top: color-mix(in srgb, #1f2f8a 88%, #fff); --left: #18246e; --right: #101850;
+    }
+
+    :is(.structures-view, .marx-view) .st-block:is([data-key="economy"], [data-key="base"]) {
+      --top: color-mix(in srgb, #d9a520 85%, #fff); --left: #d9a520; --right: color-mix(in srgb, #d9a520 66%, #000);
+    }
+
+    :is(.structures-view, .marx-view) .st-block:is([data-key="culture"], [data-key="super"]) {
+      --top: #6a3fc4; --left: #4f2d9c; --right: #37206f;
+    }
+
+    :is(.structures-view, .marx-view) .st-block.active[data-key="tech"] { --top: color-mix(in srgb, #1f2f8a 62%, #fff); }
+    :is(.structures-view, .marx-view) .st-block.active:is([data-key="economy"], [data-key="base"]) { --top: color-mix(in srgb, #d9a520 60%, #fff); }
+    :is(.structures-view, .marx-view) .st-block.active:is([data-key="culture"], [data-key="super"]) { --top: color-mix(in srgb, #6a3fc4 70%, #fff); }
+
     /* the list of layers beside the stack, newest at the top as in the stack */
     .stack-side {
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
