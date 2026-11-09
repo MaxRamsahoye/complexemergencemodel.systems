@@ -2953,30 +2953,26 @@
       transition: fill 0.25s ease;
     }
 
-    .em-q[data-q="ul"] path { fill: var(--top); }
-    .em-q[data-q="ur"] path { fill: color-mix(in srgb, var(--top) 50%, var(--left)); }
-    .em-q[data-q="ll"] path { fill: var(--left); }
-    .em-q[data-q="lr"] path { fill: var(--right); }
+    /* in the original's colours: the superstructure lavender, the
+       physiologic structure blue, the social structure orange and the
+       infrastructure red, each darker towards the centre */
+    .em-q[data-q="ul"] path { fill: url(#em-grad-ul); }
+    .em-q[data-q="ur"] path { fill: url(#em-grad-ur); }
+    .em-q[data-q="ll"] path { fill: url(#em-grad-ll); }
+    .em-q[data-q="lr"] path { fill: url(#em-grad-lr); }
 
+    .em-q path {
+      transition: filter 0.25s ease;
+    }
+
+    /* the quadrant pointed to brightens */
     .em-q.active path {
-      fill: color-mix(in srgb, var(--link-blue) 45%, var(--canvas-bg));
+      filter: brightness(1.12) saturate(1.1);
     }
 
-    html[data-theme="dark"] .em-q.active path {
-      fill: var(--link-blue);
-    }
-
-    .em-q text {
-      fill: var(--quad-ink);
-      transition: fill 0.25s ease;
-    }
-
+    .em-q text,
     .em-q.active text {
-      fill: var(--canvas-ink);
-    }
-
-    html[data-theme="dark"] .em-q.active text {
-      fill: #1d1135;
+      fill: #ffffff;
     }
 
     .em-name {
@@ -4569,7 +4565,13 @@
         var ANG = { ul: 180, ur: 270, lr: 0, ll: 90 };
         var SIDE = { ul: [-1, -1], ur: [1, -1], ll: [-1, 1], lr: [1, 1] };
         function pt(r, deg) { var a = deg * Math.PI / 180; return [(cx + r * Math.cos(a)).toFixed(1), (cy + r * Math.sin(a)).toFixed(1)]; }
-        var html = '';
+        // each quadrant's colour, as in the original, from a deeper shade at
+        // the centre to a paler one at the rim
+        var SHADES = { ul: ['#6b5788', '#b9a9cf'], ur: ['#3f86cc', '#9cc6f2'], ll: ['#c46a06', '#f2b77a'], lr: ['#a5433f', '#e7a49d'] };
+        var html = '<defs>' + Object.keys(SHADES).map(function (q) {
+          return '<radialGradient id="em-grad-' + q + '" gradientUnits="userSpaceOnUse" cx="' + cx + '" cy="' + cy + '" r="' + R + '">' +
+            '<stop offset="0.2" stop-color="' + SHADES[q][0] + '"/><stop offset="1" stop-color="' + SHADES[q][1] + '"/></radialGradient>';
+        }).join('') + '</defs>';
         EMERGENCE.forEach(function (Q) {
           var a0 = pt(R, ANG[Q.q]), a1 = pt(R, ANG[Q.q] + 90), sx = SIDE[Q.q][0], sy = SIDE[Q.q][1];
           var lx = cx + sx * 0.44 * R, ly = cy + sy * (sy < 0 ? 0.42 : 0.36) * R;
