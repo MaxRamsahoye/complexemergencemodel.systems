@@ -1908,6 +1908,43 @@
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="economy"], [data-key="base"]) { --top: color-mix(in srgb, #d9a520 60%, #fff); }
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="culture"], [data-key="super"]) { --top: color-mix(in srgb, #6a3fc4 70%, #fff); }
 
+    /* each model's download: its diagram as a picture */
+    .model-save-row {
+      margin: 0 0 28px;
+    }
+
+    .model-save {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .model-save svg {
+      width: 20px;
+      height: 20px;
+      color: var(--canvas-ink);
+    }
+
+    .model-save .arrow {
+      transition: transform 0.25s ease;
+    }
+
+    .model-save:hover,
+    .model-save:focus-visible {
+      color: var(--canvas-ink);
+      outline: none;
+    }
+
+    .model-save:hover .arrow,
+    .model-save:focus-visible .arrow {
+      transform: translateY(2px);
+    }
+
     /* the list of layers beside the stack, newest at the top as in the stack */
     .stack-side {
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -3604,6 +3641,7 @@
     </section>
 
     <section class="structures-view" aria-label="Cultural Materialism: Three Structures">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=dcb1c1ec" download="Cultural Materialism – Three Structures.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3618,6 +3656,7 @@
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
 
     <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=23b8ac33" download="Classical Marxism – Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3654,6 +3693,7 @@
     </section>
 
     <section class="exoendo-view" aria-label="Exo-Endo Structure">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/exo-endo-structure.png?v=de53bf5e" download="Exo-Endo Structure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
     <div class="md-agency">
       <div class="md-agency-grid">
         <div class="md-agency-scene">
@@ -3680,6 +3720,7 @@
     </section>
 
     <section class="emergence-view" aria-label="The Emergence Model">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/emergence-model.png?v=0b3e0119" download="The Emergence Model.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="quad-layout">
         <svg class="em-fig" viewBox="0 0 560 500" role="figure" aria-label="The Emergence Model: superstructure, physiologic structure, social structure and infrastructure, as the four quadrants of a disc"></svg>
         <div class="stack-side">
@@ -3692,6 +3733,7 @@
     </section>
 
     <section class="integral-view" aria-label="Integral Model: Four Quadrants">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/four-quadrants.png?v=5101ced6" download="Integral Model – Four Quadrants.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="quad-layout">
         <div class="quad-fig" role="figure" aria-label="The four quadrants: interior and exterior, individual and collective">
           <div class="quad-cols" aria-hidden="true"><span>Interior</span><span>Exterior</span></div>
@@ -5500,7 +5542,7 @@
 
   <a class="site-title" href="../">Complex<br>Emergence</a>
 
-  <script src="../assets/site.js?v=c31fbf8a" data-base="../"></script>
+  <script src="../assets/site.js?v=8c1d74fd" data-base="../"></script>
   <script src="../assets/tools.js?v=54ad2b4a" data-hide-until=".diagram-top"></script>
 </body>
 </html>

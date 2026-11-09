@@ -209,7 +209,7 @@
     if (e.defaultPrevented || e.button !== 0) return null;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
     var link = e.target.closest('a');
-    if (!link || (link.target && link.target !== '_self')) return null;
+    if (!link || (link.target && link.target !== '_self') || link.hasAttribute('download')) return null;
     var url;
     try { url = new URL(link.href, location.href); } catch (err) { return null; }
     if (url.origin !== location.origin) return null;
