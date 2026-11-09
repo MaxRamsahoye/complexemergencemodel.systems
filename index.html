@@ -712,7 +712,8 @@
       position: fixed;
       /* vertically centred on the theme toggle */
       top: 31px;
-      right: calc(var(--frame-margin) + 40px);
+      /* in the top-left corner, with the name in the top right */
+      left: calc(var(--frame-margin) + 40px);
       width: 28px;
       height: 28px;
       transform: rotate(-90deg);
@@ -747,7 +748,55 @@
     @media (max-width: 600px) {
       .progress-ring {
         top: 22px;
+        left: 24px;
+      }
+    }
+
+    /* once the page's header has scrolled away: the site's name in the
+       top-right corner, as the other pages have it, until the footer
+       reaches it */
+    .corner-title {
+      position: fixed;
+      top: 33px;
+      right: calc(var(--frame-margin) + 40px);
+      z-index: 40;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: right;
+      color: var(--canvas-ink);
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .corner-title:hover {
+      color: var(--link);
+    }
+
+    body.corner-shown .corner-title {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* (light over the bands, dark over the canvas) */
+    body.corner-on-band .corner-title {
+      color: var(--inverse-ink, #fbf6ec);
+    }
+
+    body.corner-on-band .corner-title:hover {
+      color: color-mix(in srgb, var(--inverse-ink, #fbf6ec) 70%, var(--link));
+    }
+
+    @media (max-width: 600px) {
+      .corner-title {
+        top: 18px;
         right: 24px;
+        font-size: 15px;
       }
     }
 
@@ -2109,6 +2158,7 @@
     </button>
   </div>
 
+  <a class="corner-title" href="./" aria-hidden="true" tabindex="-1">Complex<br>Emergence</a>
   <svg class="progress-ring" viewBox="0 0 30 30" aria-hidden="true">
     <circle class="progress-ring-track" cx="15" cy="15" r="13"/>
     <circle class="progress-ring-fill" cx="15" cy="15" r="13"/>
@@ -2567,6 +2617,15 @@
         var isWide = scrollTop > 10;
         document.body.classList.toggle('wide', isWide);
         document.body.classList.toggle('past-overview', pastOverviewRule);
+        // the name in the top-right corner: shown once the header has gone,
+        // until the footer reaches it; light while a band is beneath it
+        var footerAtTop = footerEl.getBoundingClientRect().top < 110;
+        document.body.classList.toggle('corner-shown', scrollTop > 120 && !footerAtTop);
+        var onBand = Array.prototype.some.call(document.querySelectorAll('#overview, .in-band'), function (b) {
+          var r = b.getBoundingClientRect();
+          return r.top <= 45 && r.bottom >= 45;
+        });
+        document.body.classList.toggle('corner-on-band', onBand);
         document.body.classList.toggle('footer-in-view', footerInView);
       }
 
