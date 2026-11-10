@@ -878,8 +878,13 @@
       width: min(75%, 1165px, calc((100svh - 144px) * 0.883));
     }
 
+    .md-scene .md-svg.md-v2 {
+      width: min(94%, 1456px, calc((100svh - 144px) * 1.1));
+    }
+
     @media (max-width: 900px) {
-      .md-scene .md-svg {
+      .md-scene .md-svg,
+      .md-scene .md-svg.md-v2 {
         width: min(100%, calc((100svh - 144px) * 1.177));
       }
     }
@@ -991,6 +996,11 @@
       .md-scene .md-svg {
         /* (its drawing then loses the empty margin on its right: 1630 by 1580) */
         width: min(calc(100% - 560px), 1080px, calc((100svh - 144px) * 0.774));
+      }
+
+      /* v2 at 1.25 times the size */
+      .md-scene .md-svg.md-v2 {
+        width: min(calc(100% - 560px), 1350px, calc((100svh - 144px) * 0.9675));
       }
 
       .md-scene-text {
@@ -1534,6 +1544,7 @@
       // drawn in from its footprint; v1, the flat-sided slabs, kept as a
       // backup and shown with ?v1 on the page's address
       var V1 = /[?&]v1(\b|=|&|$)/.test(location.search);
+      if (!V1) svg.classList.add('md-v2');
       function slab(cy, w, h, wt) {
         var q = w / 2;
         if (V1 || wt === undefined) {
