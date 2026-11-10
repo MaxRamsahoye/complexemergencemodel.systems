@@ -1570,7 +1570,7 @@
       // steadily from the cosmostructure up to the superstructure; the two
       // agents above, small pyramid sections of their own
       if (!V1) {
-        var THICK = { cosmostructure: 88, ecostructure: 84, biostructure: 84, infrastructure: 54, interstructure: 54, substructure: 40, superstructure: 54 };
+        var THICK = { cosmostructure: 88, ecostructure: 84, biostructure: 84, infrastructure: 84, interstructure: 84, substructure: 34, superstructure: 48 };
         var yTop = 229, yFoot = 978 + 88, wTop = 70, wFoot = 296;
         var prof = function (y) { return wTop + (y - yTop) * (wFoot - wTop) / (yFoot - yTop); };
         SLABS.forEach(function (s) {
@@ -1582,7 +1582,7 @@
           if (s[0] === 'substructure') { s[7] = wTop * 0.62; s[3] = wTop * 0.78; }
         });
         AGENTS.forEach(function (s) {
-          s[4] = s[4] + 26; s[7] = s[3] * 0.62;
+          s[4] = s[4] + 6; s[7] = s[3] * 0.62;
         });
       }
       // the macrostructure: a timeline beneath the stack, from the earliest
