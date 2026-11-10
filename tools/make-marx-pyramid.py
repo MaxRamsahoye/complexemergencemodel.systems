@@ -20,24 +20,29 @@ def tier(y0, y1, band, c):
     out.append('<polygon fill="%s" points="%s"/>' % (side, pts((h0, y0, h0), (h0, y0, -h0), (h1, y1, -h1), (h1, y1, h1))))
     out.append('<polygon fill="%s" points="%s"/>' % (top, pts((-h1, y1, h1), (h1, y1, h1), (h1, y1, -h1), (-h1, y1, -h1))))
     out.append('<polygon fill="%s" points="%s"/>' % (body, pts((-h0, y0, h0), (h0, y0, h0), (h1, y1, h1), (-h1, y1, h1))))
-    out.append('<polygon fill="%s" points="%s"/>' % (bandc, pts((-hb, yb, hb), (hb, yb, hb), (h1, y1, h1), (-h1, y1, h1))))
     return ''.join(out)
 def mid(y):           # the centre of the front face, on screen, at height y
     h = hw(y); return P(0, y, h)
 V = ('#6a3fc4', '#4f2d9c', '#8a66d8', '#37206f'); G = ('#d9a520', '#a87d12', '#e8bf4f', '#8f6d15')
 B0, B1 = 0, 360; S0, S1 = 392, 780; BAND = 66
 svg = ['<svg class="marx-fig" viewBox="0 0 1200 1160" role="img" aria-label="The base and the superstructure as two sections of a pyramid, the superstructure above: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">']
-# the relations: plain lines with open arrowheads
-ys = S1 - BAND / 2; xs = P(-hw(ys), ys, hw(ys))       # the superstructure's left edge, by its title
-yb = (B0 + B1) / 2 - 40; xb = P(-hw(yb), yb, hw(yb))   # the base's left edge
-L = 50
-svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (xs[0] - 12, xs[1], L, xb[1], xb[0] - 10))
-svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (xb[0] - 22, xb[1] - 12, xb[0] - 10, xb[1], xb[0] - 22, xb[1] + 12))
-yr = B1 - 120; hr = hw(yr); xr = P(hr, yr, -hr)          # the base's right side, its far edge
-ys2 = S0 + 160; h2 = hw(ys2); xs2 = P(h2, ys2, -h2)       # the superstructure's right side
-R = 1150
-svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (xr[0] + 12, xr[1], R, xs2[1], xs2[0] + 10))
-svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (xs2[0] + 22, xs2[1] - 12, xs2[0] + 10, xs2[1], xs2[0] + 22, xs2[1] + 12))
+# the relations: plain lines with open arrowheads, mirroring each other -
+# the same height, the same distance out, meeting the pyramid at the same
+# two levels on either side (by the superstructure's title, and through
+# the base)
+def left_at(Y):       # the point on the front-left edge at screen height Y
+    y = (CY + KY * A - Y) / (1 + KY * A / HP); h = hw(y); return P(-h, y, h)
+def right_at(Y):      # the point on the back-right edge at screen height Y
+    y = (CY - KY * A - Y) / (1 - KY * A / HP); h = hw(y); return P(h, y, -h)
+YA = P(0, S1 - BAND / 2, hw(S1 - BAND / 2))[1]
+YB = P(0, (B0 + B1) / 2 - 20, hw((B0 + B1) / 2 - 20))[1]
+L, R = 50, 1150
+a, b = left_at(YA), left_at(YB)
+svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (a[0] - 12, YA, L, YB, b[0] - 10))
+svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (b[0] - 22, YB - 12, b[0] - 10, YB, b[0] - 22, YB + 12))
+c, d = right_at(YB), right_at(YA)
+svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (c[0] + 12, YB, R, YA, d[0] + 10))
+svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (d[0] + 22, YA - 12, d[0] + 10, YA, d[0] + 22, YA + 12))
 svg.append(tier(B0, B1, BAND, G))
 svg.append(tier(S0, S1, BAND, V))
 def text(cls, y, s, fill=None, dx=0, anchor='middle', dy=0):
@@ -59,8 +64,8 @@ svg.append(text('mf-key', S1 - BAND - 166, 'Ideology', W))
 # the base's face
 svg.append(text('mf-title', B1 - BAND / 2, 'Base', dy=15))
 for (yy, cls, t) in [(B1 - BAND - 38, 'mf-head', 'Means of production'), (B1 - BAND - 70, 'mf-item', 'Tools, machines, factories, land, raw materials'),
-                     (B1 - BAND - 122, 'mf-head', 'Relations of production'), (B1 - BAND - 154, 'mf-item', 'Lumpenproletariat, proletariat, labour aristocracy,'),
-                     (B1 - BAND - 182, 'mf-item', 'petty bourgeoisie, bourgeoisie'), (B1 - BAND - 232, 'mf-item mf-em', 'Private property, capital, commodities, etc.')]:
+                     (B1 - BAND - 122, 'mf-head', 'Relations of production'), (B1 - BAND - 154, 'mf-item', 'Proletariat, labour aristocracy, bourgeoisie'),
+                     (B1 - BAND - 208, 'mf-item', 'Private property, capital, commodities, etc.')]:
     svg.append(text(cls, yy, t, INK))
 # the labels by the lines
 # (each label beside its line, in the gap between the two sections)

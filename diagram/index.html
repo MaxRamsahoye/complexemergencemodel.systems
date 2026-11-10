@@ -1904,13 +1904,43 @@
       --top: #6a3fc4; --left: #4f2d9c; --right: #37206f;
     }
 
+    /* Base-Superstructure's slabs as sections of a pyramid: each top drawn
+       in by --tp on every side, and the front and side sloping down to the
+       full footprint (the faces tilted and cut to trapezoids) */
+    .marx-view .st-block:not(.st-ghost) {
+      --tp: 40px;
+      --slope: hypot(var(--h), var(--tp));
+      --tilt: atan2(var(--h), var(--tp));
+    }
+
+    .marx-view .st-block:not(.st-ghost) > .st-top {
+      left: var(--tp) !important;
+      top: var(--tp) !important;
+      width: calc(var(--w) - 2 * var(--tp));
+      height: calc(var(--d) - 2 * var(--tp));
+    }
+
+    .marx-view .st-block:not(.st-ghost) > .st-front {
+      top: calc(var(--d) - var(--tp)) !important;
+      height: var(--slope);
+      transform: translateZ(var(--h)) rotateX(calc(-1 * var(--tilt)));
+      clip-path: polygon(var(--tp) 0, calc(100% - var(--tp)) 0, 100% 100%, 0 100%);
+    }
+
+    .marx-view .st-block:not(.st-ghost) > .st-side {
+      left: calc(var(--w) - var(--tp)) !important;
+      width: var(--slope);
+      transform: translateZ(var(--h)) rotateY(var(--tilt));
+      clip-path: polygon(0 var(--tp), 100% 0, 100% 100%, 0 calc(100% - var(--tp)));
+    }
+
     :is(.structures-view, .marx-view) .st-block.active[data-key="tech"] { --top: color-mix(in srgb, #1f2f8a 62%, #fff); }
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="economy"], [data-key="base"]) { --top: color-mix(in srgb, #d9a520 60%, #fff); }
     :is(.structures-view, .marx-view) .st-block.active:is([data-key="culture"], [data-key="super"]) { --top: color-mix(in srgb, #6a3fc4 70%, #fff); }
 
     /* Base-Superstructure's second view: the diagram of the base and the
-       superstructure, full width, in 2.5D (each block with its top and
-       side), chosen beside the download */
+       superstructure, full width, as two sections of a pyramid in 2.5D,
+       all in IBM Plex Sans, chosen beside the download */
     .model-save-modes {
       display: flex;
       align-items: center;
@@ -1961,9 +1991,9 @@
     }
 
     .marx-fig .mf-title {
-      font-family: var(--serif);
-      font-size: 44px;
-      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 38px;
+      font-weight: 500;
       fill: #fbf6ec;
     }
 
@@ -1976,8 +2006,8 @@
     }
 
     .marx-fig .mf-item {
-      font-family: var(--serif);
-      font-size: 24px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 21px;
     }
 
     .marx-fig .mf-em {
@@ -1985,9 +2015,8 @@
     }
 
     .marx-fig .mf-key {
-      font-family: var(--serif);
-      font-size: 32px;
-      font-style: italic;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 26px;
       font-weight: 600;
     }
 
@@ -3753,7 +3782,7 @@
     </section>
 
     <section class="structures-view" aria-label="Cultural Materialism: Three Structures">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=3ae7eac5" download="Cultural Materialism - Three Structures.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=c9e90f98" download="Cultural Materialism - Three Structures.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3768,7 +3797,7 @@
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
 
     <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
-    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=773b27c2" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
+    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=7b850d57" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3780,12 +3809,12 @@
       </div>
       <div class="marx-figure" hidden>
           <svg class="marx-fig" viewBox="0 0 1200 1160" role="img" aria-label="The base and the superstructure as two sections of a pyramid, the superstructure above: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">
-          <path class="mf-line" d="M357.5 209.9 H50 V844.0 H127.5"/>
-          <path class="mf-line" d="M115.5 832.0 L127.5 844.0 L115.5 856.0"/>
-          <path class="mf-line" d="M1036.3 640.5 H1150 V342.4 H915.0"/>
-          <path class="mf-line" d="M927.0 330.4 L915.0 342.4 L927.0 354.4"/>
-          <polygon fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/><polygon fill="#a87d12" points="196.4,683.1 869.1,683.1 852.3,614.1 221.6,614.1"/>
-          <polygon fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/><polygon fill="#4f2d9c" points="356.9,244.4 762.1,244.4 745.2,175.4 382.1,175.4"/>
+          <path class="mf-line" d="M357.5 209.9 H50 V823.1 H135.2"/>
+          <path class="mf-line" d="M123.2 811.1 L135.2 823.1 L123.2 835.1"/>
+          <path class="mf-line" d="M1109.3 823.1 H1150 V209.9 H862.0"/>
+          <path class="mf-line" d="M874.0 197.9 L862.0 209.9 L874.0 221.9"/>
+          <polygon fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/>
+          <polygon fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/>
           <text class="mf-title" x="561.6" y="224.9" text-anchor="middle">Superstructure</text>
           <text class="mf-head" x="557.3" y="279.9" text-anchor="middle" fill="#fbf6ec">Everything not directly to do</text>
           <text class="mf-head" x="555.9" y="302.9" text-anchor="middle" fill="#fbf6ec">with production</text>
@@ -3804,9 +3833,8 @@
           <text class="mf-head" x="530.3" y="722.8" text-anchor="middle" fill="#fbf6ec">Means of production</text>
           <text class="mf-item" x="528.3" y="756.2" text-anchor="middle" fill="#fbf6ec">Tools, machines, factories, land, raw materials</text>
           <text class="mf-head" x="525.0" y="810.5" text-anchor="middle" fill="#fbf6ec">Relations of production</text>
-          <text class="mf-item" x="522.9" y="844.0" text-anchor="middle" fill="#fbf6ec">Lumpenproletariat, proletariat, labour aristocracy,</text>
-          <text class="mf-item" x="521.1" y="873.2" text-anchor="middle" fill="#fbf6ec">petty bourgeoisie, bourgeoisie</text>
-          <text class="mf-item mf-em" x="517.9" y="925.4" text-anchor="middle" fill="#fbf6ec">Private property, capital, commodities, etc.</text>
+          <text class="mf-item" x="522.9" y="844.0" text-anchor="middle" fill="#fbf6ec">Proletariat, labour aristocracy, bourgeoisie</text>
+          <text class="mf-item" x="519.5" y="900.4" text-anchor="middle" fill="#fbf6ec">Private property, capital, commodities, etc.</text>
           <text class="mf-rel" x="72" y="484.0">Maintains</text><text class="mf-rel-sub" x="72" y="510.0">(and shapes)</text>
           <text class="mf-rel" x="1128" y="484.0" text-anchor="end">Shapes</text><text class="mf-rel-sub" x="1128" y="510.0" text-anchor="end">(and maintains)</text>
           <text class="mf-note" x="600" y="1054.2" text-anchor="middle">This moves in a spiral pattern.</text><text class="mf-note" x="600" y="1086.2" text-anchor="middle">The base is generally dominant.</text>
@@ -4907,7 +4935,7 @@
         var link = view.querySelector('.model-save');
         var files = {
           stack: [link.getAttribute('href'), link.getAttribute('download')],
-          diagram: ['../assets/downloads/base-superstructure-diagram.png?v=d6b9fa54', 'Classical Marxism - Base and Superstructure.png']
+          diagram: ['../assets/downloads/base-superstructure-diagram.png?v=b4e5886d', 'Classical Marxism - Base and Superstructure.png']
         };
         view.querySelectorAll('.model-modes button').forEach(function (b) {
           b.addEventListener('click', function () {
@@ -5519,6 +5547,15 @@
           '<polygon class="r" points="' + P([[x, y + d], [x + q, y], [x + q, y + h], [x, y + d + h]]) + '"/>' +
           '<polygon class="t" points="' + P([[x, y - d], [x + q, y], [x, y + d], [x - q, y]]) + '"/>';
       }
+      // a section of a pyramid: its top drawn in by t (in the drawing's
+      // units across), its sides sloping down to the full footprint
+      function ovFrustum(x, y, w, h, t) {
+        var q = w / 2, d = w / 4, q1 = q - t, d1 = q1 / 2, P = function (a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); };
+        var yb = y + h;
+        return '<polygon class="l" points="' + P([[x - q1, y], [x, y + d1], [x, yb + d], [x - q, yb]]) + '"/>' +
+          '<polygon class="r" points="' + P([[x, y + d1], [x + q1, y], [x + q, yb], [x, yb + d]]) + '"/>' +
+          '<polygon class="t" points="' + P([[x, y - d1], [x + q1, y], [x, y + d1], [x - q1, y]]) + '"/>';
+      }
       function ovThumb(key) {
         var g = '';
         if (key === 'stack') [[130, 128, 13], [116, 94, 13], [100, 64, 13], [84, 38, 13]].forEach(function (s) { g += ovSlab(150, s[1], s[0], s[2]); });
@@ -5528,7 +5565,10 @@
         };
         var MIDNIGHT = '#1f2f8a', GOLD = '#d9a520', VIOLET = '#6a3fc4';
         if (key === 'structures') [[150, 120, MIDNIGHT], [124, 86, GOLD], [98, 56, VIOLET]].forEach(function (s) { g += cemSlab(s[2], 150, s[1], s[0], 11); });
-        if (key === 'marx') [[150, 106, GOLD], [102, 70, VIOLET]].forEach(function (s) { g += cemSlab(s[2], 150, s[1], s[0], 15); });
+        if (key === 'marx') {
+          var fr = function (c, y, w, h, t) { return '<g style="--top:color-mix(in srgb, ' + c + ' 85%, #fff);--left:' + c + ';--right:color-mix(in srgb, ' + c + ' 64%, #000)">' + ovFrustum(150, y, w, h, t) + '</g>'; };
+          g += fr(GOLD, 104, 160, 22, 24) + fr(VIOLET, 66, 112, 22, 24);
+        }
         if (key === 'complex') {
           // the stack: the ecostructure and biostructure beneath, the core
           // on them, the axis of the metastructure through them all
