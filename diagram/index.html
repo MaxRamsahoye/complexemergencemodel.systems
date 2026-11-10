@@ -1998,10 +1998,20 @@
       display: none;
     }
 
-    /* Cultural Materialism's diagram: three sections, all its writing light */
+    /* Cultural Materialism's diagram, wider for the labels either side */
+    .marx-fig.cm-fig {
+      width: min(100%, 1060px);
+    }
+
+    /* Cultural Materialism's diagram: three sections, black, dark grey and off white */
     .cm-fig .mf-head,
     .cm-fig .mf-item {
       fill: #fbf6ec;
+    }
+
+    /* (the superstructure off white, its writing dark) */
+    .cm-fig .mf-dark {
+      fill: #1d1b22;
     }
 
     .cm-fig.play .mf-mid {
@@ -2044,7 +2054,7 @@
       fill: #1d1b22;
     }
 
-    .marx-fig:not(.cm-fig) .mf-super polygon {
+    .marx-fig .mf-super polygon {
       stroke: #d3ccbb;
       stroke-width: 1.2;
       stroke-linejoin: round;
@@ -3894,22 +3904,26 @@
         </div>
       </div>
       <div class="marx-figure cm-figure" hidden>
-          <svg class="marx-fig cm-fig" viewBox="0 150 1200 1000" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">
+          <svg class="marx-fig cm-fig" viewBox="-130 150 1460 1000" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">
           <g class="mf-around">
-          <path class="mf-line" d="M366.2 337.1 H110 V881.5 H196.2"/>
+          <path class="mf-line" d="M265.3 656.7 H110 V881.5 H196.2"/>
           <path class="mf-line" d="M184.2 869.5 L196.2 881.5 L184.2 893.5"/>
-          <path class="mf-line" d="M1037.1 881.5 H1090 V337.1 H849.4"/>
-          <path class="mf-line" d="M861.4 325.1 L849.4 337.1 L861.4 349.1"/>
+          <path class="mf-line" d="M1037.1 881.5 H1090 V656.7 H958.4"/>
+          <path class="mf-line" d="M970.4 644.7 L958.4 656.7 L970.4 668.7"/>
+          <path class="mf-line" d="M365.0 341.0 H110 V569.9 H294.7"/>
+          <path class="mf-line" d="M282.7 557.9 L294.7 569.9 L282.7 581.9"/>
+          <path class="mf-line" d="M930.8 569.9 H1090 V341.0 H850.8"/>
+          <path class="mf-line" d="M862.8 329.0 L850.8 341.0 L862.8 353.0"/>
           </g>
           <g transform="matrix(0.76 0 0 0.76 144.0 144.0)">
-          <g class="mf-tier mf-base"><polygon class="f-side" fill="#101850" points="976.0,1115.8 1164.0,984.2 1065.6,695.7 910.4,804.3"/><polygon class="f-top" fill="#4a58a8" points="134.4,804.3 910.4,804.3 1065.6,695.7 289.6,695.7"/><polygon class="f-body" fill="#1f2f8a" points="36.0,1115.8 976.0,1115.8 910.4,804.3 134.4,804.3"/></g>
-          <g class="mf-tier mf-mid"><polygon class="f-side" fill="#8f6d15" points="903.9,773.2 1055.8,666.8 964.0,397.5 842.7,482.5"/><polygon class="f-top" fill="#e8bf4f" points="236.0,482.5 842.7,482.5 964.0,397.5 357.3,397.5"/><polygon class="f-body" fill="#d9a520" points="144.2,773.2 903.9,773.2 842.7,482.5 236.0,482.5"/></g>
-          <g class="mf-tier mf-super"><polygon class="f-side" fill="#37206f" points="836.1,451.3 954.1,368.7 868.9,118.6 779.3,181.4"/><polygon class="f-top" fill="#8a66d8" points="331.1,181.4 779.3,181.4 868.9,118.6 420.7,118.6"/><polygon class="f-body" fill="#6a3fc4" points="245.9,451.3 836.1,451.3 779.3,181.4 331.1,181.4"/></g>
+          <g class="mf-tier mf-base"><polygon class="f-side" fill="#0b0b0d" points="976.0,1115.8 1164.0,984.2 1065.6,695.7 910.4,804.3"/><polygon class="f-top" fill="#46464c" points="134.4,804.3 910.4,804.3 1065.6,695.7 289.6,695.7"/><polygon class="f-body" fill="#222226" points="36.0,1115.8 976.0,1115.8 910.4,804.3 134.4,804.3"/></g>
+          <g class="mf-tier mf-mid"><polygon class="f-side" fill="#2e2e33" points="903.9,773.2 1055.8,666.8 964.0,397.5 842.7,482.5"/><polygon class="f-top" fill="#6a6a72" points="236.0,482.5 842.7,482.5 964.0,397.5 357.3,397.5"/><polygon class="f-body" fill="#4a4a51" points="144.2,773.2 903.9,773.2 842.7,482.5 236.0,482.5"/></g>
+          <g class="mf-tier mf-super"><polygon class="f-side" fill="#d3ccbb" points="836.1,451.3 954.1,368.7 868.9,118.6 779.3,181.4"/><polygon class="f-top" fill="#f8f5ee" points="331.1,181.4 779.3,181.4 868.9,118.6 420.7,118.6"/><polygon class="f-body" fill="#efeadf" points="245.9,451.3 836.1,451.3 779.3,181.4 331.1,181.4"/></g>
           <g class="mf-words">
-          <text class="mf-title" x="551.2" y="272.2" text-anchor="middle">Superstructure</text>
-          <text class="mf-head" x="548.0" y="318.4" text-anchor="middle">Cultural Psychology</text>
-          <text class="mf-item" x="545.7" y="362.0" text-anchor="middle">Values, beliefs and worldviews</text>
-          <text class="mf-item" x="543.9" y="395.3" text-anchor="middle">Religion, art, science, ideology</text>
+          <text class="mf-title mf-dark" x="551.2" y="272.2" text-anchor="middle">Superstructure</text>
+          <text class="mf-head mf-dark" x="548.0" y="318.4" text-anchor="middle">Cultural Psychology</text>
+          <text class="mf-item mf-dark" x="545.7" y="362.0" text-anchor="middle">Values, beliefs and worldviews</text>
+          <text class="mf-item mf-dark" x="543.9" y="395.3" text-anchor="middle">Religion, art, science, ideology</text>
           <text class="mf-title" x="535.3" y="573.3" text-anchor="middle">Structure</text>
           <text class="mf-head" x="532.1" y="619.5" text-anchor="middle">Political Economy</text>
           <text class="mf-item" x="529.8" y="663.1" text-anchor="middle">Governance and economy</text>
@@ -3920,8 +3934,10 @@
           <text class="mf-item" x="511.1" y="1018.2" text-anchor="middle">Tools, energy, transport, communications</text>
           </g></g>
           <g class="mf-around">
-          <text class="mf-rel" x="132" y="596.3">Feeds back</text><text class="mf-rel-sub" x="132" y="622.3">(and legitimises)</text>
-          <text class="mf-rel" x="1068" y="596.3" text-anchor="end">Shapes</text><text class="mf-rel-sub" x="1068" y="622.3" text-anchor="end">(and constrains)</text>
+          <text class="mf-rel" x="88" y="765.1" text-anchor="end">Feeds back</text><text class="mf-rel-sub" x="88" y="791.1" text-anchor="end">(and legitimises)</text>
+          <text class="mf-rel" x="1112" y="765.1">Shapes</text><text class="mf-rel-sub" x="1112" y="791.1">(and constrains)</text>
+          <text class="mf-rel" x="88" y="451.4" text-anchor="end">Feeds back</text><text class="mf-rel-sub" x="88" y="477.4" text-anchor="end">(and legitimises)</text>
+          <text class="mf-rel" x="1112" y="451.4">Shapes</text><text class="mf-rel-sub" x="1112" y="477.4">(and constrains)</text>
           <text class="mf-note" x="600" y="1056.0" text-anchor="middle">The infrastructure is primary.</text><text class="mf-note" x="600" y="1088.0" text-anchor="middle">Change begins at the base and works upwards.</text>
           </g></svg>
       </div>
@@ -5075,7 +5091,7 @@
       // follows whichever is shown)
       // (Cultural Materialism likewise)
       [['.marx-view', '../assets/downloads/base-superstructure-diagram.png?v=8aa7fa1d', 'Classical Marxism - Base and Superstructure.png'],
-       ['.structures-view', '../assets/downloads/cultural-materialism-diagram.png?v=229d8005', 'Cultural Materialism - Infrastructure-Structure-Superstructure (Diagram).png']].forEach(function (V) {
+       ['.structures-view', '../assets/downloads/cultural-materialism-diagram.png?v=1dc2c3a0', 'Cultural Materialism - Infrastructure-Structure-Superstructure (Diagram).png']].forEach(function (V) {
         var view = document.querySelector(V[0]);
         var fig = view.querySelector('.marx-figure');
         var link = view.querySelector('.model-save');
