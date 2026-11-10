@@ -5711,12 +5711,22 @@
           g += '</g>';
         }
         if (key === 'integral') {
-          // four tiles on an isometric plane, each with its own thickness
-          var tw = 66, th = 11, gap = 5, q = tw / 2, d = tw / 4;
-          [['--q1', 0, 0], ['--q3', 0, 1], ['--q2', 1, 0], ['--q4', 1, 1]].forEach(function (t) {
-            var x = 150 + (t[1] - t[2]) * (q + gap), y = 58 + (t[1] + t[2]) * (d + gap / 2);
-            g += '<g style="--top:var(' + t[0] + ');--left:color-mix(in srgb, var(' + t[0] + ') 78%, #000);--right:color-mix(in srgb, var(' + t[0] + ') 60%, #000)">' + ovSlab(x, y, tw, th) + '</g>';
+          // as the Emergence Model's disc, seen the same way and at the same
+          // size, but square: in perspective (its back edge a little narrower
+          // than its front), its four quadrants on top and its front edge
+          var ix = 150, top = 39, front = 121, ih = 16, wb = 62, wf = 82, ym = 78;
+          var wm = wb + (wf - wb) * (ym - top) / (front - top);
+          var pt = function (a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); };
+          var shade = function (q, k) { return 'color-mix(in srgb, var(' + q + ') ' + k + '%, #000)'; };
+          g += '<polygon style="fill:' + shade('--q3', 70) + '" points="' + pt([[ix - wf, front], [ix, front], [ix, front + ih], [ix - wf, front + ih]]) + '"/>';
+          g += '<polygon style="fill:' + shade('--q4', 70) + '" points="' + pt([[ix, front], [ix + wf, front], [ix + wf, front + ih], [ix, front + ih]]) + '"/>';
+          [['--q1', [[ix - wb, top], [ix, top], [ix, ym], [ix - wm, ym]]],
+           ['--q2', [[ix, top], [ix + wb, top], [ix + wm, ym], [ix, ym]]],
+           ['--q3', [[ix - wm, ym], [ix, ym], [ix, front], [ix - wf, front]]],
+           ['--q4', [[ix, ym], [ix + wm, ym], [ix + wf, front], [ix, front]]]].forEach(function (t) {
+            g += '<polygon style="fill:var(' + t[0] + ')" stroke="var(--canvas-bg)" stroke-width="2.5" stroke-linejoin="round" points="' + pt(t[1]) + '"/>';
           });
+          g += '<path d="M' + ix + ' ' + front + 'V' + (front + ih) + '" stroke="var(--canvas-bg)" stroke-width="2.5"/>';
         }
         if (key === 'sequences') [32, 76, 120].forEach(function (y, i) {
           g += '<rect class="bx' + (i === 0 ? ' on' : '') + '" x="40" y="' + y + '" width="86" height="30"/><rect class="bx' + (i === 0 ? ' on' : '') + '" x="174" y="' + y + '" width="86" height="30"/>' +
