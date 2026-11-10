@@ -879,7 +879,7 @@
     }
 
     .md-scene .md-svg.md-v2 {
-      width: min(100%, 1600px, calc((100svh - 144px) * 1.098));
+      width: min(100%, 1600px, calc((100svh - 144px) * 0.915));
     }
 
     @media (max-width: 900px) {
@@ -999,14 +999,9 @@
       }
 
       /* v2 at 1.25 times the size */
-      /* (a little narrower beside v2, so the larger diagram clears the corner) */
-      .md-scene:has(.md-v2) .md-scene-text {
-        flex-basis: 440px;
-      }
-
-      /* v2 at 1.5 times the size (the page grows to hold it where the screen is short) */
+      /* v2 at 1.25 times the size */
       .md-scene .md-svg.md-v2 {
-        width: min(calc(100% - 540px), 1600px, calc((100svh - 144px) * 1.093));
+        width: min(calc(100% - 540px), 1600px, calc((100svh - 144px) * 0.911));
       }
 
       .md-scene-text {
