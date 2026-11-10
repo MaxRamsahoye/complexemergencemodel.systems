@@ -1607,6 +1607,7 @@
           s[4] = 80; s[2] = LOW[s[0]]; s[7] = lowProf(s[2]); s[3] = lowProf(s[2] + 80);
         });
         AGENTS.forEach(function (s) {
+          if (s[0] === 'mesostructure') s[3] = 64;
           s[4] = s[4] + 22; s[7] = s[3] * 0.62;
         });
       }
