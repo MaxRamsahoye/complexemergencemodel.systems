@@ -76,9 +76,9 @@ for i, w in enumerate(['Law', 'Media', 'Politics', 'Science', 'Education']):
 svg.append(text('mf-key', S1 - DS - BAND - 166, 'Ideology', D))
 # the base's face
 svg.append(text('mf-title', B1 - DB - BAND / 2, 'Base', dy=15))
-for (yy, cls, t) in [(B1 - DB - BAND - 38, 'mf-head', 'Means of production'), (B1 - DB - BAND - 70, 'mf-item', 'Tools, machines, factories, land, raw materials'),
-                     (B1 - DB - BAND - 122, 'mf-head', 'Relations of production'), (B1 - DB - BAND - 154, 'mf-item', 'Proletariat, labour aristocracy, bourgeoisie'),
-                     (B1 - DB - BAND - 208, 'mf-item', 'Private property, capital, commodities, etc.')]:
+for (yy, cls, t) in [(B1 - DB - BAND - 30, 'mf-head', 'Means of production'), (B1 - DB - BAND - 60, 'mf-item', 'Tools, machines, factories, land, raw materials'),
+                     (B1 - DB - BAND - 106, 'mf-head', 'Relations of production'), (B1 - DB - BAND - 136, 'mf-item', 'Proletariat, labour aristocracy, bourgeoisie'),
+                     (B1 - DB - BAND - 182, 'mf-head', 'Property relations'), (B1 - DB - BAND - 212, 'mf-item', 'Private property, capital, commodities, etc.')]:
     svg.append(text(cls, yy, t, INK))
 # the labels by the lines
 # (each label beside its line, in the gap between the two sections)
