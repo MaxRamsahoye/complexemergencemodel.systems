@@ -12,6 +12,8 @@ const MODELS = [
   ['emergence-model', '.emergence-view .em-fig'],
   ['four-quadrants', '.integral-view .quad-fig'],
   ['structures', '.structures-view .stack-scene', 'cultural-materialism'],
+  // Cultural Materialism's second view, the diagram
+  ['structures', '.structures-view .cm-fig', 'cultural-materialism-diagram', '.structures-view .model-modes [data-mode="diagram"]'],
   ['base-superstructure', '.marx-view .stack-scene'],
   // Base-Superstructure's second view, the diagram
   ['base-superstructure', '.marx-view .marx-fig', 'base-superstructure-diagram', '.marx-view .model-modes [data-mode="diagram"]'],
