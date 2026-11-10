@@ -398,7 +398,10 @@
 // adds another (three times at most), and any other movement, key or
 // scroll ends it. Not for those
 // who prefer less motion. (On every page of the site.)
+// Deactivated for now: set SAVER to true to bring it back.
+var SAVER = false;
 (function () {
+  if (!SAVER) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var css = [
     '.ce-saver { position: fixed; inset: 0; z-index: 1000; overflow: hidden; background: var(--canvas-bg, #fff);',
