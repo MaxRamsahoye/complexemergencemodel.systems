@@ -1606,13 +1606,15 @@
         });
         AGENTS.forEach(function (s) {
           if (s[0] === 'mesostructure') s[3] = 64;
+          // (raised, to leave room for the macrostructure beneath them)
+          s[2] -= 220;
           s[4] = s[4] + 22; s[7] = s[3] * 0.62;
         });
       }
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      // (v2: at the top, above human agency)
-      var TL = { y: V1 ? 1280 : -330, x0: CX - 230, x1: CX + 500 };
+      // (v2: between human agency and the metastructure)
+      var TL = { y: V1 ? 1280 : -100, x0: CX - 230, x1: CX + 500 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
@@ -1692,17 +1694,17 @@
       // nature (the biostructure and ecostructure) within them; nature, first
       // nature (the cosmostructure), beneath; the macrostructure outside both
       html += '<g class="md-bracket">' +
-        bracket('human-agency', -222, -18, 'Human Agency') +
+        (V1 ? bracket('human-agency', -222, -18, 'Human Agency') : bracket('human-agency', -442, -238, 'Human Agency')) +
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner(715, 1015, 'Second Nature') +
             '<g class="md-brace md-brace-outer">' + bracket('', 1030, 1240, 'Nature').replace(/^<g[^>]*>|<rect[^>]*\/><\/g>$/g, '') + '</g>' + inner(1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
-        '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/></g>';
+        (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/>' : '<path class="rise" d="M-400 46V-220M-408 -208L-400 -220L-392 -208"/>') + '</g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-450 -380 1600 1640') : (V1 ? '-480 -240 1860 1580' : '-450 -380 1600 1640')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-450 -500 1600 1760') : (V1 ? '-480 -240 1860 1580' : '-450 -500 1600 1760')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
