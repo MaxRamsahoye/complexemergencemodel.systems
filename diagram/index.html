@@ -2051,60 +2051,35 @@
       fill: var(--canvas-ink);
     }
 
-    /* the diagram's opening, as the stack's: a single gold section slides
-       in and parts into the base and the superstructure, which rises and
-       turns violet; then the writing comes in, then the lines and labels
-       (the class .play runs it; at rest the diagram is simply drawn) */
-    .marx-fig .mf-ghost {
-      visibility: hidden;
-    }
-
-    .marx-fig.play .mf-ghost {
-      visibility: visible;
-      animation: mf-slide 1s cubic-bezier(0.22, 1, 0.36, 1) both, mf-off 0s linear 1.15s forwards;
-    }
-
-    .marx-fig.play .mf-tier {
-      animation: mf-on 0s linear 1.15s both;
+    /* the diagram's opening, as the stack's: the base slides in, then the
+       superstructure from the other side onto it, each its own block; then
+       the writing comes in, then the lines and labels (the class .play
+       runs it; at rest the diagram is simply drawn) */
+    .marx-fig.play .mf-base {
+      animation: mf-slide-left 1s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .marx-fig.play .mf-super {
-      animation: mf-on 0s linear 1.15s both, mf-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both;
+      animation: mf-slide-right 1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
     }
 
-    .marx-fig.play .mf-super .f-top { animation: mf-gold-top 0.9s ease 1.15s both; }
-    .marx-fig.play .mf-super .f-side { animation: mf-gold-side 0.9s ease 1.15s both; }
-    .marx-fig.play .mf-super .f-body { animation: mf-gold-body 0.9s ease 1.15s both; }
-
     .marx-fig.play .mf-words {
-      animation: mf-fade 0.6s ease 2.2s both;
+      animation: mf-fade 0.6s ease 1.9s both;
     }
 
     .marx-fig.play .mf-around {
-      animation: mf-fade 0.7s ease 2.8s both;
+      animation: mf-fade 0.7s ease 2.5s both;
     }
 
-    @keyframes mf-slide {
+    @keyframes mf-slide-left {
       from { transform: translateX(-320px); opacity: 0; }
       30% { opacity: 1; }
     }
 
-    @keyframes mf-off {
-      to { visibility: hidden; }
+    @keyframes mf-slide-right {
+      from { transform: translateX(320px); opacity: 0; }
+      30% { opacity: 1; }
     }
-
-    @keyframes mf-on {
-      from { visibility: hidden; }
-      to { visibility: visible; }
-    }
-
-    @keyframes mf-rise {
-      from { transform: translateY(32px); }
-    }
-
-    @keyframes mf-gold-top { from { fill: #e8bf4f; } }
-    @keyframes mf-gold-side { from { fill: #8f6d15; } }
-    @keyframes mf-gold-body { from { fill: #d9a520; } }
 
     @keyframes mf-fade {
       from { opacity: 0; }
@@ -3891,7 +3866,6 @@
           <path class="mf-line" d="M828.6 260.9 L816.6 272.9 L828.6 284.9"/>
           </g>
           <g transform="matrix(0.82 0 0 0.82 108.0 100.8)">
-          <g class="mf-ghost"><polygon class="f-side" fill="#8f6d15" points="944.0,990.2 1116.0,869.8 830.1,155.2 753.4,208.8"/><polygon class="f-top" fill="#e8bf4f" points="369.9,208.8 753.4,208.8 830.1,155.2 446.6,155.2"/><polygon class="f-body" fill="#d9a520" points="84.0,990.2 944.0,990.2 753.4,208.8 369.9,208.8"/></g>
           <g class="mf-tier mf-base"><polygon class="f-side" fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon class="f-top" fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon class="f-body" fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/></g>
           <g class="mf-tier mf-super"><polygon class="f-side" fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon class="f-top" fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon class="f-body" fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/></g>
           <g class="mf-words">
@@ -5010,7 +4984,7 @@
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
               '<p class="st-detail-def">' + L.def + '</p>'
           };
-        }), { SIZE: 312, H: 65, TRIM: 100, STEP: 700, prelude: { n: 1, SIZE: 312, H: 55, TRIM: 30, STEP: 520, taper: 0.77 } });
+        }), { SIZE: 312, H: 65, TRIM: 100, STEP: 700 });
       }
       // the two layers, one above the other, and how each acts on the other
       // Base-Superstructure: the stack, or the diagram (and the download

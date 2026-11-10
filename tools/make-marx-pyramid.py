@@ -52,9 +52,6 @@ svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (c[0] + 12
 svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (d[0] + 22, YA - 12, d[0] + 10, YA, d[0] + 22, YA + 12))
 svg.append('</g>')
 svg.append('<g transform="matrix(%g 0 0 %g %.1f %.1f)">' % (K, K, PIV[0] * (1 - K), PIV[1] * (1 - K)))
-# (for the opening: a single section, the whole of the two without the gap
-# between them, that slides in and then parts into them)
-svg.append('<g class="mf-ghost">' + tier(B0, S1 - (S0 - B1), BAND, G) + '</g>')
 svg.append('<g class="mf-tier mf-base">' + tier(B0, B1, BAND, G) + '</g>')
 svg.append('<g class="mf-tier mf-super">' + tier(S0, S1, BAND, V) + '</g>')
 svg.append('<g class="mf-words">')
