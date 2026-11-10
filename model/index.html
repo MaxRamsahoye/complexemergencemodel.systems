@@ -879,7 +879,7 @@
     }
 
     .md-scene .md-svg.md-v2 {
-      width: min(94%, 1456px, calc((100svh - 144px) * 1.1));
+      width: min(100%, 1600px, calc((100svh - 144px) * 1.098));
     }
 
     @media (max-width: 900px) {
@@ -999,8 +999,14 @@
       }
 
       /* v2 at 1.25 times the size */
+      /* (a little narrower beside v2, so the larger diagram clears the corner) */
+      .md-scene:has(.md-v2) .md-scene-text {
+        flex-basis: 440px;
+      }
+
+      /* v2 at 1.5 times the size (the page grows to hold it where the screen is short) */
       .md-scene .md-svg.md-v2 {
-        width: min(calc(100% - 560px), 1350px, calc((100svh - 144px) * 0.9675));
+        width: min(calc(100% - 540px), 1600px, calc((100svh - 144px) * 1.093));
       }
 
       .md-scene-text {
@@ -1606,7 +1612,7 @@
       }
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      var TL = { y: 1280, x0: CX - 230, x1: CX + 500 };
+      var TL = { y: V1 ? 1280 : 1350, x0: CX - 230, x1: CX + 500 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
@@ -1675,14 +1681,14 @@
           '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
       }
       html += '<g class="md-bracket">' +
-        bracket('human-agency', -222, -18, 'Human Agency') + bracket('civilisational-structures', 64, 1322, 'Civilisational Structures') +
+        bracket('human-agency', -222, -18, 'Human Agency') + bracket('civilisational-structures', 64, V1 ? 1322 : 1392, 'Civilisational Structures') +
         // the arrow between them, rising from the structures to agency
         '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-480 -240 1700 1580') : (V1 ? '-480 -240 1860 1580' : '-480 -240 1930 1580')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-450 -230 1600 1640') : (V1 ? '-480 -240 1860 1580' : '-450 -230 1600 1640')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
