@@ -1581,6 +1581,14 @@
         SLABS.forEach(function (s) {
           if (s[0] === 'substructure') { s[7] = wTop * 0.62; s[3] = wTop * 0.78; }
         });
+        // the lower three set further apart, on a steeper slope of their own,
+        // narrowing from the cosmostructure up to the biostructure
+        var LOW = { biostructure: 790, ecostructure: 905, cosmostructure: 1020 };
+        var lowProf = function (y) { return 140 + (y - 790) * (300 - 140) / (1100 - 790); };
+        SLABS.forEach(function (s) {
+          if (LOW[s[0]] === undefined) return;
+          s[4] = 80; s[2] = LOW[s[0]]; s[7] = lowProf(s[2]); s[3] = lowProf(s[2] + 80);
+        });
         AGENTS.forEach(function (s) {
           s[4] = s[4] + 6; s[7] = s[3] * 0.62;
         });
