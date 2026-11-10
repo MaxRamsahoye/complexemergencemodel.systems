@@ -1611,7 +1611,8 @@
       }
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
-      var TL = { y: V1 ? 1280 : 1350, x0: CX - 230, x1: CX + 500 };
+      // (v2: at the top, above human agency)
+      var TL = { y: V1 ? 1280 : -330, x0: CX - 230, x1: CX + 500 };
       var TICKS = ['Cognitive', 'Agricultural', 'Industrial', 'Digital', 'Intelligence'];
       var html = '';
       // a half-circle arrow, clockwise from angle a0 to a1 (in degrees, from
@@ -1700,7 +1701,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-450 -230 1600 1640') : (V1 ? '-480 -240 1860 1580' : '-450 -230 1600 1640')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-450 -380 1600 1640') : (V1 ? '-480 -240 1860 1580' : '-450 -380 1600 1640')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
@@ -1806,11 +1807,12 @@
         if (pairMode) { pair = ['civilisational-structures', 'human-agency']; locked = 'human-agency'; showPair(); }
         else { pair = []; show(locked); }
       });
-      // the line in the column level with the timeline's
+      // the line in the column level with the timeline's (v2, with the
+      // timeline at the top: level with the foot of the stack)
       function placeRule() {
         var vb = svg.viewBox.baseVal, r = svg.getBoundingClientRect(), c = column.getBoundingClientRect();
         if (!vb || !r.height || !c.height) return;
-        var y = r.top + (TL.y - vb.y) / vb.height * r.height - c.top;
+        var y = r.top + ((V1 ? TL.y : 1240) - vb.y) / vb.height * r.height - c.top;
         column.style.setProperty('--rule-y', Math.max(0, Math.min(c.height - 40, y)) + 'px');
       }
       window.mdPlaceRule = placeRule;
