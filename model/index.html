@@ -1577,6 +1577,10 @@
           var h = THICK[s[0]];
           s[4] = h; s[7] = prof(s[2]); s[3] = prof(s[2] + h);
         });
+        // the substructure sits inside the core, narrower than the superstructure
+        SLABS.forEach(function (s) {
+          if (s[0] === 'substructure') { s[7] = wTop * 0.62; s[3] = wTop * 0.78; }
+        });
         AGENTS.forEach(function (s) {
           s[4] = s[4] + 14; s[7] = s[3] * 0.62;
         });
