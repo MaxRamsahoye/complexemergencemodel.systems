@@ -25,7 +25,7 @@ def mid(y):
 # black, dark grey and off white, from the base up
 BLUE = ('#222226', '#46464c', '#0b0b0d'); GOLD = ('#4a4a51', '#6a6a72', '#2e2e33'); VIOLET = ('#efeadf', '#f8f5ee', '#d3ccbb')
 I0, I1 = 0, 300; T0, T1 = 330, 610; U0, U1 = 640, 900
-svg = ['<svg class="marx-fig cm-fig" viewBox="-130 150 1460 1000" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">']
+svg = ['<svg class="marx-fig cm-fig" viewBox="-130 205 1460 905" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">']
 def left_at(Y):
     y = (CY + KY * A - Y) / (1 + KY * A / HP); h = hw(y); return P(-h, y, h)
 def right_at(Y):

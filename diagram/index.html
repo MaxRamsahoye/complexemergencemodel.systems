@@ -2054,10 +2054,23 @@
       fill: #1d1b22;
     }
 
-    .marx-fig .mf-super polygon {
-      stroke: #d3ccbb;
+    .marx-fig .mf-tier polygon {
       stroke-width: 1.2;
       stroke-linejoin: round;
+    }
+
+    .marx-fig .mf-super polygon {
+      stroke: #d3ccbb;
+    }
+
+    /* (and every other section edged likewise, a shade lighter than itself) */
+    .marx-fig:not(.cm-fig) .mf-base polygon,
+    .cm-fig .mf-mid polygon {
+      stroke: #6a6a72;
+    }
+
+    .cm-fig .mf-base polygon {
+      stroke: #46464c;
     }
 
     .marx-fig .mf-head {
@@ -3926,7 +3939,7 @@
         </div>
       </div>
       <div class="marx-figure cm-figure" hidden>
-          <svg class="marx-fig cm-fig" viewBox="-130 150 1460 1000" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">
+          <svg class="marx-fig cm-fig" viewBox="-130 205 1460 905" role="img" aria-label="Cultural materialism as three sections of a pyramid: the infrastructure, the tech stack, at the base; the structure, political economy, on it; the superstructure, cultural psychology, at the top. The infrastructure shapes the structure and superstructure, and they feed back on it; the infrastructure is primary">
           <g class="mf-around">
           <path class="mf-line" d="M265.3 656.7 H110 V881.5 H196.2"/>
           <path class="mf-line" d="M184.2 869.5 L196.2 881.5 L184.2 893.5"/>
@@ -3987,7 +4000,7 @@
           <path class="mf-line" d="M828.6 260.9 L816.6 272.9 L828.6 284.9"/>
           </g>
           <g transform="matrix(0.82 0 0 0.82 108.0 100.8)">
-          <g class="mf-tier mf-base"><polygon class="f-side" fill="#0b0b0d" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon class="f-top" fill="#46464c" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon class="f-body" fill="#222226" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/></g>
+          <g class="mf-tier mf-base"><polygon class="f-side" fill="#2e2e33" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon class="f-top" fill="#6a6a72" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon class="f-body" fill="#4a4a51" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/></g>
           <g class="mf-tier mf-super"><polygon class="f-side" fill="#d3ccbb" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon class="f-top" fill="#f8f5ee" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon class="f-body" fill="#efeadf" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/></g>
           <g class="mf-words">
           <text class="mf-title mf-dark" x="558.7" y="272.9" text-anchor="middle">Superstructure</text>
@@ -5112,8 +5125,8 @@
       // Base-Superstructure: the stack, or the diagram (and the download
       // follows whichever is shown)
       // (Cultural Materialism likewise)
-      [['.marx-view', '../assets/downloads/base-superstructure-diagram.png?v=8aa7fa1d', 'Classical Marxism - Base and Superstructure.png'],
-       ['.structures-view', '../assets/downloads/cultural-materialism-diagram.png?v=50ac8a47', 'Cultural Materialism - Infrastructure-Structure-Superstructure (Diagram).png']].forEach(function (V) {
+      [['.marx-view', '../assets/downloads/base-superstructure-diagram.png?v=d5c06bc4', 'Classical Marxism - Base and Superstructure.png'],
+       ['.structures-view', '../assets/downloads/cultural-materialism-diagram.png?v=17228104', 'Cultural Materialism - Infrastructure-Structure-Superstructure (Diagram).png']].forEach(function (V) {
         var view = document.querySelector(V[0]);
         var fig = view.querySelector('.marx-figure');
         var link = view.querySelector('.model-save');

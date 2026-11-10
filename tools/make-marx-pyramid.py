@@ -27,8 +27,8 @@ def tier(y0, y1, band, c):
     return ''.join(out)
 def mid(y):           # the centre of the front face, on screen, at height y
     h = hw(y); return P(0, y, h)
-# the superstructure off white, the base black
-V = ('#efeadf', '#e2dccd', '#f8f5ee', '#d3ccbb'); G = ('#222226', '#18181b', '#46464c', '#0b0b0d')
+# the superstructure off white, the base dark grey (as Cultural Materialism's structure)
+V = ('#efeadf', '#e2dccd', '#f8f5ee', '#d3ccbb'); G = ('#4a4a51', '#3a3a40', '#6a6a72', '#2e2e33')
 B0, B1 = 0, 360; S0, S1 = 392, 780; BAND = 66
 svg = ['<svg class="marx-fig" viewBox="0 150 1200 900" role="img" aria-label="The base and the superstructure as two sections of a pyramid, the superstructure above: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">']
 # the relations: plain lines with open arrowheads, mirroring each other -
