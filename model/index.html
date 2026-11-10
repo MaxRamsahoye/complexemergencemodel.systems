@@ -1570,8 +1570,8 @@
       // steadily from the cosmostructure up to the superstructure; the two
       // agents above, small pyramid sections of their own
       if (!V1) {
-        var THICK = { cosmostructure: 44, ecostructure: 42, biostructure: 42, infrastructure: 48, interstructure: 48, substructure: 34, superstructure: 48 };
-        var yTop = 229, yFoot = 978 + 44, wTop = 70, wFoot = 296;
+        var THICK = { cosmostructure: 64, ecostructure: 60, biostructure: 60, infrastructure: 70, interstructure: 70, substructure: 50, superstructure: 70 };
+        var yTop = 229, yFoot = 978 + 64, wTop = 70, wFoot = 296;
         var prof = function (y) { return wTop + (y - yTop) * (wFoot - wTop) / (yFoot - yTop); };
         SLABS.forEach(function (s) {
           var h = THICK[s[0]];
@@ -1582,7 +1582,7 @@
           if (s[0] === 'substructure') { s[7] = wTop * 0.62; s[3] = wTop * 0.78; }
         });
         AGENTS.forEach(function (s) {
-          s[4] = s[4] + 14; s[7] = s[3] * 0.62;
+          s[4] = s[4] + 26; s[7] = s[3] * 0.62;
         });
       }
       // the macrostructure: a timeline beneath the stack, from the earliest
@@ -1610,7 +1610,7 @@
       var FIELDS = {};
       document.querySelectorAll('.md-list [data-key] span').forEach(function (sp) { FIELDS[sp.parentNode.dataset.key] = sp.textContent; });
       function label(key, side, y, x0, text) {
-        var lx = side === 'left' ? -170 : 1070;
+        var lx = side === 'left' ? (V1 ? -170 : -240) : (V1 ? 1070 : 1140);
         // the substructure indented beneath the superstructure, as in the list
         // the microstructure, likewise, indented with the mesostructure
         var tx = key === 'substructure' || key === 'microstructure' ? lx + (side === 'left' ? 32 : -32) : lx;
@@ -1663,7 +1663,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? '-480 -240 1630 1580' : '-480 -240 1860 1580'); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-480 -240 1700 1580') : (V1 ? '-480 -240 1860 1580' : '-480 -240 1930 1580')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
