@@ -610,8 +610,10 @@
       transition: fill 0.2s ease;
     }
 
+    /* (the name of the one selected in bold, as well as in the accent) */
     .md-label.on {
       fill: var(--link-blue);
+      font-weight: 600;
     }
 
     .md-label .md-field {
@@ -645,6 +647,7 @@
 
     .md-brace.on text {
       fill: var(--link-blue);
+      font-weight: 600;
     }
 
     .md-bracket path {
@@ -1017,6 +1020,13 @@
       .md-scene .md-svg {
         /* (its drawing then loses the empty margin on its right: 1630 by 1580) */
         width: min(calc(100% - 560px), 1080px, calc((100svh - 144px) * 0.774));
+      }
+
+      /* (v2 set further to the left, the column of text where it was) */
+      .md-scene .md-svg.md-v2 {
+        position: relative;
+        /* (by as much as the margin to its left allows) */
+        left: calc(-1 * clamp(0px, (100vw - 1300px) / 2, 64px));
       }
 
       /* v2 at 1.15 times the size */
@@ -1722,8 +1732,8 @@
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('second-nature', 715, 1015, 'Second Nature') +
             // and beneath it all, across the foot of the stack, complex emergence
             '<g class="md-brace md-brace-under" data-key="complex-emergence"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
-            '<text x="' + CX + '" y="1376" text-anchor="middle">Complex Emergence</text>' +
-            '<rect class="hit" x="' + (CX - 280) + '" y="1280" width="560" height="110"/></g>' +
+            '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergence</text>' +
+            '<rect class="hit" x="' + (CX - 280) + '" y="1280" width="560" height="125"/></g>' +
             bracket('nature', 1030, 1240, 'Nature') + inner('first-nature', 1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
         '<g class="md-rise">' + (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/><rect class="hit" x="-425" y="-4" width="50" height="54"/>'
@@ -1732,7 +1742,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -500 1830 1900') : (V1 ? '-480 -240 1860 1580' : '-680 -500 1830 1900')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -500 1830 1920') : (V1 ? '-480 -240 1860 1580' : '-680 -500 1830 1920')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
