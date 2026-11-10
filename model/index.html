@@ -1530,11 +1530,23 @@
       var NS = 'http://www.w3.org/2000/svg';
       var CX = 450;
       var P = function (a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); };
+      // v2 (the default): each structure a section of a pyramid, its top
+      // drawn in from its footprint; v1, the flat-sided slabs, kept as a
+      // backup and shown with ?v1 on the page's address
+      var V1 = /[?&]v1(\b|=|&|$)/.test(location.search);
       function slab(cy, w, h) {
         var q = w / 2;
-        return '<g><polygon class="l" points="' + P([[CX - w, cy], [CX, cy + q], [CX, cy + q + h], [CX - w, cy + h]]) + '"/>' +
-          '<polygon class="r" points="' + P([[CX, cy + q], [CX + w, cy], [CX + w, cy + h], [CX, cy + q + h]]) + '"/>' +
-          '<polygon class="t" points="' + P([[CX, cy - q], [CX + w, cy], [CX, cy + q], [CX - w, cy]]) + '"/></g>';
+        if (V1) {
+          return '<g><polygon class="l" points="' + P([[CX - w, cy], [CX, cy + q], [CX, cy + q + h], [CX - w, cy + h]]) + '"/>' +
+            '<polygon class="r" points="' + P([[CX, cy + q], [CX + w, cy], [CX + w, cy + h], [CX, cy + q + h]]) + '"/>' +
+            '<polygon class="t" points="' + P([[CX, cy - q], [CX + w, cy], [CX, cy + q], [CX - w, cy]]) + '"/></g>';
+        }
+        // (the top drawn in by more than twice the slab's thickness; the
+        // sides slope down to the full footprint)
+        var w1 = Math.max(w * 0.35, w - h * 2.4), q1 = w1 / 2;
+        return '<g><polygon class="l" points="' + P([[CX - w1, cy], [CX, cy + q1], [CX, cy + q + h], [CX - w, cy + h]]) + '"/>' +
+          '<polygon class="r" points="' + P([[CX, cy + q1], [CX + w1, cy], [CX + w, cy + h], [CX, cy + q + h]]) + '"/>' +
+          '<polygon class="t" points="' + P([[CX, cy - q1], [CX + w1, cy], [CX, cy + q1], [CX - w1, cy]]) + '"/></g>';
       }
       // each slab: key, class, centre height, half-width, thickness, label
       // side and label
