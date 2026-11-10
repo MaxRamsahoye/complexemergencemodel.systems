@@ -1570,8 +1570,8 @@
       // steadily from the cosmostructure up to the superstructure; the two
       // agents above, small pyramid sections of their own
       if (!V1) {
-        var THICK = { cosmostructure: 64, ecostructure: 60, biostructure: 60, infrastructure: 70, interstructure: 70, substructure: 50, superstructure: 70 };
-        var yTop = 229, yFoot = 978 + 64, wTop = 70, wFoot = 296;
+        var THICK = { cosmostructure: 88, ecostructure: 84, biostructure: 84, infrastructure: 54, interstructure: 54, substructure: 40, superstructure: 54 };
+        var yTop = 229, yFoot = 978 + 88, wTop = 70, wFoot = 296;
         var prof = function (y) { return wTop + (y - yTop) * (wFoot - wTop) / (yFoot - yTop); };
         SLABS.forEach(function (s) {
           var h = THICK[s[0]];
