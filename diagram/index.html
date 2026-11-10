@@ -2051,6 +2051,65 @@
       fill: var(--canvas-ink);
     }
 
+    /* the diagram's opening, as the stack's: a single gold section slides
+       in and parts into the base and the superstructure, which rises and
+       turns violet; then the writing comes in, then the lines and labels
+       (the class .play runs it; at rest the diagram is simply drawn) */
+    .marx-fig .mf-ghost {
+      visibility: hidden;
+    }
+
+    .marx-fig.play .mf-ghost {
+      visibility: visible;
+      animation: mf-slide 1s cubic-bezier(0.22, 1, 0.36, 1) both, mf-off 0s linear 1.15s forwards;
+    }
+
+    .marx-fig.play .mf-tier {
+      animation: mf-on 0s linear 1.15s both;
+    }
+
+    .marx-fig.play .mf-super {
+      animation: mf-on 0s linear 1.15s both, mf-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both;
+    }
+
+    .marx-fig.play .mf-super .f-top { animation: mf-gold-top 0.9s ease 1.15s both; }
+    .marx-fig.play .mf-super .f-side { animation: mf-gold-side 0.9s ease 1.15s both; }
+    .marx-fig.play .mf-super .f-body { animation: mf-gold-body 0.9s ease 1.15s both; }
+
+    .marx-fig.play .mf-words {
+      animation: mf-fade 0.6s ease 2.2s both;
+    }
+
+    .marx-fig.play .mf-around {
+      animation: mf-fade 0.7s ease 2.8s both;
+    }
+
+    @keyframes mf-slide {
+      from { transform: translateX(-320px); opacity: 0; }
+      30% { opacity: 1; }
+    }
+
+    @keyframes mf-off {
+      to { visibility: hidden; }
+    }
+
+    @keyframes mf-on {
+      from { visibility: hidden; }
+      to { visibility: visible; }
+    }
+
+    @keyframes mf-rise {
+      from { transform: translateY(32px); }
+    }
+
+    @keyframes mf-gold-top { from { fill: #e8bf4f; } }
+    @keyframes mf-gold-side { from { fill: #8f6d15; } }
+    @keyframes mf-gold-body { from { fill: #d9a520; } }
+
+    @keyframes mf-fade {
+      from { opacity: 0; }
+    }
+
     /* each model's download: its diagram as a picture */
     .model-save-row {
       margin: 0 0 28px;
@@ -3825,13 +3884,17 @@
       </div>
       <div class="marx-figure" hidden>
           <svg class="marx-fig" viewBox="0 150 1200 900" role="img" aria-label="The base and the superstructure as two sections of a pyramid, the superstructure above: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">
+          <g class="mf-around">
           <path class="mf-line" d="M399.0 272.9 H130 V775.7 H217.0"/>
           <path class="mf-line" d="M205.0 763.7 L217.0 775.7 L205.0 787.7"/>
           <path class="mf-line" d="M1019.8 775.7 H1070 V272.9 H816.6"/>
           <path class="mf-line" d="M828.6 260.9 L816.6 272.9 L828.6 284.9"/>
+          </g>
           <g transform="matrix(0.82 0 0 0.82 108.0 100.8)">
-          <polygon fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/>
-          <polygon fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/>
+          <g class="mf-ghost"><polygon class="f-side" fill="#8f6d15" points="944.0,990.2 1116.0,869.8 830.1,155.2 753.4,208.8"/><polygon class="f-top" fill="#e8bf4f" points="369.9,208.8 753.4,208.8 830.1,155.2 446.6,155.2"/><polygon class="f-body" fill="#d9a520" points="84.0,990.2 944.0,990.2 753.4,208.8 369.9,208.8"/></g>
+          <g class="mf-tier mf-base"><polygon class="f-side" fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon class="f-top" fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon class="f-body" fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/></g>
+          <g class="mf-tier mf-super"><polygon class="f-side" fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon class="f-top" fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon class="f-body" fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/></g>
+          <g class="mf-words">
           <text class="mf-title" x="558.7" y="272.9" text-anchor="middle">Superstructure</text>
           <text class="mf-head" x="554.4" y="327.9" text-anchor="middle" fill="#fbf6ec">Everything not directly to do</text>
           <text class="mf-head" x="553.0" y="350.9" text-anchor="middle" fill="#fbf6ec">with production</text>
@@ -3852,11 +3915,12 @@
           <text class="mf-head" x="522.4" y="852.3" text-anchor="middle" fill="#fbf6ec">Relations of production</text>
           <text class="mf-item" x="520.4" y="885.7" text-anchor="middle" fill="#fbf6ec">Proletariat, labour aristocracy, bourgeoisie</text>
           <text class="mf-item" x="516.9" y="942.1" text-anchor="middle" fill="#fbf6ec">Private property, capital, commodities, etc.</text>
-          </g>
+          </g></g>
+          <g class="mf-around">
           <text class="mf-rel" x="152" y="485.1">Maintains</text><text class="mf-rel-sub" x="152" y="511.1">(and shapes)</text>
           <text class="mf-rel" x="1048" y="485.1" text-anchor="end">Shapes</text><text class="mf-rel-sub" x="1048" y="511.1" text-anchor="end">(and maintains)</text>
           <text class="mf-note" x="600" y="976.8" text-anchor="middle">This moves in a spiral pattern.</text><text class="mf-note" x="600" y="1008.8" text-anchor="middle">The base is generally dominant.</text>
-          </svg>
+          </g></svg>
       </div>
     </section>
 
@@ -4965,6 +5029,14 @@
             view.querySelectorAll('.model-modes button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
             view.classList.toggle('as-diagram', mode === 'diagram');
             fig.hidden = mode !== 'diagram';
+            // the diagram plays its opening each time it is shown (not for
+            // those who prefer less motion)
+            var svgFig = fig.querySelector('.marx-fig');
+            svgFig.classList.remove('play');
+            if (mode === 'diagram' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              void svgFig.getBoundingClientRect();
+              svgFig.classList.add('play');
+            }
             link.setAttribute('href', files[mode][0]);
             link.setAttribute('download', files[mode][1]);
           });

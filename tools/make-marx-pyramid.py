@@ -21,9 +21,9 @@ def tier(y0, y1, band, c):
     yb = y1 - band; hb = hw(yb)
     out = []
     # the right side, then the top, then the front (the face with the text)
-    out.append('<polygon fill="%s" points="%s"/>' % (side, pts((h0, y0, h0), (h0, y0, -h0), (h1, y1, -h1), (h1, y1, h1))))
-    out.append('<polygon fill="%s" points="%s"/>' % (top, pts((-h1, y1, h1), (h1, y1, h1), (h1, y1, -h1), (-h1, y1, -h1))))
-    out.append('<polygon fill="%s" points="%s"/>' % (body, pts((-h0, y0, h0), (h0, y0, h0), (h1, y1, h1), (-h1, y1, h1))))
+    out.append('<polygon class="f-side" fill="%s" points="%s"/>' % (side, pts((h0, y0, h0), (h0, y0, -h0), (h1, y1, -h1), (h1, y1, h1))))
+    out.append('<polygon class="f-top" fill="%s" points="%s"/>' % (top, pts((-h1, y1, h1), (h1, y1, h1), (h1, y1, -h1), (-h1, y1, -h1))))
+    out.append('<polygon class="f-body" fill="%s" points="%s"/>' % (body, pts((-h0, y0, h0), (h0, y0, h0), (h1, y1, h1), (-h1, y1, h1))))
     return ''.join(out)
 def mid(y):           # the centre of the front face, on screen, at height y
     h = hw(y); return P(0, y, h)
@@ -41,6 +41,7 @@ def right_at(Y):      # the point on the back-right edge at screen height Y
 YA = P(0, S1 - BAND / 2, hw(S1 - BAND / 2))[1]
 YB = P(0, (B0 + B1) / 2 - 20, hw((B0 + B1) / 2 - 20))[1]
 L, R = 130, 1070
+svg.append('<g class="mf-around">')
 a, b = S(left_at(YA)), S(left_at(YB))
 YA0, YB0 = YA, YB
 YA, YB = S((0, YA0))[1], S((0, YB0))[1]
@@ -49,9 +50,14 @@ svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (b[0
 c, d = S(right_at(YB0)), S(right_at(YA0))
 svg.append('<path class="mf-line" d="M%.1f %.1f H%d V%.1f H%.1f"/>' % (c[0] + 12, YB, R, YA, d[0] + 10))
 svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (d[0] + 22, YA - 12, d[0] + 10, YA, d[0] + 22, YA + 12))
+svg.append('</g>')
 svg.append('<g transform="matrix(%g 0 0 %g %.1f %.1f)">' % (K, K, PIV[0] * (1 - K), PIV[1] * (1 - K)))
-svg.append(tier(B0, B1, BAND, G))
-svg.append(tier(S0, S1, BAND, V))
+# (for the opening: a single section, the whole of the two without the gap
+# between them, that slides in and then parts into them)
+svg.append('<g class="mf-ghost">' + tier(B0, S1 - (S0 - B1), BAND, G) + '</g>')
+svg.append('<g class="mf-tier mf-base">' + tier(B0, B1, BAND, G) + '</g>')
+svg.append('<g class="mf-tier mf-super">' + tier(S0, S1, BAND, V) + '</g>')
+svg.append('<g class="mf-words">')
 def text(cls, y, s, fill=None, dx=0, anchor='middle', dy=0):
     x, yy = mid(y)
     f = (' fill="%s"' % fill) if fill else ''
@@ -78,7 +84,8 @@ for (yy, cls, t) in [(B1 - DB - BAND - 38, 'mf-head', 'Means of production'), (B
     svg.append(text(cls, yy, t, INK))
 # the labels by the lines
 # (each label beside its line, in the gap between the two sections)
-svg.append('</g>')
+svg.append('</g></g>')
+svg.append('<g class="mf-around">')
 gy = S(P(0, (B1 + S0) / 2, 0))[1]
 svg.append('<text class="mf-rel" x="%d" y="%.1f">Maintains</text><text class="mf-rel-sub" x="%d" y="%.1f">(and shapes)</text>' % (L + 22, gy - 70, L + 22, gy - 44))
 svg.append('<text class="mf-rel" x="%d" y="%.1f" text-anchor="end">Shapes</text><text class="mf-rel-sub" x="%d" y="%.1f" text-anchor="end">(and maintains)</text>' % (R - 22, gy - 70, R - 22, gy - 44))
@@ -86,7 +93,7 @@ bot = S(P(0, 0, A))[1]
 svg.append('<text class="mf-note" x="600" y="%.1f" text-anchor="middle">This moves in a spiral pattern.</text><text class="mf-note" x="600" y="%.1f" text-anchor="middle">The base is generally dominant.</text>' % (bot + 64, bot + 96))
 top = P(0, S1, -hw(S1))[1]
 print('top', top, 'caption', bot + 96)
-svg.append('</svg>')
+svg.append('</g></svg>')
 new = ('\n' + ' ' * 10).join(svg)
 s, n = re.subn(r'<svg class="marx-fig".*?</svg>', lambda m: new, s, flags=re.S)
 assert n == 1
