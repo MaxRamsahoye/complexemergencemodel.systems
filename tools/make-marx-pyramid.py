@@ -27,7 +27,8 @@ def tier(y0, y1, band, c):
     return ''.join(out)
 def mid(y):           # the centre of the front face, on screen, at height y
     h = hw(y); return P(0, y, h)
-V = ('#6a3fc4', '#4f2d9c', '#8a66d8', '#37206f'); G = ('#d9a520', '#a87d12', '#e8bf4f', '#8f6d15')
+# the superstructure off white, the base black
+V = ('#efeadf', '#e2dccd', '#f8f5ee', '#d3ccbb'); G = ('#222226', '#18181b', '#46464c', '#0b0b0d')
 B0, B1 = 0, 360; S0, S1 = 392, 780; BAND = 66
 svg = ['<svg class="marx-fig" viewBox="0 150 1200 900" role="img" aria-label="The base and the superstructure as two sections of a pyramid, the superstructure above: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">']
 # the relations: plain lines with open arrowheads, mirroring each other -
@@ -59,20 +60,20 @@ def text(cls, y, s, fill=None, dx=0, anchor='middle', dy=0):
     x, yy = mid(y)
     f = (' fill="%s"' % fill) if fill else ''
     return '<text class="%s" x="%.1f" y="%.1f" text-anchor="%s"%s>%s</text>' % (cls, x + dx, yy + dy, anchor, f, s)
-W = '#fbf6ec'; INK = W
+D = '#1d1b22'; W = '#fbf6ec'; INK = W
 # (the writing set lower on each face, centred in it top to bottom)
 DS, DB = 46, 40
 # the superstructure's face
-svg.append(text('mf-title', S1 - DS - BAND / 2, 'Superstructure', dy=15))
-svg.append(text('mf-head', S1 - DS - BAND - 34, 'Everything not directly to do', W))
-svg.append(text('mf-head', S1 - DS - BAND - 56, 'with production', W))
+svg.append(text('mf-title mf-dark', S1 - DS - BAND / 2, 'Superstructure', dy=15))
+svg.append(text('mf-head', S1 - DS - BAND - 34, 'Everything not directly to do', D))
+svg.append(text('mf-head', S1 - DS - BAND - 56, 'with production', D))
 for i, w in enumerate(['Art', 'Family', 'Culture', 'Religion', 'Philosophy']):
     yy = S1 - DS - BAND - 100 - i * 29
-    svg.append(text('mf-item', yy, w, W, dx=-hw(yy) * 0.55))
+    svg.append(text('mf-item', yy, w, D, dx=-hw(yy) * 0.55))
 for i, w in enumerate(['Law', 'Media', 'Politics', 'Science', 'Education']):
     yy = S1 - DS - BAND - 100 - i * 29
-    svg.append(text('mf-item', yy, w, W, dx=hw(yy) * 0.55))
-svg.append(text('mf-key', S1 - DS - BAND - 166, 'Ideology', W))
+    svg.append(text('mf-item', yy, w, D, dx=hw(yy) * 0.55))
+svg.append(text('mf-key', S1 - DS - BAND - 166, 'Ideology', D))
 # the base's face
 svg.append(text('mf-title', B1 - DB - BAND / 2, 'Base', dy=15))
 for (yy, cls, t) in [(B1 - DB - BAND - 38, 'mf-head', 'Means of production'), (B1 - DB - BAND - 70, 'mf-item', 'Tools, machines, factories, land, raw materials'),
