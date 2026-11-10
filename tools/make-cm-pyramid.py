@@ -69,9 +69,11 @@ for (y1, name, aka, lines, dark) in [
 svg.append('</g></g>')
 svg.append('<g class="mf-around">')
 # (each label outside its pair of lines, level with the middle of the line)
-for (ylo, yhi) in PAIRS:
+# (the structure organises the infrastructure; the superstructure
+# legitimises the structure)
+for (ylo, yhi), back in zip(PAIRS, ['(and organises)', '(and legitimises)']):
     gy = (lvl(ylo) + lvl(yhi)) / 2
-    svg.append('<text class="mf-rel" x="%d" y="%.1f" text-anchor="end">Feeds back</text><text class="mf-rel-sub" x="%d" y="%.1f" text-anchor="end">(and legitimises)</text>' % (L - 22, gy - 4, L - 22, gy + 22))
+    svg.append('<text class="mf-rel" x="%d" y="%.1f" text-anchor="end">Feeds back</text><text class="mf-rel-sub" x="%d" y="%.1f" text-anchor="end">%s</text>' % (L - 22, gy - 4, L - 22, gy + 22, back))
     svg.append('<text class="mf-rel" x="%d" y="%.1f">Shapes</text><text class="mf-rel-sub" x="%d" y="%.1f">(and constrains)</text>' % (R + 22, gy - 4, R + 22, gy + 22))
 bot = S(P(0, 0, A))[1]
 svg.append('<text class="mf-note" x="600" y="%.1f" text-anchor="middle">The infrastructure is primary.</text><text class="mf-note" x="600" y="%.1f" text-anchor="middle">Change begins at the base and works upwards.</text>' % (bot + 64, bot + 96))
