@@ -1907,27 +1907,28 @@
     /* Base-Superstructure's slabs as sections of a pyramid: each top drawn
        in by --tp on every side, and the front and side sloping down to the
        full footprint (the faces tilted and cut to trapezoids) */
-    .marx-view .st-block:not(.st-ghost) {
-      --tp: 40px;
+    .marx-view .st-block {
+      /* (one slope for every slab, the first that slides in included) */
+      --tp: calc(var(--h) * 0.77);
       --slope: hypot(var(--h), var(--tp));
       --tilt: atan2(var(--h), var(--tp));
     }
 
-    .marx-view .st-block:not(.st-ghost) > .st-top {
+    .marx-view .st-block > .st-top {
       left: var(--tp) !important;
       top: var(--tp) !important;
       width: calc(var(--w) - 2 * var(--tp));
       height: calc(var(--d) - 2 * var(--tp));
     }
 
-    .marx-view .st-block:not(.st-ghost) > .st-front {
+    .marx-view .st-block > .st-front {
       top: calc(var(--d) - var(--tp)) !important;
       height: var(--slope);
       transform: translateZ(var(--h)) rotateX(calc(-1 * var(--tilt)));
       clip-path: polygon(var(--tp) 0, calc(100% - var(--tp)) 0, 100% 100%, 0 100%);
     }
 
-    .marx-view .st-block:not(.st-ghost) > .st-side {
+    .marx-view .st-block > .st-side {
       left: calc(var(--w) - var(--tp)) !important;
       width: var(--slope);
       transform: translateZ(var(--h)) rotateY(var(--tilt));
