@@ -673,7 +673,11 @@
       stroke: var(--link-blue);
     }
 
-    .md-bracket :is(.md-brace-inner, .md-brace-under) text {
+    .md-bracket .md-brace-under text {
+      font-size: 32px;
+    }
+
+    .md-bracket .md-brace-inner text {
       font-size: 27px;
     }
 
@@ -892,11 +896,11 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 1165px, calc((100svh - 144px) * 0.883));
+      width: min(75%, 1165px, calc((100svh - 144px) * 0.923));
     }
 
     .md-scene .md-svg.md-v2 {
-      width: min(100%, 1600px, calc((100svh - 144px) * 0.888));
+      width: min(100%, 1600px, calc((100svh - 144px) * 0.928));
     }
 
     @media (max-width: 900px) {
@@ -1694,7 +1698,7 @@
       // each can be pointed to and clicked, as the structures can
       function bracket(key, y0, y1, text) {
         // (v2: further out, clear of the brackets within)
-        var x = V1 ? -400 : -530, m = (y0 + y1) / 2;
+        var x = V1 ? -400 : -600, m = (y0 + y1) / 2;
         return '<g class="md-brace" data-key="' + key + '"><path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
           '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>' +
           '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
@@ -1703,7 +1707,7 @@
       // description of its own; second and first nature meet, one line
       // divided where they join)
       function inner(key, y0, y1, text) {
-        var x = -350, m = (y0 + y1) / 2;
+        var x = -390, m = (y0 + y1) / 2;
         return '<g class="md-brace md-brace-inner" data-key="' + key + '"><path d="M' + (x + 40) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 40) + '"/>' +
           '<text x="' + (x - 26) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 26) + ' ' + m + ')">' + text + '</text>' +
           '<rect class="hit" x="' + (x - 46) + '" y="' + y0 + '" width="86" height="' + (y1 - y0) + '"/></g>';
@@ -1722,12 +1726,12 @@
             bracket('nature', 1030, 1240, 'Nature') + inner('first-nature', 1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
         '<g class="md-rise">' + (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/><rect class="hit" x="-425" y="-4" width="50" height="54"/>'
-          : '<path class="rise" d="M-530 46V-220M-538 -208L-530 -220L-522 -208"/><rect class="hit" x="-555" y="-224" width="50" height="274"/>') + '</g></g>';
+          : '<path class="rise" d="M-600 46V-220M-608 -208L-600 -220L-592 -208"/><rect class="hit" x="-625" y="-224" width="50" height="274"/>') + '</g></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-600 -500 1750 1900') : (V1 ? '-480 -240 1860 1580' : '-600 -500 1750 1900')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -500 1830 1900') : (V1 ? '-480 -240 1860 1580' : '-680 -500 1830 1900')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
