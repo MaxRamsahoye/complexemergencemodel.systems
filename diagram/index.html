@@ -1908,7 +1908,7 @@
     /* Cultural Materialism's slabs are sections of a pyramid too, a little
        steeper (each drawn in by half the step between them) */
     .structures-view .st-block {
-      --taper: 0.83;
+      --taper: 0.55;
     }
 
     /* (its first slab, which slides in and splits, in the infrastructure's
@@ -3844,7 +3844,7 @@
     </section>
 
     <section class="structures-view" aria-label="Cultural Materialism: Infrastructure-Structure-Superstructure">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=700a56d9" download="Cultural Materialism - Infrastructure-Structure-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=d8917dfa" download="Cultural Materialism - Infrastructure-Structure-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -4494,7 +4494,7 @@
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
               '<p class="st-detail-def">' + L.def + '</p>'
           };
-        }), { SIZE: 312, H: 45, TRIM: 75, STEP: 700, prelude: { n: structuresFromStack ? 4 : 1, SIZE: 312, H: 55, TRIM: 38, STEP: 520, taper: 0.83 } });
+        }), { SIZE: 312, H: 72, TRIM: 75, STEP: 700, prelude: { n: structuresFromStack ? 4 : 1, SIZE: 312, H: 55, TRIM: 38, STEP: 520, taper: 0.55 } });
       }
       // the alternative view of the structures: the three layers, one above
       // the other, and how each acts on its neighbour
@@ -5653,15 +5653,16 @@
           g += fr(GOLD, 104, 160, 22, 24) + fr(VIOLET, 66, 112, 22, 24);
         }
         if (key === 'complex') {
-          // the stack: the ecostructure and biostructure beneath, the core
-          // on them, the axis of the metastructure through them all
-          // (the cosmostructure, ecostructure and biostructure beneath, then
-          // the infrastructure, interstructure and superstructure, in the
-          // colours of the Complex Emergence Model page)
-          [['#3b55a0', 154, 130, 7], ['#3f9e55', 132, 115, 7], ['#c2526b', 110, 101, 7], [MIDNIGHT, 70, 80, 10], [GOLD, 70, 61, 10], [VIOLET, 70, 42, 10]].forEach(function (k) {
-            g += cemSlab(k[0], 150, k[2], k[1], k[3]);
-          });
-          g += '<path class="ln" stroke-dasharray="2 4" d="M150 18V24"/><circle cx="150" cy="13" r="5" fill="none" stroke="var(--muted)" stroke-width="1.2"/>';
+          // the stack, the axis of the metastructure above it
+          // (v2: each a section of a pyramid - the black cosmostructure,
+          // the ecostructure and biostructure narrowing above it, then the
+          // core of infrastructure, interstructure, substructure and
+          // superstructure, narrowing again; colours as on the CEM page)
+          var cfr = function (c, y, w, h, t) { return '<g style="--top:color-mix(in srgb, ' + c + ' 85%, #fff);--left:' + c + ';--right:color-mix(in srgb, ' + c + ' 64%, #000)">' + ovFrustum(150, y, w, h, t) + '</g>'; };
+          g += '<g style="--top:#46464c;--left:#222226;--right:#0b0b0d">' + ovFrustum(150, 130, 116, 14, 7) + '</g>';
+          g += cfr('#3f9e55', 116, 98, 14, 7) + cfr('#c2526b', 102, 80, 14, 7);
+          g += cfr(MIDNIGHT, 68, 58, 12, 2) + cfr(GOLD, 52, 50, 12, 2) + cfr('#c2526b', 42, 26, 6, 2) + cfr(VIOLET, 22, 40, 9, 3);
+          g += '<path class="ln" stroke-dasharray="2 3" d="M150 15V20"/><circle cx="150" cy="9" r="4.5" fill="none" stroke="var(--muted)" stroke-width="1.2"/>';
         }
         if (key === 'exoendo') {
           // human agency at the centre, the membrane around it, and the
