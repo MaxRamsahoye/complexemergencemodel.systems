@@ -1697,11 +1697,12 @@
       // structures (the metastructure's feedback down to the timeline)
       // each can be pointed to and clicked, as the structures can
       function bracket(key, y0, y1, text) {
-        // (v2: further out, clear of the brackets within)
-        var x = V1 ? -400 : -600, m = (y0 + y1) / 2;
+        // (v2: further out, clear of the brackets within, and its name
+        // further from its line)
+        var x = V1 ? -400 : -600, m = (y0 + y1) / 2, tx = x - (V1 ? 36 : 50);
         return '<g class="md-brace" data-key="' + key + '"><path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
-          '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>' +
-          '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
+          '<text x="' + tx + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + tx + ' ' + m + ')">' + text + '</text>' +
+          '<rect class="hit" x="' + (tx - 30) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
       }
       // (a bracket within one, nearer the stack and smaller, with no
       // description of its own; second and first nature meet, one line
@@ -1709,8 +1710,8 @@
       function inner(key, y0, y1, text) {
         var x = -390, m = (y0 + y1) / 2;
         return '<g class="md-brace md-brace-inner" data-key="' + key + '"><path d="M' + (x + 40) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 40) + '"/>' +
-          '<text x="' + (x - 26) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 26) + ' ' + m + ')">' + text + '</text>' +
-          '<rect class="hit" x="' + (x - 46) + '" y="' + y0 + '" width="86" height="' + (y1 - y0) + '"/></g>';
+          '<text x="' + (x - 38) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 38) + ' ' + m + ')">' + text + '</text>' +
+          '<rect class="hit" x="' + (x - 58) + '" y="' + y0 + '" width="98" height="' + (y1 - y0) + '"/></g>';
       }
       // v2: the civilisational structures down to the ecostructure, second
       // nature (the biostructure and ecostructure) within them; nature, first
