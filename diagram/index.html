@@ -2151,6 +2151,37 @@
       margin: 0 0 28px;
     }
 
+    /* the view's toggle above its download, and the toggle itself upright */
+    .model-save-row.model-save-modes {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .model-save-modes .model-modes {
+      flex-direction: column;
+      border-radius: 18px;
+    }
+
+    .model-save-modes .model-modes button {
+      text-align: left;
+    }
+
+    /* where the margin to the left has room (as the list of models), the
+       download and toggle stand in it, beside the top of the diagram */
+    @media (min-width: 1440px) {
+      section:has(> .model-save-row) {
+        position: relative;
+      }
+
+      .model-save-row {
+        position: absolute;
+        top: 0;
+        left: calc((var(--wide-col) - 100vw) / 2 + 24px);
+        margin: 0;
+      }
+    }
+
     .model-save {
       display: inline-flex;
       align-items: center;
