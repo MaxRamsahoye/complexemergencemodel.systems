@@ -1840,7 +1840,10 @@
       // structure lights in turn from the base of the stack to the axis at
       // its top, each with a note a step higher, and then the first
       // selection returns
-      var RUN = ['cosmostructure', 'ecostructure', 'biostructure', 'infrastructure', 'interstructure', 'substructure', 'superstructure', 'metastructure', 'mesostructure', 'microstructure'];
+      // (the macrostructure in its place: v2, above the metastructure; v1,
+      // its timeline beneath the stack, first)
+      var RUN = V1 ? ['macrostructure', 'cosmostructure', 'ecostructure', 'biostructure', 'infrastructure', 'interstructure', 'substructure', 'superstructure', 'metastructure', 'mesostructure', 'microstructure']
+        : ['cosmostructure', 'ecostructure', 'biostructure', 'infrastructure', 'interstructure', 'substructure', 'superstructure', 'metastructure', 'macrostructure', 'mesostructure', 'microstructure'];
       function settle() { ready = true; figure.classList.add('ready'); show(locked); }
       show('');
       var started = false;
