@@ -1815,32 +1815,6 @@
       100% { translate: 0 0 0; }
     }
 
-    /* Base-Superstructure: the superstructure does not slide in but comes
-       in hovering up into place over the base, fading in as it rises (its
-       faces fade, not the slab, which would flatten it) */
-    .marx-view .st-stack.building .st-block[data-key="super"] {
-      animation: st-hover-in 2s cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
-    }
-
-    .marx-view .st-stack.building .st-block[data-key="super"] > span {
-      animation: st-face-in 1.8s ease-in-out var(--delay) both;
-    }
-
-    @keyframes st-hover-in {
-      from {
-        visibility: visible;
-        transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float) - 16px));
-      }
-      to {
-        visibility: visible;
-        transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float)));
-      }
-    }
-
-    @keyframes st-face-in {
-      from { opacity: 0; }
-    }
-
     @keyframes st-in {
       from {
         visibility: visible;
@@ -5022,7 +4996,7 @@
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
               '<p class="st-detail-def">' + L.def + '</p>'
           };
-        }), { SIZE: 312, H: 65, TRIM: 100, STEP: 700 });
+        }), { SIZE: 312, H: 65, TRIM: 100, STEP: 700, prelude: { n: 1, SIZE: 312, H: 55, TRIM: 30, STEP: 520, taper: 0.77 } });
       }
       // the two layers, one above the other, and how each acts on the other
       // Base-Superstructure: the stack, or the diagram (and the download
