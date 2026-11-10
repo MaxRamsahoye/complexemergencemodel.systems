@@ -53,7 +53,12 @@ svg.append('<path class="mf-line" d="M%.1f %.1f L%.1f %.1f L%.1f %.1f"/>' % (d[0
 svg.append('</g>')
 svg.append('<g transform="matrix(%g 0 0 %g %.1f %.1f)">' % (K, K, PIV[0] * (1 - K), PIV[1] * (1 - K)))
 svg.append('<g class="mf-tier mf-base">' + tier(B0, B1, BAND, G) + '</g>')
-svg.append('<g class="mf-tier mf-super">' + tier(S0, S1, BAND, V) + '</g>')
+# the superstructure seen only above the base's top edges, so that, rising
+# from below, it comes up out of the base
+h1 = hw(B1); FL, FR, BR = P(-h1, B1, h1), P(h1, B1, h1), P(h1, B1, -h1)
+clip = [(-2000, FL[1]), FL, FR, BR, (3000, BR[1]), (3000, -2000), (-2000, -2000)]
+svg.append('<clipPath id="mf-above-base"><polygon points="%s"/></clipPath>' % ' '.join('%.1f,%.1f' % q for q in clip))
+svg.append('<g clip-path="url(#mf-above-base)"><g class="mf-tier mf-super" style="--mf-sink: 480px">' + tier(S0, S1, BAND, V) + '</g></g>')
 svg.append('<g class="mf-words">')
 def text(cls, y, s, fill=None, dx=0, anchor='middle', dy=0):
     x, yy = mid(y)
