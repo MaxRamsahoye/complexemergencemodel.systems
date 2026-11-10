@@ -1969,7 +1969,7 @@
 
     .marx-fig .mf-head {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -1991,15 +1991,27 @@
       font-weight: 600;
     }
 
+    /* the relations: plain lines with open arrowheads, as the brackets on
+       the Complex Emergence Model are drawn, and their labels in the sans */
+    .marx-fig .mf-line {
+      fill: none;
+      stroke: color-mix(in srgb, var(--canvas-ink) 55%, transparent);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .marx-fig .mf-rel {
-      font-family: var(--serif);
-      font-size: 34px;
-      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      fill: var(--canvas-ink);
     }
 
     .marx-fig .mf-rel-sub {
-      font-family: var(--serif);
-      font-size: 22px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 17px;
+      fill: var(--canvas-ink);
     }
 
     .marx-fig .mf-note {
@@ -3769,25 +3781,24 @@
       </div>
       <div class="marx-figure" hidden>
           <svg class="marx-fig" viewBox="0 0 1200 1160" role="img" aria-label="The base and the superstructure: the superstructure, everything not directly to do with production, maintains (and shapes) the base; the base, the means and relations of production, shapes (and maintains) the superstructure; this moves in a spiral pattern, and the base is generally dominant">
-          <g transform="translate(9 -7)"><path d="M330 230 C 200 230, 140 290, 140 420 L140 760 C140 880, 200 905, 290 905" fill="none" stroke="#37206f" stroke-width="30" stroke-linecap="round"/><path d="M286 868 L332 905 L286 942 Z" fill="#37206f"/></g>
-          <path d="M330 230 C 200 230, 140 290, 140 420 L140 760 C140 880, 200 905, 290 905" fill="none" stroke="#6a3fc4" stroke-width="30" stroke-linecap="round"/><path d="M286 868 L332 905 L286 942 Z" fill="#6a3fc4"/>
-          <g transform="translate(9 -7)"><path d="M906 875 C 1010 875, 1070 830, 1070 720 L1070 440 C1070 350, 1010 325, 950 325" fill="none" stroke="#8f6d15" stroke-width="30" stroke-linecap="round"/><path d="M952 288 L906 325 L952 362 Z" fill="#8f6d15"/></g>
-          <path d="M906 875 C 1010 875, 1070 830, 1070 720 L1070 440 C1070 350, 1010 325, 950 325" fill="none" stroke="#d9a520" stroke-width="30" stroke-linecap="round"/><path d="M952 288 L906 325 L952 362 Z" fill="#d9a520"/>
-          <polygon fill="#8a66d8" points="330,150 366,122 906,122 870,150"/><polygon fill="#37206f" points="870,150 906,122 906,452 870,480"/><rect fill="#6a3fc4" x="330" y="150" width="540" height="330"/><rect fill="#4f2d9c" x="330" y="150" width="540" height="74"/>
-          <polygon fill="#e8bf4f" points="330,640 366,612 906,612 870,640"/><polygon fill="#8f6d15" points="870,640 906,612 906,972 870,1000"/><rect fill="#d9a520" x="330" y="640" width="540" height="360"/><rect fill="#a87d12" x="330" y="640" width="540" height="74"/>
+          <path class="mf-line" d="M377 240 H150 V905 H240"/><path class="mf-line" d="M228 893 L240 905 L228 917"/>
+          <path class="mf-line" d="M994 880 H1062 V320 H861"/><path class="mf-line" d="M873 308 L861 320 L873 332"/>
+          <polygon fill="#8a66d8" points="385,150 421,122 851,122 815,150"/><polygon fill="#37206f" points="815,150 851,122 851,452 815,480"/><rect fill="#6a3fc4" x="385" y="150" width="430" height="330"/><rect fill="#4f2d9c" x="385" y="150" width="430" height="74"/>
+          <polygon fill="#e8bf4f" points="250,640 286,612 986,612 950,640"/><polygon fill="#8f6d15" points="950,640 986,612 986,972 950,1000"/><rect fill="#d9a520" x="250" y="640" width="700" height="360"/><rect fill="#a87d12" x="250" y="640" width="700" height="74"/>
           <text class="mf-title" x="600" y="202" text-anchor="middle">Superstructure</text>
-          <text class="mf-head" x="600" y="268" text-anchor="middle" fill="#fbf6ec">Everything not directly to do with production</text>
-          <text class="mf-item" x="445" y="318" text-anchor="middle" fill="#fbf6ec">Art</text>
-          <text class="mf-item" x="445" y="350" text-anchor="middle" fill="#fbf6ec">Family</text>
-          <text class="mf-item" x="445" y="382" text-anchor="middle" fill="#fbf6ec">Culture</text>
-          <text class="mf-item" x="445" y="414" text-anchor="middle" fill="#fbf6ec">Religion</text>
-          <text class="mf-item" x="445" y="446" text-anchor="middle" fill="#fbf6ec">Philosophy</text>
-          <text class="mf-item" x="755" y="318" text-anchor="middle" fill="#fbf6ec">Law</text>
-          <text class="mf-item" x="755" y="350" text-anchor="middle" fill="#fbf6ec">Media</text>
-          <text class="mf-item" x="755" y="382" text-anchor="middle" fill="#fbf6ec">Politics</text>
-          <text class="mf-item" x="755" y="414" text-anchor="middle" fill="#fbf6ec">Science</text>
-          <text class="mf-item" x="755" y="446" text-anchor="middle" fill="#fbf6ec">Education</text>
-          <text class="mf-key" x="600" y="390" text-anchor="middle" fill="#fbf6ec">Ideology</text>
+          <text class="mf-head" x="600" y="266" text-anchor="middle" fill="#fbf6ec">Everything not directly to do</text>
+          <text class="mf-head" x="600" y="288" text-anchor="middle" fill="#fbf6ec">with production</text>
+          <text class="mf-item" x="467" y="330" text-anchor="middle" fill="#fbf6ec">Art</text>
+          <text class="mf-item" x="467" y="360" text-anchor="middle" fill="#fbf6ec">Family</text>
+          <text class="mf-item" x="467" y="390" text-anchor="middle" fill="#fbf6ec">Culture</text>
+          <text class="mf-item" x="467" y="420" text-anchor="middle" fill="#fbf6ec">Religion</text>
+          <text class="mf-item" x="467" y="450" text-anchor="middle" fill="#fbf6ec">Philosophy</text>
+          <text class="mf-item" x="733" y="330" text-anchor="middle" fill="#fbf6ec">Law</text>
+          <text class="mf-item" x="733" y="360" text-anchor="middle" fill="#fbf6ec">Media</text>
+          <text class="mf-item" x="733" y="390" text-anchor="middle" fill="#fbf6ec">Politics</text>
+          <text class="mf-item" x="733" y="420" text-anchor="middle" fill="#fbf6ec">Science</text>
+          <text class="mf-item" x="733" y="450" text-anchor="middle" fill="#fbf6ec">Education</text>
+          <text class="mf-key" x="600" y="400" text-anchor="middle" fill="#fbf6ec">Ideology</text>
           <text class="mf-title" x="600" y="692" text-anchor="middle">Base</text>
           <text class="mf-head" x="600" y="756" text-anchor="middle" fill="#1d1135">Means of production</text>
           <text class="mf-item" x="600" y="790" text-anchor="middle" fill="#1d1135">Tools, machines, factories, land, raw materials</text>
@@ -3795,8 +3806,8 @@
           <text class="mf-item" x="600" y="878" text-anchor="middle" fill="#1d1135">Lumpenproletariat, proletariat, labour aristocracy,</text>
           <text class="mf-item" x="600" y="908" text-anchor="middle" fill="#1d1135">petty bourgeoisie, bourgeoisie</text>
           <text class="mf-item mf-em" x="600" y="962" text-anchor="middle" fill="#1d1135">Private property, capital, commodities, etc.</text>
-          <text class="mf-rel" x="238" y="548" text-anchor="middle" fill="#6a3fc4">Maintains</text><text class="mf-rel-sub" x="238" y="580" text-anchor="middle" fill="#6a3fc4">(and shapes)</text>
-          <text class="mf-rel" x="968" y="548" text-anchor="middle" fill="#b8860b">Shapes</text><text class="mf-rel-sub" x="968" y="578" text-anchor="middle" fill="#b8860b">(and maintains)</text>
+          <text class="mf-rel" x="182" y="560" text-anchor="start">Maintains</text><text class="mf-rel-sub" x="182" y="586" text-anchor="start">(and shapes)</text>
+          <text class="mf-rel" x="1030" y="560" text-anchor="end">Shapes</text><text class="mf-rel-sub" x="1030" y="586" text-anchor="end">(and maintains)</text>
           <text class="mf-note" x="600" y="1088" text-anchor="middle">This moves in a spiral pattern.</text><text class="mf-note" x="600" y="1128" text-anchor="middle">The base is generally dominant.</text>
           </svg>
       </div>
@@ -4895,7 +4906,7 @@
         var link = view.querySelector('.model-save');
         var files = {
           stack: [link.getAttribute('href'), link.getAttribute('download')],
-          diagram: ['../assets/downloads/base-superstructure-diagram.png?v=bfb77399', 'Classical Marxism - Base and Superstructure.png']
+          diagram: ['../assets/downloads/base-superstructure-diagram.png?v=bc0899c2', 'Classical Marxism - Base and Superstructure.png']
         };
         view.querySelectorAll('.model-modes button').forEach(function (b) {
           b.addEventListener('click', function () {
