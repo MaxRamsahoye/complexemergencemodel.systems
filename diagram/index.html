@@ -1815,21 +1815,30 @@
       100% { translate: 0 0 0; }
     }
 
-    /* Base-Superstructure: the superstructure does not slide in but rises
-       up out of the base, through its top, once the base has landed */
+    /* Base-Superstructure: the superstructure does not slide in but comes
+       in hovering up into place over the base, fading in as it rises (its
+       faces fade, not the slab, which would flatten it) */
     .marx-view .st-stack.building .st-block[data-key="super"] {
-      animation: st-emerge 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
+      animation: st-hover-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
     }
 
-    @keyframes st-emerge {
+    .marx-view .st-stack.building .st-block[data-key="super"] > span {
+      animation: st-face-in 0.9s ease var(--delay) both;
+    }
+
+    @keyframes st-hover-in {
       from {
         visibility: visible;
-        transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float) - var(--h) - 6px));
+        transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float) - 16px));
       }
       to {
         visibility: visible;
         transform: translate3d(var(--x), var(--y), calc(var(--z) + var(--float)));
       }
+    }
+
+    @keyframes st-face-in {
+      from { opacity: 0; }
     }
 
     @keyframes st-in {
@@ -2077,7 +2086,7 @@
     }
 
     .marx-fig.play .mf-super {
-      animation: mf-emerge 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
+      animation: mf-hover-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
     }
 
     .marx-fig.play .mf-words {
@@ -2093,11 +2102,9 @@
       30% { opacity: 1; }
     }
 
-    /* (rising from inside the base, so only what has cleared its top shows:
-       the script draws the superstructure behind the base's front and side
-       while it plays) */
-    @keyframes mf-emerge {
-      from { transform: translateY(var(--mf-sink, 300px)); }
+    /* (coming in hovering up into place, fading in as it rises) */
+    @keyframes mf-hover-in {
+      from { transform: translateY(46px); opacity: 0; }
     }
 
     @keyframes mf-fade {
@@ -3886,8 +3893,7 @@
           </g>
           <g transform="matrix(0.82 0 0 0.82 108.0 100.8)">
           <g class="mf-tier mf-base"><polygon class="f-side" fill="#8f6d15" points="944.0,990.2 1116.0,869.8 978.4,525.9 852.3,614.1"/><polygon class="f-top" fill="#e8bf4f" points="221.6,614.1 852.3,614.1 978.4,525.9 347.7,525.9"/><polygon class="f-body" fill="#d9a520" points="84.0,990.2 944.0,990.2 852.3,614.1 221.6,614.1"/></g>
-          <clipPath id="mf-above-base"><polygon points="-2000.0,614.1 221.6,614.1 852.3,614.1 978.4,525.9 3000.0,525.9 3000.0,-2000.0 -2000.0,-2000.0"/></clipPath>
-          <g clip-path="url(#mf-above-base)"><g class="mf-tier mf-super" style="--mf-sink: 480px"><polygon class="f-side" fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon class="f-top" fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon class="f-body" fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/></g></g>
+          <g class="mf-tier mf-super"><polygon class="f-side" fill="#37206f" points="844.1,580.7 966.2,495.3 817.9,124.6 745.2,175.4"/><polygon class="f-top" fill="#8a66d8" points="382.1,175.4 745.2,175.4 817.9,124.6 454.8,124.6"/><polygon class="f-body" fill="#6a3fc4" points="233.8,580.7 844.1,580.7 745.2,175.4 382.1,175.4"/></g>
           <g class="mf-words">
           <text class="mf-title" x="558.7" y="272.9" text-anchor="middle">Superstructure</text>
           <text class="mf-head" x="554.4" y="327.9" text-anchor="middle" fill="#fbf6ec">Everything not directly to do</text>
