@@ -1640,7 +1640,10 @@
         var lx = side === 'left' ? (V1 ? -170 : -240) : (V1 ? 1070 : 1140);
         // the substructure indented beneath the superstructure, as in the list
         // the microstructure, likewise, indented with the mesostructure
-        var tx = key === 'substructure' || key === 'microstructure' ? lx + (side === 'left' ? 32 : -32) : lx;
+        var ind = key === 'substructure' || key === 'microstructure' ? 1 : (!V1 && key === 'macrostructure') ? -1 : 0;
+        // (v2: the agents kept in line with the stack's labels, and the
+        // macrostructure a step out, so that they read as nested above it)
+        var tx = lx + ind * (side === 'left' ? 32 : -32);
         return '<line class="md-lead" data-key="' + key + '" x1="' + (side === 'left' ? lx + 300 : lx - 300) + '" y1="' + y + '" x2="' + x0 + '" y2="' + y + '"/>' +
           '<text class="md-label" data-key="' + key + '" x="' + tx + '" y="' + (y + 5) + '" text-anchor="' + (side === 'left' ? 'start' : 'end') + '">' + text +
           field(FIELDS[key] || '', tx) + '</text>';
