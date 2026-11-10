@@ -1534,19 +1534,19 @@
       // drawn in from its footprint; v1, the flat-sided slabs, kept as a
       // backup and shown with ?v1 on the page's address
       var V1 = /[?&]v1(\b|=|&|$)/.test(location.search);
-      function slab(cy, w, h) {
+      function slab(cy, w, h, wt) {
         var q = w / 2;
-        if (V1) {
+        if (V1 || wt === undefined) {
           return '<g><polygon class="l" points="' + P([[CX - w, cy], [CX, cy + q], [CX, cy + q + h], [CX - w, cy + h]]) + '"/>' +
             '<polygon class="r" points="' + P([[CX, cy + q], [CX + w, cy], [CX + w, cy + h], [CX, cy + q + h]]) + '"/>' +
             '<polygon class="t" points="' + P([[CX, cy - q], [CX + w, cy], [CX, cy + q], [CX - w, cy]]) + '"/></g>';
         }
-        // (the top drawn in by more than twice the slab's thickness; the
-        // sides slope down to the full footprint)
-        var w1 = Math.max(w * 0.35, w - h * 2.4), q1 = w1 / 2;
-        return '<g><polygon class="l" points="' + P([[CX - w1, cy], [CX, cy + q1], [CX, cy + q + h], [CX - w, cy + h]]) + '"/>' +
-          '<polygon class="r" points="' + P([[CX, cy + q1], [CX + w1, cy], [CX + w, cy + h], [CX, cy + q + h]]) + '"/>' +
-          '<polygon class="t" points="' + P([[CX, cy - q1], [CX + w1, cy], [CX, cy + q1], [CX - w1, cy]]) + '"/></g>';
+        // a section of a pyramid: its top (half-width wt) above its footprint
+        // (half-width w), the sides sloping between them
+        var qt = wt / 2;
+        return '<g><polygon class="l" points="' + P([[CX - wt, cy], [CX, cy + qt], [CX, cy + h + q], [CX - w, cy + h]]) + '"/>' +
+          '<polygon class="r" points="' + P([[CX, cy + qt], [CX + wt, cy], [CX + w, cy + h], [CX, cy + h + q]]) + '"/>' +
+          '<polygon class="t" points="' + P([[CX, cy - qt], [CX + wt, cy], [CX, cy + qt], [CX - wt, cy]]) + '"/></g>';
       }
       // each slab: key, class, centre height, half-width, thickness, label
       // side and label
@@ -1565,6 +1565,22 @@
         ['mesostructure', 'agency', -80, 80, 14, 'left', 'Mesostructure'],
         ['microstructure', 'agency', -190, 44, 12, 'left', 'Microstructure']
       ];
+      // v2: the structures cut from one pyramid - each the thicker section of
+      // it at its height, so that together, gaps and all, they narrow
+      // steadily from the cosmostructure up to the superstructure; the two
+      // agents above, small pyramid sections of their own
+      if (!V1) {
+        var THICK = { cosmostructure: 44, ecostructure: 42, biostructure: 42, infrastructure: 48, interstructure: 48, substructure: 34, superstructure: 48 };
+        var yTop = 229, yFoot = 978 + 44, wTop = 70, wFoot = 296;
+        var prof = function (y) { return wTop + (y - yTop) * (wFoot - wTop) / (yFoot - yTop); };
+        SLABS.forEach(function (s) {
+          var h = THICK[s[0]];
+          s[4] = h; s[7] = prof(s[2]); s[3] = prof(s[2] + h);
+        });
+        AGENTS.forEach(function (s) {
+          s[4] = s[4] + 14; s[7] = s[3] * 0.62;
+        });
+      }
       // the macrostructure: a timeline beneath the stack, from the earliest
       // transition to the present, running on into what is still to come
       var TL = { y: 1280, x0: CX - 230, x1: CX + 500 };
@@ -1602,13 +1618,13 @@
       function field(f, x) {
         return f ? '<tspan class="md-field" x="' + x + '" dy="41">' + f + '</tspan>' : '';
       }
-      SLABS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4]) + '</g>'; });
+      SLABS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4], s[7]) + '</g>'; });
       html += '<g class="md-axis" data-key="metastructure"><line class="shaft" x1="' + CX + '" y1="120" x2="' + CX + '" y2="1027"/>' +
         // feedback: two arrows chasing each other round a circle
         cycleArrow(CX, 92, 20, 180, 305) + cycleArrow(CX, 92, 20, 0, 125) +
         '<circle class="hub" cx="' + CX + '" cy="92" r="3.5"/>' +
         '<circle class="hit" cx="' + CX + '" cy="92" r="30"/></g>';
-      AGENTS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4]) + '</g>'; });
+      AGENTS.forEach(function (s) { html += '<g class="md-el ' + s[1] + '" data-key="' + s[0] + '">' + slab(s[2], s[3], s[4], s[7]) + '</g>'; });
       var tl = '<g class="md-helix md-time" data-key="macrostructure"><path d="M' + TL.x0 + ' ' + TL.y + 'H' + TL.x1 + 'M' + (TL.x1 - 12) + ' ' + (TL.y - 7) + 'L' + TL.x1 + ' ' + TL.y + 'L' + (TL.x1 - 12) + ' ' + (TL.y + 7) + '"/>';
       TICKS.forEach(function (n, k) {
         var x = TL.x0 + 50 + k * (TL.x1 - TL.x0 - 120) / (TICKS.length - 1), now = k === TICKS.length - 1;
@@ -1617,7 +1633,8 @@
       });
       html += tl + '<line class="hit" x1="' + TL.x0 + '" y1="' + TL.y + '" x2="' + TL.x1 + '" y2="' + TL.y + '"/></g>';
       SLABS.concat(AGENTS).forEach(function (s) {
-        var x0 = s[5] === 'left' ? CX - s[3] - 8 : CX + s[3] + 8;
+        var wMid = s[7] === undefined ? s[3] : (s[3] + s[7]) / 2;
+        var x0 = s[5] === 'left' ? CX - wMid - 8 : CX + wMid + 8;
         // the superstructure's label a little higher, clear of the
         // substructure's beneath it
         var lift = s[0] === 'superstructure' ? 14 : 0;
