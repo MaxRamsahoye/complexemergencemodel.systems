@@ -3521,6 +3521,20 @@
       }
     }
 
+    /* (Base-Superstructure's larger pyramid drawn smaller on a phone, to
+       stay within the screen) */
+    @media (max-width: 800px) {
+      .marx-view .st-stack {
+        scale: 0.86;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .marx-view .st-stack {
+        scale: 0.74;
+      }
+    }
+
     @keyframes view-in {
       from { opacity: 0; }
     }
@@ -3799,7 +3813,7 @@
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
 
     <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
-    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=21bb7d1d" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
+    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=47aa479a" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3871,7 +3885,7 @@
     </section>
 
     <section class="exoendo-view" aria-label="Exo-Endo Structure">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/exo-endo-structure.png?v=0a0bf117" download="Exo-Endo Structure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/exo-endo-structure.png?v=8eff2ff0" download="Exo-Endo Structure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
     <div class="md-agency">
       <div class="md-agency-grid">
         <div class="md-agency-scene">
@@ -4932,7 +4946,7 @@
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
               '<p class="st-detail-def">' + L.def + '</p>'
           };
-        }), { SIZE: 250, H: 52, TRIM: 80, STEP: 700, prelude: { n: 1, SIZE: 250, H: 44, TRIM: 30, STEP: 520, taper: 0.77 } });
+        }), { SIZE: 312, H: 65, TRIM: 100, STEP: 700, prelude: { n: 1, SIZE: 312, H: 55, TRIM: 30, STEP: 520, taper: 0.77 } });
       }
       // the two layers, one above the other, and how each acts on the other
       // Base-Superstructure: the stack, or the diagram (and the download
