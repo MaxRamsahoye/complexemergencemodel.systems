@@ -660,7 +660,7 @@
       fill: currentColor;
     }
 
-    .md-bracket .md-brace-inner text {
+    .md-bracket :is(.md-brace-inner, .md-brace-under) text {
       font-size: 27px;
     }
 
@@ -1702,8 +1702,8 @@
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner(715, 1015, 'Second Nature') +
             // and beneath it all, across the foot of the stack, complex emergence
-            '<g class="md-brace md-brace-under"><path d="M' + (CX - 270) + ' 1236V1276H' + (CX + 270) + 'V1236"/>' +
-            '<text x="' + CX + '" y="1332" text-anchor="middle">Complex Emergence</text></g>' +
+            '<g class="md-brace md-brace-under"><path d="M' + (CX - 270) + ' 1262V1300H' + (CX + 270) + 'V1262"/>' +
+            '<text x="' + CX + '" y="1346" text-anchor="middle">Complex Emergence</text></g>' +
             '<g class="md-brace md-brace-outer">' + bracket('', 1030, 1240, 'Nature').replace(/^<g[^>]*>|<rect[^>]*\/><\/g>$/g, '') + '</g>' + inner(1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
         (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/>' : '<path class="rise" d="M-450 46V-220M-458 -208L-450 -220L-442 -208"/>') + '</g>';
