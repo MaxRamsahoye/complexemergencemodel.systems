@@ -660,6 +660,19 @@
       fill: currentColor;
     }
 
+    .md-rise {
+      cursor: pointer;
+    }
+
+    .md-rise .hit {
+      fill: transparent;
+    }
+
+    .md-rise:hover .rise,
+    .md-rise.on .rise {
+      stroke: var(--link-blue);
+    }
+
     .md-bracket :is(.md-brace-inner, .md-brace-under) text {
       font-size: 27px;
     }
@@ -1708,7 +1721,8 @@
             '<rect class="hit" x="' + (CX - 280) + '" y="1280" width="560" height="110"/></g>' +
             bracket('nature', 1030, 1240, 'Nature') + inner('first-nature', 1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
-        (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/>' : '<path class="rise" d="M-530 46V-220M-538 -208L-530 -220L-522 -208"/>') + '</g>';
+        '<g class="md-rise">' + (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/><rect class="hit" x="-425" y="-4" width="50" height="54"/>'
+          : '<path class="rise" d="M-530 46V-220M-538 -208L-530 -220L-522 -208"/><rect class="hit" x="-555" y="-224" width="50" height="274"/>') + '</g></g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
@@ -1824,6 +1838,20 @@
         if (pairMode) { pair = ['civilisational-structures', 'human-agency']; locked = 'human-agency'; showPair(); }
         else { pair = []; show(locked); }
       });
+      // the arrow between the two brackets: the pair, and how they interact
+      // (turning on the selection of two, if it is off)
+      var riseArrow = document.querySelector('.md-rise');
+      riseArrow.addEventListener('click', function () {
+        if (!ready) return;
+        pairMode = true;
+        toggle.setAttribute('aria-pressed', 'true');
+        column.classList.add('pairing');
+        pair = ['civilisational-structures', 'human-agency']; locked = 'human-agency';
+        showPair();
+        riseArrow.classList.add('on');
+      });
+      toggle.addEventListener('click', function () { riseArrow.classList.remove('on'); });
+      parts.forEach(function (p) { p.addEventListener('click', function () { riseArrow.classList.toggle('on', pairMode && pair.length === 2 && pair.indexOf('civilisational-structures') >= 0 && pair.indexOf('human-agency') >= 0); }); });
       // the line in the column level with the timeline's (v2, with the
       // timeline at the top: level with the foot of the stack)
       function placeRule() {
