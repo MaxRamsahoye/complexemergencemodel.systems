@@ -1937,6 +1937,12 @@
       --taper: 0.83;
     }
 
+    /* (its first slab, which slides in and splits, in the infrastructure's
+       midnight blue) */
+    .structures-view .st-block.st-ghost {
+      --top: color-mix(in srgb, #1f2f8a 88%, #fff); --left: #18246e; --right: #101850;
+    }
+
     /* Base-Superstructure's slabs as sections of a pyramid: each top drawn
        in by --tp on every side, and the front and side sloping down to the
        full footprint (the faces tilted and cut to trapezoids) */
@@ -3590,13 +3596,13 @@
     /* (Base-Superstructure's larger pyramid drawn smaller on a phone, to
        stay within the screen) */
     @media (max-width: 800px) {
-      .marx-view .st-stack {
+      :is(.marx-view, .structures-view) .st-stack {
         scale: 0.86;
       }
     }
 
     @media (max-width: 600px) {
-      .marx-view .st-stack {
+      :is(.marx-view, .structures-view) .st-stack {
         scale: 0.74;
       }
     }
@@ -3863,8 +3869,8 @@
       </div>
     </section>
 
-    <section class="structures-view" aria-label="Cultural Materialism: Infrastructure, Structure, Superstructure">
-    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=0369c5a2" download="Cultural Materialism - Infrastructure, Structure, Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
+    <section class="structures-view" aria-label="Cultural Materialism: Infrastructure-Structure-Superstructure">
+    <div class="model-save-row"><a class="model-save" href="../assets/downloads/cultural-materialism.png?v=700a56d9" download="Cultural Materialism - Infrastructure-Structure-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -3879,7 +3885,7 @@
     <div class="structures-alt" role="figure" aria-label="Cultural Materialism, three structures: infrastructure, structure and superstructure"></div>
 
     <section class="marx-view" aria-label="Classical Marxism: Base-Superstructure">
-    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=3f9d90a3" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
+    <div class="model-save-row model-save-modes"><a class="model-save" href="../assets/downloads/base-superstructure.png?v=9fbeea0a" download="Classical Marxism - Base-Superstructure.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><g class="arrow"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/></g></svg><span>Download diagram</span></a><div class="model-modes" role="group" aria-label="View"><button type="button" data-mode="stack" aria-pressed="true">Stack</button><button type="button" data-mode="diagram" aria-pressed="false">Diagram</button></div></div>
       <div class="stack-layout">
         <div class="stack-scene" aria-hidden="true"><div class="st-stack"></div></div>
         <div class="stack-side">
@@ -4186,7 +4192,7 @@
           desc: 'Marx divides a society into two layers: its economic base, the forces and relations of production, and the legal, political and ideological superstructure that rises on it. The base conditions the superstructure &ndash; &ldquo;it is not the consciousness of men that determines their being, but their social being that determines their consciousness&rdquo; &ndash; and as the base changes, the superstructure is transformed with it.'
         },
         structures: {
-          title: 'Cultural Materialism: Infrastructure, Structure, Superstructure',
+          title: 'Cultural Materialism: Infrastructure-Structure-Superstructure',
           desc: 'Every society can be read as three interacting layers: its infrastructure, the technologies and material systems through which it meets its needs; its structure, the institutions of political economy that organise power and exchange; and its superstructure, the shared values, beliefs and cultural psychology of its people. A change in any layer pressures the others, but the deepest and most durable shifts begin in the infrastructure &ndash; which is why each new tech stack remakes the layers above it.'
         }
       };
@@ -4514,7 +4520,7 @@
             detail: '<p class="st-detail-name st-detail-name-only">' + L.name + '<span class="name-sep">:</span> ' + L.aka + '</p>' +
               '<p class="st-detail-def">' + L.def + '</p>'
           };
-        }), { SIZE: 250, H: 36, TRIM: 60, STEP: 700, prelude: { n: structuresFromStack ? 4 : 1, SIZE: 250, H: 44, TRIM: 30, STEP: 520, taper: 0.83 } });
+        }), { SIZE: 312, H: 45, TRIM: 75, STEP: 700, prelude: { n: structuresFromStack ? 4 : 1, SIZE: 312, H: 55, TRIM: 38, STEP: 520, taper: 0.83 } });
       }
       // the alternative view of the structures: the three layers, one above
       // the other, and how each acts on its neighbour
@@ -5637,7 +5643,7 @@
         ['exoendo', 'Exo-Endo Structure', 'Exo-Endo Structure', 'Human agency at the centre of the civilisational structures, each both extended outward from it and internalised by it.'],
         ['emergence', 'Emergence Model', 'The Emergence Model', 'Superstructure, physiologic structure, social structure and infrastructure, set in the four quadrants of a disc.'],
         ['integral', 'Four Quadrants', 'Integral Model: Four Quadrants', 'Interior and exterior, individual and collective: four views of any whole that arise together, none reducible to the others.'],
-        ['structures', 'The Structures', 'Cultural Materialism: Infrastructure, Structure, Superstructure', 'Infrastructure, social structure and superstructure, and how each acts on the others.'],
+        ['structures', 'The Structures', 'Cultural Materialism: Infrastructure-Structure-Superstructure', 'Infrastructure, social structure and superstructure, and how each acts on the others.'],
         ['marx', 'Base-Superstructure', 'Classical Marxism: Base-Superstructure', 'The economic base and the legal, political and ideological superstructure that rises on it, and how each acts on the other.']
       ];
       // an isometric slab, centred at (x, y), w across and h thick
