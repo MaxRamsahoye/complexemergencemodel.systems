@@ -883,7 +883,7 @@
     }
 
     .md-scene .md-svg.md-v2 {
-      width: min(100%, 1600px, calc((100svh - 144px) * 0.842));
+      width: min(100%, 1600px, calc((100svh - 144px) * 0.888));
     }
 
     @media (max-width: 900px) {
@@ -1004,7 +1004,7 @@
 
       /* v2 at 1.15 times the size */
       .md-scene .md-svg.md-v2 {
-        width: min(calc(100% - 540px), 1600px, calc((100svh - 144px) * 0.838));
+        width: min(calc(100% - 540px), 1600px, calc((100svh - 144px) * 0.883));
       }
 
       .md-scene-text {
@@ -1681,7 +1681,7 @@
       // each can be pointed to and clicked, as the structures can
       function bracket(key, y0, y1, text) {
         // (v2: further out, clear of the brackets within)
-        var x = V1 ? -400 : -450, m = (y0 + y1) / 2;
+        var x = V1 ? -400 : -530, m = (y0 + y1) / 2;
         return '<g class="md-brace" data-key="' + key + '"><path d="M' + (x + 50) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 50) + '"/>' +
           '<text x="' + (x - 36) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 36) + ' ' + m + ')">' + text + '</text>' +
           '<rect class="hit" x="' + (x - 66) + '" y="' + y0 + '" width="116" height="' + (y1 - y0) + '"/></g>';
@@ -1690,7 +1690,7 @@
       // description of its own; second and first nature meet, one line
       // divided where they join)
       function inner(y0, y1, text, x) {
-        x = x || -320; var m = (y0 + y1) / 2;
+        x = x || -350; var m = (y0 + y1) / 2;
         return '<g class="md-brace md-brace-inner"><path d="M' + (x + 40) + ' ' + y0 + 'H' + x + 'V' + y1 + 'H' + (x + 40) + '"/>' +
           '<text x="' + (x - 26) + '" y="' + m + '" text-anchor="middle" transform="rotate(-90 ' + (x - 26) + ' ' + m + ')">' + text + '</text></g>';
       }
@@ -1702,16 +1702,16 @@
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner(715, 1015, 'Second Nature') +
             // and beneath it all, across the foot of the stack, complex emergence
-            '<g class="md-brace md-brace-under"><path d="M' + (CX - 270) + ' 1262V1300H' + (CX + 270) + 'V1262"/>' +
-            '<text x="' + CX + '" y="1346" text-anchor="middle">Complex Emergence</text></g>' +
+            '<g class="md-brace md-brace-under"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
+            '<text x="' + CX + '" y="1376" text-anchor="middle">Complex Emergence</text></g>' +
             '<g class="md-brace md-brace-outer">' + bracket('', 1030, 1240, 'Nature').replace(/^<g[^>]*>|<rect[^>]*\/><\/g>$/g, '') + '</g>' + inner(1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
-        (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/>' : '<path class="rise" d="M-450 46V-220M-458 -208L-450 -220L-442 -208"/>') + '</g>';
+        (V1 ? '<path class="rise" d="M-400 46V0M-408 12L-400 0L-392 12"/>' : '<path class="rise" d="M-530 46V-220M-538 -208L-530 -220L-522 -208"/>') + '</g>';
       svg.innerHTML = html;
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-510 -500 1660 1860') : (V1 ? '-480 -240 1860 1580' : '-510 -500 1660 1860')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-600 -500 1750 1900') : (V1 ? '-480 -240 1860 1580' : '-600 -500 1750 1900')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
