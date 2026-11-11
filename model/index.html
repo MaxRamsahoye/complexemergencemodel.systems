@@ -183,6 +183,11 @@
       height: var(--c-h-mid, 110px);
     }
 
+    /* (the Emergence Model a quarter larger) */
+    .md-corner-br img {
+      height: calc(var(--c-h, 150px) * 1.25);
+    }
+
     /* each model's name beneath it */
     .md-corner-label {
       display: block;
@@ -1968,7 +1973,7 @@
         corners.style.setProperty('--c-h-mid', Math.max(105, h * 0.93) + 'px');
         // (the outer two a little beyond the title's ends, so the names
         // beneath keep apart)
-        corners.style.setProperty('--c-x', Math.max(40, t.left - 80) + 'px');
+        corners.style.setProperty('--c-x', Math.max(40, t.left - 170) + 'px');
         corners.style.setProperty('--c-top', (t.top + y - GAP) + 'px');
       }
       size();
