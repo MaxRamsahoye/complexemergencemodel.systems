@@ -684,6 +684,20 @@
       stroke-width: 3;
     }
 
+    /* (beside the microstructure: the reader) */
+    .md-bracket .md-here path {
+      stroke: var(--link-blue);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .md-bracket .md-here text {
+      font-size: 30px;
+      font-style: italic;
+      fill: var(--link-blue);
+    }
+
     .md-bracket .md-brace-title text {
       font-weight: 600;
     }
@@ -1744,6 +1758,12 @@
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('cultural-materialism', 190, 690, 'Cultural Materialism') + inner('second-nature', 715, 1015, 'Second Nature') +
 
+            // beside the microstructure, the reader's own place in it
+            (function () {
+              var m = AGENTS.filter(function (a) { return a[0] === 'microstructure'; })[0], y = m[2] + m[4] / 2, x0 = CX + m[3] + 18;
+              return '<g class="md-here"><path d="M' + (x0 + 56) + ' ' + y + 'H' + x0 + 'M' + (x0 + 12) + ' ' + (y - 8) + 'L' + x0 + ' ' + y + 'L' + (x0 + 12) + ' ' + (y + 8) + '"/>' +
+                '<text x="' + (x0 + 72) + '" y="' + (y + 10) + '">You are here</text></g>';
+            })() +
             // the model's own name, centred above it all, standing for the whole
             '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="' + CX + '" y="-570" text-anchor="middle">The Complex Emergence Model</text>' +
             '<rect class="hit" x="' + (CX - 280) + '" y="-606" width="560" height="50"/></g>' +
