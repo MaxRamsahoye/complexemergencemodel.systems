@@ -1760,7 +1760,7 @@
 
             // beside the microstructure, the reader's own place in it
             (function () {
-              var m = AGENTS.filter(function (a) { return a[0] === 'microstructure'; })[0], y = m[2] + m[4] / 2, x0 = CX + m[3] + 18;
+              var m = AGENTS.filter(function (a) { return a[0] === 'microstructure'; })[0], y = m[2] + m[4] / 2, x0 = CX + m[3] + 50;
               return '<g class="md-here"><path d="M' + (x0 + 56) + ' ' + y + 'H' + x0 + 'M' + (x0 + 12) + ' ' + (y - 8) + 'L' + x0 + ' ' + y + 'L' + (x0 + 12) + ' ' + (y + 8) + '"/>' +
                 '<text x="' + (x0 + 72) + '" y="' + (y + 10) + '">You are here</text></g>';
             })() +
