@@ -217,11 +217,47 @@
       color: var(--link-blue);
     }
 
-    /* the diagram's download button, in the top-left corner of its screen,
-       with its note beside it on hover */
-    .md-save {
+    /* the model's own name, in the top-left corner of the diagram's screen,
+       standing for the whole (selectable, as the structures are) */
+    .md-scene-title {
       position: absolute;
       top: 32px;
+      left: 40px;
+      z-index: 3;
+      padding: 0;
+      border: none;
+      background: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.02em;
+      color: var(--canvas-ink);
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .md-scene-title.on {
+      color: var(--link-blue);
+      font-weight: 600;
+    }
+
+    .md-scene-title:focus-visible {
+      outline: none;
+      color: var(--link-blue);
+    }
+
+    @media (max-width: 600px) {
+      .md-scene-title {
+        top: 20px;
+        left: 24px;
+        font-size: 15px;
+      }
+    }
+
+    /* the diagram's download button, in the bottom-left corner of its
+       screen, with its note beside it on hover */
+    .md-save {
+      position: absolute;
+      bottom: 32px;
       left: 40px;
       z-index: 3;
       display: flex;
@@ -271,7 +307,7 @@
 
     @media (max-width: 600px) {
       .md-save {
-        top: 20px;
+        bottom: 20px;
         left: 24px;
       }
     }
@@ -1479,6 +1515,7 @@
             <button class="md-pair-toggle" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Select Two Structures to see their Bidirectional Interactions</button>
           </div>
         </div>
+        <button class="md-scene-title" type="button" data-key="complex-emergence-model">The Complex Emergence Model</button>
         <button class="md-save" type="button" aria-label="Download the diagram as an image">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
@@ -1739,9 +1776,7 @@
         (V1 ? bracket('human-agency', -222, -18, 'Human Agency') : bracket('human-agency', -442, -238, 'Human Agency')) +
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('second-nature', 715, 1015, 'Second Nature') +
-            // the model's own name, at the top right, standing for the whole
-            '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="1140" y="-440" text-anchor="end">The Complex Emergence Model</text>' +
-            '<rect class="hit" x="620" y="-480" width="530" height="56"/></g>' +
+
             // and beneath it all, across the foot of the stack, complex emergence
             '<g class="md-brace md-brace-under" data-key="complex-emergence"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
             '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergence</text>' +
@@ -1758,7 +1793,7 @@
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
-      var parts = Array.prototype.slice.call(document.querySelectorAll('.md-svg [data-key], .md-list [data-key]'));
+      var parts = Array.prototype.slice.call(document.querySelectorAll('.md-svg [data-key], .md-list [data-key], .md-scene-title'));
       var detail = document.querySelector('.md-detail');
       var locked = 'infrastructure';
       // what each structure comprises, and what lies within it
