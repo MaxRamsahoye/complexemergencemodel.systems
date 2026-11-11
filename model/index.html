@@ -217,42 +217,6 @@
       color: var(--link-blue);
     }
 
-    /* the model's own name, in the top-left corner of the diagram's screen,
-       standing for the whole (selectable, as the structures are) */
-    .md-scene-title {
-      position: absolute;
-      top: 32px;
-      left: 40px;
-      z-index: 3;
-      padding: 0;
-      border: none;
-      background: none;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 17px;
-      letter-spacing: 0.02em;
-      color: var(--canvas-ink);
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-
-    .md-scene-title.on {
-      color: var(--link-blue);
-      font-weight: 600;
-    }
-
-    .md-scene-title:focus-visible {
-      outline: none;
-      color: var(--link-blue);
-    }
-
-    @media (max-width: 600px) {
-      .md-scene-title {
-        top: 20px;
-        left: 24px;
-        font-size: 15px;
-      }
-    }
-
     /* the diagram's download button, in the bottom-left corner of its
        screen, with its note beside it on hover */
     .md-save {
@@ -718,6 +682,10 @@
     .md-rise.on .rise {
       stroke: var(--link-blue);
       stroke-width: 3;
+    }
+
+    .md-bracket .md-brace-title text {
+      font-weight: 600;
     }
 
     .md-bracket .md-brace-under text {
@@ -1515,7 +1483,6 @@
             <button class="md-pair-toggle" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Select Two Structures to see their Bidirectional Interactions</button>
           </div>
         </div>
-        <button class="md-scene-title" type="button" data-key="complex-emergence-model">The Complex Emergence Model</button>
         <button class="md-save" type="button" aria-label="Download the diagram as an image">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
@@ -1777,9 +1744,12 @@
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('second-nature', 715, 1015, 'Second Nature') +
 
+            // the model's own name, centred above it all, standing for the whole
+            '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="' + CX + '" y="-500" text-anchor="middle">The Complex Emergence Model</text>' +
+            '<rect class="hit" x="' + (CX - 280) + '" y="-536" width="560" height="50"/></g>' +
             // and beneath it all, across the foot of the stack, complex emergence
             '<g class="md-brace md-brace-under" data-key="complex-emergence"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
-            '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergence</text>' +
+            '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergent Process</text>' +
             '<rect class="hit" x="' + (CX - 280) + '" y="1280" width="560" height="125"/></g>' +
             bracket('nature', 1030, 1240, 'Nature') + inner('first-nature', 1015, 1240, 'First Nature')) +
         // the arrow between them, rising from the structures to agency
@@ -1789,7 +1759,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -500 1830 1920') : (V1 ? '-480 -240 1860 1580' : '-680 -500 1830 1920')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -545 1830 1965') : (V1 ? '-480 -240 1860 1580' : '-680 -545 1830 1965')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
@@ -1803,7 +1773,7 @@
       MODEL['nature'] = { head: 'Nature', desc: 'The natural world in its own right, prior to and independent of civilisation: the physical order out of which life, mind and society emerge, and which bounds every structure built upon it.', within: [] };
       MODEL['first-nature'] = { head: 'First Nature', desc: 'Nature as given: the laws, constants and processes of the physical universe &ndash; thermodynamics, chemistry, gravitation &ndash; which hold whatever civilisation does, and on which the whole stack ultimately rests.', within: [] };
       MODEL['complex-emergence-model'] = { head: 'The Complex Emergence Model', desc: 'A model of civilisation as eleven interacting structures &ndash; the core of tech stack, political economy, culture and evolved psychology; the interfaces of second nature; the physical laws of first nature; the system dynamics and developmental process that run through them all &ndash; together with the individual and collective agency they condition and that, in turn, reproduces and transforms them. An analytical apparatus for understanding the conditioning of human agency, the generative dynamics of the metacrisis and the fundamental nature of reality.', within: [] };
-      MODEL['complex-emergence'] = { head: 'Complex Emergence', desc: 'The model as a whole: civilisation as a complex adaptive system, its structures emerging from the interactions of agents and structures at every level &ndash; from the laws of physics to individual choice &ndash; each shaping and shaped by the others, and together producing outcomes that no one designs or intends.', within: [] };
+      MODEL['complex-emergence'] = { head: 'Complex Emergent Process', desc: 'The model as a whole: civilisation as a complex adaptive system, its structures emerging from the interactions of agents and structures at every level &ndash; from the laws of physics to individual choice &ndash; each shaping and shaped by the others, and together producing outcomes that no one designs or intends.', within: [] };
       // each structure's colour, as its slab has it
       var BOX = window.MD_BOX = {
         infrastructure: '#1f2f8a', interstructure: '#d9a520', superstructure: '#6a3fc4',
