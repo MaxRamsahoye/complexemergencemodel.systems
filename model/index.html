@@ -1921,6 +1921,9 @@
       // as processes (the diagram's names, and the headings beside it)
       var TERM = 'structure';
       function termed(t) {
+        // (the process beneath it all named likewise: complex emergent
+        // structure, system or process)
+        t = t.replace(/Emergent Process/g, 'Emergent ' + TERM.charAt(0).toUpperCase() + TERM.slice(1));
         if (TERM === 'structure') return t;
         var sys = TERM === 'system';
         return t.replace(/([Ss])tructure(s?)/g, function (m, c, pl) {
@@ -1934,8 +1937,9 @@
         return out;
       }
       var svgTexts = textNodes(svg).map(function (n) { return [n, n.nodeValue]; });
+      svgTexts.forEach(function (t) { t[0].nodeValue = termed(t[1]); });
       function termHeads() {
-        if (!TERM || TERM === 'structure') return;
+        if (!TERM) return;
         [sceneText, detail].forEach(function (box) {
           if (!box) return;
           box.querySelectorAll('.md-detail-head').forEach(function (h) { textNodes(h).forEach(function (n) { n.nodeValue = termed(n.nodeValue); }); });
