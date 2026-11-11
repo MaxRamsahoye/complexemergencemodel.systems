@@ -217,6 +217,47 @@
       color: var(--link-blue);
     }
 
+    /* the terminology, in the top-left corner of the diagram's screen:
+       structures, systems or processes */
+    .md-terms {
+      position: absolute;
+      top: 32px;
+      left: 40px;
+      z-index: 3;
+      display: inline-flex;
+      border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .md-terms button {
+      padding: 4px 14px;
+      border: none;
+      border-radius: 999px;
+      background: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .md-terms button[aria-pressed="true"] {
+      background: var(--canvas-ink);
+      color: var(--canvas-bg);
+    }
+
+    .md-terms button:not([aria-pressed="true"]):hover {
+      color: var(--canvas-ink);
+    }
+
+    @media (max-width: 600px) {
+      .md-terms {
+        top: 20px;
+        left: 24px;
+      }
+    }
+
     /* the diagram's download button, in the bottom-left corner of its
        screen, with its note beside it on hover */
     .md-save {
@@ -1523,6 +1564,7 @@
             <button class="md-pair-toggle" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Select Two Structures to see their Bidirectional Interactions</button>
           </div>
         </div>
+        <div class="md-terms" role="group" aria-label="Terminology"><button type="button" data-term="structure" aria-pressed="true">Structure</button><button type="button" data-term="system" aria-pressed="false">System</button><button type="button" data-term="process" aria-pressed="false">Process</button></div>
         <button class="md-save" type="button" aria-label="Download the diagram as an image">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
@@ -1858,6 +1900,7 @@
           h += '<p class="md-st-hint">' + (pair.length ? 'Select a second structure to see how the two interact.' : 'Select two structures in the diagram to see how they interact.') + '</p>';
         }
         sceneText.innerHTML = h;
+        termHeads();
       }
       function describe(key, boxOnly) {
         var m = MODEL[key];
@@ -1872,7 +1915,42 @@
         // and, beside the diagram, its name and description alone
         if (sceneText && !boxOnly) sceneText.innerHTML = (head ? '<h3 class="md-detail-head">' + head + '</h3>' : '') + '<p>' + m.desc + '</p>';
         detail.style.setProperty('--box', BOX[key]);
+        termHeads();
       }
+      // the terminology: the structures named as structures, as systems or
+      // as processes (the diagram's names, and the headings beside it)
+      var TERM = 'structure';
+      function termed(t) {
+        if (TERM === 'structure') return t;
+        var sys = TERM === 'system';
+        return t.replace(/([Ss])tructure(s?)/g, function (m, c, pl) {
+          var first = c === 'S' ? (sys ? 'S' : 'P') : (sys ? 's' : 'p');
+          return first + (sys ? 'ystem' : 'rocess') + (pl ? (sys ? 's' : 'es') : '');
+        });
+      }
+      function textNodes(root) {
+        var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), out = [], n;
+        while ((n = w.nextNode())) out.push(n);
+        return out;
+      }
+      var svgTexts = textNodes(svg).map(function (n) { return [n, n.nodeValue]; });
+      function termHeads() {
+        if (!TERM || TERM === 'structure') return;
+        [sceneText, detail].forEach(function (box) {
+          if (!box) return;
+          box.querySelectorAll('.md-detail-head').forEach(function (h) { textNodes(h).forEach(function (n) { n.nodeValue = termed(n.nodeValue); }); });
+        });
+      }
+      document.querySelectorAll('.md-terms button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var was = TERM;
+          TERM = b.dataset.term;
+          document.querySelectorAll('.md-terms button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+          svgTexts.forEach(function (t) { t[0].nodeValue = termed(t[1]); });
+          // the headings beside the diagram, from their originals again
+          if (was !== TERM) { if (pairMode) showPair(); else describe(locked); }
+        });
+      });
       function show(key) {
         parts.forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-key') === key); });
         describe(key);
