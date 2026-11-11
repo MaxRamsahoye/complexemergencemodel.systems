@@ -1985,14 +1985,14 @@
       if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) useRing = true;
       if (!useRing) {
         var LEVELS = 4, STEP = 420, DUR = 700, MAX_WAIT = 7000;
-        // the four quadrants as rings of a disc, clockwise from the upper left
-        var R = 48, r = 12;
+        // the four quadrants of a solid disc, clockwise from the upper left
+        var R = 48;
         function at(rad, deg) { var t = deg * Math.PI / 180; return (rad * Math.cos(t)).toFixed(2) + ' ' + (rad * Math.sin(t)).toFixed(2); }
         var paths = '';
         for (var i = 0; i < LEVELS; i++) {
           var a0 = 180 + i * 90, a1 = a0 + 90;
           paths += '<path style="--delay:' + (i * STEP) + 'ms;--dur:' + DUR + 'ms" d="M' + at(R, a0) + 'A' + R + ' ' + R + ' 0 0 1 ' + at(R, a1) +
-            'L' + at(r, a1) + 'A' + r + ' ' + r + ' 0 0 0 ' + at(r, a0) + 'Z"/>';
+            'L0 0Z"/>';
         }
         // laid flat (half as deep as wide), turning in its own plane, over
         // copies of itself a step lower each, which make its thickness
