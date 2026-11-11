@@ -912,11 +912,11 @@
 
     /* at three quarters of the largest the screen allows */
     .md-scene .md-svg {
-      width: min(75%, 1165px, calc((100svh - 144px) * 0.923));
+      width: min(75%, 1165px, calc((100svh - 144px) * 0.891));
     }
 
     .md-scene .md-svg.md-v2 {
-      width: min(100%, 1600px, calc((100svh - 144px) * 0.928));
+      width: min(100%, 1600px, calc((100svh - 144px) * 0.896));
     }
 
     @media (max-width: 900px) {
@@ -1742,11 +1742,11 @@
       html += '<g class="md-bracket">' +
         (V1 ? bracket('human-agency', -222, -18, 'Human Agency') : bracket('human-agency', -442, -238, 'Human Agency')) +
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
-          : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('second-nature', 715, 1015, 'Second Nature') +
+          : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('cultural-materialism', 190, 690, 'Cultural Materialism') + inner('second-nature', 715, 1015, 'Second Nature') +
 
             // the model's own name, centred above it all, standing for the whole
-            '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="' + CX + '" y="-500" text-anchor="middle">The Complex Emergence Model</text>' +
-            '<rect class="hit" x="' + (CX - 280) + '" y="-536" width="560" height="50"/></g>' +
+            '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="' + CX + '" y="-570" text-anchor="middle">The Complex Emergence Model</text>' +
+            '<rect class="hit" x="' + (CX - 280) + '" y="-606" width="560" height="50"/></g>' +
             // and beneath it all, across the foot of the stack, complex emergence
             '<g class="md-brace md-brace-under" data-key="complex-emergence"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
             '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergent Process</text>' +
@@ -1759,7 +1759,7 @@
       // with the column of text beside it, the drawing loses the margin on
       // its right that otherwise keeps the slabs centred on the screen
       var besideText = window.matchMedia('(min-width: 1100px)');
-      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -545 1830 1965') : (V1 ? '-480 -240 1860 1580' : '-680 -545 1830 1965')); if (window.mdPlaceRule) window.mdPlaceRule(); }
+      function fitBox() { svg.setAttribute('viewBox', besideText.matches ? (V1 ? '-480 -240 1630 1580' : '-680 -615 1830 2035') : (V1 ? '-480 -240 1860 1580' : '-680 -615 1830 2035')); if (window.mdPlaceRule) window.mdPlaceRule(); }
       fitBox();
       if (besideText.addEventListener) besideText.addEventListener('change', fitBox);
 
@@ -1772,6 +1772,7 @@
       MODEL['second-nature'] = { head: 'Second Nature', desc: 'Nature as remade by civilisation: the bodies of human populations and the biosphere they inhabit, no longer simply given but continuously shaped by culture, technology and political economy &ndash; the interfaces through which the civilisational structures meet the natural world.', within: [] };
       MODEL['nature'] = { head: 'Nature', desc: 'The natural world in its own right, prior to and independent of civilisation: the physical order out of which life, mind and society emerge, and which bounds every structure built upon it.', within: [] };
       MODEL['first-nature'] = { head: 'First Nature', desc: 'Nature as given: the laws, constants and processes of the physical universe &ndash; thermodynamics, chemistry, gravitation &ndash; which hold whatever civilisation does, and on which the whole stack ultimately rests.', within: [] };
+      MODEL['cultural-materialism'] = { head: 'Cultural Materialism', desc: 'The three structures of Marvin Harris&rsquo;s cultural materialism, here the core of the stack: the infrastructure of production and reproduction, the structure of political economy built upon it and the superstructure of culture and belief that crowns it &ndash; with the infrastructure primary, shaping the others more than they shape it.', within: [] };
       MODEL['complex-emergence-model'] = { head: 'The Complex Emergence Model', desc: 'A model of civilisation as eleven interacting structures &ndash; the core of tech stack, political economy, culture and evolved psychology; the interfaces of second nature; the physical laws of first nature; the system dynamics and developmental process that run through them all &ndash; together with the individual and collective agency they condition and that, in turn, reproduces and transforms them. An analytical apparatus for understanding the conditioning of human agency, the generative dynamics of the metacrisis and the fundamental nature of reality.', within: [] };
       MODEL['complex-emergence'] = { head: 'Complex Emergent Process', desc: 'The model as a whole: civilisation as a complex adaptive system, its structures emerging from the interactions of agents and structures at every level &ndash; from the laws of physics to individual choice &ndash; each shaping and shaped by the others, and together producing outcomes that no one designs or intends.', within: [] };
       // each structure's colour, as its slab has it
