@@ -1739,6 +1739,9 @@
         (V1 ? bracket('human-agency', -222, -18, 'Human Agency') : bracket('human-agency', -442, -238, 'Human Agency')) +
         (V1 ? bracket('civilisational-structures', 64, 1322, 'Civilisational Structures')
           : bracket('civilisational-structures', 64, 1000, 'Civilisational Structures') + inner('second-nature', 715, 1015, 'Second Nature') +
+            // the model's own name, at the top right, standing for the whole
+            '<g class="md-brace md-brace-title" data-key="complex-emergence-model"><text x="1140" y="-440" text-anchor="end">The Complex Emergence Model</text>' +
+            '<rect class="hit" x="620" y="-480" width="530" height="56"/></g>' +
             // and beneath it all, across the foot of the stack, complex emergence
             '<g class="md-brace md-brace-under" data-key="complex-emergence"><path d="M' + (CX - 270) + ' 1292V1330H' + (CX + 270) + 'V1292"/>' +
             '<text x="' + CX + '" y="1394" text-anchor="middle">Complex Emergence</text>' +
@@ -1764,6 +1767,7 @@
       MODEL['second-nature'] = { head: 'Second Nature', desc: 'Nature as remade by civilisation: the bodies of human populations and the biosphere they inhabit, no longer simply given but continuously shaped by culture, technology and political economy &ndash; the interfaces through which the civilisational structures meet the natural world.', within: [] };
       MODEL['nature'] = { head: 'Nature', desc: 'The natural world in its own right, prior to and independent of civilisation: the physical order out of which life, mind and society emerge, and which bounds every structure built upon it.', within: [] };
       MODEL['first-nature'] = { head: 'First Nature', desc: 'Nature as given: the laws, constants and processes of the physical universe &ndash; thermodynamics, chemistry, gravitation &ndash; which hold whatever civilisation does, and on which the whole stack ultimately rests.', within: [] };
+      MODEL['complex-emergence-model'] = { head: 'The Complex Emergence Model', desc: 'A model of civilisation as eleven interacting structures &ndash; the core of tech stack, political economy, culture and evolved psychology; the interfaces of second nature; the physical laws of first nature; the system dynamics and developmental process that run through them all &ndash; together with the individual and collective agency they condition and that, in turn, reproduces and transforms them. An analytical apparatus for understanding the conditioning of human agency, the generative dynamics of the metacrisis and the fundamental nature of reality.', within: [] };
       MODEL['complex-emergence'] = { head: 'Complex Emergence', desc: 'The model as a whole: civilisation as a complex adaptive system, its structures emerging from the interactions of agents and structures at every level &ndash; from the laws of physics to individual choice &ndash; each shaping and shaped by the others, and together producing outcomes that no one designs or intends.', within: [] };
       // each structure's colour, as its slab has it
       var BOX = window.MD_BOX = {
