@@ -53,7 +53,7 @@ M.append(dict(
     ['Neorealism', 'Metastructure (evolutionary game theory)', 'Competitive selection dynamics across structures; institutions, technologies and cultures as their epiphenomena', 'Multipolar traps, arms races and tragedies of the commons', 'New coordination mechanisms and game designs that change the payoffs, not the players', 'Thucydides, Hobbes, Machiavelli, Malthus; Schmachtenberger&rsquo;s generator functions, Alexander&rsquo;s &lsquo;Moloch&rsquo;'],
   ]))
 M.append(dict(
-  id='generative-dynamics', kicker='Matrix 3 · Sections 6–7', title='Generative Dynamics',
+  id='generative-dynamics', kicker='Matrix 3 · Sections 6–7', title='Generative Dynamics Decomposed',
   desc='Schmachtenberger&rsquo;s generator functions read through the Complex Emergence Model: how each is co-produced across the structures and scales of human agency.',
   read='../#generative-dynamics',
   cols=['Structure', 'The Multi-Polar Trap', 'Exponential Technological Acceleration', 'Narrow-Boundary Problem-Solving'],
