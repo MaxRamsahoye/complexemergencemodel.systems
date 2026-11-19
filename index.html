@@ -1911,7 +1911,7 @@
     /* the pages in two columns, down the first and then the second */
     .footer-sitemap ol {
       display: grid;
-      grid-template-rows: repeat(4, auto);
+      grid-template-rows: repeat(5, auto);
       grid-auto-flow: column;
       grid-auto-columns: max-content;
       column-gap: 72px;
@@ -2782,6 +2782,24 @@
         }
         frame.addEventListener('load', ready);
         try { if (frame.contentDocument && frame.contentDocument.readyState === 'complete') ready(); } catch (e) {}
+      });
+      // (the pointer over a frame is the frame's, not the article's: its
+      // movements passed on to the article, at the article's coordinates, so
+      // that the side menu still opens with the pointer in the left column)
+      els.forEach(function (el) {
+        var frame = el.querySelector('iframe');
+        function relay() {
+          var doc;
+          try { doc = frame.contentDocument; } catch (e) { return; }
+          if (!doc || doc._relayed) return;
+          doc._relayed = true;
+          doc.addEventListener('mousemove', function (e) {
+            var r = frame.getBoundingClientRect(), k = r.width / frame.contentWindow.innerWidth;
+            document.dispatchEvent(new MouseEvent('mousemove', { clientX: r.left + e.clientX * k, clientY: r.top + e.clientY * k, bubbles: true }));
+          }, { passive: true });
+        }
+        frame.addEventListener('load', relay);
+        relay();
       });
       // (while a frame fills much of the window, the article's corner title,
       // ring and side menu give way to it)
