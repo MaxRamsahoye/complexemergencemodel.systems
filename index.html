@@ -1115,7 +1115,7 @@
       font-size: 0.78em;
       line-height: 1.3;
       letter-spacing: 0.01em;
-      margin: 34px 0 8px;
+      margin: 52px 0 16px;
     }
 
     .article-body h4 span {
@@ -1159,7 +1159,12 @@
     .article-quote.article-epigraph {
       border-left: none;
       padding: 0;
-      margin: 88px 0 40px;
+      margin: 136px 0 64px;
+    }
+
+    .article-body .article-epigraph p:not(.quote-source) {
+      font-size: 1.12em;
+      line-height: 1.32;
     }
 
     .article-epigraph + h3 {
@@ -1205,6 +1210,57 @@
       border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
       border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
       box-sizing: border-box;
+    }
+
+    /* (Cultural Materialism wider, its labels either side, so that its
+       pyramid is drawn at the Base-Superstructure's scale; the Four Quadrants
+       smaller) */
+    .article-figure.article-figure-cm {
+      max-width: 760px;
+      margin-left: 0;
+    }
+
+    .article-figure.article-figure-small {
+      max-width: 420px;
+      margin-left: calc((min(100%, 760px) - min(100%, 420px)) / 2);
+    }
+
+    /* a passage set in a band of the Overview's colour across the window,
+       with room inside and out */
+    .article-band {
+      position: relative;
+      z-index: 0;
+      margin: 112px 0;
+      padding: 96px 0;
+      --canvas-bg: var(--inverse-bg);
+      --canvas-ink: var(--inverse-ink);
+      --canvas-accent: var(--inverse-ink);
+      color: var(--canvas-ink);
+    }
+
+    .article-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      background: var(--canvas-bg);
+      z-index: -1;
+    }
+
+    .article-band > :first-child {
+      margin-top: 0;
+    }
+
+    .article-band > :last-child {
+      margin-bottom: 0;
+    }
+
+    .article-band h4 span,
+    .article-band .quote-source {
+      color: color-mix(in srgb, currentColor 65%, transparent);
     }
 
     /* the models, each linking to its page on Models, centred in the text
@@ -2372,7 +2428,7 @@
 
             <section id="precursors">
 
-            <h2><a class="heading-link" href="#precursors">Precursors: Intellectual History &amp; Model Genealogy</a></h2>
+            <h2 data-toc="Precursors"><a class="heading-link" href="#precursors">Precursors: Intellectual History &amp; Model Genealogy</a></h2>
 
             <p>Within social theory, there is a long-standing dispute over the <em>primacy</em> of <em>structure versus agency</em>, in determining human behavior and driving the historical process.</p>
 
@@ -2382,13 +2438,13 @@
 
             <p>Beyond the simple binary between &lsquo;structure&rsquo; and &lsquo;agency&rsquo;, within <em>critical</em> social theory, more complex analytical apparatuses have been constructed, differentiating between various substructures and emphasising their relative influence over each other.</p>
 
-            <h4>Base-Superstructure Model</h4>
+            <h4>Classical Marxism: Base-Superstructure Model</h4>
 
             <p>This structuralist tradition began with Marx&rsquo;s <em>Base-Superstructure model</em> which positioned the economic &lsquo;base&rsquo; &ndash; the modes, forces and relations of production &ndash; as giving rise to the &lsquo;legal and political superstructure&rsquo; of capitalist society as well as its &lsquo;social consciousness&rsquo;. Whilst classical Marxism (&lsquo;dominant ideology&rsquo;) attended mainly to the base, post-marxists such as Gramsci (&lsquo;cultural hegemony&rsquo;) and Althusser (&lsquo;ideological apparatuses&rsquo;) would later elaborate upon the superstructure.</p>
 
             <ul class="dash-list live-list"><li>Base (economy): the modes, forces and relations of production</li><li>Superstructure: law, politics, ideology, culture, art</li></ul>
 
-            <figure class="article-figure"><a href="diagram/#base-superstructure-diagram"><img src="assets/downloads/base-superstructure-diagram.png" alt="The Base-Superstructure Model" loading="lazy" decoding="async"></a><figcaption>The Base-Superstructure Model</figcaption></figure>
+            <figure class="article-figure"><a href="diagram/#base-superstructure-diagram"><img src="assets/downloads/base-superstructure-diagram.png" alt="Classical Marxism: The Base-Superstructure Model" loading="lazy" decoding="async"></a><figcaption>Classical Marxism: The Base-Superstructure Model</figcaption></figure>
 
             <h4>Cultural Materialism: Infrastructure-Structure-Superstructure</h4>
 
@@ -2396,7 +2452,7 @@
 
             <ul class="dash-list live-list"><li>Infrastructure (technology): technological instruments and affordances, productive (and reproductive) forces and material conditions</li><li>Structure (political economy): the social organisation of decision-making and resource-allocation.</li><li>Superstructure (cultural psychology): ideologies, worldviews, belief and value-systems, symbols, memetics, narratives.</li></ul>
 
-            <figure class="article-figure"><a href="diagram/#structures-diagram"><img src="assets/downloads/cultural-materialism-diagram.png" alt="Cultural Materialism: Infrastructure-Structure-Superstructure" loading="lazy" decoding="async"></a><figcaption>Cultural Materialism: Infrastructure-Structure-Superstructure</figcaption></figure>
+            <figure class="article-figure article-figure-cm"><a href="diagram/#structures-diagram"><img src="assets/downloads/cultural-materialism-diagram.png" alt="Cultural Materialism: Infrastructure-Structure-Superstructure" loading="lazy" decoding="async"></a><figcaption>Cultural Materialism: Infrastructure-Structure-Superstructure</figcaption></figure>
 
             <h4>The Integral Model: Four Quadrants</h4>
 
@@ -2404,7 +2460,7 @@
 
             <ul class="dash-list live-list"><li><em>Interior-Individual</em> (upper left)</li><li><em>Exterior-Individual</em> (upper right)</li><li><em>Interior-Collective</em> (bottom left)</li><li><em>Exterior-Collective</em> (bottom right)</li></ul>
 
-            <figure class="article-figure"><a href="diagram/#four-quadrants"><img src="assets/downloads/four-quadrants.png" alt="The Integral Model: Four Quadrants" loading="lazy" decoding="async"></a><figcaption>The Integral Model: Four Quadrants</figcaption></figure>
+            <figure class="article-figure article-figure-small"><a href="diagram/#four-quadrants"><img src="assets/downloads/four-quadrants.png" alt="The Integral Model: Four Quadrants" loading="lazy" decoding="async"></a><figcaption>The Integral Model: Four Quadrants</figcaption></figure>
 
             </section>
 
@@ -2440,6 +2496,7 @@
 
             <ul class="dash-list live-list"><li><em>Determinism</em> &ndash; the structure is the principal driving force of history, conditioning the form that all other structures take as effectively emergent epiphenomena.</li><li><em>Problematisation</em> &ndash; the structure is responsible for causing problems in other structures and for all the problems that the civilisational stack generates overall.</li><li><em>Solutionism</em> &ndash; changing the structure will change all other structures as a cascade across the stack and ultimately resolve all civilisational problems as a downstream consequence.</li></ul>
 
+            <div class="article-band">
             <h3 id="paradigmatic-cases">Paradigmatic Cases</h3>
 
             <p><em>Determinism &ndash;</em> Classically, this has taken the form of privileging economics in <em>Marxist materialism</em> or ideas in <em>Hegelian idealism</em> as the driver of history</p>
@@ -2485,6 +2542,7 @@
             <h4>Historicisation (Macrostructure)</h4>
 
             <p>Historicisation completes the scale from micro to meso to macro: it locates causal primacy neither in persons nor in groups, but in the large-scale historical process itself, which is held to have a shape and logic that no participant intends. Its <em>determinism</em> takes several forms. There are the macro-historical cycle theories, from Ibn Khaldun&rsquo;s rise and fall of dynasties through Spengler and Toynbee to Peter Turchin&rsquo;s cliodynamics, in which population pressure and elite overproduction drive recurring waves of instability. There is military-economic adaptationism, summed up in Charles Tilly&rsquo;s &lsquo;war made the state, and the state made war&rsquo;: polities are forced to adopt whatever forms of organisation, finance and technology win in competition, or be absorbed by those that do. And there is cultural evolution, as developed by Joseph Henrich and others, in which norms, institutions and beliefs are selected for the advantages they confer on the groups that carry them. The <em>problematisation</em> follows: our crisis is a phase in a process &ndash; the late stage of a cycle, an overshoot of complexity, a selection pressure that rewards ever more destructive capacities. The <em>solutionism</em> is accordingly to read the process correctly and position ourselves within it: prepare for the coming phase, steer the transition, or deliberately design the cultural variants we want selection to favour.</p>
+            </div>
 
             <h3 id="neo-reductionisms">Neo-Reductionisms in the Metacrisis Space</h3>
 
@@ -2514,7 +2572,7 @@
                  always the same diagram) -->
             <div class="article-embed"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
 
-            <h2><a class="heading-link" href="#generative-dynamics">Applied Metatheory: Deconfusing Schmachtenberger&rsquo;s &lsquo;Generative Dynamics&rsquo; through the Complex Emergence Model</a></h2>
+            <h2 data-toc="Applied Metatheory"><a class="heading-link" href="#generative-dynamics">Applied Metatheory: Deconfusing Schmachtenberger&rsquo;s &lsquo;Generative Dynamics&rsquo; through the Complex Emergence Model</a></h2>
 
             <p>Having set out the many forms of structural reductionisms, we can now apply the complex emergence model as a holistic alternative. Rather than attribute causal primacy to a single structure, the model systematically delineates how civilisational problems are co-produced across every civilisational structure and scale of human agency.</p>
 
@@ -3000,7 +3058,7 @@
         // until the footer reaches it; light while a band is beneath it
         var footerAtTop = footerEl.getBoundingClientRect().top < 110;
         document.body.classList.toggle('corner-shown', scrollTop > 120 && !footerAtTop);
-        var onBand = Array.prototype.some.call(document.querySelectorAll('#overview, .in-band'), function (b) {
+        var onBand = Array.prototype.some.call(document.querySelectorAll('#overview, .in-band, .article-band'), function (b) {
           var r = b.getBoundingClientRect();
           return r.top <= 45 && r.bottom >= 45;
         });
