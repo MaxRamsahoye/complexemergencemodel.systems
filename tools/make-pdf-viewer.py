@@ -36,7 +36,7 @@ style = '''<style>
 
     /* the bar: the title, the page count, zoom, and the file itself */
     .pv-bar {
-      position: sticky;
+      position: relative;
       top: 0;
       z-index: 20;
       display: flex;
@@ -50,6 +50,56 @@ style = '''<style>
       border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
       font-family: 'IBM Plex Sans', sans-serif;
       font-size: 14px;
+    }
+
+    /* (once scrolled past, the bar moves to the left of the pages, upright,
+       out of their way; its place above them kept, so nothing jumps) */
+    .pv-barwrap {
+      min-height: var(--pv-bar-h, 77px);
+    }
+
+    @media (min-width: 901px) {
+      body.pv-docked .pv-bar {
+        position: fixed;
+        top: 50%;
+        left: 24px;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        flex-direction: column;
+        align-items: flex-start;
+        transform: translateY(-50%);
+        animation: pv-dock 0.3s ease;
+      }
+
+      body.pv-docked .pv-title {
+        display: none;
+      }
+
+      body.pv-docked .pv-tools {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      body.pv-docked .pv-pct,
+      body.pv-docked .pv-count {
+        margin: 0;
+        min-width: 0;
+        text-align: left;
+        padding-left: 4px;
+      }
+
+      body.pv-docked .pv-tools a span {
+        display: none;
+      }
+    }
+
+    @keyframes pv-dock {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .pv-title {
@@ -150,6 +200,11 @@ style = '''<style>
 
     @media (max-width: 600px) {
       .pv-bar { margin-top: 84px; width: calc(100% - 32px); }
+    }
+
+    @media (max-width: 900px) {
+      .pv-bar { position: sticky; top: 0; }
+      .pv-barwrap { min-height: 0; display: contents; }
       .pv-title { font-size: 17px; }
       .pv-zoom { display: none !important; }
       .pv-pages { padding: 24px 12px 80px; gap: 16px; }
@@ -160,7 +215,7 @@ style = '''<style>
 '''
 I = lambda d: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'
 main = '''<main class="pv-main">
-    <div class="pv-bar">
+    <div class="pv-barwrap"><div class="pv-bar">
       <h1 class="pv-title">The Complex Emergence Model</h1>
       <div class="pv-tools">
         <span class="pv-count" aria-live="polite">&ndash;</span>
@@ -169,7 +224,7 @@ main = '''<main class="pv-main">
         <button class="pv-zoom" type="button" data-zoom="1" aria-label="Zoom in">''' + I('<circle cx="11" cy="11" r="6.5"/><path d="M8 11h6M11 8v6M16 16l4.5 4.5"/>') + '''</button>
         <a href="''' + PDF + '''" download="The Complex Emergence Model.pdf" aria-label="Download the PDF">''' + I('<path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/>') + '''<span>Download</span></a>
       </div>
-    </div>
+    </div></div>
     <div class="pv-pages" aria-label="The pages of the PDF"></div>
   </main>
 
@@ -234,6 +289,12 @@ main = '''<main class="pv-main">
         list.innerHTML = '<p class="pv-note">The PDF could not be shown here. <a href="' + URL_ + '">Open it directly.</a></p>';
       });
       window.addEventListener('scroll', function () { if (pages.length) visible(); }, { passive: true });
+      // the bar: at the top, then docked at the left once scrolled past
+      var wrap = document.querySelector('.pv-barwrap'), bar = document.querySelector('.pv-bar');
+      document.documentElement.style.setProperty('--pv-bar-h', bar.offsetHeight + 'px');
+      function dock() { document.body.classList.toggle('pv-docked', wrap.getBoundingClientRect().top < 0); }
+      window.addEventListener('scroll', dock, { passive: true });
+      dock();
       var redraw = 0;
       function again() { clearTimeout(redraw); redraw = setTimeout(function () { pages.forEach(function (p, i) { var r = p.getBoundingClientRect(); if (r.bottom > -1200 && r.top < window.innerHeight + 1200) draw(i); }); }, 150); }
       window.addEventListener('resize', again);
