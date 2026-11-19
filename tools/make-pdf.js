@@ -94,7 +94,8 @@ const CSS = `
   .article-band .article-quote { border-left-color: rgba(251, 246, 236, 0.35); }
   .article-band-quote { break-inside: avoid; }
   .article-band-quote .article-quote.article-epigraph { margin: 0; font-size: 15pt; line-height: 1.4; }
-  .article-band-quote + h3 { margin-top: 0; }
+  .article-band-quote + h3 { margin-top: 0; font-style: normal; font-size: 18pt; }
+  /* (the three generative dynamics' headings upright and larger, as in the article) */
   /* the sections in the site's band (the Overview, then Basis and Contents
      together) on pages of their own in its midnight purple, edge to edge,
      their text centred on the page */
