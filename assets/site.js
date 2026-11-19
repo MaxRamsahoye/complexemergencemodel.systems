@@ -177,7 +177,7 @@
       'favicon-192': 'favicon-192-' + suffix + '.png', 'favicon-apple': 'apple-touch-icon-' + suffix + '.png' };
     Object.keys(ids).forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) el.href = base + 'favicon/' + ids[id];
+      if (el) el.href = base + 'favicon/' + ids[id] + '?v=fa5e3e1c';
     });
   }
 
