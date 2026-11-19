@@ -11,7 +11,8 @@ tail = H[H.index('<a class="site-title"'):]
 tail = re.sub(r'<script src="../assets/tools.js[^>]*></script>', lambda m: m.group(0).replace(' data-search-scope=".ov-sections" data-hide-until=".ov-top"', ''), tail)
 PDF = '../The%20Complex%20Emergence%20Model.pdf'
 style = '''<style>
-    .site-footer { display: none; }
+    .site-footer,
+    .top-nav { display: none !important; }
 
     html:not([data-theme]) body.no-band :is(.back-arrow, .theme-toggle, .top-nav, .over-band) {
       --canvas-ink: #000000;
@@ -43,7 +44,7 @@ style = '''<style>
       justify-content: space-between;
       gap: 24px;
       width: min(100% - 48px, 900px);
-      margin: 120px auto 0;
+      margin: 84px auto 0;
       padding: 16px 0;
       background: var(--canvas-bg);
       border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
