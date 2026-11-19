@@ -1203,13 +1203,13 @@
       margin: 0 0 96px;
     }
 
-    /* (on wider screens the frames shown at three-quarters size: the
-       Complex Emergence Model's then three-quarters of the window tall) */
+    /* (on wider screens the frames shown at 0.85 of their size: the
+       Complex Emergence Model's then 0.85 of the window tall) */
     @media (min-width: 901px) {
       .article-embed:not(.article-embed-fit) {
-        height: 75vh;
-        height: 75svh;
-        max-height: 750px;
+        height: 85vh;
+        height: 85svh;
+        max-height: 850px;
       }
     }
 
@@ -2752,12 +2752,12 @@
     (function () {
       var els = Array.prototype.slice.call(document.querySelectorAll('.article-embed'));
       if (!els.length) return;
-      // (on wider screens, three-quarters size: each page laid out in a frame
-      // a third larger, then scaled down)
+      // (on wider screens, at 0.85 of their size: each page laid out in a
+      // larger frame, then scaled down)
       var S = 1;
       function place() {
         var w = document.documentElement.clientWidth;
-        S = window.innerWidth > 900 ? 0.75 : 1;
+        S = window.innerWidth > 900 ? 0.85 : 1;
         els.forEach(function (el) {
           var frame = el.querySelector('iframe');
           frame.style.width = w / S + 'px';
