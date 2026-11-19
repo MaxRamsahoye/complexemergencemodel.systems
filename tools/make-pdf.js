@@ -78,11 +78,13 @@ const CSS = `
      dynamics' quotations, Critical Realism), in the same midnight purple,
      edge to edge across the page, carried on where one breaks across pages */
   .article-band {
-    margin: 10mm 0; padding: 11mm 0;
+    /* (each a page of its own, as the Overview's are, edge to edge in the
+       midnight purple, its text centred on the page) */
+    page: band; break-before: page; break-after: page;
+    box-sizing: border-box; min-height: 296.5mm; padding: 24mm;
+    display: flex; flex-direction: column; justify-content: center;
     background: #1d1135; color: #fbf6ec;
-    /* (out to the page's edges by shadows, which take no room, so the page
-       is not scaled down to fit a wider band) */
-    box-shadow: -24mm 0 0 #1d1135, 24mm 0 0 #1d1135;
+    font-size: 12pt; line-height: 1.38;
     -webkit-box-decoration-break: clone; box-decoration-break: clone;
   }
   .article-band > :first-child { margin-top: 0; }
@@ -91,8 +93,8 @@ const CSS = `
   .article-band :is(.quote-source, h4 span) { color: rgba(251, 246, 236, 0.65); }
   .article-band .article-quote { border-left-color: rgba(251, 246, 236, 0.35); }
   .article-band-quote { break-inside: avoid; }
-  .article-band-quote .article-quote.article-epigraph { margin: 0; }
-  .article-band-quote + h3 { margin-top: 8mm; }
+  .article-band-quote .article-quote.article-epigraph { margin: 0; font-size: 15pt; line-height: 1.4; }
+  .article-band-quote + h3 { margin-top: 0; }
   /* the sections in the site's band (the Overview, then Basis and Contents
      together) on pages of their own in its midnight purple, edge to edge,
      their text centred on the page */
