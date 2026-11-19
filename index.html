@@ -732,8 +732,9 @@
       stroke: var(--canvas-track-tint);
     }
 
+    /* (in the lighter tint of the accent, so it reads over the bands too) */
     .progress-ring-fill {
-      stroke: var(--link);
+      stroke: color-mix(in srgb, var(--link-blue) 55%, #fff);
     }
 
     body.past-overview .progress-ring {
