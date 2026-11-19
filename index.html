@@ -1180,13 +1180,23 @@
       line-height: 1.32;
     }
 
-    .article-epigraph + h3 {
-      margin-top: 0;
+    .article-band-quote + h3 {
+      margin-top: 104px;
+    }
+
+    /* (each in a band of its own, with room inside and out) */
+    .article-band.article-band-quote {
+      margin: 120px 0 0;
+      padding: 88px 0;
+    }
+
+    .article-band-quote .article-quote.article-epigraph {
+      margin: 0;
     }
 
     /* (the three generative dynamics' headings upright and larger) */
-    .article-body .article-epigraph + h3,
-    html.serif-headings .article-body .article-epigraph + h3 {
+    .article-body .article-band-quote + h3,
+    html.serif-headings .article-body .article-band-quote + h3 {
       font-style: normal;
       font-size: 1.35em;
     }
@@ -1318,6 +1328,12 @@
     .article-band h4 span,
     .article-band .quote-source {
       color: color-mix(in srgb, currentColor 65%, transparent);
+    }
+
+    /* (links in a band light, as in the Overview's) */
+    .article-body .article-band a,
+    .article-body .article-band p a {
+      color: inherit;
     }
 
     /* the models, each linking to its page on Models, centred in the text
@@ -2643,6 +2659,7 @@
 
               <p>*As an aside, annoyingly (for me at least) most people talk around these debates &ndash; particularly in relation to AI &ndash; without knowing these established terms and positions.</p>
 
+              <div class="article-band article-band-section">
               <h3 id="critical-realism">Critical Realism &amp; Analytical Dualism</h3>
 
               <p>The sociologist and contributor to critical realism (a metatheory) Margaret Archer has rightly <a href="https://en.wikipedia.org/wiki/Margaret_Archer#Analytical_dualism" target="_blank" rel="noopener">criticised this debate</a> as a false one, with positions on either side committing fundamental theoretical mistakes:</p>
@@ -2656,6 +2673,7 @@
               <p>Further than this, Archer also recognises that &lsquo;structure&rsquo; and &lsquo;agency&rsquo; are useful analytic constructs for understanding social dynamics and are not necessarily ontologically real in the world. Hence, she styled her own position as <strong>Analytical Dualism</strong>. This corresponds nicely with &lsquo;process philosophy&rsquo; and other critical ontological interventions (see Adorno&rsquo;s <a href="https://www.sfu.ca/~jaradul/identity" target="_blank" rel="noopener">&lsquo;identity thinking&rsquo;</a> or Korzybski&rsquo;s <a href="https://en.wikipedia.org/wiki/Map%E2%80%93territory_relation" target="_blank" rel="noopener">&lsquo;map-territory relation&rsquo;</a>) that do not make reifications out of language.</p>
 
               <p>Okay class dismissed!</p>
+              </div>
 
               <p>Essentially, all the models with multiple structures (that we ran through above), are creating a more complex analytical apparatus with which to understand the influences on <em>human agency</em>. This is most visible in Schmachtenberger&rsquo;s characterisation of the Emergence Model.</p>
 
@@ -2683,7 +2701,7 @@
 
             <p>Game-theoretic realism treats these dynamics as primary. The complex emergence model treats them as produced and reproduced by interactions between civilisational structures and human agency&ndash; and in turn constraining these. Here I apply the CEM to three of Schmachtenberger&rsquo;s proposed generative dynamics: the multi-polar trap, exponential technological acceleration, narrow-boundary problem-solving.</p>
 
-            <blockquote class="article-quote article-epigraph"><p>&ldquo;I want to highlight the system dynamics a little bit more explicitly. The multi-polar trap is not the source of one x-risk, this is a generator function for all x-risks… for everyone to be better off near term leads to everyone being worse off over the long term so we have a decoupling of the incentive of each agent from the well-being of the other agents and the commons&rdquo;</p><p class="quote-source">&ndash; <a href="https://youtu.be/pfeIsy2ElwQ" target="_blank" rel="noopener">Daniel Schmachtenberger Meta-Existential Risk Rhys Lindmark (2018)</em></a></p></blockquote>
+            <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;I want to highlight the system dynamics a little bit more explicitly. The multi-polar trap is not the source of one x-risk, this is a generator function for all x-risks… for everyone to be better off near term leads to everyone being worse off over the long term so we have a decoupling of the incentive of each agent from the well-being of the other agents and the commons&rdquo;</p><p class="quote-source">&ndash; <a href="https://youtu.be/pfeIsy2ElwQ" target="_blank" rel="noopener">Daniel Schmachtenberger Meta-Existential Risk Rhys Lindmark (2018)</a></p></blockquote></div>
 
             <h3 id="multi-polar-trap">The Multi-Polar Trap</h3>
 
@@ -2703,7 +2721,7 @@
 
             <h4>Substructure<span>Evolutionary Psychology</span></h4><p>Evolved dispositions towards status competition, in-group loyalty, out-group suspicion and short-term discounting make rivalry feel natural and large-scale cooperation hard. But we also evolved capacities for reciprocity, reputation-tracking and norm enforcement &ndash; the raw material of any coordination.</p>
 
-            <blockquote class="article-quote article-epigraph"><p>&ldquo;You can&rsquo;t keep doing increasing military tech following exponential tech curves, where then non-state actors can have fully catastrophic level tech and you can&rsquo;t even monitor it, you just can&rsquo;t keep playing that game. What has always defined the game is that it&rsquo;s always been a rivalrous game theoretic environment, and if it can produce tech that keeps increasing, it will always self-terminate at a point; and we just happen to be in the eminence of that point. This is the first generator function of X risk.&rdquo;</p><p class="quote-source">&ndash; <a href="https://futurethinkers.org/podcast/daniel-schmachtenberger-generator-functions" target="_blank" rel="noopener">Daniel Schmachtenberger Solving The Generator Functions of Existential Risks Future Thinkers (2018)</em></a></p></blockquote>
+            <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;You can&rsquo;t keep doing increasing military tech following exponential tech curves, where then non-state actors can have fully catastrophic level tech and you can&rsquo;t even monitor it, you just can&rsquo;t keep playing that game. What has always defined the game is that it&rsquo;s always been a rivalrous game theoretic environment, and if it can produce tech that keeps increasing, it will always self-terminate at a point; and we just happen to be in the eminence of that point. This is the first generator function of X risk.&rdquo;</p><p class="quote-source">&ndash; <a href="https://futurethinkers.org/podcast/daniel-schmachtenberger-generator-functions" target="_blank" rel="noopener">Daniel Schmachtenberger Solving The Generator Functions of Existential Risks Future Thinkers (2018)</a></p></blockquote></div>
 
             <h3 id="exponential-acceleration">Exponential Technological Acceleration</h3>
 
@@ -2723,7 +2741,7 @@
 
             <h4>Substructure<span>Evolutionary Psychology</span></h4><p>We evolved for local, roughly linear environments, and we intuit exponential growth and distant risks poorly. Novelty-seeking and status rewards encourage rapid adoption, while slow-moving or low-probability catastrophes fail to trigger the alarm that an immediate threat would.</p>
 
-            <blockquote class="article-quote article-epigraph"><p>&ldquo;Society&rsquo;s primary processes for solving problems end up creating other (often worse) problems; when using the same types of processes to address new problems recursively, this leads to a world in metacrisis… Our standard approaches to problem-solving produce immediate, narrow benefits, while failing to address the causes of the problem and driving externalities that create more problems&rdquo;</p><p class="quote-source">&ndash; <a href="https://www.civilizationresearchinstitute.org/research/prudent-problem-solving/" target="_blank" rel="noopener">Steps for Prudent Problem Solving Civilization Research Institute (2026)</em></a></p></blockquote>
+            <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;Society&rsquo;s primary processes for solving problems end up creating other (often worse) problems; when using the same types of processes to address new problems recursively, this leads to a world in metacrisis… Our standard approaches to problem-solving produce immediate, narrow benefits, while failing to address the causes of the problem and driving externalities that create more problems&rdquo;</p><p class="quote-source">&ndash; <a href="https://www.civilizationresearchinstitute.org/research/prudent-problem-solving/" target="_blank" rel="noopener">Steps for Prudent Problem Solving Civilization Research Institute (2026)</a></p></blockquote></div>
 
             <h3 id="narrow-boundary">Narrow-Boundary Problem-Solving</h3>
 
