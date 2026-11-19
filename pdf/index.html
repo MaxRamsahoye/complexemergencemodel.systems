@@ -60,14 +60,20 @@
       --link-blue: #1a3a9c;
     }
 
+    /* (the site's name pinned in the top-right corner as the pages scroll;
+       on narrower screens, where the bar pins across the top, it scrolls away) */
     .site-title,
     body.footer-in-view .site-title {
-      position: absolute; z-index: 10; top: 32px; right: 40px; left: auto; bottom: auto;
+      position: fixed; z-index: 10; top: 32px; right: 40px; left: auto; bottom: auto;
       margin: 0; text-align: right; opacity: 1; pointer-events: auto;
     }
 
     @media (max-width: 960px) {
       .site-title, body.footer-in-view .site-title { top: 26px; right: 24px; }
+    }
+
+    @media (max-width: 900px) {
+      .site-title, body.footer-in-view .site-title { position: absolute; }
     }
 
     @media (max-width: 600px) {
@@ -274,6 +280,21 @@
     </div></div>
     <div class="pv-pages" aria-label="The pages of the PDF"></div>
   </main>
+
+  <button class="scroll-top-btn" type="button" aria-label="Scroll to top">
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
+      <polygon points="14,9.078 20.328,18.922 14,15.969 7.672,18.922"/>
+    </svg>
+  </button>
+  <script>
+    // the up arrow, once the first page has scrolled away
+    (function () {
+      var up = document.querySelector('.scroll-top-btn');
+      function show() { up.classList.toggle('visible', window.scrollY > 600); }
+      window.addEventListener('scroll', show, { passive: true });
+      show();
+    })();
+  </script>
 
   <script src="../assets/pdfjs/pdf.min.js"></script>
   <script>
