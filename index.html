@@ -888,6 +888,18 @@
       }
     }
 
+    /* (each line of the menu light while a band passes beneath it) */
+    .toc :is(.toc-label, li).toc-on-band,
+    .toc li.toc-on-band::before,
+    .toc li.toc-on-band a {
+      color: var(--inverse-ink, #fbf6ec);
+      transition: color 0.2s ease;
+    }
+
+    .toc li.toc-on-band a:hover {
+      border-bottom-color: var(--inverse-ink, #fbf6ec);
+    }
+
     .toc-label {
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -2770,6 +2782,28 @@
         }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
         els.forEach(function (el) { io.observe(el); });
       }
+    })();
+  </script>
+  <script>
+    // the side menu over a band: each of its lines turns light while a band
+    // (the Overview's, the Contents', Paradigmatic Cases') is beneath it
+    (function () {
+      var toc = document.querySelector('.toc');
+      if (!toc) return;
+      var pending = false;
+      function update() {
+        pending = false;
+        var bands = Array.prototype.map.call(document.querySelectorAll('#overview, .in-band, .article-band'), function (b) { return b.getBoundingClientRect(); });
+        toc.querySelectorAll('.toc-label, li').forEach(function (el) {
+          var r = el.getBoundingClientRect(), y = r.top + Math.min(r.height, 22) / 2;
+          el.classList.toggle('toc-on-band', bands.some(function (b) { return b.top <= y && b.bottom >= y; }));
+        });
+      }
+      function soon() { if (!pending) { pending = true; requestAnimationFrame(update); } }
+      window.addEventListener('scroll', soon, { passive: true });
+      window.addEventListener('resize', soon);
+      update();
+      setTimeout(update, 1500);
     })();
   </script>
   <script>
