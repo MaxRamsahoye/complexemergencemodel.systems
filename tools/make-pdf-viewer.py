@@ -113,14 +113,18 @@ style = '''<style>
     .pv-pages {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: safe center;
+      overflow-x: auto;
       gap: 28px;
       padding: 40px 24px 120px;
     }
 
+    /* (at the zoom's own width, wider than the window if need be, scrolling
+       sideways; on phones, the width of the screen) */
     .pv-page {
       position: relative;
-      width: min(100%, var(--pv-w, 794px));
+      flex: none;
+      width: var(--pv-w, 794px);
       aspect-ratio: 210 / 297;
       background: #fff;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 28px rgba(0, 0, 0, 0.08);
@@ -149,6 +153,7 @@ style = '''<style>
       .pv-title { font-size: 17px; }
       .pv-zoom { display: none !important; }
       .pv-pages { padding: 24px 12px 80px; gap: 16px; }
+      .pv-page { width: 100%; }
     }
   </style>
 </head>
@@ -177,13 +182,14 @@ main = '''<main class="pv-main">
       var list = document.querySelector('.pv-pages'), count = document.querySelector('.pv-count');
       if (!window.pdfjsLib) { list.innerHTML = '<p class="pv-note">The viewer could not load. <a href="' + URL_ + '">Open the PDF directly.</a></p>'; return; }
       pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/pdfjs/pdf.worker.min.js';
-      var ZOOMS = [595, 700, 794, 920, 1060, 1240], z = 2, pdf, pages = [], drawn = new Map();
+      // (the browser's own PDF viewer's steps, as percentages of the page at
+      // its actual size: A4, 794px wide)
+      var ZOOMS = [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500], z = 7, pdf, pages = [], drawn = new Map();
       // (the zoom as a percentage of the page at its actual size: A4, 794px wide)
       var pct = document.querySelector('.pv-pct');
       function setWidth() {
-        document.documentElement.style.setProperty('--pv-w', ZOOMS[z] + 'px');
-        var shown = Math.min(ZOOMS[z], list.clientWidth - 48 || ZOOMS[z]);
-        pct.textContent = Math.round(shown / 794 * 100) + '%';
+        document.documentElement.style.setProperty('--pv-w', Math.round(794 * ZOOMS[z] / 100) + 'px');
+        pct.textContent = ZOOMS[z] + '%';
       }
       setWidth();
       function draw(i) {
@@ -192,6 +198,9 @@ main = '''<main class="pv-main">
         box._busy = true;
         pdf.getPage(i + 1).then(function (page) {
           var v1 = page.getViewport({ scale: 1 }), dpr = Math.min(window.devicePixelRatio || 1, 3);
+          // (very large zooms drawn at no more than 6000px across, which
+          // browsers can hold as a canvas)
+          dpr = Math.min(dpr, 6000 / w);
           var vp = page.getViewport({ scale: w / v1.width * dpr });
           var c = document.createElement('canvas');
           c.width = Math.round(vp.width); c.height = Math.round(vp.height);
@@ -227,13 +236,15 @@ main = '''<main class="pv-main">
       window.addEventListener('scroll', function () { if (pages.length) visible(); }, { passive: true });
       var redraw = 0;
       function again() { clearTimeout(redraw); redraw = setTimeout(function () { pages.forEach(function (p, i) { var r = p.getBoundingClientRect(); if (r.bottom > -1200 && r.top < window.innerHeight + 1200) draw(i); }); }, 150); }
-      window.addEventListener('resize', function () { setWidth(); again(); });
+      window.addEventListener('resize', again);
       document.querySelectorAll('[data-zoom]').forEach(function (b) {
         b.addEventListener('click', function () {
           var at = pages.length ? (window.scrollY + window.innerHeight / 2) / document.documentElement.scrollHeight : 0;
           z = Math.max(0, Math.min(ZOOMS.length - 1, z + +b.dataset.zoom));
           setWidth();
           window.scrollTo(0, at * document.documentElement.scrollHeight - window.innerHeight / 2);
+          // (sideways, kept centred on the page)
+          list.scrollLeft = (list.scrollWidth - list.clientWidth) / 2;
           again();
         });
       });
