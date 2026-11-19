@@ -67,7 +67,7 @@ M.append(dict(
     ['Superstructure <span>Cultural Psychology</span>', 'Defines what counts as winning and supplies us-and-them narratives &ndash; or shared norms that underwrite cooperation (Ostrom)', 'Narratives of progress and disruption legitimise speed; sense-making lags', 'The analytic paradigm of modernity: problems broken into parts, each to an expert'],
     ['Substructure <span>Evolutionary Psychology</span>', 'Status competition, in-group loyalty, short-term discounting &ndash; alongside reciprocity and norm enforcement', 'Evolved for local, linear worlds: we intuit exponential growth and distant risks poorly', 'Cognition tuned to immediate, local threats; a preference for simple causes and single culprits'],
   ],
-  note='These generator functions belong to the metastructure and macrostructure: not located in any one structure, but recurring system dynamics that emerge from and operate through all of them.'))
+  more='These generator functions belong to the metastructure and macrostructure: not located in any one structure, but recurring system dynamics that emerge from and operate through all of them.'))
 
 def thumb(i):
     # a small matrix: a header row and column in violet, cells in tints
@@ -96,7 +96,7 @@ for i, m in enumerate(M):
     t += '</tbody></table>'
     views += ('<section class="mx-view" id="%s" hidden><h1 class="page-title mx-view-title">%s</h1><p class="mx-kicker mx-view-kicker">%s</p><p class="mx-view-desc">%s</p>'
               '<div class="mx-scroll">%s</div>%s<p class="mx-read"><a href="%s">Read the section</a></p></section>') % (
-              m['id'], m['title'], m['kicker'], m['desc'], t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
+              m['id'], m['title'], m['kicker'], m['desc'] + ((' ' + m['more']) if m.get('more') else ''), t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
 
 STYLE = '''<style>
     /* no band at the top and no footer, as on the Models page: the corner
