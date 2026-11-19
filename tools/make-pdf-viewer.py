@@ -96,6 +96,13 @@ style = '''<style>
       height: 20px;
     }
 
+    .pv-pct {
+      min-width: 3.2em;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      margin: 0 -10px;
+    }
+
     .pv-count {
       font-variant-numeric: tabular-nums;
       min-width: 4.5em;
@@ -153,6 +160,7 @@ main = '''<main class="pv-main">
       <div class="pv-tools">
         <span class="pv-count" aria-live="polite">&ndash;</span>
         <button class="pv-zoom" type="button" data-zoom="-1" aria-label="Zoom out">''' + I('<circle cx="11" cy="11" r="6.5"/><path d="M8 11h6M16 16l4.5 4.5"/>') + '''</button>
+        <span class="pv-zoom pv-pct" aria-live="polite">100%</span>
         <button class="pv-zoom" type="button" data-zoom="1" aria-label="Zoom in">''' + I('<circle cx="11" cy="11" r="6.5"/><path d="M8 11h6M11 8v6M16 16l4.5 4.5"/>') + '''</button>
         <a href="''' + PDF + '''" download="The Complex Emergence Model.pdf" aria-label="Download the PDF">''' + I('<path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/>') + '''<span>Download</span></a>
       </div>
@@ -170,7 +178,13 @@ main = '''<main class="pv-main">
       if (!window.pdfjsLib) { list.innerHTML = '<p class="pv-note">The viewer could not load. <a href="' + URL_ + '">Open the PDF directly.</a></p>'; return; }
       pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/pdfjs/pdf.worker.min.js';
       var ZOOMS = [595, 700, 794, 920, 1060, 1240], z = 2, pdf, pages = [], drawn = new Map();
-      function setWidth() { document.documentElement.style.setProperty('--pv-w', ZOOMS[z] + 'px'); }
+      // (the zoom as a percentage of the page at its actual size: A4, 794px wide)
+      var pct = document.querySelector('.pv-pct');
+      function setWidth() {
+        document.documentElement.style.setProperty('--pv-w', ZOOMS[z] + 'px');
+        var shown = Math.min(ZOOMS[z], list.clientWidth - 48 || ZOOMS[z]);
+        pct.textContent = Math.round(shown / 794 * 100) + '%';
+      }
       setWidth();
       function draw(i) {
         var box = pages[i]; if (!box || box._busy) return;
@@ -213,7 +227,7 @@ main = '''<main class="pv-main">
       window.addEventListener('scroll', function () { if (pages.length) visible(); }, { passive: true });
       var redraw = 0;
       function again() { clearTimeout(redraw); redraw = setTimeout(function () { pages.forEach(function (p, i) { var r = p.getBoundingClientRect(); if (r.bottom > -1200 && r.top < window.innerHeight + 1200) draw(i); }); }, 150); }
-      window.addEventListener('resize', again);
+      window.addEventListener('resize', function () { setWidth(); again(); });
       document.querySelectorAll('[data-zoom]').forEach(function (b) {
         b.addEventListener('click', function () {
           var at = pages.length ? (window.scrollY + window.innerHeight / 2) / document.documentElement.scrollHeight : 0;
