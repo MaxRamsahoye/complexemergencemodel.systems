@@ -1196,6 +1196,16 @@
       margin: 0 0 96px;
     }
 
+    /* (on wider screens the frames shown at three-quarters size: the
+       Complex Emergence Model's then three-quarters of the window tall) */
+    @media (min-width: 901px) {
+      .article-embed:not(.article-embed-fit) {
+        height: 75vh;
+        height: 75svh;
+        max-height: 750px;
+      }
+    }
+
     /* (in its own section, beneath its description) */
     #complex-emergence-model .article-embed {
       margin: 64px 0 0;
@@ -1211,11 +1221,6 @@
       height: 700px;
       max-height: none;
       margin: 0;
-    }
-
-    .article-embed-fit iframe {
-      border-top: 0;
-      border-bottom: 0;
     }
 
     .article-embed-figure figcaption {
@@ -1239,7 +1244,7 @@
 
     /* (while the frame fills the window, the article's own corner title and
        reading ring give way to the diagram's) */
-    body.embed-in-view :is(.corner-title, .progress-ring, .toc) {
+    body.embed-in-view :is(.corner-title, .progress-ring) {
       opacity: 0 !important;
       pointer-events: none !important;
     }
@@ -1254,9 +1259,7 @@
       width: 100vw;
       height: 100%;
       border: 0;
-      border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
-      border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
-      box-sizing: border-box;
+      transform-origin: 0 0;
     }
 
     /* (Cultural Materialism wider, its labels either side, so that its
@@ -2742,12 +2745,19 @@
     (function () {
       var els = Array.prototype.slice.call(document.querySelectorAll('.article-embed'));
       if (!els.length) return;
+      // (on wider screens, three-quarters size: each page laid out in a frame
+      // a third larger, then scaled down)
+      var S = 1;
       function place() {
         var w = document.documentElement.clientWidth;
+        S = window.innerWidth > 900 ? 0.75 : 1;
         els.forEach(function (el) {
           var frame = el.querySelector('iframe');
-          frame.style.width = w + 'px';
+          frame.style.width = w / S + 'px';
+          frame.style.height = el.offsetHeight / S + 'px';
+          frame.style.transform = S === 1 ? '' : 'scale(' + S + ')';
           frame.style.left = -el.getBoundingClientRect().left + 'px';
+          if (el._fit) el._fit();
         });
       }
       place();
@@ -2763,8 +2773,9 @@
           var main = doc.querySelector('main') || doc.body;
           function fit() {
             var h = Math.ceil(main.getBoundingClientRect().bottom + (frame.contentWindow.scrollY || 0));
-            if (h > 100) el.style.height = h + 'px';
+            if (h > 100) { el.style.height = h * S + 'px'; frame.style.height = h + 'px'; }
           }
+          el._fit = fit;
           fit();
           if ('ResizeObserver' in window) new ResizeObserver(fit).observe(main);
           setTimeout(fit, 600); setTimeout(fit, 2000);

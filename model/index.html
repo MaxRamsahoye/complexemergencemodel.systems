@@ -1539,6 +1539,23 @@
       margin: 0;
     }
 
+    /* (no dividing line across the top of the frame) */
+    html.embed .md-scene::before {
+      display: none;
+    }
+
+    /* (the terminology and the download on the right, clear of the
+       article's own menu on the left) */
+    html.embed .md-terms {
+      left: auto;
+      right: 40px;
+    }
+
+    html.embed .md-save {
+      left: auto;
+      right: 40px;
+    }
+
     html.embed,
     html.embed body {
       overflow: hidden;

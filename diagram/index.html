@@ -3878,6 +3878,33 @@
       display: none !important;
     }
 
+    /* (the download and view toggle on the right, clear of the article's
+       own menu on the left) */
+    html.embed section:has(> .model-save-row) {
+      position: relative;
+    }
+
+    html.embed .model-save-row {
+      position: absolute;
+      top: 0;
+      left: auto !important;
+      right: 24px;
+      z-index: 3;
+      margin: 0;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    /* (in the article, the Four Quadrants' left edge in line with the
+       Emergence Model's, whose drawing sits a little in from its frame) */
+    @media (min-width: 1300px) {
+      html.embed .integral-view .quad-fig {
+        transform: translateX(55px);
+      }
+    }
+
     html.embed .page-main {
       padding-top: 56px !important;
       padding-bottom: 56px !important;
