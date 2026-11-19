@@ -64,7 +64,35 @@ const CSS = `
   h2 { margin: 28pt 0 9pt; font-size: 20pt; font-weight: 600; line-height: 1.2; break-after: avoid; }
   h3 { margin: 20pt 0 7pt; font-size: 15.5pt; font-weight: 600; font-style: italic; break-after: avoid; }
   h4, h5 { margin: 16pt 0 5pt; font-size: 13.5pt; font-weight: 600; break-after: avoid; }
+  /* (a heading never left at the foot of a page: room for some lines after
+     it is kept, invisibly, or it moves over to the next page) */
+  :is(h2, h3, h4):not(.band-page *)::after { content: ''; display: block; height: 32mm; margin-bottom: -32mm; }
+  h2, h3 { break-inside: avoid; }
+  /* (the last section's spacers, and anything else, kept from spilling onto
+     a page of their own after the end) */
+  body > section:last-of-type > :last-child { margin-bottom: 0; }
+  .pdf-end { height: 0; overflow: hidden; }
+  body { overflow: hidden; }
   p { margin: 0 0 9pt; orphans: 3; widows: 3; }
+  /* the article's bands within it (Paradigmatic Cases, the generative
+     dynamics' quotations, Critical Realism), in the same midnight purple,
+     edge to edge across the page, carried on where one breaks across pages */
+  .article-band {
+    margin: 10mm 0; padding: 11mm 0;
+    background: #1d1135; color: #fbf6ec;
+    /* (out to the page's edges by shadows, which take no room, so the page
+       is not scaled down to fit a wider band) */
+    box-shadow: -24mm 0 0 #1d1135, 24mm 0 0 #1d1135;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+  .article-band > :first-child { margin-top: 0; }
+  .article-band > :last-child { margin-bottom: 0; }
+  .article-band a { color: inherit; }
+  .article-band :is(.quote-source, h4 span) { color: rgba(251, 246, 236, 0.65); }
+  .article-band .article-quote { border-left-color: rgba(251, 246, 236, 0.35); }
+  .article-band-quote { break-inside: avoid; }
+  .article-band-quote .article-quote.article-epigraph { margin: 0; }
+  .article-band-quote + h3 { margin-top: 8mm; }
   /* the sections in the site's band (the Overview, then Basis and Contents
      together) on pages of their own in its midnight purple, edge to edge,
      their text centred on the page */
@@ -155,7 +183,7 @@ const CSS = `
     '<style>' + CSS + '</style></head><body>' +
     '<div class="title-page"><p class="author">' + parts.author + '</p><h1>' + parts.title + '</h1><p class="subtitle">' + parts.subtitle + '</p></div>' +
     parts.bandPages.map((h) => '<div class="band-page">' + h + '</div>').join('') +
-    parts.rest.replace('<section', '<section class="article-start"') + '</body></html>';
+    parts.rest.replace('<section', '<section class="article-start"') + '<div class="pdf-end"></div></body></html>';
   await page.setContent(doc, { waitUntil: 'load', timeout: 20000 }).catch(() => page.setContent(doc, { waitUntil: 'domcontentloaded' }));
   // the margins' type is not in the page itself, so load it by name
   await page.evaluate(() => Promise.all(['400 8pt "IBM Plex Sans"', '500 10pt "IBM Plex Sans"', '700 29pt "Inter"'].map((f) => document.fonts.load(f))).then(() => document.fonts.ready));
