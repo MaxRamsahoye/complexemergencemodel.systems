@@ -233,6 +233,47 @@
       height: 100%;
     }
 
+    /* the progress bar down the right-hand edge, in the accent; wider to
+       the touch than it looks */
+    .pv-progress {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 14px;
+      z-index: 30;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .pv-progress::before,
+    .pv-progress-fill {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 4px;
+      transition: width 0.15s ease;
+    }
+
+    .pv-progress::before {
+      background: color-mix(in srgb, var(--link-blue) 14%, transparent);
+    }
+
+    .pv-progress-fill {
+      background: var(--link-blue);
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+
+    .pv-progress:hover::before,
+    .pv-progress:hover .pv-progress-fill,
+    .pv-progress.pv-dragging::before,
+    .pv-progress.pv-dragging .pv-progress-fill {
+      width: 7px;
+    }
+
     .pv-note {
       margin: 80px auto;
       max-width: 560px;
@@ -280,6 +321,31 @@
     </div></div>
     <div class="pv-pages" aria-label="The pages of the PDF"></div>
   </main>
+
+  <!-- the progress through the document: a bar down the right-hand edge
+       of the window in the accent, in place of the browser's scrollbar (which
+       the page hides); it can be clicked or dragged to move through it -->
+  <div class="pv-progress" aria-hidden="true"><div class="pv-progress-fill"></div></div>
+  <script>
+    (function () {
+      var bar = document.querySelector('.pv-progress'), fill = bar.firstElementChild, dragging = false;
+      function update() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        fill.style.transform = 'scaleY(' + (max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0) + ')';
+      }
+      function seek(y) {
+        var r = bar.getBoundingClientRect(), max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo(0, Math.min(1, Math.max(0, (y - r.top) / r.height)) * max);
+      }
+      bar.addEventListener('pointerdown', function (e) { dragging = true; bar.setPointerCapture(e.pointerId); bar.classList.add('pv-dragging'); seek(e.clientY); });
+      bar.addEventListener('pointermove', function (e) { if (dragging) seek(e.clientY); });
+      ['pointerup', 'pointercancel'].forEach(function (t) { bar.addEventListener(t, function () { dragging = false; bar.classList.remove('pv-dragging'); }); });
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      new ResizeObserver(update).observe(document.body);
+      update();
+    })();
+  </script>
 
   <button class="scroll-top-btn" type="button" aria-label="Scroll to top">
     <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
