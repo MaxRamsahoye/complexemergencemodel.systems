@@ -1527,6 +1527,23 @@
     }
 
   </style>
+  <!-- ?embed: the diagram's screen alone, for the article, which shows
+       this very page in a frame (so the two are always the same) -->
+  <script>if (/[?&]embed\b/.test(location.search)) document.documentElement.classList.add('embed');</script>
+  <style>
+    html.embed :is(.md-corners, .back-arrow, .md-top, .md-side, .site-footer, .md-down-corner, .top-nav, .site-title) {
+      display: none !important;
+    }
+
+    html.embed .md-figure {
+      margin: 0;
+    }
+
+    html.embed,
+    html.embed body {
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body class="no-band">
   <!-- the first screen: three of the other models' diagrams, as the Models

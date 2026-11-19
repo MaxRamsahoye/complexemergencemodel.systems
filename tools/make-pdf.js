@@ -34,6 +34,19 @@ const CSS = `
     @top-right { content: 'Complex\\A Emergence'; white-space: pre; font-family: 'IBM Plex Sans', sans-serif; font-weight: 500; font-size: 10pt; line-height: 1.15; letter-spacing: 0.06em; text-transform: uppercase; text-align: right; vertical-align: bottom; padding-bottom: 2mm; color: #000; }
   }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* the models' diagrams, centred, a caption beneath in IBM Plex */
+  .article-figure { margin: 8mm auto 9mm; max-width: 115mm; text-align: center; break-inside: avoid; }
+  .article-figure img { display: block; width: 100%; height: auto; }
+  .article-figure figcaption { margin-top: 3mm; font-family: 'IBM Plex Sans', sans-serif; font-size: 7pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #777; }
+  /* quotations set apart, the source beneath; the generative dynamics' own
+     unruled, above their headings */
+  .article-quote { margin: 5mm 0 6mm; padding-left: 5mm; border-left: 0.5pt solid #bbb; break-inside: avoid; }
+  .article-quote p { margin: 0; font-style: italic; }
+  .article-quote .quote-source { margin-top: 2mm; font-family: 'IBM Plex Sans', sans-serif; font-style: normal; font-size: 8pt; color: #777; }
+  .article-quote.article-epigraph { border-left: none; padding-left: 0; margin-top: 9mm; }
+  h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 10pt; font-weight: 600; margin: 5mm 0 1mm; break-after: avoid; }
+  h4 span { margin-left: 2mm; font-weight: 400; color: #777; }
+  h4 + p { margin-top: 0; }
   body { margin: 0; font-family: 'ET Bembo', Georgia, serif; font-size: 13.5pt; line-height: 1.42; color: #000; }
   a { color: #6a3fc4; text-decoration: none; }
   .amp { font-style: normal; }
@@ -101,6 +114,15 @@ const CSS = `
     const q = (s) => document.querySelector(s);
     const body = q('.article-body').cloneNode(true);
     body.querySelectorAll('button, .sidenote, .sidenote-label').forEach((n) => n.remove());
+    // the live diagram (a frame onto the model's page) printed as its image,
+    // assets/downloads/complex-emergence-model.png: run
+    // tools/make-cem-image.js first, so that the image is the page as it is
+    body.querySelectorAll('.article-embed').forEach((n) => {
+      const f = document.createElement('figure');
+      f.className = 'article-figure';
+      f.innerHTML = '<img src="assets/downloads/complex-emergence-model.png" alt="The Complex Emergence Model"><figcaption>The Complex Emergence Model</figcaption>';
+      n.replaceWith(f);
+    });
     // headings lose their self-links, keeping their text
     body.querySelectorAll('.heading-link').forEach((a) => a.replaceWith(...a.childNodes));
     const sections = Array.from(body.children);
