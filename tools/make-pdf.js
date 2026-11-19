@@ -66,7 +66,7 @@ const CSS = `
   h4, h5 { margin: 16pt 0 5pt; font-size: 13.5pt; font-weight: 600; break-after: avoid; }
   /* (a heading never left at the foot of a page: room for some lines after
      it is kept, invisibly, or it moves over to the next page) */
-  :is(h2, h3, h4):not(.band-page *)::after { content: ''; display: block; height: 32mm; margin-bottom: -32mm; }
+  :is(h2, h3, h4):not(.band-page *):not(.article-band *)::after { content: ''; display: block; height: 32mm; margin-bottom: -32mm; }
   h2, h3 { break-inside: avoid; }
   /* (the last section's spacers, and anything else, kept from spilling onto
      a page of their own after the end) */
@@ -93,6 +93,13 @@ const CSS = `
   .article-band :is(.quote-source, h4 span) { color: rgba(251, 246, 236, 0.65); }
   .article-band .article-quote { border-left-color: rgba(251, 246, 236, 0.35); }
   .article-band-quote { break-inside: avoid; }
+  /* (Critical Conclusions, the longest, kept to its page) */
+  #critical-conclusions .article-band { font-size: 11pt; line-height: 1.34; justify-content: center; }
+  #critical-conclusions .article-band h2 { margin: 0 0 8pt; }
+  #critical-conclusions .article-band h3 { margin: 12pt 0 4pt; font-size: 13pt; }
+  #critical-conclusions .article-band p { margin: 0 0 6pt; }
+  #critical-conclusions .article-band ul { margin: 4pt 0 6pt; }
+  #critical-conclusions .article-band li { margin-bottom: 2pt; }
   .article-band-quote .article-quote.article-epigraph { margin: 0; font-size: 15pt; line-height: 1.4; }
   .article-band-quote + h3 { margin-top: 0; font-style: normal; font-size: 18pt; }
   /* (the three generative dynamics' headings upright and larger, as in the article) */
