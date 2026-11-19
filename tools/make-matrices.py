@@ -9,7 +9,7 @@ head = head.replace('Overviews — Complex Emergence', 'Matrices — Complex Eme
 
 M = []
 M.append(dict(
-  id='model-genealogy', kicker='Matrix 1 · Sections 3–4', title='Model Genealogy',
+  id='model-genealogy', kicker='Matrix 1 · See Article Sections 3–4', title='Model Genealogy',
   desc='The models of civilisation as interacting structures, from Marx to the Complex Emergence Model: their structures, where each places causal primacy, and their limits.',
   read='../#precursors',
   cols=['Model', 'Theorist', 'Structures', 'Causal primacy', 'Organising principle', 'Limits'],
@@ -36,7 +36,7 @@ M.append(dict(
      '&mdash;'],
   ]))
 M.append(dict(
-  id='structural-reductionisms', kicker='Matrix 2 · Section 5', title='Structural Reductionisms',
+  id='structural-reductionisms', kicker='Matrix 2 · See Article Section 5', title='Structural Reductionisms',
   desc='The recurring tendency to reduce civilisation to a single structure: for each reductionism, the structure it privileges, its determinism, its problematisation and its solutionism.',
   read='../#structural-primacy',
   cols=['Reductionism', 'Structure', 'Determinism', 'Problematisation', 'Solutionism', 'Exemplars'],
@@ -53,7 +53,7 @@ M.append(dict(
     ['Neorealism', 'Metastructure (evolutionary game theory)', 'Competitive selection dynamics across structures; institutions, technologies and cultures as their epiphenomena', 'Multipolar traps, arms races and tragedies of the commons', 'New coordination mechanisms and game designs that change the payoffs, not the players', 'Thucydides, Hobbes, Machiavelli, Malthus; Schmachtenberger&rsquo;s generator functions, Alexander&rsquo;s &lsquo;Moloch&rsquo;'],
   ]))
 M.append(dict(
-  id='generative-dynamics', kicker='Matrix 3 · Sections 6–7', title='Generative Dynamics Decomposed',
+  id='generative-dynamics', kicker='Matrix 3 · See Article Sections 6–7', title='Generative Dynamics Decomposed',
   desc='Schmachtenberger&rsquo;s generator functions read through the Complex Emergence Model: how each is co-produced across the structures and scales of human agency.',
   read='../#generative-dynamics',
   cols=['Structure', 'The Multi-Polar Trap', 'Exponential Technological Acceleration', 'Narrow-Boundary Problem-Solving'],
@@ -94,9 +94,9 @@ for i, m in enumerate(M):
     for r in m['rows']:
         t += '<tr><th scope="row">%s</th>%s</tr>' % (r[0], ''.join('<td>%s</td>' % c for c in r[1:]))
     t += '</tbody></table>'
-    views += ('<section class="mx-view" id="%s" hidden><h1 class="page-title mx-view-title">%s</h1><p class="mx-kicker mx-view-kicker">%s</p><p class="mx-view-desc">%s</p>'
+    views += ('<section class="mx-view" id="%s" hidden><p class="mx-kicker mx-view-kicker">%s</p><h1 class="page-title mx-view-title">%s</h1><p class="mx-view-desc">%s</p>'
               '<div class="mx-scroll">%s</div>%s<p class="mx-read"><a href="%s">Read the section</a></p></section>') % (
-              m['id'], m['title'], m['kicker'], m['desc'] + ((' ' + m['more']) if m.get('more') else ''), t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
+              m['id'], m['kicker'], m['title'], m['desc'] + ((' ' + m['more']) if m.get('more') else ''), t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
 
 STYLE = '''<style>
     /* no band at the top and no footer, as on the Models page: the corner
@@ -215,12 +215,8 @@ STYLE = '''<style>
       display: none;
     }
 
-    .mx-view-title {
-      margin-bottom: 14px;
-    }
-
     .mx-view-kicker {
-      margin-bottom: 28px;
+      margin: 0 0 14px;
     }
 
     /* the menu of matrices, as the Models page has its own: a row above
@@ -471,7 +467,10 @@ script = '''<script>
       window.addEventListener('popstate', route);
       route();
       // (arriving with a matrix named in the address: from the top of the page)
-      if (document.body.classList.contains('mx-one')) setTimeout(function () { window.scrollTo(0, 0); }, 0);
+      if (document.body.classList.contains('mx-one')) {
+        setTimeout(function () { window.scrollTo(0, 0); }, 0);
+        window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, 0); }, 30); });
+      }
     })();
   </script>
 
