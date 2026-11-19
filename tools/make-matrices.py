@@ -99,6 +99,18 @@ for i, m in enumerate(M):
               m['id'], m['kicker'], m['title'], m['desc'], t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
 
 STYLE = '''<style>
+    /* no band at the top and no footer, as on the Models page: the corner
+       controls and the top menu in the page's own colours */
+    .site-footer {
+      display: none;
+    }
+
+    html:not([data-theme]) body.no-band :is(.back-arrow, .theme-toggle, .top-nav, .over-band) {
+      --canvas-ink: #000000;
+      --muted: #8c8c8c;
+      --link-blue: #1a3a9c;
+    }
+
     /* the site name in the top-right corner, as on the Overviews */
     .site-title,
     body.footer-in-view .site-title {
@@ -265,16 +277,39 @@ STYLE = '''<style>
       border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
     }
 
+    /* the header row and the first column in two light tints of the
+       accent: the header the deeper, the first column the paler */
+    .mx-table {
+      --mx-head: color-mix(in srgb, var(--link-blue) 16%, var(--canvas-bg));
+      --mx-side: color-mix(in srgb, var(--link-blue) 7%, var(--canvas-bg));
+    }
+
+    /* (deeper in the dark theme, so the two still read apart) */
+    html[data-theme="dark"] .mx-table {
+      --mx-head: color-mix(in srgb, var(--link-blue) 30%, var(--canvas-bg));
+      --mx-side: color-mix(in srgb, var(--link-blue) 14%, var(--canvas-bg));
+    }
+
+    .mx-table th:first-child,
+    .mx-table td:first-child {
+      padding-left: 18px;
+    }
+
     .mx-table thead th {
+      padding-top: 16px;
       padding-bottom: 14px;
       border-top: none;
-      border-bottom: 1.5px solid currentColor;
       font-family: var(--mono-caps);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--canvas-ink);
+      background: var(--mx-head);
+    }
+
+    .mx-table tbody th {
+      background: var(--mx-side);
     }
 
     .mx-table tbody th {
@@ -297,16 +332,19 @@ STYLE = '''<style>
       border-top: none;
     }
 
-    .mx-table .mx-lead td {
-      padding-top: 14px;
-      border-top: none;
-      border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-      font-style: italic;
-      color: var(--muted);
+    .mx-table td {
+      padding-left: 18px;
     }
 
-    .mx-table tbody tr:hover > * {
-      background: color-mix(in srgb, var(--link-blue) 5%, transparent);
+    .mx-table .mx-lead td {
+      padding-top: 4px;
+      border-top: none;
+      font-style: italic;
+      background: var(--mx-head);
+    }
+
+    .mx-table tbody tr:hover > td {
+      background: color-mix(in srgb, var(--link-blue) 4%, transparent);
     }
 
     .mx-note {
@@ -330,7 +368,7 @@ STYLE = '''<style>
 
 i = HEAD.index('<body>')
 j = HEAD.index('<main class="page-main">')
-body_top = HEAD[i:j]
+body_top = HEAD[i:j].replace('<body>', '<body class="no-band">')
 foot_i = HEAD.index('<footer class="site-footer">')
 foot_j = HEAD.index('<script>', foot_i)
 footer = HEAD[foot_i:foot_j]

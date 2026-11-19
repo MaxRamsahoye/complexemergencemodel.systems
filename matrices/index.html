@@ -51,6 +51,18 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="../assets/site.css?v=75db18a8" rel="stylesheet">
   <style>
+    /* no band at the top and no footer, as on the Models page: the corner
+       controls and the top menu in the page's own colours */
+    .site-footer {
+      display: none;
+    }
+
+    html:not([data-theme]) body.no-band :is(.back-arrow, .theme-toggle, .top-nav, .over-band) {
+      --canvas-ink: #000000;
+      --muted: #8c8c8c;
+      --link-blue: #1a3a9c;
+    }
+
     /* the site name in the top-right corner, as on the Overviews */
     .site-title,
     body.footer-in-view .site-title {
@@ -217,16 +229,39 @@
       border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
     }
 
+    /* the header row and the first column in two light tints of the
+       accent: the header the deeper, the first column the paler */
+    .mx-table {
+      --mx-head: color-mix(in srgb, var(--link-blue) 16%, var(--canvas-bg));
+      --mx-side: color-mix(in srgb, var(--link-blue) 7%, var(--canvas-bg));
+    }
+
+    /* (deeper in the dark theme, so the two still read apart) */
+    html[data-theme="dark"] .mx-table {
+      --mx-head: color-mix(in srgb, var(--link-blue) 30%, var(--canvas-bg));
+      --mx-side: color-mix(in srgb, var(--link-blue) 14%, var(--canvas-bg));
+    }
+
+    .mx-table th:first-child,
+    .mx-table td:first-child {
+      padding-left: 18px;
+    }
+
     .mx-table thead th {
+      padding-top: 16px;
       padding-bottom: 14px;
       border-top: none;
-      border-bottom: 1.5px solid currentColor;
       font-family: var(--mono-caps);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--canvas-ink);
+      background: var(--mx-head);
+    }
+
+    .mx-table tbody th {
+      background: var(--mx-side);
     }
 
     .mx-table tbody th {
@@ -249,16 +284,19 @@
       border-top: none;
     }
 
-    .mx-table .mx-lead td {
-      padding-top: 14px;
-      border-top: none;
-      border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-      font-style: italic;
-      color: var(--muted);
+    .mx-table td {
+      padding-left: 18px;
     }
 
-    .mx-table tbody tr:hover > * {
-      background: color-mix(in srgb, var(--link-blue) 5%, transparent);
+    .mx-table .mx-lead td {
+      padding-top: 4px;
+      border-top: none;
+      font-style: italic;
+      background: var(--mx-head);
+    }
+
+    .mx-table tbody tr:hover > td {
+      background: color-mix(in srgb, var(--link-blue) 4%, transparent);
     }
 
     .mx-note {
@@ -278,7 +316,7 @@
     }
   </style>
 </head>
-<body>
+<body class="no-band">
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>
     <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter">
       <path d="M10,1.5 L5,6 L18,6 A4,4 0 0 1 18,14 L1,14"/>
