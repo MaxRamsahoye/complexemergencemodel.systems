@@ -286,6 +286,8 @@ STYLE = '''<style>
 
     .mx-view {
       margin-top: 0;
+      /* (room beneath, with no footer to follow) */
+      padding-bottom: 160px;
     }
 
     .mx-back {
