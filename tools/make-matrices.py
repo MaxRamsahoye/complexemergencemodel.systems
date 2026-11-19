@@ -9,7 +9,7 @@ head = head.replace('Overviews — Complex Emergence', 'Matrices — Complex Eme
 
 M = []
 M.append(dict(
-  id='model-genealogy', kicker='Matrix 1 · See Article Sections 3–4', title='Model Genealogy',
+  id='model-genealogy', kicker='Matrix 1 · See Article Sections 3–4', secs=['precursors', 'emergence-model'], title='Model Genealogy',
   desc='The models of civilisation as interacting structures, from Marx to the Complex Emergence Model: their structures, where each places causal primacy, and their limits.',
   read='../#precursors',
   cols=['Model', 'Theorist', 'Structures', 'Causal primacy', 'Organising principle', 'Limits'],
@@ -36,7 +36,7 @@ M.append(dict(
      '&mdash;'],
   ]))
 M.append(dict(
-  id='structural-reductionisms', kicker='Matrix 2 · See Article Section 5', title='Structural Reductionisms',
+  id='structural-reductionisms', kicker='Matrix 2 · See Article Section 5', secs=['structural-primacy'], title='Structural Reductionisms',
   desc='The recurring tendency to reduce civilisation to a single structure: for each reductionism, the structure it privileges, its determinism, its problematisation and its solutionism.',
   read='../#structural-primacy',
   cols=['Reductionism', 'Structure', 'Determinism', 'Problematisation', 'Solutionism', 'Exemplars'],
@@ -53,7 +53,7 @@ M.append(dict(
     ['Neorealism', 'Metastructure (evolutionary game theory)', 'Competitive selection dynamics across structures; institutions, technologies and cultures as their epiphenomena', 'Multipolar traps, arms races and tragedies of the commons', 'New coordination mechanisms and game designs that change the payoffs, not the players', 'Thucydides, Hobbes, Machiavelli, Malthus; Schmachtenberger&rsquo;s generator functions, Alexander&rsquo;s &lsquo;Moloch&rsquo;'],
   ]))
 M.append(dict(
-  id='generative-dynamics', kicker='Matrix 3 · See Article Sections 6–7', title='Generative Dynamics Decomposed',
+  id='generative-dynamics', kicker='Matrix 3 · See Article Sections 6 &amp; 8', secs=['complex-emergence-model', 'generative-dynamics'], title='Generative Dynamics Decomposed',
   desc='Schmachtenberger&rsquo;s generator functions read through the Complex Emergence Model: how each is co-produced across the structures and scales of human agency.',
   read='../#generative-dynamics',
   cols=['Structure', 'The Multi-Polar Trap', 'Exponential Technological Acceleration', 'Narrow-Boundary Problem-Solving'],
@@ -86,7 +86,7 @@ def thumb(i):
 cards = ''
 views = ''
 for i, m in enumerate(M):
-    cards += '<a class="mx-card" href="#%s">%s<p class="mx-kicker">%s</p><h2 class="mx-title">%s</h2><p class="mx-desc">%s</p></a>' % (m['id'], thumb(i), m['kicker'], m['title'], m['desc'])
+    cards += '<a class="mx-card" href="#%s">%s<p class="mx-kicker" data-secs="%s">%s</p><h2 class="mx-title">%s</h2><p class="mx-desc">%s</p></a>' % (m['id'], thumb(i), ' '.join(m['secs']), m['kicker'], m['title'], m['desc'])
     t = '<table class="mx-table"><thead><tr>' + ''.join('<th scope="col">%s</th>' % c for c in m['cols']) + '</tr>'
     if m.get('lead'):
         t += '<tr class="mx-lead">' + ''.join('<td>%s</td>' % c for c in m['lead']) + '</tr>'
@@ -94,9 +94,9 @@ for i, m in enumerate(M):
     for r in m['rows']:
         t += '<tr><th scope="row">%s</th>%s</tr>' % (r[0], ''.join('<td>%s</td>' % c for c in r[1:]))
     t += '</tbody></table>'
-    views += ('<section class="mx-view" id="%s" hidden><p class="mx-kicker mx-view-kicker">%s</p><h1 class="page-title mx-view-title">%s</h1><p class="mx-view-desc">%s</p>'
+    views += ('<section class="mx-view" id="%s" hidden><p class="mx-kicker mx-view-kicker" data-secs="%s">%s</p><h1 class="page-title mx-view-title">%s</h1><p class="mx-view-desc">%s</p>'
               '<div class="mx-scroll">%s</div>%s<p class="mx-read"><a href="%s">Read the section</a></p></section>') % (
-              m['id'], m['kicker'], m['title'], m['desc'] + ((' ' + m['more']) if m.get('more') else ''), t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
+              m['id'], ' '.join(m['secs']), m['kicker'], m['title'], m['desc'] + ((' ' + m['more']) if m.get('more') else ''), t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
 
 STYLE = '''<style>
     /* no band at the top and no footer, as on the Models page: the corner
@@ -485,6 +485,21 @@ script = '''<script>
         route();
       });
       window.addEventListener('popstate', route);
+      // the article's section numbers, read from the article itself (as its
+      // menu numbers them), so they follow any change to it
+      fetch(new URL('../', location.href).href).then(function (r) { return r.text(); }).then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var ids = Array.prototype.filter.call(doc.querySelectorAll('.article-body > section[id]:not([data-toc="off"])'), function (sec) {
+          return sec.querySelector(':scope > h2, :scope > h3');
+        }).map(function (sec) { return sec.id; });
+        document.querySelectorAll('.mx-kicker[data-secs]').forEach(function (k) {
+          var n = k.dataset.secs.split(' ').map(function (id) { return ids.indexOf(id) + 1; }).filter(Boolean).sort(function (a, b) { return a - b; });
+          if (!n.length) return;
+          var run = n.length > 1 && n[n.length - 1] - n[0] === n.length - 1;
+          var nums = n.length === 1 ? 'Section ' + n[0] : 'Sections ' + (run ? n[0] + '\u2013' + n[n.length - 1] : n.slice(0, -1).join(', ') + ' & ' + n[n.length - 1]);
+          k.textContent = k.textContent.replace(/See Article Sections? .*$/, 'See Article ' + nums);
+        });
+      }).catch(function () {});
       route();
       // (arriving with a matrix named in the address: from the top of the page)
       if (document.body.classList.contains('mx-one')) {
