@@ -200,7 +200,7 @@ style = '''<style>
       top: 0;
       right: 0;
       bottom: 0;
-      width: 14px;
+      width: 18px;
       z-index: 30;
       cursor: pointer;
       touch-action: none;
@@ -213,7 +213,7 @@ style = '''<style>
       top: 0;
       right: 0;
       bottom: 0;
-      width: 4px;
+      width: 6px;
       transition: width 0.15s ease;
     }
 
@@ -231,7 +231,7 @@ style = '''<style>
     .pv-progress:hover .pv-progress-fill,
     .pv-progress.pv-dragging::before,
     .pv-progress.pv-dragging .pv-progress-fill {
-      width: 7px;
+      width: 10px;
     }
 
     .pv-note {
