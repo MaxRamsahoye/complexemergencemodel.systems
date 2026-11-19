@@ -94,9 +94,9 @@ for i, m in enumerate(M):
     for r in m['rows']:
         t += '<tr><th scope="row">%s</th>%s</tr>' % (r[0], ''.join('<td>%s</td>' % c for c in r[1:]))
     t += '</tbody></table>'
-    views += ('<section class="mx-view" id="%s" hidden><p class="mx-back"><a href="#">All Matrices</a></p><p class="mx-kicker">%s</p><h2 class="mx-view-title">%s</h2><p class="mx-view-desc">%s</p>'
+    views += ('<section class="mx-view" id="%s" hidden><h1 class="page-title mx-view-title">%s</h1><p class="mx-kicker mx-view-kicker">%s</p><p class="mx-view-desc">%s</p>'
               '<div class="mx-scroll">%s</div>%s<p class="mx-read"><a href="%s">Read the section</a></p></section>') % (
-              m['id'], m['kicker'], m['title'], m['desc'], t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
+              m['id'], m['title'], m['kicker'], m['desc'], t, ('<p class="mx-note">%s</p>' % m['note']) if m.get('note') else '', m['read'])
 
 STYLE = '''<style>
     /* no band at the top and no footer, as on the Models page: the corner
@@ -209,10 +209,75 @@ STYLE = '''<style>
       .mx-grid { grid-template-columns: 1fr; }
     }
 
-    /* a matrix: its own view, the cards hidden */
-    body.mx-one .mx-grid,
-    body.mx-one .page-intro {
+    /* a matrix: its own view, its name the page's title; the cards, the
+       page's own title and introduction hidden */
+    body.mx-one :is(.mx-grid, .mx-main-title, .mx-top > .page-intro) {
       display: none;
+    }
+
+    .mx-view-title {
+      margin-bottom: 14px;
+    }
+
+    .mx-view-kicker {
+      margin-bottom: 28px;
+    }
+
+    /* the menu of matrices, as the Models page has its own: a row above
+       the page, or in the margin to the left wherever it fits there */
+    .mx-top {
+      position: relative;
+    }
+
+    .mx-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 28px;
+      margin: 0 0 48px;
+      font-family: var(--mono-caps);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .mx-tabs a {
+      padding: 0 0 6px;
+      border-bottom: 1.5px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .mx-tabs a:hover,
+    .mx-tabs a[aria-current="true"] {
+      color: var(--canvas-ink);
+    }
+
+    .mx-tabs a[aria-current="true"] {
+      border-bottom-color: currentColor;
+    }
+
+    @media (min-width: 1440px) {
+      .mx-tabs {
+        position: absolute;
+        top: 12px;
+        left: calc((var(--wide-col) - 100vw) / 2 + 24px);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin: 0;
+        font-size: 11px;
+        /* (as wide as the margin allows, a longer name over two lines) */
+        width: calc((100vw - var(--wide-col)) / 2 - 48px);
+      }
+
+      .mx-tabs a {
+        width: fit-content;
+        white-space: normal;
+        line-height: 1.4;
+      }
     }
 
     .mx-view[hidden] {
@@ -220,7 +285,7 @@ STYLE = '''<style>
     }
 
     .mx-view {
-      margin-top: 56px;
+      margin-top: 0;
     }
 
     .mx-back {
@@ -236,14 +301,6 @@ STYLE = '''<style>
       color: var(--link-blue);
       text-decoration: none;
       border-bottom: 1px solid currentColor;
-    }
-
-    .mx-view-title {
-      margin: 0 0 18px;
-      font-family: var(--serif);
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 1.15;
     }
 
     .mx-view-desc {
@@ -378,9 +435,11 @@ tail = tail.replace('data-search-scope=".ov-sections" data-hide-until=".ov-top"'
 footer = re.sub(r'<div class="progress-pill.*?</div>\s*</div>\s*', '', footer, flags=re.S)
 footer = footer.replace('data-show-after=".ov-top"', 'data-show-after=".page-title"')
 
+tabs = '<nav class="mx-tabs" aria-label="Matrices"><a href="#" data-view="">All Matrices</a>' + ''.join('<a href="#%s" data-view="%s">%s</a>' % (m['id'], m['id'], m['title']) for m in M) + '</nav>'
 main = '''<main class="page-main">
     <div class="wide-top mx-top">
-    <h1 class="page-title"><a class="heading-link title-top" href="#">Matrices</a></h1>
+    ''' + tabs + '''
+    <h1 class="page-title mx-main-title"><a class="heading-link title-top" href="#">Matrices</a></h1>
     <p class="page-intro">The arguments of <a class="plain-link" href="../"><em>The Complex Emergence Model</em></a> set out as tables: its genealogy of models, its structural reductionisms, and the generative dynamics read through its structures.</p>
     <div class="mx-grid">''' + cards + '''</div>
     ''' + views + '''
@@ -396,11 +455,12 @@ script = '''<script>
         var one = !!(view && view.classList.contains('mx-view'));
         document.querySelectorAll('.mx-view').forEach(function (v) { v.hidden = v !== view; });
         document.body.classList.toggle('mx-one', one);
+        document.querySelectorAll('.mx-tabs a').forEach(function (a) { a.setAttribute('aria-current', a.dataset.view === (one ? id : '') ? 'true' : 'false'); });
         if (one) window.scrollTo(0, 0);
       }
       window.addEventListener('hashchange', route);
       document.addEventListener('click', function (e) {
-        var a = e.target.closest('.mx-back a');
+        var a = e.target.closest('.mx-tabs a[data-view=""]');
         if (!a) return;
         e.preventDefault();
         history.pushState(null, '', location.pathname);
