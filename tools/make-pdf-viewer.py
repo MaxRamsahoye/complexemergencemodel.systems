@@ -43,8 +43,9 @@ style = '''<style>
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      width: min(100% - 48px, 900px);
-      margin: 84px auto 0;
+      width: min(100% - 400px, 900px);
+      /* (in the top row, level with the back arrow and the site's name) */
+      margin: 18px auto 0;
       padding: 16px 0;
       background: var(--canvas-bg);
       border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
@@ -199,11 +200,11 @@ style = '''<style>
     }
 
     @media (max-width: 600px) {
-      .pv-bar { margin-top: 84px; width: calc(100% - 32px); }
+      .pv-bar { margin-top: 76px; width: calc(100% - 32px); }
     }
 
     @media (max-width: 900px) {
-      .pv-bar { position: sticky; top: 0; }
+      .pv-bar { position: sticky; top: 0; width: calc(100% - 48px); margin-top: 76px; }
       .pv-barwrap { min-height: 0; display: contents; }
       .pv-title { font-size: 17px; }
       .pv-zoom { display: none !important; }
@@ -239,7 +240,7 @@ main = '''<main class="pv-main">
       pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/pdfjs/pdf.worker.min.js';
       // (the browser's own PDF viewer's steps, as percentages of the page at
       // its actual size: A4, 794px wide)
-      var ZOOMS = [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500], z = 7, pdf, pages = [], drawn = new Map();
+      var ZOOMS = [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500], z = 6, pdf, pages = [], drawn = new Map();
       // (the zoom as a percentage of the page at its actual size: A4, 794px wide)
       var pct = document.querySelector('.pv-pct');
       function setWidth() {
