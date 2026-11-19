@@ -232,6 +232,20 @@
       display: none;
     }
 
+    /* (each view fading in as it opens, as the Models page's do) */
+    .mx-in {
+      animation: mx-in 0.4s ease;
+    }
+
+    @keyframes mx-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mx-in { animation: none; }
+    }
+
     .mx-view {
       margin-top: 0;
       /* (room beneath, with no footer to follow) */
@@ -428,14 +442,20 @@
         document.querySelectorAll('.mx-view').forEach(function (v) { v.hidden = v !== view; });
         document.body.classList.toggle('mx-one', one);
         document.querySelectorAll('.mx-tabs a').forEach(function (a) { a.setAttribute('aria-current', a.dataset.view === (one ? id : '') ? 'true' : 'false'); });
-        if (one) window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
+        var shown = one ? view : document.querySelector('.mx-grid');
+        if (shown) { shown.classList.remove('mx-in'); void shown.offsetWidth; shown.classList.add('mx-in'); }
       }
       window.addEventListener('hashchange', route);
+      // (a card or the menu: the view changes in place, with no jump to the
+      // matrix's anchor first; the page settles at the top as it fades in)
       document.addEventListener('click', function (e) {
-        var a = e.target.closest('.mx-tabs a[data-view=""]');
-        if (!a) return;
+        var a = e.target.closest('.mx-tabs a, a.mx-card');
+        if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
         e.preventDefault();
-        history.pushState(null, '', location.pathname);
+        var id = a.getAttribute('href').slice(1);
+        if (id === location.hash.slice(1)) return;
+        history.pushState(null, '', id ? '#' + id : location.pathname);
         route();
       });
       window.addEventListener('popstate', route);
