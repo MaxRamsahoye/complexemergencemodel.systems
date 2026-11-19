@@ -3869,6 +3869,26 @@
       }
     }
   </style>
+  <!-- ?embed: a model's diagram alone, for the article, which shows this
+       very page in a frame (so the two are always the same); the model is
+       chosen by the address's #, as usual -->
+  <script>if (/[?&]embed\b/.test(location.search)) document.documentElement.classList.add('embed');</script>
+  <style>
+    html.embed :is(.diagram-top, .back-arrow, .site-title, .top-nav, .site-footer, .structures-alt, .marx-alt, .view-tabs, .progress-pill) {
+      display: none !important;
+    }
+
+    html.embed .page-main {
+      padding-top: 56px !important;
+      padding-bottom: 56px !important;
+      margin-top: 0 !important;
+    }
+
+    html.embed,
+    html.embed body {
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body class="no-band">
   <a class="back-arrow" href="../" aria-label="Back to the article" data-direct>

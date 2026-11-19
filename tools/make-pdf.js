@@ -117,10 +117,17 @@ const CSS = `
     // the live diagram (a frame onto the model's page) printed as its image,
     // assets/downloads/complex-emergence-model.png: run
     // tools/make-cem-image.js first, so that the image is the page as it is
+    // (the Models' frames likewise, each as its own download image)
+    body.querySelectorAll('.article-embed-figure').forEach((n) => {
+      const f = document.createElement('figure');
+      f.className = 'article-figure';
+      f.innerHTML = '<img src="' + n.querySelector('.article-embed').dataset.print + '" alt=""><figcaption>' + n.querySelector('figcaption').innerHTML + '</figcaption>';
+      n.replaceWith(f);
+    });
     body.querySelectorAll('.article-embed').forEach((n) => {
       const f = document.createElement('figure');
       f.className = 'article-figure';
-      f.innerHTML = '<img src="assets/downloads/complex-emergence-model.png" alt="The Complex Emergence Model"><figcaption>The Complex Emergence Model</figcaption>';
+      f.innerHTML = '<img src="' + n.dataset.print + '" alt="The Complex Emergence Model"><figcaption>The Complex Emergence Model</figcaption>';
       n.replaceWith(f);
     });
     // headings lose their self-links, keeping their text

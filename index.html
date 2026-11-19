@@ -1183,6 +1183,35 @@
       margin: 0 0 96px;
     }
 
+    /* the Models' diagrams likewise, each its page in a frame as tall as its
+       diagram (the script fits it), its name beneath */
+    .article-embed-figure {
+      margin: 72px 0 80px;
+    }
+
+    .article-embed.article-embed-fit {
+      height: 700px;
+      max-height: none;
+      margin: 0;
+    }
+
+    .article-embed-fit iframe {
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    .article-embed-figure figcaption {
+      margin-top: 18px;
+      max-width: 760px;
+      text-align: center;
+      font-family: var(--mono-caps, 'IBM Plex Sans', sans-serif);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
     /* (on narrow screens, about as tall as the diagram needs) */
     @media (max-width: 700px) {
       .article-embed {
@@ -1192,7 +1221,7 @@
 
     /* (while the frame fills the window, the article's own corner title and
        reading ring give way to the diagram's) */
-    body.embed-in-view :is(.corner-title, .progress-ring) {
+    body.embed-in-view :is(.corner-title, .progress-ring, .toc) {
       opacity: 0 !important;
       pointer-events: none !important;
     }
@@ -2444,7 +2473,7 @@
 
             <ul class="dash-list live-list"><li>Base (economy): the modes, forces and relations of production</li><li>Superstructure: law, politics, ideology, culture, art</li></ul>
 
-            <figure class="article-figure"><a href="diagram/#base-superstructure-diagram"><img src="assets/downloads/base-superstructure-diagram.png" alt="Classical Marxism: The Base-Superstructure Model" loading="lazy" decoding="async"></a><figcaption>Classical Marxism: The Base-Superstructure Model</figcaption></figure>
+            <figure class="article-embed-figure"><div class="article-embed article-embed-fit" data-print="assets/downloads/base-superstructure-diagram.png"><iframe src="diagram/?embed#base-superstructure-diagram" title="Classical Marxism: The Base-Superstructure Model" loading="lazy"></iframe></div><figcaption>Classical Marxism: The Base-Superstructure Model</figcaption></figure>
 
             <h4>Cultural Materialism: Infrastructure-Structure-Superstructure</h4>
 
@@ -2452,7 +2481,7 @@
 
             <ul class="dash-list live-list"><li>Infrastructure (technology): technological instruments and affordances, productive (and reproductive) forces and material conditions</li><li>Structure (political economy): the social organisation of decision-making and resource-allocation.</li><li>Superstructure (cultural psychology): ideologies, worldviews, belief and value-systems, symbols, memetics, narratives.</li></ul>
 
-            <figure class="article-figure article-figure-cm"><a href="diagram/#structures-diagram"><img src="assets/downloads/cultural-materialism-diagram.png" alt="Cultural Materialism: Infrastructure-Structure-Superstructure" loading="lazy" decoding="async"></a><figcaption>Cultural Materialism: Infrastructure-Structure-Superstructure</figcaption></figure>
+            <figure class="article-embed-figure"><div class="article-embed article-embed-fit" data-print="assets/downloads/cultural-materialism-diagram.png"><iframe src="diagram/?embed#structures-diagram" title="Cultural Materialism: Infrastructure-Structure-Superstructure" loading="lazy"></iframe></div><figcaption>Cultural Materialism: Infrastructure-Structure-Superstructure</figcaption></figure>
 
             <h4>The Integral Model: Four Quadrants</h4>
 
@@ -2460,7 +2489,7 @@
 
             <ul class="dash-list live-list"><li><em>Interior-Individual</em> (upper left)</li><li><em>Exterior-Individual</em> (upper right)</li><li><em>Interior-Collective</em> (bottom left)</li><li><em>Exterior-Collective</em> (bottom right)</li></ul>
 
-            <figure class="article-figure article-figure-small"><a href="diagram/#four-quadrants"><img src="assets/downloads/four-quadrants.png" alt="The Integral Model: Four Quadrants" loading="lazy" decoding="async"></a><figcaption>The Integral Model: Four Quadrants</figcaption></figure>
+            <figure class="article-embed-figure"><div class="article-embed article-embed-fit" data-print="assets/downloads/four-quadrants.png"><iframe src="diagram/?embed#four-quadrants" title="The Integral Model: Four Quadrants" loading="lazy"></iframe></div><figcaption>The Integral Model: Four Quadrants</figcaption></figure>
 
             </section>
 
@@ -2472,7 +2501,7 @@
 
             <p>As far as I&rsquo;m aware, this development has not yet been discussed in any existing academic literature. This is in large part because the emergence model was introduced as part of a think-tank initiative <em>The Emergence Project</em> (2017) that never left the concept-stage. Nonetheless, in my genealogy, I consider it a notable continuation of the structuralist tradition in (critical) social theory. It is also the basis of the model I present here.</p>
 
-            <figure class="article-figure"><a href="diagram/#emergence-model"><img src="assets/downloads/emergence-model.png" alt="The Emergence Model" loading="lazy" decoding="async"></a><figcaption>The Emergence Model</figcaption></figure>
+            <figure class="article-embed-figure"><div class="article-embed article-embed-fit" data-print="assets/downloads/emergence-model.png"><iframe src="diagram/?embed#emergence-model" title="The Emergence Model" loading="lazy"></iframe></div><figcaption>The Emergence Model</figcaption></figure>
 
             <blockquote class="article-quote"><p>&ldquo;All factors that condition human behavior fit into these four quadrants. Each of the quadrants is equally fundamental, irreducible to the others, and are part of a complex system of feedback and feedforward loops which interaffect each other.&rdquo;</p><p class="quote-source">&ndash; Schmachtenberger The Emergence Project (2017)</em></p></blockquote>
 
@@ -2570,7 +2599,7 @@
             <!-- the Complex Emergence Model's own page, its diagram screen alone,
                  in a frame across the width of the window (the same page, so
                  always the same diagram) -->
-            <div class="article-embed"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
+            <div class="article-embed" data-print="assets/downloads/complex-emergence-model.png"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
 
             <h2 data-toc="Applied Metatheory"><a class="heading-link" href="#generative-dynamics">Applied Metatheory: Deconfusing Schmachtenberger&rsquo;s &lsquo;Generative Dynamics&rsquo; through the Complex Emergence Model</a></h2>
 
@@ -2680,21 +2709,52 @@
 
   <script>
     // the embedded diagram: across the whole width of the window
+    // (each frame across the window; the Models' frames as tall as their
+    // diagram, the Complex Emergence Model's the height of the window)
     (function () {
-      var el = document.querySelector('.article-embed');
-      if (!el) return;
-      var frame = el.querySelector('iframe');
+      var els = Array.prototype.slice.call(document.querySelectorAll('.article-embed'));
+      if (!els.length) return;
       function place() {
-        frame.style.width = document.documentElement.clientWidth + 'px';
-        frame.style.left = -el.getBoundingClientRect().left + 'px';
+        var w = document.documentElement.clientWidth;
+        els.forEach(function (el) {
+          var frame = el.querySelector('iframe');
+          frame.style.width = w + 'px';
+          frame.style.left = -el.getBoundingClientRect().left + 'px';
+        });
       }
       place();
       window.addEventListener('resize', place);
       if (document.fonts) document.fonts.ready.then(place);
+      els.forEach(function (el) {
+        if (!el.classList.contains('article-embed-fit')) return;
+        var frame = el.querySelector('iframe'), done = false;
+        function ready() {
+          var doc = frame.contentDocument;
+          if (done || !doc || !doc.querySelector('main')) return;
+          done = true;
+          var main = doc.querySelector('main') || doc.body;
+          function fit() {
+            var h = Math.ceil(main.getBoundingClientRect().bottom + (frame.contentWindow.scrollY || 0));
+            if (h > 100) el.style.height = h + 'px';
+          }
+          fit();
+          if ('ResizeObserver' in window) new ResizeObserver(fit).observe(main);
+          setTimeout(fit, 600); setTimeout(fit, 2000);
+        }
+        frame.addEventListener('load', ready);
+        try { if (frame.contentDocument && frame.contentDocument.readyState === 'complete') ready(); } catch (e) {}
+      });
+      // (while a frame fills much of the window, the article's corner title,
+      // ring and side menu give way to it)
       if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { document.body.classList.toggle('embed-in-view', e.intersectionRatio > 0.5); });
-        }, { threshold: [0, 0.5, 1] }).observe(el);
+        var seen = new Map();
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { seen.set(e.target, e.intersectionRect.height > window.innerHeight * 0.45); });
+          var any = false;
+          seen.forEach(function (v) { if (v) any = true; });
+          document.body.classList.toggle('embed-in-view', any);
+        }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
+        els.forEach(function (el) { io.observe(el); });
       }
     })();
   </script>
