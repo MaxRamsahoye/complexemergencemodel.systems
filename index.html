@@ -800,6 +800,15 @@
       }
     }
 
+    /* (where the text runs the width of the screen, the corner title and
+       the reading ring would sit over it: there, neither) */
+    @media (max-width: 900px) {
+      .corner-title,
+      .progress-ring {
+        display: none;
+      }
+    }
+
     .scroll-top-btn {
       position: fixed;
       bottom: 30px;
@@ -1098,6 +1107,75 @@
       margin-top: 88px;
     }
 
+    /* within a section: a fourth level of heading, in IBM Plex, a field
+       beside it where it names a structure */
+    .article-body h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.78em;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      margin: 34px 0 8px;
+    }
+
+    .article-body h4 span {
+      margin-left: 10px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .article-body h4 + p {
+      margin-top: 0;
+    }
+
+    /* quotations set apart: a rule to the left, the source beneath in IBM */
+    .article-quote {
+      max-width: 700px;
+      margin: 30px 0 34px;
+      padding: 2px 0 2px 24px;
+      border-left: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+    }
+
+    .article-body .article-quote p {
+      margin: 0;
+      font-style: italic;
+    }
+
+    .article-body .article-quote .quote-source {
+      margin-top: 12px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-style: normal;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .article-body .article-quote .quote-source a {
+      color: inherit;
+      font-weight: 400;
+    }
+
+    /* the models, each linking to its page on Models */
+    .article-figure {
+      max-width: 560px;
+      margin: 36px 0 44px;
+    }
+
+    .article-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .article-figure figcaption {
+      margin-top: 14px;
+      font-family: var(--mono-caps, 'IBM Plex Sans', sans-serif);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
     /* headings link to themselves; menu and heading links land with room above */
     .article-body section:not(#overview),
     .article-body h3[id] {
@@ -1360,6 +1438,8 @@
 
     .live-list .live-sub {
       margin: 10px 0 0;
+      padding-left: 1.4em;
+      list-style: none;
     }
 
     .live-sub li::before {
@@ -2090,7 +2170,7 @@
     <a class="site-title" href="./">Complex<br>Emergence</a>
 
     <nav class="toc" aria-label="Contents" data-upcoming='[]'>
-      <p class="toc-label">Technological Transitions</p>
+      <p class="toc-label">The Complex Emergence Model</p>
       <ol></ol>
     </nav>
   </div>
@@ -2216,17 +2296,237 @@
               <h2><a class="heading-link" href="#contents">Contents</a></h2>
 
               <ul class="dash-list live-list one-col">
-                <li>The Emergence Model</li>
-                <li>Precursors: Intellectual History &amp; Model Genealogy</li>
+                <li><a class="heading-link" href="#precursors">Precursors: Intellectual History &amp; Model Genealogy</a></li>
+                <li><a class="heading-link" href="#emergence-model">The Emergence Model</a></li>
+                <li><a class="heading-link" href="#structural-primacy">Structural Primacy?</a>
+                  <ul class="live-list live-sub">
+                    <li><a class="heading-link" href="#structural-reductionism">Structural Reductionism</a></li>
+                    <li><a class="heading-link" href="#paradigmatic-cases">Paradigmatic Cases</a></li>
+                    <li><a class="heading-link" href="#neo-reductionisms">Neo-Reductionisms in the Metacrisis Space</a></li>
+                  </ul>
+                </li>
+                <li><a class="heading-link" href="#generative-dynamics">Applied Metatheory: Deconfusing Schmachtenberger&rsquo;s &lsquo;Generative Dynamics&rsquo;</a>
+                  <ul class="live-list live-sub">
+                    <li><a class="heading-link" href="#multi-polar-trap">The Multi-Polar Trap</a></li>
+                    <li><a class="heading-link" href="#exponential-acceleration">Exponential Technological Acceleration</a></li>
+                    <li><a class="heading-link" href="#narrow-boundary">Narrow-Boundary Problem-Solving</a></li>
+                  </ul>
+                </li>
               </ul>
             </section>
 
-            <section id="emergence-model">
-              <h2><a class="heading-link" href="#emergence-model">The Emergence Model</a></h2>
+            <section id="precursors">
+
+            <h2><a class="heading-link" href="#precursors">Precursors: Intellectual History &amp; Model Genealogy</a></h2>
+
+            <p>Within social theory, there is a long-standing dispute over the <em>primacy</em> of <em>structure versus agency</em>, in determining human behavior and driving the historical process.</p>
+
+            <p>In part, this reflects the divide within sociology itself, between <em>macrosociology</em> concerned with the large-scale dynamics of society and <em>microsociology</em> concerned with the individual within it.</p>
+
+            <h3 id="structuralist-tradition">The Structuralist Tradition</h3>
+
+            <p>Beyond the simple binary between &lsquo;structure&rsquo; and &lsquo;agency&rsquo;, within <em>critical</em> social theory, more complex analytical apparatuses have been constructed, differentiating between various substructures and emphasising their relative influence over each other.</p>
+
+            <h4>Base-Superstructure Model</h4>
+
+            <p>This structuralist tradition began with Marx&rsquo;s <em>Base-Superstructure model</em> which positioned the economic &lsquo;base&rsquo; &ndash; the modes, forces and relations of production &ndash; as giving rise to the &lsquo;legal and political superstructure&rsquo; of capitalist society as well as its &lsquo;social consciousness&rsquo;. Whilst classical Marxism (&lsquo;dominant ideology&rsquo;) attended mainly to the base, post-marxists such as Gramsci (&lsquo;cultural hegemony&rsquo;) and Althusser (&lsquo;ideological apparatuses&rsquo;) would later elaborate upon the superstructure.</p>
+
+            <ul class="dash-list live-list"><li>Base (economy): the modes, forces and relations of production</li><li>Superstructure: law, politics, ideology, culture, art</li></ul>
+
+            <figure class="article-figure"><a href="diagram/#base-superstructure-diagram"><img src="assets/downloads/base-superstructure-diagram.png" alt="The Base-Superstructure Model" loading="lazy" decoding="async"></a><figcaption>The Base-Superstructure Model</figcaption></figure>
+
+            <h4>Cultural Materialism: Infrastructure-Structure-Superstructure</h4>
+
+            <p>Structuralism then became more elaborated through Harris&rsquo;s <em>Cultural Materialism</em> &ndash; which adds <em>infrastructure</em> alongside structure (previously base) and superstructure (technology, economy, culture). Whilst Marx positions the base as having primacy, Harris attributes it to infrastructure marking a shift from economic determinism (in historical materialism) to <em>infrastructural determinism</em> (in cultural materialism).</p>
+
+            <ul class="dash-list live-list"><li>Infrastructure (technology): technological instruments and affordances, productive (and reproductive) forces and material conditions</li><li>Structure (political economy): the social organisation of decision-making and resource-allocation.</li><li>Superstructure (cultural psychology): ideologies, worldviews, belief and value-systems, symbols, memetics, narratives.</li></ul>
+
+            <figure class="article-figure"><a href="diagram/#structures-diagram"><img src="assets/downloads/cultural-materialism-diagram.png" alt="Cultural Materialism: Infrastructure-Structure-Superstructure" loading="lazy" decoding="async"></a><figcaption>Cultural Materialism: Infrastructure-Structure-Superstructure</figcaption></figure>
+
+            <h4>The Integral Model: Four Quadrants</h4>
+
+            <p>The <em>Integral Model</em> is a &lsquo;metatheory&rsquo; framework that attempts to holistically capture all dimensions of reality across four quadrants formed from two axes, (<em>Interior vs. Exterior</em> and <em>Individual vs. Collective)</em>.. Classic attributions include Phenomenology in the interior-individual, Behaviourism in the exterior-individual, Hermeneutics in the interior-collective and Marxism in the exterior-collective.</p>
+
+            <ul class="dash-list live-list"><li><em>Interior-Individual</em> (upper left)</li><li><em>Exterior-Individual</em> (upper right)</li><li><em>Interior-Collective</em> (bottom left)</li><li><em>Exterior-Collective</em> (bottom right)</li></ul>
+
+            <figure class="article-figure"><a href="diagram/#four-quadrants"><img src="assets/downloads/four-quadrants.png" alt="The Integral Model: Four Quadrants" loading="lazy" decoding="async"></a><figcaption>The Integral Model: Four Quadrants</figcaption></figure>
+
             </section>
 
-            <section id="precursors">
-              <h2><a class="heading-link" href="#precursors">Precursors: Intellectual History &amp; Model Genealogy</a></h2>
+            <section id="emergence-model">
+
+            <h2><a class="heading-link" href="#emergence-model">The Emergence Model</a></h2>
+
+            <p>As effectively a synthesis of Harris&rsquo;s Cultural Materialism with Wilber&rsquo;s <em>Integral Model</em>, Schmachtenberger&rsquo;s <em>Emergence Model</em> (EM) brings the number of structures to four: incorporating the <em>physiologic structure</em>, to account for physiology and neurophysiology, bodies and brains.</p>
+
+            <p>As far as I&rsquo;m aware, this development has not yet been discussed in any existing academic literature. This is in large part because the emergence model was introduced as part of a think-tank initiative <em>The Emergence Project</em> (2017) that never left the concept-stage. Nonetheless, in my genealogy, I consider it a notable continuation of the structuralist tradition in (critical) social theory. It is also the basis of the model I present here.</p>
+
+            <figure class="article-figure"><a href="diagram/#emergence-model"><img src="assets/downloads/emergence-model.png" alt="The Emergence Model" loading="lazy" decoding="async"></a><figcaption>The Emergence Model</figcaption></figure>
+
+            <blockquote class="article-quote"><p>&ldquo;All factors that condition human behavior fit into these four quadrants. Each of the quadrants is equally fundamental, irreducible to the others, and are part of a complex system of feedback and feedforward loops which interaffect each other.&rdquo;</p><p class="quote-source">&ndash; Schmachtenberger The Emergence Project (2017)</em></p></blockquote>
+
+            <h3 id="critique">Critique of the Emergence Model</h3>
+
+            <p>The main problem identifiable with the Emergence Model is that <em>Superstructure</em> (culture) and <em>Physiologic structure</em> (biology) are assigned to the <em>Interior</em>, when beliefs and values and brains and bodies also exist at a population-level (i.e. the Collective). Indeed this dimensionality across the collective is core to critical theory frames such as &lsquo;cultural hegemony&rsquo; (Gramsci) and &lsquo;biopower&rsquo; (Foucault). As such, the four quadrants of the Integral Model do not neatly map onto the four structures.</p>
+
+            </section>
+
+            <section id="structural-primacy">
+
+            <h2><a class="heading-link" href="#structural-primacy">Structural Primacy?</a></h2>
+
+            <p>Each model is defined by its proposed <em>interaction dynamics</em> between structures and, in particular, the attribution of <em>causal primacy</em>. In systems philosophy, this means the relations between technology, political economy and cultural psychology (etc) and which foundationally determines (constrains and shapes) the others; or whether this is a sensible notion at all as Giddens&rsquo;s &lsquo;structuration theory&rsquo;, Archer&rsquo;s &lsquo;morphogenetic approach&rsquo; and Bhaskar&rsquo;s &lsquo;critical realism&rsquo; challenge.</p>
+
+            <h3 id="structural-reductionism">Structural Reductionism: Determinisms, Problematisations, Solutionisms</h3>
+
+            <p>From the higher-perspective of metatheory, the history of social theory can be read as a history of &lsquo;fundamental attribution error&rsquo; or <em>reductionism</em>: there is a recurring tendency of reducing the complexity of civilisation to a single structure at the expense of seeing a more complex, emergent process (multi-structural interaction).<a class="sidenote-ref" id="ref-1" href="#note-1" aria-label="Note 1"></a><span class="sidenote" id="note-1"><a class="sidenote-label" href="#ref-1"></a> This is also pointed to, in a more general way, in Hedlund et al., &lsquo;Mapping an Ecology of Integrative Approaches to Addressing the Meta-Crisis&rsquo;, <em>Institute of Applied Metatheory</em> (2025), drawing on what Roger Walsh (2022) calls the <em>Single Focus Fallacy</em>: the tendency &lsquo;to oversimplify and vertically reduce the complexity of these problems to something easily digestible and easily communicable&rsquo;, in three aspects &ndash; the Single Issue, Single Cause and Single Solution Fallacies (pp. 10&ndash;11).</span></p>
+
+            <p>Here, there are three interrelated components of what we can call <em>structural reductionisms</em>:</p>
+
+            <ul class="dash-list live-list"><li><em>Determinism</em> &ndash; the structure is the principal driving force of history, conditioning the form that all other structures take as effectively emergent epiphenomena.</li><li><em>Problematisation</em> &ndash; the structure is responsible for causing problems in other structures and for all the problems that the civilisational stack generates overall.</li><li><em>Solutionism</em> &ndash; changing the structure will change all other structures as a cascade across the stack and ultimately resolve all civilisational problems as a downstream consequence.</li></ul>
+
+            <h3 id="paradigmatic-cases">Paradigmatic Cases</h3>
+
+            <p><em>Determinism &ndash;</em> Classically, this has taken the form of privileging economics in <em>Marxist materialism</em> or ideas in <em>Hegelian idealism</em> as the driver of history</p>
+
+            <blockquote class="article-quote"><p>&ldquo;The mode of production of material life conditions the general process of social, political and intellectual life. It is not the consciousness of men that determines their existence, but their social existence that determines their consciousness.&rdquo;</p><p class="quote-source">&ndash; <em>A Contribution to the Critique of Political Economy</em></p></blockquote>
+
+            <blockquote class="article-quote"><p>&ldquo;Reason governs the world and has consequently governed its history. In relation to this Reason, which is universal and substantial, in and for itself, all else is subordinate, subservient, and the means for its actualization.&rdquo;</p><p class="quote-source">&ndash; <em>Introduction to the Philosophy of History</em></p></blockquote>
+
+            <p><em>Problematisation, Solutionism &ndash;</em> Within late modernity, technology has been framed as the principal problem in Kaczynski&rsquo;s <em>Neo-ludditism</em> and as the sole solution in Marinetti&rsquo;s <em>Futurism</em>.</p>
+
+            <blockquote class="article-quote"><p>&ldquo;Our real enemy is the industrial-technological system&hellip; Its object will be to overthrow not governments but the economic and technological basis of the present society.&rdquo;</p><p class="quote-source">&ndash; <em>Industrial Society &amp; Its Future</em></p></blockquote>
+
+            <blockquote class="article-quote"><p>&ldquo;we will sing of the vibrant nightly fervor of arsenals and shipyards blazing with violent electric moons; greedy railway stations that devour smoke-plumed serpents; factories hung on clouds by the crooked lines of their smoke.&rdquo;</p><p class="quote-source">&ndash; <em>Manifesto of Futurism</em></p></blockquote>
+
+            <h4>Culturalism (Superstructure)</h4>
+
+            <p>Culturalism privileges the superstructure &ndash; ideas, values, worldviews, religion, consciousness &ndash; or what we can operationalise as cultural psychology as the prime mover. Its <em>determinism</em> is that history is the unfolding of &lsquo;mind&rsquo; (Hegel&rsquo;s Geist moving through successive civilisations) or the more modest claim that a society&rsquo;s institutions are crystallised expressions of what it believes and values. Its <em>problematisation</em> is that the root causes of our crises are mistaken models of the self and the world and the relation between the two, giving rise to disenchantment and nihilism. And so its <em>solutionism</em> is the construction of a new grand narrative &ndash; a cultural paradigm-shift &ndash; after which economic and technological structures will follow suit.</p>
+
+            <h4>Economism (Structure)</h4>
+
+            <p>Economism inverts culturalism. Its <em>determinism</em> is that political economy &ndash; the incentive structure of states and markets &ndash; is the base, and ideology, psychology and culture are the superstructure that emerges from it. Its <em>problematisation</em> locates the source of social inequality, ecological crises and existential risk in the life-blind logic of capital (these are considered &lsquo;capitalogenic&rsquo; in origin). Its <em>solutionism</em> holds that transitioning to a new political economy &ndash; beyond money, markets, states and corporations &ndash; will resolve these problems and create the conditions for a new cultural psychology &ndash; one that is non-instrumentalist, in harmony with the natural and social worlds versus utilising them as resources.</p>
+
+            <h4>Technologism (Infrastructure)</h4>
+
+            <p>Technologism moves the base one level further down, to the technological stack: tools, energy, and the material techniques by which a society reproduces itself. Its <em>determinism</em> runs infrastructure through to structure and superstructure in turn: technology constrains economics and economics constrains culture. It divides into two opposed camps. The <em>problematisers</em> &ndash; Ellul, Kaczynski, the primitivists &ndash; see the industrial-technological system as the root of our unfreedom and ecological peril. The <em>solutionists</em> &ndash; from the Futurists to today&rsquo;s techno-optimists &ndash; see the next technology as the mechanism that will reterritorialise the world in its image.</p>
+
+            <h4>Naturalisation (Biostructure, Substructure, Ecostructure)</h4>
+
+            <p>Naturalisation attributes primacy to the biological and ecological substrate. Its <em>determinism</em> holds that human nature, as shaped by natural selection, fixes the range of possible societies: sociobiology and evolutionary psychology read status-seeking, tribalism, kin preference and short-term discounting as evolved universals. Geographical determinists such as Jared Diamond trace the divergent trajectories of civilisations to differences in natural geography, climate and the domesticable species to hand. More generally, Darwinian dynamics are extended to everything &ndash; genes, memes, firms, institutions &ndash; so that history becomes one long process of variation and selection. The <em>problematisation</em> is the mismatch thesis, captured in E. O. Wilson&rsquo;s line that we have &lsquo;Palaeolithic emotions, medieval institutions and god-like technology&rsquo;: our crises arise because a primate built for small bands now wields planetary power, or because a species has overshot the carrying capacity of its ecology. The <em>solutionism</em> comes in several forms: designing institutions and choice architectures around our biases, living within ecological limits, or (in its transhumanist variant) re-engineering human nature itself.</p>
+
+            <h4>Physicalisation (Cosmostructure)</h4>
+
+            <p>Physicalisation is the limiting case of reductionism, locating causal primacy in physics itself. Its <em>determinism</em> sees civilisation as a thermodynamic phenomenon: from Leslie White&rsquo;s claim that culture advances with the energy it harnesses, through the Kardashev scale of energy-capturing civilisations, to the physics of &lsquo;dissipative adaptation&rsquo;, in which matter self-organises to dissipate energy gradients ever more efficiently. Effective accelerationism (e/acc) gives this a teleological, almost theological, cast: there is a &lsquo;thermodynamic will of the universe&rsquo; towards greater complexity and energy throughput, and techno-capital is its current vehicle. The <em>problematisation</em> runs in two opposite directions. For the accelerationists, the problem is anything &ndash; regulation, caution, degrowth &ndash; that impedes this cosmic gradient. For ecological economists in the tradition of Georgescu-Roegen, the entropy law is precisely the problem: every economy is a one-way conversion of low-entropy resources into waste, and declining energy returns set hard limits on complexity. The <em>solutionism</em> is accordingly either to accelerate and climb the Kardashev scale, or to bring civilisation back within thermodynamic equilibrium.</p>
+
+            <h4>Individualisation (Microstructure)</h4>
+
+            <p>If the preceding reductionisms descend through ever more impersonal layers, individualisation turns in the opposite direction &ndash; from structures to agents, and to the smallest unit of all, the person. Its <em>determinism</em> is the Great Man theory of history, given its classic statement by Carlyle: &lsquo;the history of the world is but the biography of great men&rsquo;. Kings, prophets, generals and founders are taken to bend events to their will, with societies following in their wake. The <em>problematisation</em> is its shadow, villainisation: crises are traced to particular bad actors &ndash; a tyrant, a reckless CEO, a corrupt politician, a billionaire &ndash; whose removal would set things right. The <em>solutionism</em> is heroism: the right leader, the visionary founder, the saviour figure who will cut through the system. A quieter, more democratic variant locates responsibility in every individual&rsquo;s choices, from ethical consumption to the personal carbon footprint (a notion popularised, tellingly, by an oil company&rsquo;s advertising campaign).</p>
+
+            <h4>Collectivisation (Mesostructure)</h4>
+
+            <p>Collectivisation locates agency in groups rather than in individuals or impersonal structures, and it comes in two forms, one narrow and one maximally broad. The first is the theory of the <em>power elite</em>: C. Wright Mills&rsquo;s account of an interlocking network of military, corporate and political leaders, echoed in Eisenhower&rsquo;s warning about the &lsquo;military-industrial complex&rsquo; and updated in critiques of the fossil-fuel, pharmaceuticals, Big Tech or &lsquo;the one per cent&rsquo;. Here the problem is a ruling class that steers civilisation in its own interest, and the solution is to expose, regulate, displace or overthrow it. The second is the <em>anthropogenic</em> frame of Anthropocene discourse, in which &lsquo;humanity as a whole&rsquo; is the agent: we have altered the climate, we have driven the sixth extinction, and so we must collectively change course.</p>
+
+            <h4>Historicisation (Macrostructure)</h4>
+
+            <p>Historicisation completes the scale from micro to meso to macro: it locates causal primacy neither in persons nor in groups, but in the large-scale historical process itself, which is held to have a shape and logic that no participant intends. Its <em>determinism</em> takes several forms. There are the macro-historical cycle theories, from Ibn Khaldun&rsquo;s rise and fall of dynasties through Spengler and Toynbee to Peter Turchin&rsquo;s cliodynamics, in which population pressure and elite overproduction drive recurring waves of instability. There is military-economic adaptationism, summed up in Charles Tilly&rsquo;s &lsquo;war made the state, and the state made war&rsquo;: polities are forced to adopt whatever forms of organisation, finance and technology win in competition, or be absorbed by those that do. And there is cultural evolution, as developed by Joseph Henrich and others, in which norms, institutions and beliefs are selected for the advantages they confer on the groups that carry them. The <em>problematisation</em> follows: our crisis is a phase in a process &ndash; the late stage of a cycle, an overshoot of complexity, a selection pressure that rewards ever more destructive capacities. The <em>solutionism</em> is accordingly to read the process correctly and position ourselves within it: prepare for the coming phase, steer the transition, or deliberately design the cultural variants we want selection to favour.</p>
+
+            <h3 id="neo-reductionisms">Neo-Reductionisms in the Metacrisis Space</h3>
+
+            <p>Within the metacrisis space two forms of structural reductionism are prominent.</p>
+
+            <h4>Neoidealism: Superstructure (Cultural Paradigm)</h4>
+
+            <p>The first metacrisis reductionism is a sophisticated descendant of idealism. Here, the metacrisis is ultimately a crisis of consciousness.</p>
+
+            <p>Of meaning (Vervaeke&rsquo;s &lsquo;meaning crisis&rsquo;) and mode of perception (McGilchrist&rsquo;s account of an over-dominant left-hemisphere), or of developmental stage (the integral and metamodern traditions, where our problems exceed the level of psychological complexity of those trying to solve them). The diagnosis is that a cultural paradigm &ndash; reductive, atomised, instrumentalist &ndash; generates the ecological, political and technological crises downstream.</p>
+
+            <p>The prescription, accordingly, is inner development: cultivate wisdom, sense-making and higher stages of consciousness, and wiser institutions and technologies will follow. Initiatives such as the Inner Development Goals express this logic in policy form.</p>
+
+            <h4>Neorealism: Metastructure (Evolutionary Game-Theory)</h4>
+
+            <p>The second reductionism is &lsquo;realist&rsquo; in the international-relations sense of Thucydides, Hobbes, Machiavelli and Malthus: that identifies the incentive structure strategically constraining interactions between agents.</p>
+
+            <p>On this view, the most determinate variable is neither culture, economy nor technology but <em>evolutionary game-theory</em> &ndash; the competitive selection dynamics that operate across structures. Schmachtenberger&rsquo;s &lsquo;generator functions&rsquo; of rivalrous dynamics and Scott Alexander&rsquo;s personification of the same logic as &lsquo;Moloch&rsquo;, construct a world of multipolar traps, arms races and tragedies of the commons: in which whoever moves first gains a strategic advantage and everyone else must conform or be outcompeted. Institutions, technologies, cultures are, in effect, epiphenomena of adaptation towards survival and power.</p>
+
+            <p>Its approach is correspondingly structural &ndash; new coordination mechanisms, governance institutions and game designs that change the payoffs rather than the players.</p>
+
+            </section>
+
+            <section id="generative-dynamics">
+
+            <h2><a class="heading-link" href="#generative-dynamics">Applied Metatheory: Deconfusing Schmachtenberger&rsquo;s &lsquo;Generative Dynamics&rsquo; through the Complex Emergence Model</a></h2>
+
+            <p>Having set out the many forms of structural reductionisms, we can now apply the complex emergence model as a holistic alternative. Rather than attribute causal primacy to a single structure, the model systematically delineates how civilisational problems are co-produced across every civilisational structure and scale of human agency.</p>
+
+            <h3 id="system-dynamics">Metastructure &amp; Macrostructure: System Dynamics &amp; Developmental Process</h3>
+
+            <p>Prominently, Schmachtenberger has proposed that civilisational crisis and catastrophic risk &ndash; ecological, nuclear, bio, AI &ndash; arise from a common set of underlying &lsquo;generator functions&rsquo;.</p>
+
+            <p>With the CEM, we can see that these &lsquo;generator functions&rsquo; belong to the <em>metastructure</em> and <em>macrostructure</em>: they are not located in any one structure, but define the (macro)historical developmental process as recurring (meta)system dynamics that emerge from and operate through all structures.</p>
+
+            <p>Game-theoretic realism treats these dynamics as primary. The complex emergence model treats them as produced and reproduced by interactions between civilisational structures and human agency&ndash; and in turn constraining these. Here I apply the CEM to three of Schmachtenberger&rsquo;s proposed generative dynamics: the multi-polar trap, exponential technological acceleration, narrow-boundary problem-solving.</p>
+
+            <h3 id="multi-polar-trap">The Multi-Polar Trap</h3>
+
+            <blockquote class="article-quote"><p>&ldquo;I want to highlight the system dynamics a little bit more explicitly. The multi-polar trap is not the source of one x-risk, this is a generator function for all x-risks… for everyone to be better off near term leads to everyone being worse off over the long term so we have a decoupling of the incentive of each agent from the well-being of the other agents and the commons&rdquo;</p><p class="quote-source">&ndash; <a href="https://youtu.be/pfeIsy2ElwQ" target="_blank" rel="noopener">Daniel Schmachtenberger Meta-Existential Risk Rhys Lindmark (2018)</em></a></p></blockquote>
+
+            <p>A multi-polar trap arises when competing actors each have an incentive to take an action that, if all take it, leaves everyone worse off &ndash; and when no one can refrain unilaterally without losing out. Arms races, regulatory races to the bottom, the attention economy and the race to deploy artificial intelligence all share this shape.</p>
+
+            <h4>Microstructure<span>Individual Agency</span></h4><p>The trap rarely runs on villainy. It works through individually reasonable choices: the engineer, founder or politician who sees that the collective outcome is bad, but reasons that if they do not act, someone else will. Defection is individually rational, and responsibility is diffused across everyone who takes part.</p>
+
+            <h4>Mesostructure<span>Collective Agency</span></h4><p>Firms, states and other organisations are the principal players: corporations racing to market, nations racing to arm, each with internal incentives (quarterly returns, electoral cycles) that reinforce the external competition. But collectives can also form coalitions, treaties and standards bodies, which makes the meso level both where traps are enforced and where they can be escaped.</p>
+
+            <h4>Macrostructure<span>Historical Process</span></h4><p>Over historical time the trap acts as a selection process. Polities and firms that cooperate unilaterally tend to be outcompeted or absorbed, so the forms that persist are those adapted to rivalry. History thus ratchets the trap into institutions, making each new round of competition start from a more rivalrous baseline.</p>
+
+            <h4>Infrastructure<span>Tech Stack</span></h4><p>Technology raises both the stakes and the speed of the trap: each advance in weaponry, surveillance or AI widens the gap between first movers and laggards. Yet technology can also provide routes out, through verification, monitoring and transparency tools that make cooperation enforceable.</p>
+
+            <h4>Interstructure<span>Political Economy</span></h4><p>Political economy formalises rivalry: market competition, sovereign states without an overarching authority, and growth imperatives that make standing still a form of decline. Because externalities go unpriced, defection is cheap, and the arrangements of property and governance effectively write the payoff matrix.</p>
+
+            <h4>Superstructure<span>Cultural Psychology</span></h4><p>Culture defines what counts as winning &ndash; status, growth, national greatness &ndash; and supplies the us-and-them narratives that make trust difficult. Equally, shared values, norms and identities can underwrite cooperation, as Elinor Ostrom showed in her studies of communities that sustainably govern common resources.</p>
+
+            <h4>Substructure<span>Evolutionary Psychology</span></h4><p>Evolved dispositions towards status competition, in-group loyalty, out-group suspicion and short-term discounting make rivalry feel natural and large-scale cooperation hard. But we also evolved capacities for reciprocity, reputation-tracking and norm enforcement &ndash; the raw material of any coordination.</p>
+
+            <h3 id="exponential-acceleration">Exponential Technological Acceleration</h3>
+
+            <blockquote class="article-quote"><p>&ldquo;You can&rsquo;t keep doing increasing military tech following exponential tech curves, where then non-state actors can have fully catastrophic level tech and you can&rsquo;t even monitor it, you just can&rsquo;t keep playing that game. What has always defined the game is that it&rsquo;s always been a rivalrous game theoretic environment, and if it can produce tech that keeps increasing, it will always self-terminate at a point; and we just happen to be in the eminence of that point. This is the first generator function of X risk.&rdquo;</p><p class="quote-source">&ndash; <a href="https://futurethinkers.org/podcast/daniel-schmachtenberger-generator-functions" target="_blank" rel="noopener">Daniel Schmachtenberger Solving The Generator Functions of Existential Risks Future Thinkers (2018)</em></a></p></blockquote>
+
+            <p>The second generator function is the exponential growth of technological power &ndash; in destructive capacity, reach and speed &ndash; which outpaces the wisdom and governance needed to wield it. In a rivalrous world, each increase in power raises the cost of every mistake and every conflict.</p>
+
+            <h4>Microstructure<span>Individual Agency</span></h4><p>Individuals now hold unprecedented leverage. A single researcher, hacker or small team can wield capacities once reserved for states, in synthetic biology, cyber operations or AI. The decisions of a few technologists carry civilisational consequences: catastrophic capacity is being democratised.</p>
+
+            <h4>Mesostructure<span>Collective Agency</span></h4><p>Laboratories, firms and defence establishments drive the frontier, and their collective dynamics &ndash; venture funding, national programmes, talent competition &ndash; favour speed over safety. The collective bodies that could govern the frontier, such as regulators and standards bodies, consistently lag behind it.</p>
+
+            <h4>Macrostructure<span>Historical Process</span></h4><p>Technological capacity has compounded across history, each tool enabling the next, so acceleration is the long-run signature of history rather than an aberration. What is new is the widening gap between the rate of technological change and the rate at which institutions can adapt to it.</p>
+
+            <h4>Infrastructure<span>Tech Stack</span></h4><p>The tech stack is the obvious seat of this dynamic: compounding compute, digital goods that cost almost nothing to replicate, and AI that accelerates research and development itself. The layers of the stack &ndash; energy, compute, networks, data &ndash; reinforce one another, so the acceleration becomes recursive.</p>
+
+            <h4>Interstructure<span>Political Economy</span></h4><p>Capital seeks returns, and innovation is the engine of competitive advantage and economic growth. Intellectual property, venture funding cycles and strategic state investment all reward acceleration, while regulation is slow, fragmented and often captured by those it regulates.</p>
+
+            <h4>Superstructure<span>Cultural Psychology</span></h4><p>Cultural narratives of progress, disruption and techno-optimism legitimise speed, and scepticism is easily cast as Luddism. Collective sense-making also lags: public understanding and democratic deliberation cannot keep pace with what is being built.</p>
+
+            <h4>Substructure<span>Evolutionary Psychology</span></h4><p>We evolved for local, roughly linear environments, and we intuit exponential growth and distant risks poorly. Novelty-seeking and status rewards encourage rapid adoption, while slow-moving or low-probability catastrophes fail to trigger the alarm that an immediate threat would.</p>
+
+            <h3 id="narrow-boundary">Narrow-Boundary Problem-Solving</h3>
+
+            <blockquote class="article-quote"><p>&ldquo;Society&rsquo;s primary processes for solving problems end up creating other (often worse) problems; when using the same types of processes to address new problems recursively, this leads to a world in metacrisis… Our standard approaches to problem-solving produce immediate, narrow benefits, while failing to address the causes of the problem and driving externalities that create more problems&rdquo;</p><p class="quote-source">&ndash; <a href="https://www.civilizationresearchinstitute.org/research/prudent-problem-solving/" target="_blank" rel="noopener">Steps for Prudent Problem Solving Civilization Research Institute (2026)</em></a></p></blockquote>
+
+            <p>The third generator function is the tendency to solve problems in narrow, isolated ways &ndash; optimising one metric in one domain &ndash; which pushes harm onto others and creates new problems elsewhere. Solutions that work locally can degrade the whole; it is, in miniature, the same solutionism catalogued in the reductionisms above.</p>
+
+            <h4>Microstructure<span>Individual Agency</span></h4><p>Individuals are trained as specialists and rewarded for meeting narrow objectives. Few are in a position to see the second-order effects of their work, and fewer still are accountable for them. Bounded attention and expertise make the isolated view the default one.</p>
+
+            <h4>Mesostructure<span>Collective Agency</span></h4><p>Organisations are siloed by design: ministries, departments, NGOs and firms each own a problem and a metric. Their mandates make it rational to solve their own problem by exporting costs to other sectors, other countries or the future.</p>
+
+            <h4>Macrostructure<span>Historical Process</span></h4><p>Over time, layered fixes accumulate into complexity, and each solution generates problems that call for further solutions &ndash; what Joseph Tainter described as diminishing returns on complexity. The history of pesticides, antibiotics and leaded petrol shows how yesterday&rsquo;s solutions become today&rsquo;s crises.</p>
+
+            <h4>Infrastructure<span>Tech Stack</span></h4><p>Technologies are designed to perform specified functions, and their side effects fall outside the design brief. A growing share of technology is now devoted to fixing problems caused by earlier technology, with proposals for geoengineering as the clearest example.</p>
+
+            <h4>Interstructure<span>Political Economy</span></h4><p>Markets price only what is traded, so externalities are by definition outside the problem being solved. Single-metric optimisation &ndash; GDP, shareholder value, key performance indicators &ndash; and policy split across departments and electoral cycles institutionalise the isolated view.</p>
+
+            <h4>Superstructure<span>Cultural Psychology</span></h4><p>The analytic paradigm of modernity, which breaks problems into parts and assigns each to an expert, is a cultural habit as much as a method. The structural reductionisms set out earlier are its intellectual form: isolated problem-solving applied to civilisation as a whole.</p>
+
+            <h4>Substructure<span>Evolutionary Psychology</span></h4><p>Our cognition evolved to attend to immediate, salient and local threats, not to model complex systems full of feedback loops and delays. We prefer simple causal stories and single culprits, which makes the narrow fix feel like a real one.</p>
+
             </section>
           </div>
         </article>
