@@ -1196,6 +1196,59 @@
       margin-top: 104px;
     }
 
+    /* the three generative dynamics: one shown at a time, chosen from a
+       row of tabs beneath the paragraph that names them */
+    .gd-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px 24px;
+      max-width: 760px;
+      margin: 28px 0 0;
+      border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+      font-family: var(--mono-caps, 'IBM Plex Sans', sans-serif);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .gd-tabs button {
+      margin-bottom: -1px;
+      padding: 0 0 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gd-tabs button:hover,
+    .gd-tabs button[aria-selected="true"] {
+      color: var(--canvas-ink);
+    }
+
+    .gd-tabs button[aria-selected="true"] {
+      border-bottom-color: var(--link-blue);
+    }
+
+    .gd-panel[hidden] {
+      display: none;
+    }
+
+    .gd-panel {
+      animation: gd-in 0.4s ease;
+    }
+
+    @keyframes gd-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* (each in a band of its own, with room inside and out) */
     .article-band.article-band-quote {
       margin: 120px 0 0;
@@ -2722,8 +2775,11 @@
 
             <p>With the CEM, we can see that these &lsquo;generator functions&rsquo; belong to the <em>metastructure</em> and <em>macrostructure</em>: they are not located in any one structure, but define the (macro)historical developmental process as recurring (meta)system dynamics that emerge from and operate through all structures.</p>
 
-            <p>Game-theoretic realism treats these dynamics as primary. The complex emergence model treats them as produced and reproduced by interactions between civilisational structures and human agency&ndash; and in turn constraining these. Here I apply the CEM to three of Schmachtenberger&rsquo;s proposed generative dynamics: the multi-polar trap, exponential technological acceleration, narrow-boundary problem-solving.</p>
+            <p>Game-theoretic realism treats these dynamics as primary. The complex emergence model treats them as produced and reproduced by interactions between civilisational structures and human agency&ndash; and in turn constraining these. Here I apply the CEM to three of Schmachtenberger&rsquo;s proposed generative dynamics:</p>
 
+              <nav class="gd-tabs" role="tablist" aria-label="The three generative dynamics"><button type="button" role="tab" id="gd-tab-multi-polar-trap" aria-controls="gd-multi-polar-trap" aria-selected="true" data-gd="multi-polar-trap">The Multi-Polar Trap</button><button type="button" role="tab" id="gd-tab-exponential-acceleration" aria-controls="gd-exponential-acceleration" aria-selected="false" data-gd="exponential-acceleration">Exponential Technological Acceleration</button><button type="button" role="tab" id="gd-tab-narrow-boundary" aria-controls="gd-narrow-boundary" aria-selected="false" data-gd="narrow-boundary">Narrow-Boundary Problem-Solving</button></nav>
+
+            <div class="gd-panel" id="gd-multi-polar-trap" role="tabpanel" aria-labelledby="gd-tab-multi-polar-trap">
             <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;I want to highlight the system dynamics a little bit more explicitly. The multi-polar trap is not the source of one x-risk, this is a generator function for all x-risks… for everyone to be better off near term leads to everyone being worse off over the long term so we have a decoupling of the incentive of each agent from the well-being of the other agents and the commons&rdquo;</p><p class="quote-source">&ndash; <a href="https://youtu.be/pfeIsy2ElwQ" target="_blank" rel="noopener">Daniel Schmachtenberger Meta-Existential Risk Rhys Lindmark (2018)</a></p></blockquote></div>
 
             <h3 id="multi-polar-trap">The Multi-Polar Trap</h3>
@@ -2743,7 +2799,9 @@
             <h4>Superstructure<span>Cultural Psychology</span></h4><p>Culture defines what counts as winning &ndash; status, growth, national greatness &ndash; and supplies the us-and-them narratives that make trust difficult. Equally, shared values, norms and identities can underwrite cooperation, as Elinor Ostrom showed in her studies of communities that sustainably govern common resources.</p>
 
             <h4>Substructure<span>Evolutionary Psychology</span></h4><p>Evolved dispositions towards status competition, in-group loyalty, out-group suspicion and short-term discounting make rivalry feel natural and large-scale cooperation hard. But we also evolved capacities for reciprocity, reputation-tracking and norm enforcement &ndash; the raw material of any coordination.</p>
+            </div>
 
+            <div class="gd-panel" id="gd-exponential-acceleration" role="tabpanel" aria-labelledby="gd-tab-exponential-acceleration" hidden>
             <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;You can&rsquo;t keep doing increasing military tech following exponential tech curves, where then non-state actors can have fully catastrophic level tech and you can&rsquo;t even monitor it, you just can&rsquo;t keep playing that game. What has always defined the game is that it&rsquo;s always been a rivalrous game theoretic environment, and if it can produce tech that keeps increasing, it will always self-terminate at a point; and we just happen to be in the eminence of that point. This is the first generator function of X risk.&rdquo;</p><p class="quote-source">&ndash; <a href="https://futurethinkers.org/podcast/daniel-schmachtenberger-generator-functions" target="_blank" rel="noopener">Daniel Schmachtenberger Solving The Generator Functions of Existential Risks Future Thinkers (2018)</a></p></blockquote></div>
 
             <h3 id="exponential-acceleration">Exponential Technological Acceleration</h3>
@@ -2763,7 +2821,9 @@
             <h4>Superstructure<span>Cultural Psychology</span></h4><p>Cultural narratives of progress, disruption and techno-optimism legitimise speed, and scepticism is easily cast as Luddism. Collective sense-making also lags: public understanding and democratic deliberation cannot keep pace with what is being built.</p>
 
             <h4>Substructure<span>Evolutionary Psychology</span></h4><p>We evolved for local, roughly linear environments, and we intuit exponential growth and distant risks poorly. Novelty-seeking and status rewards encourage rapid adoption, while slow-moving or low-probability catastrophes fail to trigger the alarm that an immediate threat would.</p>
+            </div>
 
+            <div class="gd-panel" id="gd-narrow-boundary" role="tabpanel" aria-labelledby="gd-tab-narrow-boundary" hidden>
             <div class="article-band article-band-quote"><blockquote class="article-quote article-epigraph"><p>&ldquo;Society&rsquo;s primary processes for solving problems end up creating other (often worse) problems; when using the same types of processes to address new problems recursively, this leads to a world in metacrisis… Our standard approaches to problem-solving produce immediate, narrow benefits, while failing to address the causes of the problem and driving externalities that create more problems&rdquo;</p><p class="quote-source">&ndash; <a href="https://www.civilizationresearchinstitute.org/research/prudent-problem-solving/" target="_blank" rel="noopener">Steps for Prudent Problem Solving Civilization Research Institute (2026)</a></p></blockquote></div>
 
             <h3 id="narrow-boundary">Narrow-Boundary Problem-Solving</h3>
@@ -2783,7 +2843,7 @@
             <h4>Superstructure<span>Cultural Psychology</span></h4><p>The analytic paradigm of modernity, which breaks problems into parts and assigns each to an expert, is a cultural habit as much as a method. The structural reductionisms set out earlier are its intellectual form: isolated problem-solving applied to civilisation as a whole.</p>
 
             <h4>Substructure<span>Evolutionary Psychology</span></h4><p>Our cognition evolved to attend to immediate, salient and local threats, not to model complex systems full of feedback loops and delays. We prefer simple causal stories and single culprits, which makes the narrow fix feel like a real one.</p>
-
+            </div>
             </section>
 
             <section id="critical-conclusions">
@@ -2984,6 +3044,41 @@
       window.addEventListener('resize', soon);
       update();
       setTimeout(update, 1500);
+    })();
+  </script>
+  <script>
+    // the generative dynamics' tabs: one shown at a time; a link to one of
+    // them (from the Contents, or an address) opens its tab first
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.gd-tabs [data-gd]'));
+      if (!tabs.length) return;
+      function open(id, focus) {
+        tabs.forEach(function (t) {
+          var on = t.dataset.gd === id;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById('gd-' + t.dataset.gd).hidden = !on;
+          if (on && focus) t.focus();
+        });
+      }
+      tabs.forEach(function (t, k) {
+        t.addEventListener('click', function () { open(t.dataset.gd); });
+        t.addEventListener('keydown', function (e) {
+          var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (d) { e.preventDefault(); open(tabs[(k + d + tabs.length) % tabs.length].dataset.gd, true); }
+        });
+      });
+      function fromHash(h) {
+        var el = h && document.getElementById(h);
+        var panel = el && el.closest('.gd-panel');
+        if (panel) { open(panel.id.slice(3)); return el; }
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href^="#"]');
+        if (a) fromHash(a.getAttribute('href').slice(1));
+      }, true);
+      window.addEventListener('hashchange', function () { var el = fromHash(location.hash.slice(1)); if (el) el.scrollIntoView(); });
+      if (location.hash) { var el = fromHash(location.hash.slice(1)); if (el) setTimeout(function () { el.scrollIntoView(); }, 0); }
     })();
   </script>
   <script>

@@ -152,6 +152,9 @@ const CSS = `
     const q = (s) => document.querySelector(s);
     const body = q('.article-body').cloneNode(true);
     body.querySelectorAll('button, .sidenote, .sidenote-label').forEach((n) => n.remove());
+    // (the generative dynamics' tabs: in print, all three, one after another)
+    body.querySelectorAll('.gd-tabs').forEach((n) => n.remove());
+    body.querySelectorAll('.gd-panel').forEach((n) => { n.removeAttribute('hidden'); n.replaceWith(...n.childNodes); });
     // the live diagram (a frame onto the model's page) printed as its image,
     // assets/downloads/complex-emergence-model.png: run
     // tools/make-cem-image.js first, so that the image is the page as it is
