@@ -527,6 +527,9 @@
     .md-el .l { fill: var(--c-left); transition: fill 0.3s ease; }
     .md-el .r { fill: var(--c-right); transition: fill 0.3s ease; }
 
+    /* (the superstructure violet in the dark theme too, as in the light) */
+    html[data-theme="dark"] .md-el.core:not(.on) { --c-top: #6a3fc4; --c-left: #4f2d9c; --c-right: #37206f; }
+
     .md-el.bio { --c-top: color-mix(in srgb, #c2526b 80%, #fff); --c-left: #c2526b; --c-right: color-mix(in srgb, #c2526b 62%, #000); }
     .md-el.eco { --c-top: color-mix(in srgb, #3f9e55 80%, #fff); --c-left: #3f9e55; --c-right: color-mix(in srgb, #3f9e55 62%, #000); }
     .md-el.midnight { --c-top: color-mix(in srgb, #1f2f8a 88%, #fff); --c-left: #18246e; --c-right: #101850; }
