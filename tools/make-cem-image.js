@@ -15,24 +15,22 @@ mask = Image.new('L', im.size, 0); m = mask.load()
 for y in range(H):
     for x in range(W):
         r, g, b = px[x, y]
-        m[x, y] = 255 if max(r, g, b) > 14 else 0
+        m[x, y] = 255 if min(r, g, b) < 244 else 0
 im = im.crop(mask.getbbox())
 pad = round(im.width * margin)
-out = Image.new('RGB', (im.width + 2 * pad, im.height + 2 * pad), (0, 0, 0))
+out = Image.new('RGB', (im.width + 2 * pad, im.height + 2 * pad), (255, 255, 255))
 out.paste(im, (pad, pad))
 out.save(path, optimize=True)
 `;
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 3, reducedMotion: 'reduce' });
-  // (in the dark theme, as the article shows it)
-  await page.addInitScript(() => { try { localStorage.setItem('ce.theme', 'dark'); localStorage.setItem('ce.themeSystem', 'light'); } catch (e) {} });
   await page.goto('http://localhost:8765/model/', { waitUntil: 'networkidle' });
   await page.evaluate(() => window.scrollTo(0, document.querySelector('.md-scene').getBoundingClientRect().top + scrollY));
   // the opening run up the stack, then nothing selected
   await page.waitForTimeout(17000);
   await page.mouse.move(2, 2);
-  await page.addStyleTag({ content: 'body * { visibility: hidden !important; } html, body { background: #000 !important; } .md-svg, .md-svg * { visibility: visible !important; } .md-svg .hit { fill: transparent !important; }' });
+  await page.addStyleTag({ content: 'body * { visibility: hidden !important; } .md-svg, .md-svg * { visibility: visible !important; } .md-svg .hit { fill: transparent !important; }' });
   await page.evaluate(() => document.querySelectorAll('.md-svg .on').forEach((el) => el.classList.remove('on')));
   await page.waitForTimeout(800);
   const file = 'assets/downloads/complex-emergence-model.png';

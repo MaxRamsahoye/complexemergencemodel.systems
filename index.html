@@ -1317,9 +1317,9 @@
       color: var(--muted);
     }
 
-    /* (the Complex Emergence Model shown dark, its frame a black band across
-       the window, whatever the article's theme) */
-    .article-embed-dark::before {
+    /* (the Complex Emergence Model in its own theme when chosen with its
+       switch: dark in a light article, a black band across the window) */
+    .article-embed-local.is-dark::before {
       content: '';
       position: absolute;
       top: 0;
@@ -1328,6 +1328,34 @@
       width: 100vw;
       transform: translateX(-50%);
       background: #000;
+    }
+
+    /* its switch, at the top right of the window over the diagram */
+    .cem-theme {
+      position: absolute;
+      top: 24px;
+      right: calc(-1 * (100vw - 100%) / 2 + 40px);
+      z-index: 2;
+      display: flex;
+      padding: 6px;
+      border: none;
+      background: none;
+      color: #8c8c8c;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .cem-theme:hover { color: var(--canvas-ink); }
+    .article-embed-local.shows-dark .cem-theme { color: #9a9aa0; }
+    .article-embed-local.shows-dark .cem-theme:hover { color: #fbf6ec; }
+
+    .cem-theme svg { width: 22px; height: 22px; }
+    .cem-theme .cem-moon { display: none; }
+    .article-embed-local.shows-dark .cem-theme .cem-sun { display: none; }
+    .article-embed-local.shows-dark .cem-theme .cem-moon { display: block; }
+
+    @media (max-width: 600px) {
+      .cem-theme { top: 12px; right: calc(-1 * (100vw - 100%) / 2 + 16px); }
     }
 
     /* (on narrow screens, about as tall as the diagram needs) */
@@ -2744,7 +2772,7 @@
             <!-- the Complex Emergence Model's own page, its diagram screen alone,
                  in a frame across the width of the window (the same page, so
                  always the same diagram) -->
-            <div class="article-embed article-embed-dark" data-print="assets/downloads/complex-emergence-model.png"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
+            <div class="article-embed article-embed-local" data-print="assets/downloads/complex-emergence-model.png"><button class="cem-theme" type="button" aria-label="Switch the diagram between light and dark" aria-pressed="false"><svg class="cem-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg><svg class="cem-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg></button><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
             </section>
 
             <section id="implications">
@@ -3032,8 +3060,11 @@
         try { d = frame.contentDocument; } catch (e) { return; }
         if (!d || !d.documentElement) return;
         var src = document.documentElement, dst = d.documentElement;
-        // (the Complex Emergence Model's frame dark whatever the article's theme)
-        var t = frame.closest('.article-embed-dark') ? 'dark' : src.getAttribute('data-theme');
+        // (the Complex Emergence Model's frame in its own theme, once chosen
+        // with its switch; otherwise the article's)
+        var local = frame.closest('.article-embed-local');
+        var t = local && local.dataset.theme ? (local.dataset.theme === 'dark' ? 'dark' : null) : src.getAttribute('data-theme');
+        if (local) local.classList.toggle('is-dark', t === 'dark' && !src.getAttribute('data-theme'));
         if (t) dst.setAttribute('data-theme', t); else dst.removeAttribute('data-theme');
         Array.prototype.slice.call(dst.classList).forEach(function (c) { if (SYNC.test(c)) dst.classList.remove(c); });
         Array.prototype.forEach.call(src.classList, function (c) { if (SYNC.test(c)) dst.classList.add(c); });
@@ -3042,6 +3073,23 @@
         var frame = el.querySelector('iframe');
         frame.addEventListener('load', function () { sync(frame); });
         sync(frame);
+      });
+      // its switch: light and dark, for this diagram alone
+      document.querySelectorAll('.article-embed-local').forEach(function (el) {
+        var btn = el.querySelector('.cem-theme'), frame = el.querySelector('iframe');
+        function mark() {
+          var d = frame.contentDocument, dark = !!(d && d.documentElement.getAttribute('data-theme') === 'dark');
+          btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+          el.classList.toggle('shows-dark', dark);
+        }
+        btn.addEventListener('click', function () {
+          var d = frame.contentDocument, dark = !!(d && d.documentElement.getAttribute('data-theme') === 'dark');
+          el.dataset.theme = dark ? 'light' : 'dark';
+          sync(frame); mark();
+        });
+        frame.addEventListener('load', mark);
+        new MutationObserver(mark).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        mark();
       });
       new MutationObserver(function () {
         els.forEach(function (el) { sync(el.querySelector('iframe')); });
