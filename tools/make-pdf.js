@@ -77,15 +77,17 @@ const CSS = `
   /* the article's bands within it (Paradigmatic Cases, the generative
      dynamics' quotations, Critical Realism), in the same midnight purple,
      edge to edge across the page, carried on where one breaks across pages */
-  /* the Complex Emergence Model on a page of its own: the diagram as large
-     as the page allows, centred */
-  @page cem { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+  /* the Complex Emergence Model on a page of its own, landscape, sized to
+     the diagram (a little wider than it is tall): as wide as A4 is long, and
+     as tall as the diagram needs at that width, with an even margin round it */
+  @page cem { size: 297mm 270mm; margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
   .article-figure.cem-page {
     page: cem; break-before: page; break-after: page;
-    box-sizing: border-box; height: 296.5mm; max-width: none; margin: 0; padding: 18mm 0;
+    box-sizing: border-box; height: 269.5mm; max-width: none; margin: 0; padding: 14mm 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
   }
-  .article-figure.cem-page img { width: auto; max-width: 100%; max-height: 250mm; }
+  .article-figure.cem-page img { width: auto; max-width: 100%; max-height: 241mm; }
+  .article-figure.cem-page figcaption { display: none; }
   .article-band {
     /* (each a page of its own, as the Overview's are, edge to edge in the
        midnight purple, its text centred on the page) */

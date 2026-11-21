@@ -362,12 +362,17 @@ main = '''<main class="pv-main">
       }
       pdfjsLib.getDocument(URL_).promise.then(function (doc) {
         pdf = doc;
-        return doc.getPage(1).then(function (p1) {
-          var v = p1.getViewport({ scale: 1 });
+        // (each page in its own proportions and at its own size relative to
+        // A4 - the landscape page of the diagram wider than the rest)
+        var all = [];
+        for (var n = 1; n <= doc.numPages; n++) all.push(doc.getPage(n));
+        return Promise.all(all).then(function (ps) {
           for (var i = 0; i < doc.numPages; i++) {
+            var v = ps[i].getViewport({ scale: 1 });
             var d = document.createElement('div');
             d.className = 'pv-page'; d.dataset.i = i;
             d.style.aspectRatio = v.width + ' / ' + v.height;
+            if (Math.abs(v.width - 595) > 4) d.style.width = 'min(100%, calc(var(--pv-w, 794px) * ' + (v.width / 595.28).toFixed(4) + '))';
             d.setAttribute('aria-label', 'Page ' + (i + 1));
             list.appendChild(d); pages.push(d); io.observe(d);
           }
