@@ -3010,6 +3010,28 @@
         frame.addEventListener('load', relay);
         relay();
       });
+      // (each frame in the article's theme and settings: the dark theme, the
+      // band colour, link colour and headings, as they change here; the
+      // frames keep their own classes besides)
+      var SYNC = /^(band-|colour$|serif-headings$|overview-lines$)/;
+      function sync(frame) {
+        var d;
+        try { d = frame.contentDocument; } catch (e) { return; }
+        if (!d || !d.documentElement) return;
+        var src = document.documentElement, dst = d.documentElement;
+        var t = src.getAttribute('data-theme');
+        if (t) dst.setAttribute('data-theme', t); else dst.removeAttribute('data-theme');
+        Array.prototype.slice.call(dst.classList).forEach(function (c) { if (SYNC.test(c)) dst.classList.remove(c); });
+        Array.prototype.forEach.call(src.classList, function (c) { if (SYNC.test(c)) dst.classList.add(c); });
+      }
+      els.forEach(function (el) {
+        var frame = el.querySelector('iframe');
+        frame.addEventListener('load', function () { sync(frame); });
+        sync(frame);
+      });
+      new MutationObserver(function () {
+        els.forEach(function (el) { sync(el.querySelector('iframe')); });
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
       // (while a frame fills much of the window, the article's corner title,
       // ring and side menu give way to it)
       if ('IntersectionObserver' in window) {
