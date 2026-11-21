@@ -77,6 +77,17 @@ const CSS = `
   /* the article's bands within it (Paradigmatic Cases, the generative
      dynamics' quotations, Critical Realism), in the same midnight purple,
      edge to edge across the page, carried on where one breaks across pages */
+  /* the Complex Emergence Model on a page of its own, dark, as the article
+     shows it: the diagram as large as the page allows, centred */
+  @page cem { margin: 0; background: #000; @bottom-left { content: none; } @bottom-right { content: none; } }
+  .article-figure.cem-page {
+    page: cem; break-before: page; break-after: page;
+    box-sizing: border-box; height: 296.5mm; max-width: none; margin: 0; padding: 18mm 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: #000;
+  }
+  .article-figure.cem-page img { width: auto; max-width: 100%; max-height: 250mm; }
+  .article-figure.cem-page figcaption { color: rgba(251, 246, 236, 0.6); }
   .article-band {
     /* (each a page of its own, as the Overview's are, edge to edge in the
        midnight purple, its text centred on the page) */
@@ -167,7 +178,7 @@ const CSS = `
     });
     body.querySelectorAll('.article-embed').forEach((n) => {
       const f = document.createElement('figure');
-      f.className = 'article-figure';
+      f.className = 'article-figure' + (n.classList.contains('article-embed-dark') ? ' cem-page' : '');
       f.innerHTML = '<img src="' + n.dataset.print + '" alt="The Complex Emergence Model"><figcaption>The Complex Emergence Model</figcaption>';
       n.replaceWith(f);
     });

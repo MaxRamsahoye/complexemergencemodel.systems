@@ -1317,6 +1317,19 @@
       color: var(--muted);
     }
 
+    /* (the Complex Emergence Model shown dark, its frame a black band across
+       the window, whatever the article's theme) */
+    .article-embed-dark::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      background: #000;
+    }
+
     /* (on narrow screens, about as tall as the diagram needs) */
     @media (max-width: 700px) {
       .article-embed {
@@ -2731,7 +2744,7 @@
             <!-- the Complex Emergence Model's own page, its diagram screen alone,
                  in a frame across the width of the window (the same page, so
                  always the same diagram) -->
-            <div class="article-embed" data-print="assets/downloads/complex-emergence-model.png"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
+            <div class="article-embed article-embed-dark" data-print="assets/downloads/complex-emergence-model.png"><iframe src="model/?embed" title="The Complex Emergence Model: the diagram" loading="lazy"></iframe></div>
             </section>
 
             <section id="implications">
@@ -3019,7 +3032,8 @@
         try { d = frame.contentDocument; } catch (e) { return; }
         if (!d || !d.documentElement) return;
         var src = document.documentElement, dst = d.documentElement;
-        var t = src.getAttribute('data-theme');
+        // (the Complex Emergence Model's frame dark whatever the article's theme)
+        var t = frame.closest('.article-embed-dark') ? 'dark' : src.getAttribute('data-theme');
         if (t) dst.setAttribute('data-theme', t); else dst.removeAttribute('data-theme');
         Array.prototype.slice.call(dst.classList).forEach(function (c) { if (SYNC.test(c)) dst.classList.remove(c); });
         Array.prototype.forEach.call(src.classList, function (c) { if (SYNC.test(c)) dst.classList.add(c); });
