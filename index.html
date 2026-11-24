@@ -1846,6 +1846,19 @@
       box-shadow: 4px 0 0 var(--note-highlight), -4px 0 0 var(--note-highlight);
     }
 
+    /* the article's length, beneath the contents (the script counts it) */
+    #contents .contents-wordcount {
+      margin: 40px 0 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: color-mix(in srgb, currentColor 70%, transparent);
+    }
+
+    #contents .contents-wordcount:empty {
+      display: none;
+    }
+
     /* the Overview's keywords, set apart below its last paragraph */
     #overview .overview-keywords {
       margin-top: 40px;
@@ -2620,6 +2633,8 @@
                 </li>
                 <li><a class="heading-link" href="#coda">Coda: You Are Here</a></li>
               </ul>
+
+              <p class="contents-wordcount" data-wordcount></p>
             </section>
 
             <section id="precursors">
@@ -3163,6 +3178,25 @@
       }, true);
       window.addEventListener('hashchange', function () { var el = fromHash(location.hash.slice(1)); if (el) el.scrollIntoView(); });
       if (location.hash) { var el = fromHash(location.hash.slice(1)); if (el) setTimeout(function () { el.scrollIntoView(); }, 0); }
+    })();
+  </script>
+  <script>
+    // the article's length beneath its contents: the words of its sections
+    // after the Contents, without the notes, the diagrams' frames or the menus
+    // (counted afresh each time, so it follows any change to the article)
+    window.articleWordCount = function (doc) {
+      var body = doc.querySelector('.article-body');
+      if (!body) return 0;
+      var c = body.cloneNode(true);
+      c.querySelectorAll('#overview, .in-band, .sidenote, .sidenote-ref, .article-embed, .gd-tabs, figcaption, button').forEach(function (n) { n.remove(); });
+      var words = c.textContent.replace(/[\u2013\u2014]/g, ' ').match(/[A-Za-z0-9\u00C0-\u024F]+(?:['\u2019\-][A-Za-z0-9\u00C0-\u024F]+)*/g);
+      return words ? words.length : 0;
+    };
+    (function () {
+      var el = document.querySelector('[data-wordcount]');
+      if (!el) return;
+      var n = window.articleWordCount(document);
+      if (n) el.textContent = n.toLocaleString('en-GB') + ' words \u00b7 ' + Math.max(1, Math.round(n / 230)) + ' minute read';
     })();
   </script>
   <script>

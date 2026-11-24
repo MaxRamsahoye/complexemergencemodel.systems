@@ -159,6 +159,11 @@ const CSS = `
   const page = await browser.newPage();
   // read the article out of the page as it is written, before any script runs
   await page.goto('file://' + path.join(ROOT, 'index.html'), { waitUntil: 'domcontentloaded' });
+  // (the word count beneath the contents, as the page's own script fills it)
+  await page.evaluate(() => {
+    const el = document.querySelector('[data-wordcount]');
+    if (el && window.articleWordCount) { const n = window.articleWordCount(document); el.textContent = n.toLocaleString('en-GB') + ' words \u00b7 ' + Math.max(1, Math.round(n / 230)) + ' minute read'; }
+  });
   const parts = await page.evaluate(() => {
     const q = (s) => document.querySelector(s);
     const body = q('.article-body').cloneNode(true);
